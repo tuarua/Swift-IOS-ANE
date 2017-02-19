@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension xmlns="http://ns.adobe.com/air/extension/19.0">
+	<id>com.tuarua.SwiftIOSANE</id>
+	<name>Swift IOS ANE</name>
+	<copyright>This work is licensed under Mozilla Public License Version 1.1, Copyright 2015</copyright>
+	<versionNumber>0.0.1</versionNumber>
+	<platforms>
+        
+	<platform name="iPhone-x86">
+		<applicationDeployment>
+			<nativeLibrary>libSwiftIOSANE.a</nativeLibrary>
+			<initializer>TRSOAExtInizer</initializer>
+			<finalizer>TRSOAExtFinizer</finalizer>
+		</applicationDeployment>
+	</platform>
+    <platform name="iPhone-ARM">
+        <applicationDeployment>
+            <nativeLibrary>libSwiftIOSANE.a</nativeLibrary>
+            <initializer>TRSOAExtInizer</initializer>
+            <finalizer>TRSOAExtFinizer</finalizer>
+        </applicationDeployment>
+    </platform>
+    <!--
+    <platform name="default">
+        <applicationDeployment/>
+    </platform>
+     -->
+	</platforms>
+</extension>
