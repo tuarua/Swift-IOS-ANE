@@ -5,6 +5,7 @@
 bin-debug/
 bin-release/
 ane/debug
+ane/resign.sh
 
 # Other files and folders
 .settings/
