@@ -1,0 +1,10 @@
+framework module SwiftIOSANE_FW {
+  umbrella header "SwiftIOSANE_FW.h"
+
+  export *
+  module * { export * }
+}
+
+module SwiftIOSANE_FW.Swift {
+    header "SwiftIOSANE_FW-Swift.h"
+}
