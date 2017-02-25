@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		GSThLm0ymcYU1skdKg62cn8+cjA=
+		</data>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<data>
 		1ow78OMLTUqISdssQDjOp7x/xCY=

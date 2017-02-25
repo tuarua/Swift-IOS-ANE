@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:21facadd16d8e2e81df36493c846586a:9dd146007c0863886cda38482fa56433:cde709370900f12288f3449eded86f07$ -->
+<TextureAtlas imagePath="atlas.png" width="456" height="254">
+    <SubTexture name="add-magnet" x="385" y="1" width="60" height="38"/>
+    <SubTexture name="add-torrent" x="325" y="85" width="60" height="38"/>
+    <SubTexture name="arrow-up" x="425" y="169" width="30" height="30"/>
+    <SubTexture name="cancel-button" x="1" y="199" width="80" height="38"/>
+    <SubTexture name="cancel-encode-button" x="137" y="150" width="80" height="38"/>
+    <SubTexture name="checkbox-off" x="400" y="227" width="21" height="21"/>
+    <SubTexture name="checkbox-on" x="425" y="232" width="21" height="21"/>
+    <SubTexture name="choose-bg" x="425" y="203" width="25" height="25"/>
+    <SubTexture name="close-icon" x="431" y="85" width="24" height="24"/>
+    <SubTexture name="controls-bg" x="137" y="1" width="160" height="51"/>
+    <SubTexture name="controls-divider" x="454" y="203" width="1" height="32"/>
+    <SubTexture name="controls-pause-over" x="409" y="43" width="38" height="38"/>
+    <SubTexture name="controls-pause" x="389" y="85" width="38" height="38"/>
+    <SubTexture name="controls-play-over" x="389" y="127" width="38" height="38"/>
+    <SubTexture name="controls-play" x="277" y="192" width="38" height="38"/>
+    <SubTexture name="controls-progress-edge" x="449" y="17" width="3" height="6"/>
+    <SubTexture name="controls-scrub-edge" x="319" y="150" width="2" height="6"/>
+    <SubTexture name="controls-scrub-handle-hover" x="1" y="241" width="12" height="12"/>
+    <SubTexture name="controls-scrub-handle" x="17" y="241" width="12" height="12"/>
+    <SubTexture name="controls-scrub" x="33" y="241" width="12" height="12"/>
+    <SubTexture name="controls-volume-muted" x="149" y="234" width="21" height="18"/>
+    <SubTexture name="controls-volume" x="174" y="234" width="21" height="18"/>
+    <SubTexture name="create-torrent" x="85" y="199" width="60" height="38"/>
+    <SubTexture name="dropdown-bg" x="319" y="169" width="49" height="25"/>
+    <SubTexture name="dropdown-items-bg" x="319" y="198" width="49" height="25"/>
+    <SubTexture name="encode-button" x="301" y="1" width="80" height="38"/>
+    <SubTexture name="file" x="223" y="234" width="13" height="16"/>
+    <SubTexture name="fira-sans-semi-bold-13" x="1" y="1" width="132" height="194"/>
+    <SubTexture name="folder-button-hover" x="199" y="234" width="20" height="16"/>
+    <SubTexture name="information-button" x="431" y="113" width="24" height="24"/>
+    <SubTexture name="input-bg" x="319" y="227" width="25" height="25"/>
+    <SubTexture name="loading-piece" x="305" y="174" width="10" height="10"/>
+    <SubTexture name="ok-button" x="221" y="150" width="80" height="38"/>
+    <SubTexture name="placeholder" x="103" y="241" width="4" height="4"/>
+    <SubTexture name="popmenu-bg" x="431" y="141" width="24" height="24"/>
+    <SubTexture name="power-off" x="149" y="192" width="60" height="38"/>
+    <SubTexture name="power-on" x="213" y="192" width="60" height="38"/>
+    <SubTexture name="preview-button" x="325" y="43" width="80" height="38"/>
+    <SubTexture name="radio-selected" x="348" y="227" width="22" height="22"/>
+    <SubTexture name="radio" x="374" y="227" width="22" height="22"/>
+    <SubTexture name="right-click-bg" x="372" y="169" width="49" height="25"/>
+    <SubTexture name="semi-circle-bg2" x="137" y="56" width="90" height="90"/>
+    <SubTexture name="semi-circle-full" x="231" y="56" width="90" height="90"/>
+    <SubTexture name="settings-cog" x="325" y="127" width="60" height="38"/>
+    <SubTexture name="slider-bg" x="301" y="43" width="20" height="5"/>
+    <SubTexture name="slider-handle" x="305" y="150" width="10" height="20"/>
+    <SubTexture name="slider-point" x="103" y="249" width="4" height="4"/>
+    <SubTexture name="stepper-arrow" x="49" y="241" width="23" height="10"/>
+    <SubTexture name="stepper-bg" x="372" y="198" width="49" height="25"/>
+    <SubTexture name="stepper-down" x="76" y="241" width="23" height="10"/>
+    <SubTexture name="tree-icon" x="449" y="1" width="6" height="12"/>
+</TextureAtlas>
