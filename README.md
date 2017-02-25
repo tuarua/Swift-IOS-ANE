@@ -4,7 +4,7 @@ Example Xcode project showing how to programme Air Native Extensions for iOS usi
 
 ### Simulator
 
-The project can be run on the Simulator from IntelliJ
+The example project can be run on the Simulator from IntelliJ
 
 ### Release and deploying to Device !
 
