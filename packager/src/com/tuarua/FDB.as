@@ -58,7 +58,7 @@ public class FDB extends EventDispatcher {
             isInited = true;
             sendCommand("r");
             dispatchEvent(new MessageEvent(MessageEvent.ON_MESSAGE, "[FDB]\n1. Open app on device\n2. " +
-                    "Set any breakpoints\n3.Type c to continue.\n4.Type h for help\n"));
+                    "Set any breakpoints\n3. Type c to continue.\n4.Type h for help\n"));
         }
         dispatchEvent(new MessageEvent(MessageEvent.ON_MESSAGE, s));
     }
