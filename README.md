@@ -16,6 +16,9 @@ The AIR tool fdb (Flash debugger) is used for debugging. This is only applicable
 
 ![alt tag](https://github.com/tuarua/SwiftIOSANE/blob/master/screenshots/1.png)
 
+   
+![alt tag](https://github.com/tuarua/SwiftIOSANE/blob/master/screenshots/2.png)
+
 ### Prerequisites
 
 You will need
