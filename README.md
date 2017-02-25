@@ -14,6 +14,7 @@ An AIR based packaging tool is provided in /packager/AIR_ios_packager.dmg
 The option to install and debug on the device is included within the tool.
 The AIR tool fdb (Flash debugger) is used for debugging. This is only applicable when "Debug over network" is chosen
 
+![alt tag](https://github.com/tuarua/SwiftIOSANE/blob/master/screenshots/1.png)
 
 ### Prerequisites
 
