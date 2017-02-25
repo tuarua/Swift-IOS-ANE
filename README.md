@@ -8,7 +8,7 @@ The project can be run on the Simulator from IntelliJ
 
 ### Release and deploying to Device !
 
-The project needs to be built and signed in the correct manner.
+The example project needs to be built and signed in the correct manner.
 An AIR based packaging tool is provided in /packager/AIR_ios_packager.dmg
 
 The option to install and debug on the device is included within the tool.
