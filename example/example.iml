@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="example Device">
+  <component name="FlexBuildConfigurationManager" active="example Simulator">
     <configurations>
       <configuration name="example Simulator" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/bin-release/simulator">
         <dependencies target-player="25.0">
