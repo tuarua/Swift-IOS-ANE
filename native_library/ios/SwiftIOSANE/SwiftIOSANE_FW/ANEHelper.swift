@@ -45,7 +45,7 @@ class ANEHelper {
 
     func getInt(object: FREObject) -> Int {
         var ret: Int32 = 0
-        let status: FREResult = FREGetObjectAsInt32(object: object, value: &ret);
+        let status: FREResult = FREGetObjectAsInt32(object: object, value: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert FREGetObject to Int.") {
             return Int(ret)
         }
@@ -54,7 +54,7 @@ class ANEHelper {
 
     func getUInt(object: FREObject) -> UInt {
         var ret: UInt32 = 0
-        let status: FREResult = FREGetObjectAsUint32(object: object, value: &ret);
+        let status: FREResult = FREGetObjectAsUint32(object: object, value: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert FREGetObject to Uint.") {
             return UInt(ret)
         }
@@ -63,7 +63,7 @@ class ANEHelper {
 
     func getDouble(object: FREObject) -> Double {
         var ret: Double = 0.0
-        let status: FREResult = FREGetObjectAsDouble(object: object, value: &ret);
+        let status: FREResult = FREGetObjectAsDouble(object: object, value: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert FREGetObject to Double.") {
             return ret
         }
@@ -72,7 +72,7 @@ class ANEHelper {
 
     func getBool(object: FREObject) -> Bool {
         var ret: Bool = false
-        let status: FREResult = FREGetObjectAsBool(object: object, value: &ret);
+        let status: FREResult = FREGetObjectAsBool(object: object, value: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert FREGetObject to Bool.") {
             return ret
         }
@@ -106,7 +106,7 @@ class ANEHelper {
 
     func getDictionary(object: FREObject) -> Dictionary<String, AnyObject> {
         var ret: Dictionary = Dictionary<String, AnyObject>()
-        let aneUtils: FREObject = createFREObject(className: "com.tuarua.ANEUtils")!;
+        let aneUtils: FREObject = createFREObject(className: "com.tuarua.ANEUtils")!
         if FRE_TYPE_NULL != getObjectType(object: aneUtils) {
             var classProps: FREObject? = nil
             var thrownException: FREObject? = nil
@@ -125,11 +125,11 @@ class ANEHelper {
                     if FRE_OK == status && elem != nil {
                         let propName: String = getString(object: getProperty(object: elem!, name: "name")!) //TODO guard
                         //let propType:String = getString(getProperty(object: elem!, name: "type")!) //TODO guard
-                        let propVal: FREObject! = getProperty(object: object, name: propName);
+                        let propVal: FREObject! = getProperty(object: object, name: propName)
                         if FRE_TYPE_NULL == getObjectType(object: propVal) {
                             continue
                         }
-                        let propvalId = getIdObject(object: propVal);
+                        let propvalId = getIdObject(object: propVal)
                         if (propvalId != nil) {
                             ret.updateValue(propvalId as AnyObject, forKey: propName)
                         }
@@ -142,14 +142,14 @@ class ANEHelper {
 
     func getIdObject(object: FREObject) -> Any? {
         var objectType: FREObjectType = FRE_TYPE_NULL
-        _ = FREGetObjectType(object: object, objectType: &objectType);
+        _ = FREGetObjectType(object: object, objectType: &objectType)
         switch objectType {
         case FRE_TYPE_VECTOR, FRE_TYPE_ARRAY:
             return getArray(arrayOrVector: object)
         case FRE_TYPE_STRING:
-            return getString(object: object);
+            return getString(object: object)
         case FRE_TYPE_BOOLEAN:
-            return getBool(object: object);
+            return getBool(object: object)
         case FRE_TYPE_OBJECT:
             return getDictionary(object: object)
         case FRE_TYPE_NUMBER:
@@ -170,7 +170,7 @@ class ANEHelper {
         case FRE_TYPE_NULL:
             return nil
         default:
-            break;
+            break
         }
         return nil
     }
@@ -190,19 +190,19 @@ class ANEHelper {
         if isFREResultOK(errorCode: status, errorMessage: "Could not create FREObject \(className).") {
             return ret
         }
-        _ = hasThrownException(thrownException: thrownException!);
-        return nil;
+        _ = hasThrownException(thrownException: thrownException!)
+        return nil
 
     }
 
 
     func getFREObject(string: String) -> FREObject? {
         var ret: FREObject? = nil
-        let status: FREResult = FRENewObjectFromUTF8(length: UInt32(string.utf8.count), value: string, object: &ret);
+        let status: FREResult = FRENewObjectFromUTF8(length: UInt32(string.utf8.count), value: string, object: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert String to FREObject.") {
             return ret
         }
-        return nil;
+        return nil
     }
 
     func getFREObject(double: Double) -> FREObject? {
@@ -211,7 +211,7 @@ class ANEHelper {
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Double to FREObject.") {
             return ret
         }
-        return nil;
+        return nil
     }
 
     func getFREObject(int: Int) -> FREObject? {
@@ -220,7 +220,7 @@ class ANEHelper {
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Int32 to FREObject.") {
             return ret
         }
-        return nil;
+        return nil
     }
 
     func getFREObject(int32: Int32) -> FREObject? {
@@ -229,7 +229,7 @@ class ANEHelper {
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Int32 to FREObject.") {
             return ret
         }
-        return nil;
+        return nil
     }
 
     func getFREObject(uint: UInt) -> FREObject? {
@@ -238,7 +238,7 @@ class ANEHelper {
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Uint to FREObject.") {
             return ret
         }
-        return nil;
+        return nil
 
     }
 
@@ -248,7 +248,7 @@ class ANEHelper {
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Uint to FREObject.") {
             return ret
         }
-        return nil;
+        return nil
     }
 
     func getFREObject(bool: Bool) -> FREObject? {
@@ -257,7 +257,7 @@ class ANEHelper {
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Bool to FREObject.") {
             return ret
         }
-        return nil;
+        return nil
     }
 
     func getFREObject(any: Any) -> FREObject? {
@@ -321,8 +321,8 @@ class ANEHelper {
         if isFREResultOK(errorCode: status, errorMessage: "Could not call method \(methodName).") {
             return ret
         }
-        _ = hasThrownException(thrownException: thrownException!);
-        return nil;
+        _ = hasThrownException(thrownException: thrownException!)
+        return nil
     }
 
     func setProperty(object: FREObject, name: String, prop: FREObject) {
@@ -334,26 +334,26 @@ class ANEHelper {
             return
         }
 
-        _ = hasThrownException(thrownException: thrownException!);
+        _ = hasThrownException(thrownException: thrownException!)
 
     }
 
     func getProperty(object: FREObject, name: String) -> FREObject? {
-        var ret: FREObject? = nil;
+        var ret: FREObject? = nil
         var thrownException: FREObject? = nil
         let status: FREResult = FREGetObjectProperty(object: object, propertyName: name, propertyValue: &ret,
                 thrownException: &thrownException)
         if isFREResultOK(errorCode: status, errorMessage: "Could not get FREObject property \(name).") {
             return ret
         }
-        _ = hasThrownException(thrownException: thrownException!);
-        return nil;
+        _ = hasThrownException(thrownException: thrownException!)
+        return nil
     }
 
 
     func getObjectType(object: FREObject?) -> FREObjectType {
         var objectType: FREObjectType = FRE_TYPE_NULL
-        _ = FREGetObjectType(object: object, objectType: &objectType);
+        _ = FREGetObjectType(object: object, objectType: &objectType)
         return objectType
     }
 
@@ -366,7 +366,7 @@ class ANEHelper {
     }
 
     private func getActionscriptClassType(object: FREObject) -> FREObjectType2 {
-        let aneUtils: FREObject? = createFREObject(className: "com.tuarua.ANEUtils");
+        let aneUtils: FREObject? = createFREObject(className: "com.tuarua.ANEUtils")
         if FRE_TYPE_NULL != getObjectType(object: aneUtils) {
             let params: NSPointerArray = NSPointerArray(options: .opaqueMemory)
             params.addPointer(object)
@@ -395,37 +395,37 @@ class ANEHelper {
     func traceFriendlyFREResult(tag: String, result: FREResult) {
         switch result {
         case FRE_OK:
-            trace(tag, "FRE_OK");
-            break;
+            trace(tag, "FRE_OK")
+            break
         case FRE_NO_SUCH_NAME:
-            trace(tag, "FRE_NO_SUCH_NAME");
-            break;
+            trace(tag, "FRE_NO_SUCH_NAME")
+            break
         case FRE_INVALID_OBJECT:
-            trace(tag, "FRE_INVALID_OBJECT");
-            break;
+            trace(tag, "FRE_INVALID_OBJECT")
+            break
         case FRE_TYPE_MISMATCH:
-            trace(tag, "FRE_TYPE_MISMATCH");
-            break;
+            trace(tag, "FRE_TYPE_MISMATCH")
+            break
         case FRE_ACTIONSCRIPT_ERROR:
-            trace(tag, "FRE_ACTIONSCRIPT_ERROR");
-            break;
+            trace(tag, "FRE_ACTIONSCRIPT_ERROR")
+            break
         case FRE_INVALID_ARGUMENT:
-            trace(tag, "FRE_INVALID_ARGUMENT");
-            break;
+            trace(tag, "FRE_INVALID_ARGUMENT")
+            break
         case FRE_READ_ONLY:
-            trace(tag, "FRE_READ_ONLY");
-            break;
+            trace(tag, "FRE_READ_ONLY")
+            break
         case FRE_WRONG_THREAD:
-            trace(tag, "FRE_WRONG_THREAD");
-            break;
+            trace(tag, "FRE_WRONG_THREAD")
+            break
         case FRE_ILLEGAL_STATE:
-            trace(tag, "FRE_ILLEGAL_STATE");
-            break;
+            trace(tag, "FRE_ILLEGAL_STATE")
+            break
         case FRE_INSUFFICIENT_MEMORY:
-            trace(tag, "FRE_INSUFFICIENT_MEMORY");
-            break;
+            trace(tag, "FRE_INSUFFICIENT_MEMORY")
+            break
         default:
-            trace("");
+            trace("")
         }
     }
 
@@ -435,7 +435,7 @@ class ANEHelper {
             return
         }
         var objectType: FREObjectType = FRE_TYPE_NULL
-        _ = FREGetObjectType(object: object, objectType: &objectType);
+        _ = FREGetObjectType(object: object, objectType: &objectType)
 
         switch objectType {
         case FRE_TYPE_ARRAY:
@@ -457,16 +457,16 @@ class ANEHelper {
             switch getActionscriptClassType(object: object) {
             case FREObjectType2.FRE_TYPE_NUMBER:
                 trace(tag, "FRE_TYPE_NUMBER")
-                break;
+                break
             case FREObjectType2.FRE_TYPE_INT:
                 trace(tag, "FRE_TYPE_INT")
-                break;
+                break
             case FREObjectType2.FRE_TYPE_BOOLEAN:
                 trace(tag, "FRE_TYPE_BOOLEAN")
-                break;
+                break
             default:
                 trace(tag, "FRE_TYPE_NUMBER")
-                break;
+                break
             }
             break
         case FRE_TYPE_NULL:
