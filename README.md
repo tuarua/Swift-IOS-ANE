@@ -31,7 +31,7 @@ Example - Converting a FREObject into a String the easy way, using ANEHelper.swi
 ````swift
 let swiftString: String = aneHelper.getString(object: object)
 let airString: FREObject? = aneHelper.getFREObject(string: swiftString)
-trace("Swift string is:", swiftString!)
+trace("Swift string is:", swiftString)
 `````
 
 Example - call a method on an FREObject
