@@ -62,35 +62,35 @@ You will need
 The code is likely to change as I tidy and improve things especially guard checks on optionals
 
 ### TODO
-Methods marked in bold are **IMLEMENTED**
+Methods marked in bold are **IMPLEMENTED**
 
-FREAcquireBitmapData()
-FREAcquireBitmapData2()
-FREAcquireByteArray()
-**FRECallObjectMethod()**
-**FREDispatchStatusEventAsync()**
-**FREGetArrayElementAt()**
-**FREGetArrayLength()**
-FREGetContextActionScriptData()
-FREGetContextNativeData()
-**FREGetObjectAsBool()**
-**FREGetObjectAsDouble()**
-**FREGetObjectAsInt32()**
-**FREGetObjectAsUint32()**
-**FREGetObjectAsUTF8()**
-**FREGetObjectProperty()**
-**FREGetObjectType()**
-FREInvalidateBitmapDataRect()
-**FRENewObject()**
-**FRENewObjectFromBool()**
-**FRENewObjectFromDouble()**
-**FRENewObjectFromInt32()**
-**FRENewObjectFromUint32()**
-**FRENewObjectFromUTF8()**
-FREReleaseBitmapData()
-FREReleaseByteArray()
-**FRESetArrayElementAt()**
-**FRESetArrayLength()**
-FRESetContextActionScriptData()
-FRESetContextNativeData()
+FREAcquireBitmapData()  
+FREAcquireBitmapData2()  
+FREAcquireByteArray()  
+**FRECallObjectMethod()**  
+**FREDispatchStatusEventAsync()**  
+**FREGetArrayElementAt()**  
+**FREGetArrayLength()**  
+FREGetContextActionScriptData()  
+FREGetContextNativeData()  
+**FREGetObjectAsBool()**  
+**FREGetObjectAsDouble()**  
+**FREGetObjectAsInt32()**  
+**FREGetObjectAsUint32()**  
+**FREGetObjectAsUTF8()**  
+**FREGetObjectProperty()**  
+**FREGetObjectType()**  
+FREInvalidateBitmapDataRect()  
+**FRENewObject()**  
+**FRENewObjectFromBool()**  
+**FRENewObjectFromDouble()**  
+**FRENewObjectFromInt32()**  
+**FRENewObjectFromUint32()**  
+**FRENewObjectFromUTF8()**  
+FREReleaseBitmapData()  
+FREReleaseByteArray()  
+**FRESetArrayElementAt()**  
+**FRESetArrayLength()**  
+FRESetContextActionScriptData()  
+FRESetContextNativeData()  
 **FRESetObjectProperty()**
