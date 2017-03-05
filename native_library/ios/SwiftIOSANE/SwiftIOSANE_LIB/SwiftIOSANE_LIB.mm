@@ -1,20 +1,24 @@
 //
-// Created by User on 19/02/2017.
+// Created by Eoin Landy on 19/02/2017.
 // Copyright (c) 2017 Tua Rua Ltd. All rights reserved.
 //
 
+
+//https://github.com/fastlane/fastlane/issues/519
+
+
 #import "SwiftIOSANE_LIB.h"
-#include "FlashRuntimeExtensions.h"
+//#include "FlashRuntimeExtensions.h"
 /*
  * This is your Swift header, interop methods are defined in here
  */
-#import "SwiftIOSANE_FW-Swift.h"
-#import "EventDispatcher.h"
-#include "ANEhelper.h"
 
-EventDispatcher *eventDispatcher; //this dispatches events from Swift up to Objective C and then FREDispatchStatusEventAsync
+//#import "SwiftIOSANE_FW-Swift.h"
+#import "FlashRuntimeExtensionsBridge.h"
+
+FlashRuntimeExtensionsBridge *freBridge; //this dispatches events from Swift up to Objective C and then FREDispatchStatusEventAsync
 SwiftController *swft; // our main Swift Controller
-ANEHelper aneHelper = ANEHelper(); // helper functions for FRE
+FRESwiftBridge *swftBridge; // our main Swift Controller
 
 const NSString *ANE_NAME = @"SwiftIOSANE";
 FREContext dllContext;
@@ -23,55 +27,54 @@ extern "C" {
 
 #define FRE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 
-/*
- * Call Swift method with Boolean return, no args
- */
-FRE_FUNCTION (getIsSwiftCool) {
-    return aneHelper.getFREObject([swft getIsSwiftCool]);
+// convert argv into a pointer array which can be passed to Swift
+NSPointerArray * getFREargs(uint32_t argc, FREObject argv[]) {
+    NSPointerArray * pa = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsOpaqueMemory];
+    for (int i = 0; i < argc; ++i) {
+        FREObject freObject;
+        freObject = argv[i];
+        [pa addPointer:freObject];
+    }
+    return pa;
 }
-/*
- * Call Swift method with String return, converts args to array of equivalent Swift types
- */
-FRE_FUNCTION (getHelloWorld) {
-    return aneHelper.getFREObject([swft getHelloWorldWithArgv:aneHelper.getFREargs(argc, argv)]);
+    
+FRE_FUNCTION (runStringTests) {
+    return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
 }
-/*
- * Call Swift method with no return
- */
-FRE_FUNCTION (noReturn) {
-    [swft noReturnWithArgv:aneHelper.getFREargs(argc, argv)];
-    return NULL;
+FRE_FUNCTION (runNumberTests) {
+    return [swft runNumberTestsWithArgv:getFREargs(argc, argv)];
 }
-/*
- * Call Swift method with Int return, converts args to array of equivalent Swift types
- */
-FRE_FUNCTION (getAge) {
-    return aneHelper.getFREObject([swft getAgeWithArgv:aneHelper.getFREargs(argc, argv)]);
+FRE_FUNCTION (runIntTests) {
+    return [swft runIntTestsWithArgv:getFREargs(argc, argv)];
 }
-/*
- * Call Swift method with Number return, no args
- */
-FRE_FUNCTION(getPrice) {
-    return aneHelper.getFREObject([swft getPrice]);
+FRE_FUNCTION (runArrayTests) {
+    return [swft runArrayTestsWithArgv:getFREargs(argc, argv)];
+}
+FRE_FUNCTION (runObjectTests) {
+    return [swft runObjectTestsWithArgv:getFREargs(argc, argv)];
 }
 
 void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, uint32_t *numFunctionsToSet, const FRENamedFunction **functionsToSet) {
 
     static FRENamedFunction extensionFunctions[] = {
-            {(const uint8_t *) "getHelloWorld", NULL, &getHelloWorld},
-            {(const uint8_t *) "getAge", NULL, &getAge},
-            {(const uint8_t *) "getPrice", NULL, &getPrice},
-            {(const uint8_t *) "getIsSwiftCool", NULL, &getIsSwiftCool},
-            {(const uint8_t *) "noReturn", NULL, &noReturn}
+            {(const uint8_t *) "runStringTests", NULL, &runStringTests},
+            {(const uint8_t *) "runNumberTests", NULL, &runNumberTests},
+            {(const uint8_t *) "runIntTests", NULL, &runIntTests},
+            {(const uint8_t *) "runArrayTests", NULL, &runArrayTests},
+            {(const uint8_t *) "runObjectTests", NULL, &runObjectTests}
+
     };
     *numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
     *functionsToSet = extensionFunctions;
     dllContext = ctx;
-
-    eventDispatcher = [[EventDispatcher alloc] init];
-    [eventDispatcher setFREContext:ctx];
+    
+    freBridge = [[FlashRuntimeExtensionsBridge alloc] init];
+    
     swft = [[SwiftController alloc] init];
-    [swft setDelegateWithSender:eventDispatcher];
+    [swft setFREContextWithCtx:ctx];
+    
+    swftBridge = [[FRESwiftBridge alloc] init];
+    [swftBridge setDelegateWithBridge:freBridge];
 }
 
 void contextFinalizer(FREContext ctx) {

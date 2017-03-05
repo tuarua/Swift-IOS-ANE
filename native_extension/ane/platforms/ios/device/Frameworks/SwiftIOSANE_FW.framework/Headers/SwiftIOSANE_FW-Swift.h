@@ -6,6 +6,7 @@
 #endif
 
 #pragma clang diagnostic ignored "-Wauto-import"
+
 #include <objc/NSObject.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -115,34 +116,130 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # define SWIFT_UNAVAILABLE __attribute__((unavailable))
 #endif
 #if defined(__has_feature) && __has_feature(modules)
+
 @import ObjectiveC;
+
 #endif
+
+#import <SwiftIOSANE_FW/FlashRuntimeExtensions.h>
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
-
 
 /*
  * 14 means 14 characters in Framework name
  * 20 means 20 characters in Swift Protocol name
  */
-SWIFT_PROTOCOL("_TtC14SwiftIOSANE_FW20SwiftEventDispatcher")
-@protocol SwiftEventDispatcher
-- (void)dispatchEventWithName:(NSString * _Nonnull)name value:(NSString * _Nonnull)value;
+SWIFT_PROTOCOL("_TtC14SwiftIOSANE_FW22FRESwiftBridgeProtocol")
+@protocol FRESwiftBridgeProtocol
+- (FREResult)FRENewObjectFromBoolWithValue:(BOOL)value
+                                    object:(FREObject _Nullable)object;
+
+- (FREResult)FRENewObjectFromInt32WithValue:(int32_t)value
+                                     object:(FREObject _Nullable)object;
+
+- (FREResult)FRENewObjectFromUint32WithValue:(uint32_t)value
+                                      object:(FREObject _Nullable)object;
+
+- (FREResult)FRENewObjectFromDoubleWithValue:(double)value
+                                      object:(FREObject _Nullable)object;
+
+- (FREResult)FRENewObjectFromUTF8WithLength:(uint32_t)length
+                                      value:(NSString *_Nonnull)value
+                                     object:(FREObject _Nullable)object;
+
+- (FREResult)FREGetObjectAsBoolWithObject:(FREObject _Nonnull)object
+                                    value:(uint32_t *_Nullable)value;
+
+- (FREResult)FREGetObjectAsInt32WithObject:(FREObject _Nonnull)object
+                                     value:(int32_t *_Nullable)value;
+
+- (FREResult)FREGetObjectAsUint32WithObject:(FREObject _Nonnull)object
+                                      value:(uint32_t *_Nullable)value;
+
+- (FREResult)FREGetObjectAsDoubleWithObject:(FREObject _Nonnull)object
+                                      value:(double *_Nullable)value;
+
+
+- (FREResult)FREGetObjectAsUTF8WithObject:(FREObject _Nonnull)object
+                                   length:(uint32_t *_Nullable)length
+                                    value:(const uint8_t *_Nullable *_Nullable)value;
+
+
+- (FREResult)FRENewObjectWithClassName:(NSString *_Nonnull)className
+                                  argc:(uint32_t)argc
+                                  argv:(NSPointerArray *_Nullable)argv
+                                object:(FREObject _Nonnull)object
+                       thrownException:(FREObject _Nullable)thrownException;
+
+- (FREResult)FRECallObjectMethodWithObject:(FREObject _Nonnull)object
+                                methodName:(NSString *_Nonnull)className
+                                      argc:(uint32_t)argc
+                                      argv:(NSPointerArray *_Nullable)argv
+                                    result:(FREObject _Nonnull)result
+                           thrownException:(FREObject _Nullable)thrownException;
+
+
+- (FREResult)FREGetObjectPropertyWithObject:(FREObject _Nonnull)object
+                               propertyName:(NSString *_Nonnull)propertyName
+                              propertyValue:(FREObject _Nonnull)propertyValue
+                            thrownException:(FREObject _Nullable)thrownException;
+
+- (FREResult)FRESetObjectPropertyWithObject:(FREObject _Nonnull)object
+                               propertyName:(NSString *_Nonnull)propertyName
+                              propertyValue:(FREObject _Nonnull)propertyValue
+                            thrownException:(FREObject _Nullable)thrownException;
+
+- (FREResult)FREDispatchStatusEventAsyncWithCtx:(FREContext _Nonnull)ctx
+                                           code:(NSString *_Nonnull)code
+                                          level:(NSString *_Nonnull)level;
+
+- (FREResult)FREGetObjectTypeWithObject:(FREObject _Nullable)object
+                             objectType:(FREObjectType *_Nullable)objectType;//pointer baby
+
+- (FREResult)FRESetArrayElementAWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
+                                            index:(uint32_t)index
+                                            value:(FREObject _Nonnull)value;
+
+- (FREResult)FREGetArrayElementAWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
+                                            index:(uint32_t)index
+                                            value:(FREObject _Nullable)value;
+
+- (FREResult)FREGetArrayLengthWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
+                                         length:(uint32_t *_Nullable)length;
+
+- (FREResult)FRESetArrayLengthWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
+                                         length:(uint32_t)length;
+
+@end
+
+
+SWIFT_CLASS("_TtC14SwiftIOSANE_FW14FRESwiftBridge")
+@interface FRESwiftBridge : NSObject
+- (void)setDelegateWithBridge:(id _Nonnull)bridge;
 @end
 /*
  * 14 means 14 characters in Framework name
  * 15 means 15 characters in Swift Class name
  */
-SWIFT_CLASS("_TtC14SwiftIOSANE_FW15SwiftController") //
+SWIFT_CLASS("_TtC14SwiftIOSANE_FW15SwiftController")
 @interface SwiftController : NSObject
-- (BOOL)getIsSwiftCool;
-- (double)getPrice;
-- (NSInteger)getAgeWithArgv:(NSMutableArray * _Nullable)argv;
-- (NSString *_Nonnull)getHelloWorldWithArgv:(NSMutableArray * _Nonnull)argv;
-- (void)noReturnWithArgv:(NSMutableArray * _Nonnull)argv;
-- (void)setDelegateWithSender:(id _Nonnull)sender;
+
+- (FREObject _Nullable)runStringTestsWithArgv:(NSPointerArray *_Nullable)argv;
+
+- (FREObject _Nullable)runNumberTestsWithArgv:(NSPointerArray *_Nullable)argv;
+
+- (FREObject _Nullable)runIntTestsWithArgv:(NSPointerArray *_Nullable)argv;
+
+- (FREObject _Nullable)runArrayTestsWithArgv:(NSPointerArray *_Nullable)argv;
+
+- (FREObject _Nullable)runObjectTestsWithArgv:(NSPointerArray *_Nullable)argv;
+
+- (void)setFREContextWithCtx:(FREContext _Nonnull)ctx;
+
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+
+
 @end
 
 #pragma clang diagnostic pop
