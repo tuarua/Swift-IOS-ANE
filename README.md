@@ -12,7 +12,7 @@ It is comprised of 2 parts.
 > as a bridge back to Objective C ,was used.
 
 ### How to use
-Example - reading a String from a FREObject
+Example - Converting a FREObject into a String
 
 ````actionscript
 var ret: String = ""
@@ -23,7 +23,7 @@ var freObject: FREObject? = nil
 let status: FREResult = FRENewObjectFromUTF8(length: UInt32(string.utf8.count), value: ret, object: &freObject);
 `````
 
-Example - reading a String the easier way,  using ANEHelper.swift
+Example - Converting a FREObject into a String the easy way, using ANEHelper.swift
 
 
 ````actionscript
