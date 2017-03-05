@@ -40,10 +40,15 @@ Example - call a method on an FREObject
 let paramsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
 var addition: FREObject? = nil
 var thrownException: FREObject? = nil
-for i in 0 ..< params.count {
-    let param: FREObject? = getFREObject(any: params[i])
-    paramsArray.addPointer(param)
-}
+
+var param1: FREObject? = nil
+_ = FRENewObjectFromInt32(value: 100, object: &param1)
+
+var param2: FREObject? = nil
+_ = FRENewObjectFromInt32(value: 33, object: &param2)
+
+paramsArray.addPointer(param1)
+paramsArray.addPointer(param2)
 
 let status: FREResult = FRECallObjectMethod(object: myClass, methodName: "add",
     argc: UInt32(paramsArray.count), argv: paramsArray, result: &addition,
