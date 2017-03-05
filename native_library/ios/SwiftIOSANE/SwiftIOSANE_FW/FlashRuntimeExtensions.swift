@@ -46,6 +46,9 @@ func FREGetObjectProperty(object: FREObject, propertyName: String, propertyValue
 }
 
 func FREGetObjectType(object: FREObject?, objectType: inout FREObjectType) -> FREResult {
+    guard let object = object else {
+        return FRE_INVALID_OBJECT
+    }
     return FRESwiftBridge.bridge.FREGetObjectType(object: object, objectType: &objectType)
 }
 
@@ -82,7 +85,7 @@ func FRESetObjectProperty(object: FREObject, propertyName: String, propertyValue
             thrownException: thrownException)
 }
 
-func FRESetArrayElementAt(arrayOrVector: FREObject, index: UInt32, value: FREObject?) -> FREResult {
+func FRESetArrayElementAt(arrayOrVector: FREObject, index: UInt32, value: FREObject) -> FREResult {
     //"At" is reserved, justUsing A
     return (FRESwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: arrayOrVector, index: index, value: value))
 }

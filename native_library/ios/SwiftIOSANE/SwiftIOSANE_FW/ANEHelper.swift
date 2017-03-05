@@ -24,8 +24,12 @@ class ANEHelper {
         dllContext = ctx
     }
 
-    private func trace(value: String) {
-        _ = FREDispatchStatusEventAsync(ctx: self.dllContext, code: value, level: "TRACE")
+    func trace(_ value: Any...) {
+        var traceStr: String = ""
+        for i in 0 ..< value.count {
+            traceStr = traceStr + "\(value[i])" + " "
+        }
+        _ = FREDispatchStatusEventAsync(ctx: self.dllContext, code: traceStr, level: "TRACE")
     }
 
 
@@ -283,7 +287,7 @@ class ANEHelper {
         var objectType: FREObjectType = FRE_TYPE_NULL
 
         if FRE_OK != FREGetObjectType(object: thrownException, objectType: &objectType) {
-            trace(value: "Exception was thrown, but failed to obtain information about it")
+            trace("Exception was thrown, but failed to obtain information about it")
             return true
         }
 
@@ -292,7 +296,7 @@ class ANEHelper {
             var newException: FREObject? = nil
             if FRE_OK != FRECallObjectMethod(object: thrownException!, methodName: "toString", argc: 0,
                     argv: nil, result: &exceptionTextAS, thrownException: &newException) {
-                trace(value: "Exception was thrown, but failed to obtain information about it")
+                trace("Exception was thrown, but failed to obtain information about it")
                 return true
             }
             return true
@@ -357,8 +361,7 @@ class ANEHelper {
         if FRE_OK == errorCode {
             return true
         }
-        let messageToReport: String = "\(errorMessage) \(errorCode)"
-        trace(value: messageToReport)
+        trace(errorMessage, errorCode)
         return false
     }
 
@@ -392,78 +395,82 @@ class ANEHelper {
     func traceFriendlyFREResult(tag: String, result: FREResult) {
         switch result {
         case FRE_OK:
-            trace(value: "\(tag): FRE_OK");
+            trace(tag, "FRE_OK");
             break;
         case FRE_NO_SUCH_NAME:
-            trace(value: "\(tag): FRE_NO_SUCH_NAME");
+            trace(tag, "FRE_NO_SUCH_NAME");
             break;
         case FRE_INVALID_OBJECT:
-            trace(value: "\(tag): FRE_INVALID_OBJECT");
+            trace(tag, "FRE_INVALID_OBJECT");
             break;
         case FRE_TYPE_MISMATCH:
-            trace(value: "\(tag): FRE_TYPE_MISMATCH");
+            trace(tag, "FRE_TYPE_MISMATCH");
             break;
         case FRE_ACTIONSCRIPT_ERROR:
-            trace(value: "\(tag): FRE_ACTIONSCRIPT_ERROR");
+            trace(tag, "FRE_ACTIONSCRIPT_ERROR");
             break;
         case FRE_INVALID_ARGUMENT:
-            trace(value: "\(tag): FRE_INVALID_ARGUMENT");
+            trace(tag, "FRE_INVALID_ARGUMENT");
             break;
         case FRE_READ_ONLY:
-            trace(value: "\(tag): FRE_READ_ONLY");
+            trace(tag, "FRE_READ_ONLY");
             break;
         case FRE_WRONG_THREAD:
-            trace(value: "\(tag): FRE_WRONG_THREAD");
+            trace(tag, "FRE_WRONG_THREAD");
             break;
         case FRE_ILLEGAL_STATE:
-            trace(value: "\(tag): FRE_ILLEGAL_STATE");
+            trace(tag, "FRE_ILLEGAL_STATE");
             break;
         case FRE_INSUFFICIENT_MEMORY:
-            trace(value: "\(tag): FRE_INSUFFICIENT_MEMORY");
+            trace(tag, "FRE_INSUFFICIENT_MEMORY");
             break;
         default:
-            trace(value: "");
+            trace("");
         }
     }
 
     func traceObjectType(tag: String, object: FREObject?) {
+        guard let object = object else {
+            trace(tag, "FRE_TYPE_NULL")
+            return
+        }
         var objectType: FREObjectType = FRE_TYPE_NULL
         _ = FREGetObjectType(object: object, objectType: &objectType);
 
         switch objectType {
         case FRE_TYPE_ARRAY:
-            trace(value: "\(tag): FRE_TYPE_ARRAY")
+            trace(tag, "FRE_TYPE_ARRAY")
             break
         case FRE_TYPE_VECTOR:
-            trace(value: "\(tag): FRE_TYPE_VECTOR")
+            trace(tag, "FRE_TYPE_VECTOR")
             break
         case FRE_TYPE_STRING:
-            trace(value: "\(tag): FRE_TYPE_STRING")
+            trace(tag, "FRE_TYPE_STRING")
             break
         case FRE_TYPE_BOOLEAN:
-            trace(value: "\(tag): FRE_TYPE_BOOLEAN")
+            trace(tag, "FRE_TYPE_BOOLEAN")
             break
         case FRE_TYPE_OBJECT:
-            trace(value: "\(tag): FRE_TYPE_OBJECT")
+            trace(tag, "FRE_TYPE_OBJECT")
             break
         case FRE_TYPE_NUMBER:
-            switch getActionscriptClassType(object: object!) {
+            switch getActionscriptClassType(object: object) {
             case FREObjectType2.FRE_TYPE_NUMBER:
-                trace(value: "\(tag): FRE_TYPE_NUMBER")
+                trace(tag, "FRE_TYPE_NUMBER")
                 break;
             case FREObjectType2.FRE_TYPE_INT:
-                trace(value: "\(tag): FRE_TYPE_INT")
+                trace(tag, "FRE_TYPE_INT")
                 break;
             case FREObjectType2.FRE_TYPE_BOOLEAN:
-                trace(value: "\(tag): FRE_TYPE_BOOLEAN")
+                trace(tag, "FRE_TYPE_BOOLEAN")
                 break;
             default:
-                trace(value: "\(tag): FRE_TYPE_NUMBER")
+                trace(tag, "FRE_TYPE_NUMBER")
                 break;
             }
             break
         case FRE_TYPE_NULL:
-            trace(value: "\(tag): FRE_TYPE_NULL")
+            trace(tag, "FRE_TYPE_NULL")
             break
         default:
             break
