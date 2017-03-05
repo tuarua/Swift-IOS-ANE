@@ -10,6 +10,7 @@ import flash.text.TextFormatAlign;
 
 public class Main extends Sprite {
     private var ane:SwiftIOSANE = new SwiftIOSANE();
+
     public function Main() {
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();
@@ -26,46 +27,24 @@ public class Main extends Sprite {
         person.age = 21;
         person.name = "Tom";
 
-        ane.noReturn(true);
+        var myArray:Array = new Array();
+        myArray.push(3, 1, 4, 2, 6, 5);
 
-		textField.text = ane.getHelloWorld("Swift and ANE bypass");
-        textField.text = textField.text + "\n" + ane.getAge(person);
-        textField.text = textField.text + "\n" + ane.getPrice();
-        textField.text = textField.text + "\n" + ane.getIsSwiftCool();
+        var resultString:String = ane.runStringTests("I am a string from AIR");
+        textField.text += resultString + "\n";
 
+        var resultNumber:Number = ane.runNumberTests(31.99);
+        textField.text += "Number: " + resultNumber + "\n";
+
+        var resultInt:int = ane.runIntTests(-54, 66);
+        textField.text += "Int: " + resultInt + "\n";
+        var resultArray:Array = ane.runArrayTests(myArray);
+        textField.text += "Array: " + resultArray.toString() + "\n";
+
+        var resultObject:Person = ane.runObjectTests(person) as Person;
+        textField.text += "Person.age: " + resultObject.age.toString() + "\n";
+        
         addChild(textField);
     }
 }
 }
-
-
-//http://stackoverflow.com/questions/32730312/reason-no-suitable-image-found
-
-//http://stackoverflow.com/questions/33634748/undefined-symbols-for-architecture-in-dynamic-framework
-
-// -undefined dynamic_lookup
-
-//https://forums.adobe.com/message/9128277#9128277
-
-// http://www.manpagez.com/man/1/ld64/
-
-// https://pewpewthespells.com/blog/static_and_dynamic_libraries.html
-
-// nm -arch i386 -g SwiftFW.framework/SwiftFW
-
-// ar -xv airx86.a FlashRuntimeExtensions.o
-// ar -xv airx86.a EventDispatcherGlue.o
-
-// ar -xv airx86.a ExtensionContextGlue.o
-// ar -xv airx86.a FixedMalloc.o
-
-// ar cr FlashRuntimeExtensions.a FlashRuntimeExtensions.o ExtensionContextGlue.o EventDispatcherGlue.o FixedMalloc.o
-
-// ar cr FlashRuntimeExtensions.a airx86.a extensionglue.o
-
-//FlashRuntimeExtensions.o
-
-
-// __ZN4MMgc15GCTraceableBase7gcTraceEPNS_2GCEm
-
-// /Users/User/flash/SwiftIOSANE/native_library/ios/SwiftFW/BuildStaticSeparate2.sh
