@@ -7,35 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		285FE0EA6EC0D225359E0709 /* EventDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 285FE2C64A883951F583AEDC /* EventDispatcher.m */; };
-		285FE253D149F6E890CC1F22 /* EventDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 285FE1CF3D12BF37EF4C6440 /* EventDispatcher.h */; };
-		285FE346E7DA19FEB30A1C5E /* EventDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 285FEC93B40FBCDF5C7C0984 /* EventDispatcher.m */; };
+		285FE253D149F6E890CC1F22 /* FlashRuntimeExtensionsBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 285FE1CF3D12BF37EF4C6440 /* FlashRuntimeExtensionsBridge.h */; };
+		285FE346E7DA19FEB30A1C5E /* FlashRuntimeExtensionsBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 285FEC93B40FBCDF5C7C0984 /* FlashRuntimeExtensionsBridge.m */; };
 		285FE3EB871F2DD420623AEE /* SwiftIOSANE_LIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 285FEBB3CADF8D704FAB5E4D /* SwiftIOSANE_LIB.h */; };
 		285FECB67C2311471C2CD119 /* SwiftIOSANE_LIB.mm in Sources */ = {isa = PBXBuildFile; fileRef = 285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.mm */; };
-		CE3980701E58BA7F0062485B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39806F1E58BA7F0062485B /* main.m */; };
-		CE3980731E58BA7F0062485B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3980721E58BA7F0062485B /* AppDelegate.m */; };
-		CE3980761E58BA7F0062485B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3980751E58BA7F0062485B /* ViewController.m */; };
-		CE3980791E58BA7F0062485B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE3980771E58BA7F0062485B /* Main.storyboard */; };
-		CE39807B1E58BA7F0062485B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE39807A1E58BA7F0062485B /* Assets.xcassets */; };
-		CE39807E1E58BA7F0062485B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE39807C1E58BA7F0062485B /* LaunchScreen.storyboard */; };
+		CE1B450A1E678DCA00B9FB1B /* FlashRuntimeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B45091E678DCA00B9FB1B /* FlashRuntimeExtensions.swift */; };
+		CE1B450C1E678FE800B9FB1B /* FRESwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B450B1E678FE800B9FB1B /* FRESwiftBridge.swift */; };
+		CE29D3781E6B567B0088A2F3 /* ANEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29D3771E6B567B0088A2F3 /* ANEHelper.swift */; };
 		CE39808E1E58BAA90062485B /* SwiftIOSANE_FW.h in Headers */ = {isa = PBXBuildFile; fileRef = CE39808C1E58BAA90062485B /* SwiftIOSANE_FW.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CE3980911E58BAA90062485B /* SwiftIOSANE_FW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE39808A1E58BAA90062485B /* SwiftIOSANE_FW.framework */; };
-		CE3980921E58BAA90062485B /* SwiftIOSANE_FW.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE39808A1E58BAA90062485B /* SwiftIOSANE_FW.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE3980981E58BB070062485B /* SwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3980971E58BB070062485B /* SwiftController.swift */; };
 		CE39809A1E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3980991E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CE3980AB1E58BEFE0062485B /* ANEhelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE3980A81E58BEFE0062485B /* ANEhelper.mm */; };
 		CE3980AD1E58BF3F0062485B /* SwiftIOSANE_FW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE39808A1E58BAA90062485B /* SwiftIOSANE_FW.framework */; };
-		CE3980AF1E58BF590062485B /* ANEhelper.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3980A91E58BEFE0062485B /* ANEhelper.h */; };
+		CEE50E5D1E66468200ACD127 /* FlashRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = CEE50E5C1E66468200ACD127 /* FlashRuntimeExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CE39808F1E58BAA90062485B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CE3980631E58BA7F0062485B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CE3980891E58BAA90062485B;
-			remoteInfo = SwiftIOSANE_FW;
-		};
 		CE3980B01E58C08A0062485B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CE3980631E58BA7F0062485B /* Project object */;
@@ -46,17 +32,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		CE3980961E58BAA90062485B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				CE3980921E58BAA90062485B /* SwiftIOSANE_FW.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CE39809D1E58BEE10062485B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -69,42 +44,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		285FE1CF3D12BF37EF4C6440 /* EventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDispatcher.h; sourceTree = "<group>"; };
-		285FE2C64A883951F583AEDC /* EventDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDispatcher.m; sourceTree = "<group>"; };
-		285FE3C0A62B4C71FD3F35A9 /* EventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDispatcher.h; sourceTree = "<group>"; };
+		285FE1CF3D12BF37EF4C6440 /* FlashRuntimeExtensionsBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashRuntimeExtensionsBridge.h; sourceTree = "<group>"; };
 		285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SwiftIOSANE_LIB.mm; sourceTree = "<group>"; };
 		285FEBB3CADF8D704FAB5E4D /* SwiftIOSANE_LIB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftIOSANE_LIB.h; sourceTree = "<group>"; };
-		285FEC93B40FBCDF5C7C0984 /* EventDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDispatcher.m; sourceTree = "<group>"; };
-		CE39806B1E58BA7F0062485B /* SwiftIOSANE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftIOSANE.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE39806F1E58BA7F0062485B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CE3980711E58BA7F0062485B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		CE3980721E58BA7F0062485B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CE3980741E58BA7F0062485B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CE3980751E58BA7F0062485B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		CE3980781E58BA7F0062485B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		CE39807A1E58BA7F0062485B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CE39807D1E58BA7F0062485B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CE39807F1E58BA7F0062485B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		285FEC93B40FBCDF5C7C0984 /* FlashRuntimeExtensionsBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashRuntimeExtensionsBridge.m; sourceTree = "<group>"; };
+		CE1B45091E678DCA00B9FB1B /* FlashRuntimeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashRuntimeExtensions.swift; sourceTree = "<group>"; };
+		CE1B450B1E678FE800B9FB1B /* FRESwiftBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FRESwiftBridge.swift; sourceTree = "<group>"; };
+		CE29D3771E6B567B0088A2F3 /* ANEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANEHelper.swift; sourceTree = "<group>"; };
 		CE39808A1E58BAA90062485B /* SwiftIOSANE_FW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftIOSANE_FW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE39808C1E58BAA90062485B /* SwiftIOSANE_FW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftIOSANE_FW.h; sourceTree = "<group>"; };
 		CE39808D1E58BAA90062485B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE3980971E58BB070062485B /* SwiftController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftController.swift; sourceTree = "<group>"; };
 		CE3980991E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftIOSANE_FW-Swift.h"; sourceTree = "<group>"; };
 		CE39809F1E58BEE10062485B /* libSwiftIOSANE_LIB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSwiftIOSANE_LIB.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE3980A81E58BEFE0062485B /* ANEhelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ANEhelper.mm; sourceTree = "<group>"; };
-		CE3980A91E58BEFE0062485B /* ANEhelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANEhelper.h; sourceTree = "<group>"; };
 		CE3980AA1E58BEFE0062485B /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashRuntimeExtensions.h; sourceTree = "<group>"; };
+		CEE50E5C1E66468200ACD127 /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashRuntimeExtensions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CE3980681E58BA7F0062485B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CE3980911E58BAA90062485B /* SwiftIOSANE_FW.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CE3980861E58BAA90062485B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -126,7 +83,6 @@
 		CE3980621E58BA7F0062485B = {
 			isa = PBXGroup;
 			children = (
-				CE39806D1E58BA7F0062485B /* SwiftIOSANE */,
 				CE39808B1E58BAA90062485B /* SwiftIOSANE_FW */,
 				CE3980A01E58BEE10062485B /* SwiftIOSANE_LIB */,
 				CE39806C1E58BA7F0062485B /* Products */,
@@ -136,46 +92,23 @@
 		CE39806C1E58BA7F0062485B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CE39806B1E58BA7F0062485B /* SwiftIOSANE.app */,
 				CE39808A1E58BAA90062485B /* SwiftIOSANE_FW.framework */,
 				CE39809F1E58BEE10062485B /* libSwiftIOSANE_LIB.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CE39806D1E58BA7F0062485B /* SwiftIOSANE */ = {
-			isa = PBXGroup;
-			children = (
-				CE3980711E58BA7F0062485B /* AppDelegate.h */,
-				CE3980721E58BA7F0062485B /* AppDelegate.m */,
-				CE3980741E58BA7F0062485B /* ViewController.h */,
-				CE3980751E58BA7F0062485B /* ViewController.m */,
-				CE3980771E58BA7F0062485B /* Main.storyboard */,
-				CE39807A1E58BA7F0062485B /* Assets.xcassets */,
-				CE39807C1E58BA7F0062485B /* LaunchScreen.storyboard */,
-				CE39807F1E58BA7F0062485B /* Info.plist */,
-				CE39806E1E58BA7F0062485B /* Supporting Files */,
-				285FE2C64A883951F583AEDC /* EventDispatcher.m */,
-				285FE3C0A62B4C71FD3F35A9 /* EventDispatcher.h */,
-			);
-			path = SwiftIOSANE;
-			sourceTree = "<group>";
-		};
-		CE39806E1E58BA7F0062485B /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				CE39806F1E58BA7F0062485B /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		CE39808B1E58BAA90062485B /* SwiftIOSANE_FW */ = {
 			isa = PBXGroup;
 			children = (
+				CEE50E5C1E66468200ACD127 /* FlashRuntimeExtensions.h */,
 				CE3980991E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h */,
 				CE39808C1E58BAA90062485B /* SwiftIOSANE_FW.h */,
 				CE39808D1E58BAA90062485B /* Info.plist */,
 				CE3980971E58BB070062485B /* SwiftController.swift */,
+				CE1B45091E678DCA00B9FB1B /* FlashRuntimeExtensions.swift */,
+				CE1B450B1E678FE800B9FB1B /* FRESwiftBridge.swift */,
+				CE29D3771E6B567B0088A2F3 /* ANEHelper.swift */,
 			);
 			path = SwiftIOSANE_FW;
 			sourceTree = "<group>";
@@ -186,8 +119,8 @@
 				CE3980AC1E58BF030062485B /* misc */,
 				285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.mm */,
 				285FEBB3CADF8D704FAB5E4D /* SwiftIOSANE_LIB.h */,
-				285FEC93B40FBCDF5C7C0984 /* EventDispatcher.m */,
-				285FE1CF3D12BF37EF4C6440 /* EventDispatcher.h */,
+				285FEC93B40FBCDF5C7C0984 /* FlashRuntimeExtensionsBridge.m */,
+				285FE1CF3D12BF37EF4C6440 /* FlashRuntimeExtensionsBridge.h */,
 			);
 			path = SwiftIOSANE_LIB;
 			sourceTree = "<group>";
@@ -195,8 +128,6 @@
 		CE3980AC1E58BF030062485B /* misc */ = {
 			isa = PBXGroup;
 			children = (
-				CE3980A81E58BEFE0062485B /* ANEhelper.mm */,
-				CE3980A91E58BEFE0062485B /* ANEhelper.h */,
 				CE3980AA1E58BEFE0062485B /* FlashRuntimeExtensions.h */,
 			);
 			name = misc;
@@ -211,6 +142,7 @@
 			files = (
 				CE39809A1E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h in Headers */,
 				CE39808E1E58BAA90062485B /* SwiftIOSANE_FW.h in Headers */,
+				CEE50E5D1E66468200ACD127 /* FlashRuntimeExtensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,34 +150,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE3980AF1E58BF590062485B /* ANEhelper.h in Headers */,
 				285FE3EB871F2DD420623AEE /* SwiftIOSANE_LIB.h in Headers */,
-				285FE253D149F6E890CC1F22 /* EventDispatcher.h in Headers */,
+				285FE253D149F6E890CC1F22 /* FlashRuntimeExtensionsBridge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		CE39806A1E58BA7F0062485B /* SwiftIOSANE */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CE3980821E58BA7F0062485B /* Build configuration list for PBXNativeTarget "SwiftIOSANE" */;
-			buildPhases = (
-				CE3980671E58BA7F0062485B /* Sources */,
-				CE3980681E58BA7F0062485B /* Frameworks */,
-				CE3980691E58BA7F0062485B /* Resources */,
-				CE3980961E58BAA90062485B /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CE3980901E58BAA90062485B /* PBXTargetDependency */,
-			);
-			name = SwiftIOSANE;
-			productName = SwiftIOSANE;
-			productReference = CE39806B1E58BA7F0062485B /* SwiftIOSANE.app */;
-			productType = "com.apple.product-type.application";
-		};
 		CE3980891E58BAA90062485B /* SwiftIOSANE_FW */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE3980931E58BAA90062485B /* Build configuration list for PBXNativeTarget "SwiftIOSANE_FW" */;
@@ -294,13 +206,9 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Tua Rua Ltd";
 				TargetAttributes = {
-					CE39806A1E58BA7F0062485B = {
-						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = FWEQJ32FGC;
-						ProvisioningStyle = Automatic;
-					};
 					CE3980891E58BAA90062485B = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = FWEQJ32FGC;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Manual;
 					};
@@ -323,7 +231,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CE39806A1E58BA7F0062485B /* SwiftIOSANE */,
 				CE3980891E58BAA90062485B /* SwiftIOSANE_FW */,
 				CE39809E1E58BEE10062485B /* SwiftIOSANE_LIB */,
 			);
@@ -331,16 +238,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CE3980691E58BA7F0062485B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CE39807E1E58BA7F0062485B /* LaunchScreen.storyboard in Resources */,
-				CE39807B1E58BA7F0062485B /* Assets.xcassets in Resources */,
-				CE3980791E58BA7F0062485B /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CE3980881E58BAA90062485B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -374,22 +271,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		CE3980671E58BA7F0062485B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CE3980761E58BA7F0062485B /* ViewController.m in Sources */,
-				CE3980731E58BA7F0062485B /* AppDelegate.m in Sources */,
-				CE3980701E58BA7F0062485B /* main.m in Sources */,
-				285FE0EA6EC0D225359E0709 /* EventDispatcher.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CE3980851E58BAA90062485B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				CE3980981E58BB070062485B /* SwiftController.swift in Sources */,
+				CE1B450C1E678FE800B9FB1B /* FRESwiftBridge.swift in Sources */,
+				CE29D3781E6B567B0088A2F3 /* ANEHelper.swift in Sources */,
+				CE1B450A1E678DCA00B9FB1B /* FlashRuntimeExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,45 +286,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE3980AB1E58BEFE0062485B /* ANEhelper.mm in Sources */,
 				285FECB67C2311471C2CD119 /* SwiftIOSANE_LIB.mm in Sources */,
-				285FE346E7DA19FEB30A1C5E /* EventDispatcher.m in Sources */,
+				285FE346E7DA19FEB30A1C5E /* FlashRuntimeExtensionsBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CE3980901E58BAA90062485B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CE3980891E58BAA90062485B /* SwiftIOSANE_FW */;
-			targetProxy = CE39808F1E58BAA90062485B /* PBXContainerItemProxy */;
-		};
 		CE3980B11E58C08A0062485B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CE3980891E58BAA90062485B /* SwiftIOSANE_FW */;
 			targetProxy = CE3980B01E58C08A0062485B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		CE3980771E58BA7F0062485B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE3980781E58BA7F0062485B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		CE39807C1E58BA7F0062485B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE39807D1E58BA7F0062485B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		CE3980801E58BA7F0062485B /* Debug */ = {
@@ -530,50 +394,16 @@
 			};
 			name = Release;
 		};
-		CE3980831E58BA7F0062485B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = FWEQJ32FGC;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = SwiftIOSANE/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.SwiftIOSANE;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-			};
-			name = Debug;
-		};
-		CE3980841E58BA7F0062485B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = FWEQJ32FGC;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = SwiftIOSANE/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.SwiftIOSANE;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		CE3980941E58BAA90062485B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eoin Landy (R7A9D97PD9)";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = FWEQJ32FGC;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -581,8 +411,9 @@
 				INFOPLIST_FILE = SwiftIOSANE_FW/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tuarua.SwiftIOSANE-FW";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.SwiftIOSANE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -601,10 +432,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Eoin Landy (R7A9D97PD9)";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = FWEQJ32FGC;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -612,8 +443,9 @@
 				INFOPLIST_FILE = SwiftIOSANE_FW/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tuarua.SwiftIOSANE-FW";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.SwiftIOSANE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -633,6 +465,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @rpath @loader_path @executable_path/Frameworks @executable_path";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -647,6 +480,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @rpath @loader_path @executable_path/Frameworks @executable_path";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -661,15 +495,6 @@
 			buildConfigurations = (
 				CE3980801E58BA7F0062485B /* Debug */,
 				CE3980811E58BA7F0062485B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CE3980821E58BA7F0062485B /* Build configuration list for PBXNativeTarget "SwiftIOSANE" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CE3980831E58BA7F0062485B /* Debug */,
-				CE3980841E58BA7F0062485B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

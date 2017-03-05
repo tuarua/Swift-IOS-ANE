@@ -5,9 +5,11 @@ package com.tuarua {
 import flash.events.EventDispatcher;
 import flash.external.ExtensionContext;
 import flash.events.StatusEvent;
+
 public class SwiftIOSANE extends EventDispatcher {
     private var extensionContext:ExtensionContext;
     private var _inited:Boolean = false;
+
     public function SwiftIOSANE() {
         initiate();
     }
@@ -23,7 +25,7 @@ public class SwiftIOSANE extends EventDispatcher {
     }
 
     private function gotEvent(event:StatusEvent):void {
-        trace("got event",event.level)
+        // trace("got event",event.level)
         switch (event.level) {
             case "TRACE":
                 trace(event.code);
@@ -31,25 +33,27 @@ public class SwiftIOSANE extends EventDispatcher {
         }
     }
 
-    public function getHelloWorld(value:String):String {
-        return extensionContext.call("getHelloWorld",value) as String;
+    public function runStringTests(value:String):String {
+        return extensionContext.call("runStringTests", value) as String;
     }
 
-    public function getAge(person:Person):int {
-        return int(extensionContext.call("getAge", person));
+    public function runNumberTests(value:Number):Number {
+        return extensionContext.call("runNumberTests", value) as Number;
     }
 
-    public function getPrice():Number {
-        return Number(extensionContext.call("getPrice"));
+    public function runIntTests(value:int, value2:uint):int {
+        return extensionContext.call("runIntTests", value, value2) as int;
     }
 
-    public function getIsSwiftCool():Boolean {
-        return extensionContext.call("getIsSwiftCool");
+    public function runArrayTests(value:Array):Array {
+        return extensionContext.call("runArrayTests", value) as Array;
     }
 
-    public function noReturn(value:Boolean):void {
-        extensionContext.call("noReturn");
+    public function runObjectTests(value:Person):Person {
+        return extensionContext.call("runObjectTests", value) as Person;
     }
+
+
 
     public function dispose():void {
         if (!extensionContext) {

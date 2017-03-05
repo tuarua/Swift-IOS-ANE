@@ -3,16 +3,19 @@
  */
 package com.tuarua {
 [RemoteClass(alias="com.tuarua.Person")]
-public class Person extends ANEObject {
-    public var name:String;
+public class Person {
+    public var name:String = ""; //must init with empty string otherwise comes through as FRE_TYPE_NULL
     public var age:int;
     public var opt:String;
+    public var isMan:Boolean = false;
+    public var height:Number = 1.80;
+    public var city:City = new City();
     public function Person() {
         super();
-        super.addPropName("name");
-        super.addPropName("age");
-        super.addPropName("opt");
     }
 
+    public function add(x:int, y:int):int {
+        return x + y;
+    }
 }
 }
