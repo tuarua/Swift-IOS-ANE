@@ -17,11 +17,11 @@ It is comprised of 2 parts.
 Example - Converting a FREObject into a String
 
 ````swift
-var ret: String = ""
+var swiftString: String = ""
 var len: UInt32 = 0
-let status: FREResult = FREGetObjectAsUTF8(object: object, length: &len, value: &ret)
+let status: FREResult = FREGetObjectAsUTF8(object: object, length: &len, value: &swiftString)
 
-var freObject: FREObject? = nil
+var airString: FREObject? = nil
 let status: FREResult = FRENewObjectFromUTF8(length: UInt32(string.utf8.count), value: ret, object: &freObject);
 `````
 
@@ -30,8 +30,8 @@ Example - Converting a FREObject into a String the easy way, using ANEHelper.swi
 
 ````swift
 let swiftString: String = aneHelper.getString(object: object)
-let airString: FREObject = aneHelper.getFREObject(string: swiftString)!
-trace("Swift string is:", swiftString)
+let airString: FREObject? = aneHelper.getFREObject(string: swiftString)
+trace("Swift string is:", swiftString!)
 `````
 
 Example - call a method on an FREObject
