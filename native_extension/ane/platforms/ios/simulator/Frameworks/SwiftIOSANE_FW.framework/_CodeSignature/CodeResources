@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		CHWPME8ZgjM0RMPkJDjVkfwtcA0=
+		</data>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<data>
 		blagc+UjPVBTHaTHbrlBKbVn20I=
@@ -54,7 +58,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		2zEoeZuGnUfTd9xBbRjX1agd5K8=
+		aaz03Z5JfzbhtUn9w3RTiiDscIk=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/i386.swiftdoc</key>
 		<data>
@@ -62,7 +66,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/i386.swiftmodule</key>
 		<data>
-		gQp5ss6yyhMmWnfxxwYmlqPs93k=
+		nn6P6/JppBonC+3L7tTz122rduE=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -70,7 +74,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		YdTVMFTs+vhtSxRMza88eTC7AXk=
+		5GxBLubmrAaWpqpT6P5Fw/gV4Dc=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -230,11 +234,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			gQp5ss6yyhMmWnfxxwYmlqPs93k=
+			nn6P6/JppBonC+3L7tTz122rduE=
 			</data>
 			<key>hash2</key>
 			<data>
-			BwxDyGh8AQRvMwgQR3JWXzkPOdOqP8MsSzA31ZLh8Zc=
+			wzo5e3VHyvu9s90xVcEoouOJUDKznk3xvqWcoFcctAg=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftdoc</key>
@@ -252,11 +256,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YdTVMFTs+vhtSxRMza88eTC7AXk=
+			5GxBLubmrAaWpqpT6P5Fw/gV4Dc=
 			</data>
 			<key>hash2</key>
 			<data>
-			XW7VLxUuTqy3lTyiTrsB+9NY95YAppnM7wvrZvJ3wxY=
+			cod6FuIsKELJFv9mv6ar7/F12UCVxYpxw3OV6HNUA2g=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -11,10 +11,12 @@ It is comprised of 2 parts.
 > To allow FRE functions to be called from within Swift, a protocol acting 
 > as a bridge back to Objective C ,was used.
 
+----------
+
 ### How to use
 Example - Converting a FREObject into a String
 
-````actionscript
+````swift
 var ret: String = ""
 var len: UInt32 = 0
 let status: FREResult = FREGetObjectAsUTF8(object: object, length: &len, value: &ret)
@@ -26,13 +28,34 @@ let status: FREResult = FRENewObjectFromUTF8(length: UInt32(string.utf8.count), 
 Example - Converting a FREObject into a String the easy way, using ANEHelper.swift
 
 
-````actionscript
+````swift
 let swiftString: String = aneHelper.getString(object: object)
 let airString: FREObject = aneHelper.getFREObject(string: swiftString)!
-trace(value: swiftString)
+trace("Swift string is:", swiftString)
 `````
 
+Example - call a method on an FREObject
 
+````swift
+let paramsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
+var addition: FREObject? = nil
+var thrownException: FREObject? = nil
+for i in 0 ..< params.count {
+    let param: FREObject? = getFREObject(any: params[i])
+    paramsArray.addPointer(param)
+}
+
+let status: FREResult = FRECallObjectMethod(object: myClass, methodName: "add",
+    argc: UInt32(paramsArray.count), argv: paramsArray, result: &addition,
+    thrownException: &thrownException)
+`````
+
+Example - call a method on an FREObject the (very) easy way, using ANEHelper.swift
+````swift
+let addition: FREObject? = aneHelper.call(object: myClass, methodName: "add", params: 100, 33)
+`````
+
+----------
 ### Running on Simulator
 
 The example project can be run on the Simulator from IntelliJ
