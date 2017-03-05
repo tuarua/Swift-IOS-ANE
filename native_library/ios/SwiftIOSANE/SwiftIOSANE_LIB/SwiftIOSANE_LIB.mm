@@ -3,22 +3,12 @@
 // Copyright (c) 2017 Tua Rua Ltd. All rights reserved.
 //
 
-
-//https://github.com/fastlane/fastlane/issues/519
-
-
 #import "SwiftIOSANE_LIB.h"
-//#include "FlashRuntimeExtensions.h"
-/*
- * This is your Swift header, interop methods are defined in here
- */
-
-//#import "SwiftIOSANE_FW-Swift.h"
 #import "FlashRuntimeExtensionsBridge.h"
 
-FlashRuntimeExtensionsBridge *freBridge; //this dispatches events from Swift up to Objective C and then FREDispatchStatusEventAsync
+FlashRuntimeExtensionsBridge *freBridge; // this runs the native FRE calls and returns to Swift
 SwiftController *swft; // our main Swift Controller
-FRESwiftBridge *swftBridge; // our main Swift Controller
+FRESwiftBridge *swftBridge; // this is the bridge from Swift back to ObjectiveC
 
 const NSString *ANE_NAME = @"SwiftIOSANE";
 FREContext dllContext;
