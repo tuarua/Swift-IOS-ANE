@@ -23,7 +23,7 @@ import Foundation
         trace("\n***********Start String test***********")
         if let inFRE = argv.pointer(at: 0) {
             let airString: String = aneHelper.getString(object: inFRE)
-            trace("String passed from AIR:", airString);
+            trace("String passed from AIR:", airString)
             let swiftString: String = "I am a string from Swift"
             let swiftString2 = "I am a string in Swift as Any"
 
@@ -38,7 +38,7 @@ import Foundation
         trace("\n***********Start Number test***********")
         if let inFRE = argv.pointer(at: 0) {
             let airNumber: Double = aneHelper.getDouble(object: inFRE)
-            trace("Number passed from AIR:", airNumber);
+            trace("Number passed from AIR:", airNumber)
             let swiftDouble: Double = 34343.31
             return aneHelper.getFREObject(double: swiftDouble)
         }
@@ -52,10 +52,10 @@ import Foundation
             let airUint: UInt = aneHelper.getUInt(object: inFRE2)
             let swiftInt: Int32 = -666
             let swiftUInt: UInt = 888
-            trace("Int passed from AIR:", airInt);
-            trace("Uint passed from AIR:", airUint);
+            trace("Int passed from AIR:", airInt)
+            trace("Uint passed from AIR:", airUint)
             _ = aneHelper.getFREObject(uint: swiftUInt)
-            return aneHelper.getFREObject(int32: swiftInt);
+            return aneHelper.getFREObject(int32: swiftInt)
         }
         return nil
     }
@@ -65,15 +65,15 @@ import Foundation
         if let inFRE = argv.pointer(at: 0) {
 
             let airArray = aneHelper.getArray(arrayOrVector: inFRE)
-            trace("Array passed from AIR:", airArray!);
-            trace("AIR Array length:", aneHelper.getArrayLength(arrayOrVector: inFRE));
+            trace("Array passed from AIR:", airArray!)
+            trace("AIR Array length:", aneHelper.getArrayLength(arrayOrVector: inFRE))
 
             var itemZero: FREObject? = nil
             let status: FREResult = FREGetArrayElementAt(arrayOrVector: inFRE, index: 0, value: &itemZero)
-            aneHelper.traceObjectType(tag: "AIR Array elem at 0 type", object: itemZero);
+            aneHelper.traceObjectType(tag: "AIR Array elem at 0 type", object: itemZero)
 
             if FRE_OK == status {
-                trace("AIR Array item 0:", aneHelper.getInt(object: itemZero!));
+                trace("AIR Array item 0:", aneHelper.getInt(object: itemZero!))
                 if let newVal = aneHelper.getFREObject(int32: 56) {
                     _ = FRESetArrayElementAt(arrayOrVector: inFRE, index: 0, value: newVal)
                 }
