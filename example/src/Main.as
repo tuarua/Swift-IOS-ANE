@@ -3,7 +3,15 @@ package {
 import com.tuarua.Person;
 import com.tuarua.SwiftIOSANE;
 
+import flash.display.Bitmap;
+
+import flash.display.Loader;
+
 import flash.display.Sprite;
+import flash.display.StageAlign;
+import flash.display.StageScaleMode;
+import flash.events.Event;
+import flash.net.URLRequest;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
@@ -12,6 +20,10 @@ public class Main extends Sprite {
     private var ane:SwiftIOSANE = new SwiftIOSANE();
 
     public function Main() {
+        super();
+        stage.align = StageAlign.TOP_LEFT;
+        stage.scaleMode = StageScaleMode.NO_SCALE;
+
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();
         tf.size = 24;
@@ -43,7 +55,19 @@ public class Main extends Sprite {
 
         var resultObject:Person = ane.runObjectTests(person) as Person;
         textField.text += "Person.age: " + resultObject.age.toString() + "\n";
-        
+
+        const IMAGE_URL:String = "http://tinyurl.com/zaky3n4";
+
+        var ldr:Loader = new Loader();
+        ldr.contentLoaderInfo.addEventListener(Event.COMPLETE, ldr_complete);
+        ldr.load(new URLRequest(IMAGE_URL));
+
+        var bitmap1:Bitmap;
+        function ldr_complete(evt:Event):void {
+            var bmp:Bitmap = ldr.content as Bitmap;
+            ane.runBitmapTests(bmp.bitmapData);
+        }
+
         addChild(textField);
     }
 }

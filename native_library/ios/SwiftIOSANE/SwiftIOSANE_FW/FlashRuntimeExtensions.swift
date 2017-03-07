@@ -1,10 +1,25 @@
-//
-//  FlashRuntimeExtensions.swift
-//  SwiftIOSANE
-//
-//  Created by Eoin Landy on 01/03/2017.
-//  Copyright © 2017 Tua Rua Ltd. All rights reserved.
-//
+/*@copyright The code is licensed under the[MIT
+ License](http://opensource.org/licenses/MIT):
+ 
+ Copyright © 2017 -  Tua Rua Ltd.
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files(the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions :
+ 
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.*/
 
 import Foundation
 
@@ -72,7 +87,7 @@ func FREGetObjectAsDouble(object: FREObject, value: inout Double) -> FREResult {
 }
 
 func FREGetObjectAsUTF8(object: FREObject, length: inout UInt32, value: inout String) -> FREResult {
-    var valuePtr: UnsafePointer<UInt8>? = nil
+    var valuePtr: UnsafePointer<UInt8>?
     let res: FREResult = FRESwiftBridge.bridge.FREGetObjectAsUTF8(object: object, length: &length, value: &valuePtr)
     value = (NSString(bytes: valuePtr!, length: Int(length), encoding: String.Encoding.utf8.rawValue) as? String)!
     return res
@@ -113,3 +128,10 @@ func FREDispatchStatusEventAsync(ctx: FREContext, code: String, level: String) -
     return FRESwiftBridge.bridge.FREDispatchStatusEventAsync(ctx: ctx, code: code, level: level)
 }
 
+func FREAcquireBitmapData2(object: FREObject, descriptorToSet: inout FREBitmapData2) -> FREResult {
+    return FRESwiftBridge.bridge.FREAcquireBitmapData2(object: object, descriptorToSet: &descriptorToSet)
+}
+
+func FREReleaseBitmapData(object: FREObject) -> FREResult{
+    return FRESwiftBridge.bridge.FREReleaseBitmapData(object: object)
+}

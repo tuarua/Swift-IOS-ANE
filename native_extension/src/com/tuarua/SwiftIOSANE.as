@@ -2,6 +2,7 @@
  * Created by User on 04/12/2016.
  */
 package com.tuarua {
+import flash.display.BitmapData;
 import flash.events.EventDispatcher;
 import flash.external.ExtensionContext;
 import flash.events.StatusEvent;
@@ -53,7 +54,9 @@ public class SwiftIOSANE extends EventDispatcher {
         return extensionContext.call("runObjectTests", value) as Person;
     }
 
-
+    public function runBitmapTests(bmd:BitmapData):void {
+        extensionContext.call("runBitmapTests", bmd);
+    }
 
     public function dispose():void {
         if (!extensionContext) {
