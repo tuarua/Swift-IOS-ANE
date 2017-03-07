@@ -2,6 +2,8 @@
 
 Example Xcode project showing how to programme Air Native Extensions for iOS using Swift.
 
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5UR2T52J633RC)
+
 This project contains a translation of FlashRuntimeExtensions to Swift.
 It is comprised of 2 parts.
 
