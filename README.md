@@ -31,7 +31,7 @@ static FRENamedFunction extensionFunctions[] = {
 
 
 SwiftIOSANE_FW/SwiftIOSANE_FW-Swift.h
-Add the methods to the header to expose to Swift 
+Add the method to the header to expose to Swift 
 
 ````objectivec
 - (FREObject _Nullable)runStringTestsWithArgv:(NSPointerArray *_Nullable)argv;
