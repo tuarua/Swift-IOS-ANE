@@ -131,7 +131,7 @@ FRE functions still to be implemented
 FREAcquireBitmapData()  
 ~~FREAcquireBitmapData2()~~  
 FREAcquireByteArray()  
-FRECallObjectMethod()  
+~~FRECallObjectMethod()~~  
 ~~FREDispatchStatusEventAsync()~~  
 ~~FREGetArrayElementAt()~~  
 ~~FREGetArrayLength()~~  
