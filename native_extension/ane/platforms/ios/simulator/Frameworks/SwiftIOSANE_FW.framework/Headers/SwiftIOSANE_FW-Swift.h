@@ -195,7 +195,7 @@ SWIFT_PROTOCOL("_TtC14SwiftIOSANE_FW22FRESwiftBridgeProtocol")
                                           level:(NSString *_Nonnull)level;
 
 - (FREResult)FREGetObjectTypeWithObject:(FREObject _Nullable)object
-                             objectType:(FREObjectType *_Nullable)objectType;//pointer baby
+                             objectType:(FREObjectType *_Nullable)objectType;//pointer
 
 - (FREResult)FRESetArrayElementAWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
                                             index:(uint32_t)index
@@ -210,6 +210,10 @@ SWIFT_PROTOCOL("_TtC14SwiftIOSANE_FW22FRESwiftBridgeProtocol")
 
 - (FREResult)FRESetArrayLengthWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
                                          length:(uint32_t)length;
+
+- (FREResult)FREAcquireBitmapData2WithObject:(FREObject _Nonnull)object descriptorToSet:(FREBitmapData2 *_Nullable)descriptorToSet;
+
+- (FREResult)FREReleaseBitmapDataWithObject:(FREObject _Nonnull)object;
 
 @end
 
@@ -234,6 +238,8 @@ SWIFT_CLASS("_TtC14SwiftIOSANE_FW15SwiftController")
 - (FREObject _Nullable)runArrayTestsWithArgv:(NSPointerArray *_Nullable)argv;
 
 - (FREObject _Nullable)runObjectTestsWithArgv:(NSPointerArray *_Nullable)argv;
+
+- (FREObject _Nullable)runBitmapTestsWithArgv:(NSPointerArray *_Nullable)argv;
 
 - (void)setFREContextWithCtx:(FREContext _Nonnull)ctx;
 

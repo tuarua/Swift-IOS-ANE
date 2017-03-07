@@ -1,10 +1,25 @@
-//
-//  SwiftController.swift
-//  SwiftIOSANE
-//
-//  Created by Eoin Landy on 18/02/2017.
-//  Copyright © 2017 Tua Rua Ltd. All rights reserved.
-//
+/*@copyright The code is licensed under the[MIT
+ License](http://opensource.org/licenses/MIT):
+ 
+ Copyright © 2017 -  Tua Rua Ltd.
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files(the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions :
+ 
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.*/
 
 import Foundation
 
@@ -65,10 +80,10 @@ import Foundation
         if let inFRE = argv.pointer(at: 0) {
 
             let airArray = aneHelper.getArray(arrayOrVector: inFRE)
-            trace("Array passed from AIR:", airArray!)
+            trace("Array passed from AIR:", airArray)
             trace("AIR Array length:", aneHelper.getArrayLength(arrayOrVector: inFRE))
 
-            var itemZero: FREObject? = nil
+            var itemZero: FREObject?
             let status: FREResult = FREGetArrayElementAt(arrayOrVector: inFRE, index: 0, value: &itemZero)
             aneHelper.traceObjectType(tag: "AIR Array elem at 0 type", object: itemZero)
 
@@ -112,6 +127,31 @@ import Foundation
         }
         return nil
 
+    }
+    
+    func runBitmapTests(argv: NSPointerArray) -> FREObject? {
+        trace("\n***********Start Bitmap test***********")
+        if let objectBitmapData = argv.pointer(at: 0) {
+            if let img = aneHelper.getImage(object: objectBitmapData) {
+                 trace("image loaded", img.size.width, "x", img.size.height)
+
+                if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+                    
+                    let imgView:UIImageView = UIImageView.init(image: img)
+                    let frame:CGRect = CGRect.init(x: 10, y: 100, width: img.size.width, height: img.size.height)
+                    imgView.frame = frame
+                    
+                    
+                    rootViewController.view.addSubview(imgView)
+                }
+                
+                
+            }
+            _ = FREReleaseBitmapData(object: objectBitmapData);
+            trace("bitmap test finish")
+            
+        }
+        return nil
     }
 
     func setFREContext(ctx: FREContext) {

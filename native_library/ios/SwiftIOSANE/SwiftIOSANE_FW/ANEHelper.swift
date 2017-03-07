@@ -1,10 +1,25 @@
-//
-//  ANEHelper.swift
-//  SwiftIOSANE
-//
-//  Created by Eoin Landy on 04/03/2017.
-//  Copyright © 2017 Tua Rua Ltd. All rights reserved.
-//
+/*@copyright The code is licensed under the[MIT
+ License](http://opensource.org/licenses/MIT):
+ 
+ Copyright © 2017 -  Tua Rua Ltd.
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files(the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions :
+ 
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.*/
 
 import Foundation
 
@@ -89,27 +104,27 @@ class ANEHelper {
         return 0
     }
 
-    func getArray(arrayOrVector: FREObject) -> Array<Any?>? {
+    func getArray(arrayOrVector: FREObject) -> Array<Any?> {
         var ret: [Any?] = []
         let arrayLength: UInt32 = getArrayLength(arrayOrVector: arrayOrVector)
         for i in 0 ..< arrayLength {
-            var elem: FREObject? = nil
+            var elem: FREObject?
             let status: FREResult = FREGetArrayElementAt(arrayOrVector: arrayOrVector, index: i, value: &elem)
             if FRE_OK == status && elem != nil {
-                let obj = self.getIdObject(object: elem!)
-                ret.append(obj)
+                if let obj = self.getIdObject(object: elem!) {
+                    ret.append(obj)
+                }
             }
         }
         return ret
     }
 
-
     func getDictionary(object: FREObject) -> Dictionary<String, AnyObject> {
         var ret: Dictionary = Dictionary<String, AnyObject>()
-        let aneUtils: FREObject = createFREObject(className: "com.tuarua.ANEUtils")!
-        if FRE_TYPE_NULL != getObjectType(object: aneUtils) {
-            var classProps: FREObject? = nil
-            var thrownException: FREObject? = nil
+        if let aneUtils = createFREObject(className: "com.tuarua.ANEUtils") {
+
+            var classProps: FREObject?
+            var thrownException: FREObject?
 
             let paramsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
             paramsArray.addPointer(object)
@@ -120,17 +135,16 @@ class ANEHelper {
             if FRE_OK == status {
                 let arrayLength = self.getArrayLength(arrayOrVector: classProps!)
                 for i in 0 ..< arrayLength {
-                    var elem: FREObject? = nil
+                    var elem: FREObject?
                     let status: FREResult = FREGetArrayElementAt(arrayOrVector: classProps!, index: i, value: &elem)
                     if FRE_OK == status && elem != nil {
                         let propName: String = getString(object: getProperty(object: elem!, name: "name")!) //TODO guard
                         //let propType:String = getString(getProperty(object: elem!, name: "type")!) //TODO guard
-                        let propVal: FREObject! = getProperty(object: object, name: propName)
+                        let propVal: FREObject? = getProperty(object: object, name: propName)
                         if FRE_TYPE_NULL == getObjectType(object: propVal) {
                             continue
                         }
-                        let propvalId = getIdObject(object: propVal)
-                        if (propvalId != nil) {
+                        if let propvalId = getIdObject(object: propVal!) {
                             ret.updateValue(propvalId as AnyObject, forKey: propName)
                         }
                     }
@@ -177,8 +191,8 @@ class ANEHelper {
 
     func createFREObject(className: String, params: Any...) -> FREObject? {
         let paramsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-        var ret: FREObject? = nil
-        var thrownException: FREObject? = nil
+        var ret: FREObject?
+        var thrownException: FREObject?
 
         for i in 0 ..< params.count {
             let param: FREObject? = getFREObject(any: params[i])
@@ -197,7 +211,7 @@ class ANEHelper {
 
 
     func getFREObject(string: String) -> FREObject? {
-        var ret: FREObject? = nil
+        var ret: FREObject?
         let status: FREResult = FRENewObjectFromUTF8(length: UInt32(string.utf8.count), value: string, object: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert String to FREObject.") {
             return ret
@@ -206,7 +220,7 @@ class ANEHelper {
     }
 
     func getFREObject(double: Double) -> FREObject? {
-        var ret: FREObject? = nil
+        var ret: FREObject?
         let status: FREResult = FRENewObjectFromDouble(value: double, object: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Double to FREObject.") {
             return ret
@@ -215,7 +229,7 @@ class ANEHelper {
     }
 
     func getFREObject(int: Int) -> FREObject? {
-        var ret: FREObject? = nil
+        var ret: FREObject?
         let status: FREResult = FRENewObjectFromInt32(value: Int32(int), object: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Int32 to FREObject.") {
             return ret
@@ -224,7 +238,7 @@ class ANEHelper {
     }
 
     func getFREObject(int32: Int32) -> FREObject? {
-        var ret: FREObject? = nil
+        var ret: FREObject?
         let status: FREResult = FRENewObjectFromInt32(value: int32, object: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Int32 to FREObject.") {
             return ret
@@ -233,7 +247,7 @@ class ANEHelper {
     }
 
     func getFREObject(uint: UInt) -> FREObject? {
-        var ret: FREObject? = nil
+        var ret: FREObject?
         let status: FREResult = FRENewObjectFromUint32(value: UInt32(uint), object: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Uint to FREObject.") {
             return ret
@@ -243,7 +257,7 @@ class ANEHelper {
     }
 
     func getFREObject(uint32: UInt32) -> FREObject? {
-        var ret: FREObject? = nil
+        var ret: FREObject?
         let status: FREResult = FRENewObjectFromUint32(value: uint32, object: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Uint to FREObject.") {
             return ret
@@ -252,7 +266,7 @@ class ANEHelper {
     }
 
     func getFREObject(bool: Bool) -> FREObject? {
-        var ret: FREObject? = nil
+        var ret: FREObject?
         let status: FREResult = FRENewObjectFromBool(value: bool, object: &ret)
         if isFREResultOK(errorCode: status, errorMessage: "Could not convert Bool to FREObject.") {
             return ret
@@ -261,7 +275,6 @@ class ANEHelper {
     }
 
     func getFREObject(any: Any) -> FREObject? {
-        let ret: FREObject? = nil
         if any is String {
             return getFREObject(string: any as! String)
         } else if any is Int {
@@ -277,7 +290,7 @@ class ANEHelper {
         } else if any is Bool {
             return getFREObject(bool: any as! Bool)
         } //TODO add Dict and others
-        return ret
+        return nil
     }
 
     private func hasThrownException(thrownException: FREObject?) -> Bool {
@@ -292,8 +305,8 @@ class ANEHelper {
         }
 
         if FRE_TYPE_OBJECT == objectType {
-            var exceptionTextAS: FREObject? = nil
-            var newException: FREObject? = nil
+            var exceptionTextAS: FREObject?
+            var newException: FREObject?
             if FRE_OK != FRECallObjectMethod(object: thrownException!, methodName: "toString", argc: 0,
                     argv: nil, result: &exceptionTextAS, thrownException: &newException) {
                 trace("Exception was thrown, but failed to obtain information about it")
@@ -307,8 +320,8 @@ class ANEHelper {
 
     func call(object: FREObject, methodName: String, params: Any...) -> FREObject? {
         let paramsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-        var ret: FREObject? = nil
-        var thrownException: FREObject? = nil
+        var ret: FREObject?
+        var thrownException: FREObject?
         for i in 0 ..< params.count {
             let param: FREObject? = getFREObject(any: params[i])
             paramsArray.addPointer(param)
@@ -326,7 +339,7 @@ class ANEHelper {
     }
 
     func setProperty(object: FREObject, name: String, prop: FREObject) {
-        var thrownException: FREObject? = nil
+        var thrownException: FREObject?
         let status: FREResult = FRESetObjectProperty(object: object, propertyName: name,
                 propertyValue: prop, thrownException: &thrownException)
 
@@ -339,8 +352,8 @@ class ANEHelper {
     }
 
     func getProperty(object: FREObject, name: String) -> FREObject? {
-        var ret: FREObject? = nil
-        var thrownException: FREObject? = nil
+        var ret: FREObject?
+        var thrownException: FREObject?
         let status: FREResult = FREGetObjectProperty(object: object, propertyName: name, propertyValue: &ret,
                 thrownException: &thrownException)
         if isFREResultOK(errorCode: status, errorMessage: "Could not get FREObject property \(name).") {
@@ -357,6 +370,60 @@ class ANEHelper {
         return objectType
     }
 
+    public func getImage(object: FREObject) -> UIImage? {
+        var bitmapData: FREBitmapData2 = FREBitmapData2();
+        let status: FREResult = FREAcquireBitmapData2(object: object, descriptorToSet: &bitmapData)
+
+        if FRE_OK != status {
+            return nil
+        }
+
+        //http://stackoverflow.com/questions/8524388/ane-ios-and-bitmapdata
+        let width: Int = Int(bitmapData.width);
+        let height: Int = Int(bitmapData.height);
+
+        let releaseProvider: CGDataProviderReleaseDataCallback = { (info: UnsafeMutableRawPointer?,
+                                                                    data: UnsafeRawPointer, size: Int) -> () in
+            // https://developer.apple.com/reference/coregraphics/cgdataproviderreleasedatacallback
+            // N.B. 'CGDataProviderRelease' is unavailable: Core Foundation objects are automatically memory managed
+            return
+        }
+
+        let provider: CGDataProvider = CGDataProvider(dataInfo: nil, data: bitmapData.bits32, size: (width * height * 4),
+                releaseData: releaseProvider)!
+
+
+        let bitsPerComponent = 8;
+        let bitsPerPixel = 32;
+        let bytesPerRow: Int = 4 * width;
+        let colorSpaceRef: CGColorSpace = CGColorSpaceCreateDeviceRGB();
+        var bitmapInfo: CGBitmapInfo
+
+        if bitmapData.hasAlpha == 1 {
+            if bitmapData.isPremultiplied == 1 {
+                bitmapInfo = CGBitmapInfo.init(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
+                        CGImageAlphaInfo.premultipliedFirst.rawValue)
+                
+            } else {
+                bitmapInfo = CGBitmapInfo.init(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
+                        CGImageAlphaInfo.first.rawValue)
+            }
+        } else {
+            bitmapInfo = CGBitmapInfo.init(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
+                    CGImageAlphaInfo.noneSkipFirst.rawValue)
+        }
+
+        let renderingIntent: CGColorRenderingIntent = CGColorRenderingIntent.defaultIntent;
+        let imageRef: CGImage = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent,
+                bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow, space: colorSpaceRef,
+                bitmapInfo: bitmapInfo, provider: provider, decode: nil, shouldInterpolate: false,
+                intent: renderingIntent)!;
+
+        return UIImage(cgImage: imageRef)
+#if os(iOS)
+#endif
+    }
+
     private func isFREResultOK(errorCode: FREResult, errorMessage: String) -> Bool {
         if FRE_OK == errorCode {
             return true
@@ -371,7 +438,7 @@ class ANEHelper {
             let params: NSPointerArray = NSPointerArray(options: .opaqueMemory)
             params.addPointer(object)
 
-            var classType: FREObject? = nil
+            var classType: FREObject?
             let status: FREResult = FRECallObjectMethod(object: aneUtils!, methodName: "getClassType",
                     argc: 1, argv: params, result: &classType, thrownException: nil)
             if FRE_OK == status {
@@ -426,6 +493,7 @@ class ANEHelper {
             break
         default:
             trace("")
+            break
         }
     }
 
@@ -472,7 +540,14 @@ class ANEHelper {
         case FRE_TYPE_NULL:
             trace(tag, "FRE_TYPE_NULL")
             break
+        case FRE_TYPE_BITMAPDATA:
+            trace(tag, "FRE_TYPE_BITMAPDATA")
+            break
+        case FRE_TYPE_BYTEARRAY:
+            trace(tag, "FRE_TYPE_BYTEARRAY")
+            break
         default:
+            trace(tag, "UNKNOWN")
             break
         }
     }

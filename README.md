@@ -11,6 +11,42 @@ It is comprised of 2 parts.
 > To allow FRE functions to be called from within Swift, a protocol acting 
 > as a bridge back to Objective C ,was used.
 
+SwiftIOSANE_LIB/SwiftIOSANE_LIB.mm is the entry point of the ANE. It acts as a thin layered API to your Swift controller.  
+Add methods here like you would an ObjC based ANE  
+eg
+
+````objectivec
+
+FRE_FUNCTION (runStringTests) {
+return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
+}
+...
+
+static FRENamedFunction extensionFunctions[] = {
+{(const uint8_t *) "runStringTests", NULL, &runStringTests}
+}
+`````
+
+
+SwiftIOSANE_FW/SwiftIOSANE_FW-Swift.h
+Add the methods to the header to expose to Swift 
+
+````objectivec
+- (FREObject _Nullable)runStringTestsWithArgv:(NSPointerArray *_Nullable)argv;
+`````
+
+
+SwiftIOSANE_FW/SwiftController.swift  
+Add Swift method  
+
+````swift
+func runStringTests(argv: NSPointerArray) -> FREObject? {
+if let inFRE = argv.pointer(at: 0) {
+}
+}
+`````
+
+
 ----------
 
 ### How to use
@@ -90,35 +126,35 @@ You will need
 The code is likely to change as I tidy and improve things especially guard checks on optionals
 
 ### TODO
-Methods marked in bold are **IMPLEMENTED**
+Methods marked still to be implemented
 
 FREAcquireBitmapData()  
-FREAcquireBitmapData2()  
+~~FREAcquireBitmapData2()~~
 FREAcquireByteArray()  
-**FRECallObjectMethod()**  
-**FREDispatchStatusEventAsync()**  
-**FREGetArrayElementAt()**  
-**FREGetArrayLength()**  
+FRECallObjectMethod()  
+~~FREDispatchStatusEventAsync()~~  
+~~FREGetArrayElementAt()~~  
+~~FREGetArrayLength()~~  
 FREGetContextActionScriptData()  
 FREGetContextNativeData()  
-**FREGetObjectAsBool()**  
-**FREGetObjectAsDouble()**  
-**FREGetObjectAsInt32()**  
-**FREGetObjectAsUint32()**  
-**FREGetObjectAsUTF8()**  
-**FREGetObjectProperty()**  
-**FREGetObjectType()**  
+~~FREGetObjectAsBool()~~  
+~~FREGetObjectAsDouble()~~  
+~~FREGetObjectAsInt32()~~  
+~~FREGetObjectAsUint32()~~  
+~~FREGetObjectAsUTF8()~~  
+~~FREGetObjectProperty()~~  
+~~FREGetObjectType()~~  
 FREInvalidateBitmapDataRect()  
-**FRENewObject()**  
-**FRENewObjectFromBool()**  
-**FRENewObjectFromDouble()**  
-**FRENewObjectFromInt32()**  
-**FRENewObjectFromUint32()**  
-**FRENewObjectFromUTF8()**  
-FREReleaseBitmapData()  
+~~FRENewObject()~~  
+~~FRENewObjectFromBool()~~  
+~~FRENewObjectFromDouble()~~  
+~~FRENewObjectFromInt32()~~  
+~~FRENewObjectFromUint32()~~  
+~~FRENewObjectFromUTF8()~~  
+~~FREReleaseBitmapData()~~  
 FREReleaseByteArray()  
-**FRESetArrayElementAt()**  
-**FRESetArrayLength()**  
+~~FRESetArrayElementAt()~~  
+~~FRESetArrayLength()~~  
 FRESetContextActionScriptData()  
 FRESetContextNativeData()  
-**FRESetObjectProperty()**
+~~FRESetObjectProperty()~~
