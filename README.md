@@ -126,10 +126,10 @@ You will need
 The code is likely to change as I tidy and improve things especially guard checks on optionals
 
 ### TODO
-Methods marked still to be implemented
+FRE functions still to be implemented
 
 FREAcquireBitmapData()  
-~~FREAcquireBitmapData2()~~
+~~FREAcquireBitmapData2()~~  
 FREAcquireByteArray()  
 FRECallObjectMethod()  
 ~~FREDispatchStatusEventAsync()~~  
