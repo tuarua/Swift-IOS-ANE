@@ -20,12 +20,12 @@ eg
 ````objectivec
 
 FRE_FUNCTION (runStringTests) {
-return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
+    return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
 }
 ...
 
 static FRENamedFunction extensionFunctions[] = {
-{(const uint8_t *) "runStringTests", NULL, &runStringTests}
+    {(const uint8_t *) "runStringTests", NULL, &runStringTests}
 }
 `````
 
@@ -43,8 +43,9 @@ Add Swift method
 
 ````swift
 func runStringTests(argv: NSPointerArray) -> FREObject? {
-if let inFRE = argv.pointer(at: 0) {
-}
+    if let inFRE = argv.pointer(at: 0) {
+        //code
+    }
 }
 `````
 
@@ -59,8 +60,8 @@ var swiftString: String = ""
 var len: UInt32 = 0
 let status: FREResult = FREGetObjectAsUTF8(object: object, length: &len, value: &swiftString)
 
-var airString: FREObject? = nil
-let status: FREResult = FRENewObjectFromUTF8(length: UInt32(string.utf8.count), value: ret, object: &freObject);
+var airString: FREObject?
+let status: FREResult = FRENewObjectFromUTF8(length: UInt32(string.utf8.count), value: ret, object: &airString);
 `````
 
 Example - Converting a FREObject into a String the easy way, using ANEHelper.swift
@@ -76,13 +77,13 @@ Example - call a method on an FREObject
 
 ````swift
 let paramsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-var addition: FREObject? = nil
-var thrownException: FREObject? = nil
+var addition: FREObject?
+var thrownException: FREObject?
 
-var param1: FREObject? = nil
+var param1: FREObject?
 _ = FRENewObjectFromInt32(value: 100, object: &param1)
 
-var param2: FREObject? = nil
+var param2: FREObject?
 _ = FRENewObjectFromInt32(value: 33, object: &param2)
 
 paramsArray.addPointer(param1)
@@ -93,7 +94,7 @@ let status: FREResult = FRECallObjectMethod(object: myClass, methodName: "add",
     thrownException: &thrownException)
 `````
 
-Example - call a method on an FREObject the (very) easy way, using ANEHelper.swift
+Example - call a method on a FREObject the (very) easy way, using ANEHelper.swift
 ````swift
 let addition: FREObject? = aneHelper.call(object: myClass, methodName: "add", params: 100, 33)
 `````
