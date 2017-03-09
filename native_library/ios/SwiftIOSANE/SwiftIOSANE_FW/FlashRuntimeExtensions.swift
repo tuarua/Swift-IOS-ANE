@@ -128,10 +128,45 @@ func FREDispatchStatusEventAsync(ctx: FREContext, code: String, level: String) -
     return FRESwiftBridge.bridge.FREDispatchStatusEventAsync(ctx: ctx, code: code, level: level)
 }
 
+func FREAcquireBitmapData(object: FREObject, descriptorToSet: inout FREBitmapData) -> FREResult {
+    return FRESwiftBridge.bridge.FREAcquireBitmapData(object: object, descriptorToSet: &descriptorToSet)
+}
+
 func FREAcquireBitmapData2(object: FREObject, descriptorToSet: inout FREBitmapData2) -> FREResult {
     return FRESwiftBridge.bridge.FREAcquireBitmapData2(object: object, descriptorToSet: &descriptorToSet)
 }
 
-func FREReleaseBitmapData(object: FREObject) -> FREResult{
+func FREReleaseBitmapData(object: FREObject) -> FREResult {
     return FRESwiftBridge.bridge.FREReleaseBitmapData(object: object)
 }
+
+func FREAcquireByteArray(object: FREObject, byteArrayToSet: inout FREByteArray) -> FREResult {
+    return FRESwiftBridge.bridge.FREAcquireByteArray(object: object, byteArrayToSet: &byteArrayToSet)
+}
+
+func FREReleaseByteArray(object: FREObject) -> FREResult {
+    return FRESwiftBridge.bridge.FREReleaseByteArray(object: object)
+}
+
+func FRESetContextActionScriptData(ctx: FREContext, actionScriptData: FREObject) -> FREResult {
+    return FRESwiftBridge.bridge.FRESetContextActionScriptData(ctx: ctx, actionScriptData: actionScriptData)
+}
+
+func FREGetContextActionScriptData(ctx: FREContext, actionScriptData: FREObject) -> FREResult {
+    return FRESwiftBridge.bridge.FREGetContextActionScriptData(ctx: ctx, actionScriptData: actionScriptData)
+}
+
+func FREInvalidateBitmapDataRect(object: FREObject, x: UInt32, y: UInt32, width: UInt32, height: UInt32) -> FREResult {
+    return FRESwiftBridge.bridge.FREInvalidateBitmapDataRect(object: object, x: x, y: y, width: width, height: height)
+}
+
+func FRESetContextNativeData(ctx: FREContext, nativeData: UnsafeRawPointer) -> FREResult {
+    return FRESwiftBridge.bridge.FRESetContextNativeData(ctx: ctx, nativeData: nativeData)
+}
+
+func FREGetContextNativeData(ctx: FREContext, nativeData: UnsafeMutablePointer<UnsafeRawPointer>) -> FREResult {
+    return FRESwiftBridge.bridge.FREGetContextNativeData(ctx: ctx, nativeData: nativeData)
+}
+
+
+

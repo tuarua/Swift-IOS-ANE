@@ -21,13 +21,11 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.*/
 
-#import <Foundation/Foundation.h>
 /*
  * This is your Swift header, interop methods are defined in here
  */
-#import "SwiftIOSANE_FW-Swift.h"
+#import <Foundation/Foundation.h>
 #import <SwiftIOSANE_FW/FlashRuntimeExtensions.h>
-
+#import "SwiftIOSANE_FW-Swift.h"
 @interface FlashRuntimeExtensionsBridge : NSObject<FRESwiftBridgeProtocol>
-
 @end

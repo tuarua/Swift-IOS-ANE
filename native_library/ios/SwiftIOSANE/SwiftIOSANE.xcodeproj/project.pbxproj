@@ -10,7 +10,7 @@
 		285FE253D149F6E890CC1F22 /* FlashRuntimeExtensionsBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 285FE1CF3D12BF37EF4C6440 /* FlashRuntimeExtensionsBridge.h */; };
 		285FE346E7DA19FEB30A1C5E /* FlashRuntimeExtensionsBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 285FEC93B40FBCDF5C7C0984 /* FlashRuntimeExtensionsBridge.m */; };
 		285FE3EB871F2DD420623AEE /* SwiftIOSANE_LIB.h in Headers */ = {isa = PBXBuildFile; fileRef = 285FEBB3CADF8D704FAB5E4D /* SwiftIOSANE_LIB.h */; };
-		285FECB67C2311471C2CD119 /* SwiftIOSANE_LIB.mm in Sources */ = {isa = PBXBuildFile; fileRef = 285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.mm */; };
+		285FECB67C2311471C2CD119 /* SwiftIOSANE_LIB.m in Sources */ = {isa = PBXBuildFile; fileRef = 285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.m */; };
 		CE1B450A1E678DCA00B9FB1B /* FlashRuntimeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B45091E678DCA00B9FB1B /* FlashRuntimeExtensions.swift */; };
 		CE1B450C1E678FE800B9FB1B /* FRESwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B450B1E678FE800B9FB1B /* FRESwiftBridge.swift */; };
 		CE29D3781E6B567B0088A2F3 /* ANEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29D3771E6B567B0088A2F3 /* ANEHelper.swift */; };
@@ -45,7 +45,7 @@
 
 /* Begin PBXFileReference section */
 		285FE1CF3D12BF37EF4C6440 /* FlashRuntimeExtensionsBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashRuntimeExtensionsBridge.h; sourceTree = "<group>"; };
-		285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SwiftIOSANE_LIB.mm; sourceTree = "<group>"; };
+		285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwiftIOSANE_LIB.m; sourceTree = "<group>"; };
 		285FEBB3CADF8D704FAB5E4D /* SwiftIOSANE_LIB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftIOSANE_LIB.h; sourceTree = "<group>"; };
 		285FEC93B40FBCDF5C7C0984 /* FlashRuntimeExtensionsBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashRuntimeExtensionsBridge.m; sourceTree = "<group>"; };
 		CE1B45091E678DCA00B9FB1B /* FlashRuntimeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashRuntimeExtensions.swift; sourceTree = "<group>"; };
@@ -57,7 +57,6 @@
 		CE3980971E58BB070062485B /* SwiftController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftController.swift; sourceTree = "<group>"; };
 		CE3980991E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftIOSANE_FW-Swift.h"; sourceTree = "<group>"; };
 		CE39809F1E58BEE10062485B /* libSwiftIOSANE_LIB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSwiftIOSANE_LIB.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE3980AA1E58BEFE0062485B /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashRuntimeExtensions.h; sourceTree = "<group>"; };
 		CEE50E5C1E66468200ACD127 /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashRuntimeExtensions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,21 +115,12 @@
 		CE3980A01E58BEE10062485B /* SwiftIOSANE_LIB */ = {
 			isa = PBXGroup;
 			children = (
-				CE3980AC1E58BF030062485B /* misc */,
-				285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.mm */,
+				285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.m */,
 				285FEBB3CADF8D704FAB5E4D /* SwiftIOSANE_LIB.h */,
 				285FEC93B40FBCDF5C7C0984 /* FlashRuntimeExtensionsBridge.m */,
 				285FE1CF3D12BF37EF4C6440 /* FlashRuntimeExtensionsBridge.h */,
 			);
 			path = SwiftIOSANE_LIB;
-			sourceTree = "<group>";
-		};
-		CE3980AC1E58BF030062485B /* misc */ = {
-			isa = PBXGroup;
-			children = (
-				CE3980AA1E58BEFE0062485B /* FlashRuntimeExtensions.h */,
-			);
-			name = misc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,9 +130,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE50E5D1E66468200ACD127 /* FlashRuntimeExtensions.h in Headers */,
 				CE39809A1E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h in Headers */,
 				CE39808E1E58BAA90062485B /* SwiftIOSANE_FW.h in Headers */,
-				CEE50E5D1E66468200ACD127 /* FlashRuntimeExtensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				285FECB67C2311471C2CD119 /* SwiftIOSANE_LIB.mm in Sources */,
+				285FECB67C2311471C2CD119 /* SwiftIOSANE_LIB.m in Sources */,
 				285FE346E7DA19FEB30A1C5E /* FlashRuntimeExtensionsBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

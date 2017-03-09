@@ -15,6 +15,7 @@ import flash.net.URLRequest;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
+import flash.utils.ByteArray;
 
 public class Main extends Sprite {
     private var ane:SwiftIOSANE = new SwiftIOSANE();
@@ -67,6 +68,16 @@ public class Main extends Sprite {
             var bmp:Bitmap = ldr.content as Bitmap;
             ane.runBitmapTests(bmp.bitmapData);
         }
+
+
+        var myByteArray:ByteArray = new ByteArray();
+        myByteArray.writeUTFBytes("Swift in an ANE. Say whaaaat!");
+        ane.runByteArrayTests(myByteArray);
+
+
+        var inData:String = "Saved and returned";
+        var outData:String = ane.runDataTests(inData) as String;
+        textField.text += outData + "\n";
 
         addChild(textField);
     }

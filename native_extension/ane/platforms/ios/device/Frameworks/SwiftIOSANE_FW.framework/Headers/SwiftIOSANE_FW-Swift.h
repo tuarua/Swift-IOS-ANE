@@ -241,6 +241,8 @@ SWIFT_CLASS("_TtC14SwiftIOSANE_FW15SwiftController")
 
 - (FREObject _Nullable)runBitmapTestsWithArgv:(NSPointerArray *_Nullable)argv;
 
+- (FREObject _Nullable)runByteArrayTestsWithArgv:(NSPointerArray *_Nullable)argv;
+
 - (void)setFREContextWithCtx:(FREContext _Nonnull)ctx;
 
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;

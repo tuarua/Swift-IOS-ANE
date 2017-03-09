@@ -50,11 +50,11 @@
 		</data>
 		<key>Headers/SwiftIOSANE_FW-Swift.h</key>
 		<data>
-		L0aPwYs8Jz5BoROI7z3k/3NHYKo=
+		SGwpq0EN7cHqvgv6HF95xrd+KJg=
 		</data>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<data>
-		1q2CThgXaE0gA2gVCCtNuRZPr9E=
+		0etM9V1ERYbVfaus3KqdlZg/AmE=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/i386.swiftmodule</key>
 		<data>
-		mBOsjIPnfMk1eZP/2xk395JDcc4=
+		1eYbewpxHiNI4hAAi/DvODBglLU=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		iMKr7letZZWm5jw+sGexLNTEG50=
+		aiQ+jDoJVsehaM/eooizVPWSk6Q=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -201,22 +201,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			L0aPwYs8Jz5BoROI7z3k/3NHYKo=
+			SGwpq0EN7cHqvgv6HF95xrd+KJg=
 			</data>
 			<key>hash2</key>
 			<data>
-			arOseQEjrkViErL48XfaQqPDSct6tmaXC3VUHQcNFcM=
+			SDMs49zzkpqn/VGzKzlsXeDY/+cubG/ZpnmjfH6FdgU=
 			</data>
 		</dict>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1q2CThgXaE0gA2gVCCtNuRZPr9E=
+			0etM9V1ERYbVfaus3KqdlZg/AmE=
 			</data>
 			<key>hash2</key>
 			<data>
-			XjWZoua9aGdv26+GMQ3oDSlid/f4Oo7tR5892HZ11Mg=
+			0OeQbG0wO+FHvWCBTEN7PhpX70DaVioJkAuxjYzqiyk=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/i386.swiftdoc</key>
@@ -234,11 +234,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mBOsjIPnfMk1eZP/2xk395JDcc4=
+			1eYbewpxHiNI4hAAi/DvODBglLU=
 			</data>
 			<key>hash2</key>
 			<data>
-			dcTeVhn+JeDeB3S4eA2WDMmvGf3ML3CdG6qc3jI1PzM=
+			IvLxaDaAZwgW94UG+vzGDaIqmpb6HK+df07zzvoii1k=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftdoc</key>
@@ -256,11 +256,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			iMKr7letZZWm5jw+sGexLNTEG50=
+			aiQ+jDoJVsehaM/eooizVPWSk6Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			Km9cjgwLjljHGRyJeWkWOr/LE/BW0tDlfezKxEiRmOM=
+			iro4BC1AtUP8uC+zMF4CsvttWtdgaJXlRfN1idENtfw=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

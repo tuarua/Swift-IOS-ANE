@@ -64,9 +64,26 @@ import Foundation
 
     func FRESetArrayLength(arrayOrVector: FREObject, length: UInt32) -> FREResult
 
+    func FREAcquireBitmapData(object: FREObject, descriptorToSet: UnsafeMutablePointer<FREBitmapData>) -> FREResult
+    
     func FREAcquireBitmapData2(object: FREObject, descriptorToSet: UnsafeMutablePointer<FREBitmapData2>) -> FREResult
-
+    
     func FREReleaseBitmapData(object: FREObject) -> FREResult
+    
+    func FREAcquireByteArray(object: FREObject, byteArrayToSet: UnsafeMutablePointer<FREByteArray>) -> FREResult
+
+    func FREReleaseByteArray(object: FREObject) -> FREResult
+
+    func FRESetContextActionScriptData(ctx: FREContext, actionScriptData: FREObject) -> FREResult
+    
+    func FREGetContextActionScriptData(ctx: FREContext, actionScriptData: FREObject) -> FREResult
+    
+    func FREInvalidateBitmapDataRect(object: FREObject, x:UInt32, y:UInt32, width:UInt32, height:UInt32) -> FREResult
+    
+    func FRESetContextNativeData(ctx: FREContext, nativeData: UnsafeRawPointer) -> FREResult
+    
+    func FREGetContextNativeData(ctx: FREContext, nativeData: UnsafeMutablePointer<UnsafeRawPointer>) -> FREResult
+
 }
 
 @objc class FRESwiftBridge: NSObject {

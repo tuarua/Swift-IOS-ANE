@@ -27,12 +27,17 @@ class ANEHelper {
     private var dllContext: FREContext!
 
     enum FREObjectType2: UInt32 {
-        case FRE_TYPE_INT = 0
+        case FRE_TYPE_OBJECT = 0
         case FRE_TYPE_NUMBER = 1
-        case FRE_TYPE_NULL = 2
-        case FRE_TYPE_BOOLEAN = 3
-        case FRE_TYPE_STRING = 4
-        case FRE_TYPE_CUSTOM = 5
+        case FRE_TYPE_STRING = 2
+        case FRE_TYPE_BYTEARRAY = 3
+        case FRE_TYPE_ARRAY = 4
+        case FRE_TYPE_VECTOR = 5
+        case FRE_TYPE_BITMAPDATA = 6
+        case FRE_TYPE_BOOLEAN = 7
+        case FRE_TYPE_NULL = 8
+        case FRE_TYPE_INT = 9
+        case FRE_TYPE_CUSTOM = 10
     }
 
     func setFREContext(ctx: FREContext) {
@@ -137,7 +142,7 @@ class ANEHelper {
                 for i in 0 ..< arrayLength {
                     var elem: FREObject?
                     let status: FREResult = FREGetArrayElementAt(arrayOrVector: classProps!, index: i, value: &elem)
-                    if FRE_OK == status && elem != nil {
+                    if FRE_OK == status {
                         let propName: String = getString(object: getProperty(object: elem!, name: "name")!) //TODO guard
                         //let propType:String = getString(getProperty(object: elem!, name: "type")!) //TODO guard
                         let propVal: FREObject? = getProperty(object: object, name: propName)
@@ -178,9 +183,9 @@ class ANEHelper {
                 return getDouble(object: object)
             }
         case FRE_TYPE_BITMAPDATA:
-            return nil //TODO
+            return getImage(object: object)
         case FRE_TYPE_BYTEARRAY:
-            return nil //TODO
+            return getData(byteArray: object)
         case FRE_TYPE_NULL:
             return nil
         default:
@@ -206,7 +211,6 @@ class ANEHelper {
         }
         _ = hasThrownException(thrownException: thrownException!)
         return nil
-
     }
 
 
@@ -370,7 +374,16 @@ class ANEHelper {
         return objectType
     }
 
-    public func getImage(object: FREObject) -> UIImage? {
+    func getData(byteArray: FREObject) -> NSData? {
+        var ret: FREByteArray = FREByteArray()
+        let status:FREResult = FREAcquireByteArray(object: byteArray, byteArrayToSet: &ret)
+        if FRE_OK == status {
+            return NSData.init(bytes: ret.bytes, length: Int(ret.length))
+        }
+        return nil
+    }
+
+    func getImage(object: FREObject) -> UIImage? {
         var bitmapData: FREBitmapData2 = FREBitmapData2();
         let status: FREResult = FREAcquireBitmapData2(object: object, descriptorToSet: &bitmapData)
 
@@ -551,6 +564,8 @@ class ANEHelper {
             break
         }
     }
+
+
 
 
 }
