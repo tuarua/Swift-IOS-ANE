@@ -6,6 +6,7 @@ import flash.display.BitmapData;
 import flash.events.EventDispatcher;
 import flash.external.ExtensionContext;
 import flash.events.StatusEvent;
+import flash.utils.ByteArray;
 
 public class SwiftIOSANE extends EventDispatcher {
     private var extensionContext:ExtensionContext;
@@ -56,6 +57,14 @@ public class SwiftIOSANE extends EventDispatcher {
 
     public function runBitmapTests(bmd:BitmapData):void {
         extensionContext.call("runBitmapTests", bmd);
+    }
+
+    public function runByteArrayTests(byteArray:ByteArray):void {
+        extensionContext.call("runByteArrayTests", byteArray);
+    }
+
+    public function runDataTests(value:String):String {
+        return extensionContext.call("runDataTests", value) as String;
     }
 
     public function dispose():void {

@@ -50,11 +50,11 @@
 		</data>
 		<key>Headers/SwiftIOSANE_FW-Swift.h</key>
 		<data>
-		L0aPwYs8Jz5BoROI7z3k/3NHYKo=
+		1ABZdFhJKSOqpmgpv6IUA4mMQjA=
 		</data>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<data>
-		1q2CThgXaE0gA2gVCCtNuRZPr9E=
+		0etM9V1ERYbVfaus3KqdlZg/AmE=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftmodule</key>
 		<data>
-		xHlcVF/LtotUc+5p1o0Wd/6IZIo=
+		K/BhlWcggzJ/D1oeWtpsufgOCAc=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		Oe7A65eDMOJC90mEF0TaUR7d/ts=
+		19XftgOosehCTGkjhsisyN6Usrk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -201,22 +201,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			L0aPwYs8Jz5BoROI7z3k/3NHYKo=
+			1ABZdFhJKSOqpmgpv6IUA4mMQjA=
 			</data>
 			<key>hash2</key>
 			<data>
-			arOseQEjrkViErL48XfaQqPDSct6tmaXC3VUHQcNFcM=
+			mmwvpVb39Ev4ggjfBLu1rilFyCL8Xf7pK/xiuXgLAtw=
 			</data>
 		</dict>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1q2CThgXaE0gA2gVCCtNuRZPr9E=
+			0etM9V1ERYbVfaus3KqdlZg/AmE=
 			</data>
 			<key>hash2</key>
 			<data>
-			XjWZoua9aGdv26+GMQ3oDSlid/f4Oo7tR5892HZ11Mg=
+			0OeQbG0wO+FHvWCBTEN7PhpX70DaVioJkAuxjYzqiyk=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftdoc</key>
@@ -234,11 +234,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xHlcVF/LtotUc+5p1o0Wd/6IZIo=
+			K/BhlWcggzJ/D1oeWtpsufgOCAc=
 			</data>
 			<key>hash2</key>
 			<data>
-			27V5mxgQXemjETp1LcAwuu1nINy9fWUgTOjRhDEakzQ=
+			IgBBQYL218gAFbyOr/i6uXt7qzDwg87XxfSiUoB0CUI=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftdoc</key>
@@ -256,11 +256,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Oe7A65eDMOJC90mEF0TaUR7d/ts=
+			19XftgOosehCTGkjhsisyN6Usrk=
 			</data>
 			<key>hash2</key>
 			<data>
-			n2gm1vqZglhxeZ1LYAKgDffvFxiqJ1nhra+A+eLTyJs=
+			CO5iMvlZhXc58RRaWGaFpwFC7tTxfvCdN4dBXVhZEDw=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -13,7 +13,7 @@ It is comprised of 2 parts.
 > To allow FRE functions to be called from within Swift, a protocol acting 
 > as a bridge back to Objective C ,was used.
 
-SwiftIOSANE_LIB/SwiftIOSANE_LIB.mm is the entry point of the ANE. It acts as a thin layered API to your Swift controller.  
+SwiftIOSANE_LIB/SwiftIOSANE_LIB.m is the entry point of the ANE. It acts as a thin layered API to your Swift controller.  
 Add methods here like you would an ObjC based ANE  
 eg
 
@@ -61,7 +61,7 @@ var len: UInt32 = 0
 let status: FREResult = FREGetObjectAsUTF8(object: object, length: &len, value: &swiftString)
 
 var airString: FREObject?
-let status: FREResult = FRENewObjectFromUTF8(length: UInt32(string.utf8.count), value: ret, object: &airString);
+let status: FREResult = FRENewObjectFromUTF8(length: UInt32(swiftString.utf8.count), value: ret, object: &airString);
 `````
 
 Example - Converting a FREObject into a String the easy way, using ANEHelper.swift
@@ -125,39 +125,3 @@ You will need
 - IntelliJ IDEA
 - AIR 25 Beta SDK
 
-### NOTES
-The code is likely to change as I tidy and improve things especially guard checks on optionals
-
-### TODO
-FRE functions still to be implemented
-
-FREAcquireBitmapData()  
-~~FREAcquireBitmapData2()~~  
-FREAcquireByteArray()  
-~~FRECallObjectMethod()~~  
-~~FREDispatchStatusEventAsync()~~  
-~~FREGetArrayElementAt()~~  
-~~FREGetArrayLength()~~  
-FREGetContextActionScriptData()  
-FREGetContextNativeData()  
-~~FREGetObjectAsBool()~~  
-~~FREGetObjectAsDouble()~~  
-~~FREGetObjectAsInt32()~~  
-~~FREGetObjectAsUint32()~~  
-~~FREGetObjectAsUTF8()~~  
-~~FREGetObjectProperty()~~  
-~~FREGetObjectType()~~  
-FREInvalidateBitmapDataRect()  
-~~FRENewObject()~~  
-~~FRENewObjectFromBool()~~  
-~~FRENewObjectFromDouble()~~  
-~~FRENewObjectFromInt32()~~  
-~~FRENewObjectFromUint32()~~  
-~~FRENewObjectFromUTF8()~~  
-~~FREReleaseBitmapData()~~  
-FREReleaseByteArray()  
-~~FRESetArrayElementAt()~~  
-~~FRESetArrayLength()~~  
-FRESetContextActionScriptData()  
-FRESetContextNativeData()  
-~~FRESetObjectProperty()~~

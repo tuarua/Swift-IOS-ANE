@@ -133,23 +133,49 @@ import Foundation
         trace("\n***********Start Bitmap test***********")
         if let objectBitmapData = argv.pointer(at: 0) {
             if let img = aneHelper.getImage(object: objectBitmapData) {
-                 trace("image loaded", img.size.width, "x", img.size.height)
-
+                trace("image loaded", img.size.width, "x", img.size.height)
                 if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-                    
                     let imgView:UIImageView = UIImageView.init(image: img)
                     let frame:CGRect = CGRect.init(x: 10, y: 100, width: img.size.width, height: img.size.height)
                     imgView.frame = frame
-                    
-                    
                     rootViewController.view.addSubview(imgView)
                 }
-                
-                
             }
             _ = FREReleaseBitmapData(object: objectBitmapData);
             trace("bitmap test finish")
             
+        }
+        return nil
+    }
+    
+    func runByteArrayTests(argv: NSPointerArray) -> FREObject? {
+        trace("\n***********Start ByteArray test***********")
+        if let asByteArray = argv.pointer(at: 0) {
+            let byteData:NSData? = aneHelper.getData(byteArray: asByteArray)
+                if let base64Encoded = byteData?.base64EncodedString(options: .init(rawValue: 0)) {
+                    trace("Encoded to Base64:", base64Encoded)
+                }
+            _ = FREReleaseByteArray(object: asByteArray)
+        }
+        return nil
+    }
+    
+    func runDataTests(argv: NSPointerArray) -> FREObject? {
+        trace("\n***********Start ActionScriptData test***********")
+        if let objectAs = argv.pointer(at: 0) {
+            _ = FRESetContextActionScriptData(ctx: dllContext, actionScriptData: objectAs)
+            var ret:FREObject?
+            _ = FREGetContextActionScriptData( ctx: dllContext, actionScriptData: &ret);
+            
+            let b64:String = "U3dpZnQgaW4gYW4gQU5FLiBTYXkgd2hhYWFhdCE="
+            
+            //this is pretty low level, don't use unless you are explicity using C code or libs
+            if let nsData = NSData.init(base64Encoded: b64, options: .init(rawValue: 0)) {
+                let rawPtr = nsData.bytes
+                _ = FRESetContextNativeData(ctx: dllContext, nativeData: rawPtr)
+            }
+            
+            return ret
         }
         return nil
     }

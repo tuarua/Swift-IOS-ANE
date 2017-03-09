@@ -31,8 +31,6 @@ FRESwiftBridge *swftBridge; // this is the bridge from Swift back to ObjectiveC
 const NSString *ANE_NAME = @"SwiftIOSANE";
 FREContext dllContext;
 
-extern "C" {
-
 #define FRE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 
 // convert argv into a pointer array which can be passed to Swift
@@ -65,6 +63,15 @@ FRE_FUNCTION (runObjectTests) {
 FRE_FUNCTION (runBitmapTests) {
     return [swft runBitmapTestsWithArgv:getFREargs(argc, argv)];
 }
+    
+FRE_FUNCTION (runByteArrayTests) {
+    return [swft runByteArrayTestsWithArgv:getFREargs(argc, argv)];
+}
+
+FRE_FUNCTION(runDataTests) {
+    return [swft runDataTestsWithArgv:getFREargs(argc, argv)];
+}
+    
 
 void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, uint32_t *numFunctionsToSet, const FRENamedFunction **functionsToSet) {
 
@@ -74,7 +81,10 @@ void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, u
             {(const uint8_t *) "runIntTests", NULL, &runIntTests},
             {(const uint8_t *) "runArrayTests", NULL, &runArrayTests},
             {(const uint8_t *) "runObjectTests", NULL, &runObjectTests},
-            {(const uint8_t *) "runBitmapTests", NULL, &runBitmapTests}
+            {(const uint8_t *) "runBitmapTests", NULL, &runBitmapTests},
+            {(const uint8_t *) "runByteArrayTests", NULL, &runByteArrayTests},
+            {(const uint8_t *) "runDataTests", NULL, &runDataTests}
+        
 
     };
     *numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
@@ -106,6 +116,4 @@ void TRSOAExtFinizer(void *extData) {
     return;
 }
 
-
-}
 

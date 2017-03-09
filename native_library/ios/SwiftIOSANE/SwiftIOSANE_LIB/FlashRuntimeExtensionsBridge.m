@@ -22,7 +22,6 @@
  SOFTWARE.*/
 
 #import "FlashRuntimeExtensionsBridge.h"
-#import <SwiftIOSANE_FW/FlashRuntimeExtensions.h>
 
 @implementation FlashRuntimeExtensionsBridge {
 }
@@ -156,16 +155,58 @@
     return FREGetObjectType(object, objectType);
 }
 
+- (FREResult)FREAcquireBitmapDataWithObject:(FREObject _Nonnull)object
+                            descriptorToSet:(FREBitmapData *_Nullable)descriptorToSet {
+    return FREAcquireBitmapData(object, descriptorToSet);
+}
+
 - (FREResult)FREAcquireBitmapData2WithObject:(FREObject _Nonnull)object
                    descriptorToSet:(FREBitmapData2 *_Nullable)descriptorToSet {
     return FREAcquireBitmapData2(object, descriptorToSet);
 }
 
-//FREResult FREReleaseBitmapData (FREObject object);
 - (FREResult)FREReleaseBitmapDataWithObject:(FREObject _Nonnull)object {
     return FREReleaseBitmapData(object);
 }
 
+- (FREResult)FREAcquireByteArrayWithObject:(FREObject _Nonnull)object
+                             byteArrayToSet:(FREByteArray *_Nullable)byteArrayToSet {
+    return FREAcquireByteArray(object, byteArrayToSet);
+}
+
+- (FREResult)FREReleaseByteArrayWithObject:(FREObject _Nonnull)object {
+    return FREReleaseByteArray(object);
+}
+
+
+- (FREResult)FRESetContextActionScriptDataWithCtx:(FREContext _Nonnull)ctx
+                                 actionScriptData:(FREObject _Nullable)actionScriptData {
+    return FRESetContextActionScriptData(ctx, actionScriptData);
+}
+
+- (FREResult)FREGetContextActionScriptDataWithCtx:(FREContext _Nonnull)ctx
+                                 actionScriptData:(FREObject _Nullable)actionScriptData {
+    return FREGetContextActionScriptData(ctx, actionScriptData);
+}
+
+- (FREResult)FREInvalidateBitmapDataRectWithObject:(FREObject _Nonnull)object
+                                                 x:(uint32_t)x
+                                                 y:(uint32_t)y
+                                             width:(uint32_t)width
+                                            height:(uint32_t)height {
+    return FREInvalidateBitmapDataRect(object, x, y, width, height);
+}
+
+- (FREResult) FRESetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
+                                  nativeData:(void *_Nullable)nativeData {
+    return FRESetContextNativeData(ctx, nativeData);
+    
+}
+
+- (FREResult) FREGetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
+                                  nativeData:(void **_Nullable)nativeData {
+    return FREGetContextNativeData(ctx, nativeData);
+}
 
 @end
 
