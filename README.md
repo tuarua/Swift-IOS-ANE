@@ -52,7 +52,7 @@ func runStringTests(argv: NSPointerArray) -> FREObject? {
 
 ----------
 
-### How to use
+### How to use  
 Example - Converting a FREObject into a String
 
 ````swift
@@ -66,6 +66,7 @@ let status: FREResult = FRENewObjectFromUTF8(length: UInt32(swiftString.utf8.cou
 
 Example - Converting a FREObject into a String the easy way, using ANEHelper.swift
 
+!IMPORTANT - This will change shortly, to match the Android API ie ````let swiftString: String = object.getAsString()````   
 
 ````swift
 let swiftString: String = aneHelper.getString(object: object)
