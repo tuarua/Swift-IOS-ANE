@@ -60,7 +60,7 @@ Example - Convert a FREObject into a String, and String into FREObject
 ````swift
 do {
 	let asString: String = try myFREObject.getAsString()
-	trace("as3 String converted to Swift String :", airString)
+	trace("as3 String converted to Swift String :", asString)
 	let swiftString: String = "I am a string from Swift"
 	let freString: FREObject? = try FREObject.newObject(string: swiftString)
 } catch {}
