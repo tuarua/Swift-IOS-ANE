@@ -70,8 +70,7 @@ do {
 Example - Call a method on an FREObject
 
 ````swift
-if let addition: FREObject = try person.callMethod(methodName: "add", 
-	args: FREObject.toArray(args: 100, 33)) {
+if let addition: FREObject = try person.callMethod(methodName: "add", args: FREObject.toArray(args: 100, 33)) {
 	let sum: Int = try addition.getAsInt()
 	trace("addition result:", sum) //trace, noice!
 }
