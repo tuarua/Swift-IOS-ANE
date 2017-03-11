@@ -20,12 +20,12 @@ eg
 ````objectivec
 
 FRE_FUNCTION (runStringTests) {
-return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
+  return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
 }
 ...
 
 static FRENamedFunction extensionFunctions[] = {
-{(const uint8_t *) "runStringTests", NULL, &runStringTests}
+  {(const uint8_t *) "runStringTests", NULL, &runStringTests}
 }
 `````
 
@@ -43,9 +43,9 @@ Add Swift method
 
 ````swift
 func runStringTests(argv: NSPointerArray) -> FREObject? {
-if let inFRE = argv.pointer(at: 0) {
-//code
-}
+  if let inFRE = argv.pointer(at: 0) {
+    //code
+  }
 }
 `````
 
@@ -59,10 +59,10 @@ Example - Convert a FREObject into a String, and String into FREObject
 
 ````swift
 do {
-let asString: String = try myFREObject.getAsString()
-trace("as3 String converted to Swift String :", airString)
-let swiftString: String = "I am a string from Swift"
-let freString: FREObject? = try FREObject.newObject(string: swiftString)
+	let asString: String = try myFREObject.getAsString()
+	trace("as3 String converted to Swift String :", airString)
+	let swiftString: String = "I am a string from Swift"
+	let freString: FREObject? = try FREObject.newObject(string: swiftString)
 } catch {}
 `````
 
@@ -71,27 +71,27 @@ Example - Call a method on an FREObject
 
 ````swift
 if let addition: FREObject = try person.callMethod(methodName: "add", 
-args: FREObject.toArray(args: 100, 33)) {
-let sum: Int = try addition.getAsInt()
-trace("addition result:", sum) //trace, noice!
+	args: FREObject.toArray(args: 100, 33)) {
+	let sum: Int = try addition.getAsInt()
+	trace("addition result:", sum) //trace, noice!
 }
 `````
 
 Example - Reading items in array
 ````swift
 do {
-let airArray = try inFRE.getAsArray()
-if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) {
-let firstItemVal: Int = try firstItem.getAsInt()
-trace("AIR Array elem at 0 type:", firstItem.getTypeAsString(), "value:", firstItemVal)
-}
+	let airArray = try inFRE.getAsArray()
+	if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) {
+		let firstItemVal: Int = try firstItem.getAsInt()
+		trace("AIR Array elem at 0 type:", firstItem.getTypeAsString(), "value:", firstItemVal)
+	}
 } catch {}
 `````
 
 Example - Convert BitmapData to a UIImage
 ````swift
 if let cgimg = inFRE.getAsImage() {
-let img: UIImage = UIImage(cgImage: cgimg)
+	let img: UIImage = UIImage(cgImage: cgimg)
 }
 inFRE.release()
 `````
@@ -99,9 +99,9 @@ inFRE.release()
 Example - Error handling
 ````swift
 do {
-_ = try testString.getAsInt() //get as wrong type
+	_ = try testString.getAsInt() //get as wrong type
 } catch let e as FREError {
-e.printStackTrace(#file,#line,#column)
+	e.printStackTrace(#file,#line,#column)
 } catch {}
 `````
 ----------
