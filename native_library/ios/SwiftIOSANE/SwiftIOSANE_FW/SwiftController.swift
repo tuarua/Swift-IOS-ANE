@@ -110,20 +110,6 @@ import Foundation
                 }
             } catch {
             }
-
-
-
-            do {
-                let airArray = try inFRE.getAsArray()
-                if let itemZero: FREObject = try inFRE.getObjectAt(index: 0) {
-                    let itemZeroVal: Int = try itemZero.getAsInt()
-                    trace("AIR Array elem at 0 type:", itemZero.getTypeAsString(), "value:", itemZeroVal)
-
-                }
-            } catch {
-            }
-
-
         }
         return nil
 
