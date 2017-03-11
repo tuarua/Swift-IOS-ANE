@@ -24,165 +24,237 @@
 import Foundation
 
 @objc class SwiftController: NSObject {
-    private var dllContext: FREContext!
-    private var aneHelper = ANEHelper()
-    func trace(_ value: Any...) {
-        var traceStr: String = ""
-        for i in 0 ..< value.count {
-            traceStr = traceStr + "\(value[i])" + " "
-        }
-        _ = FREDispatchStatusEventAsync(ctx: self.dllContext, code: traceStr, level: "TRACE")
-    }
+
 
     func runStringTests(argv: NSPointerArray) -> FREObject? {
-        trace("\n***********Start String test***********")
+        trace("***********Start String test***********")
         if let inFRE = argv.pointer(at: 0) {
-            let airString: String = aneHelper.getString(object: inFRE)
-            trace("String passed from AIR:", airString)
-            let swiftString: String = "I am a string from Swift"
-            let swiftString2 = "I am a string in Swift as Any"
+            do {
+                let airString: String = try inFRE.getAsString()
+                trace("String passed from AIR:", airString)
+                let swiftString: String = "I am a string from Swift"
+                let swiftString2 = "I am a string in Swift as Any"
 
-            let testAsAny: FREObject? = aneHelper.getFREObject(any: swiftString2)
-            aneHelper.traceObjectType(tag: "What type swiftString2: ", object: testAsAny)
-            return aneHelper.getFREObject(string: swiftString)
+                if let testAsAny: FREObject = try FREObject.newObject(any: swiftString2) {
+                    let typeAsString: String = testAsAny.getTypeAsString()
+                    trace(typeAsString)
+                }
+
+                return try FREObject.newObject(string: swiftString)
+
+            } catch {
+            }
         }
         return nil
     }
 
     func runNumberTests(argv: NSPointerArray) -> FREObject? {
-        trace("\n***********Start Number test***********")
+        trace("***********Start Number test***********")
         if let inFRE = argv.pointer(at: 0) {
-            let airNumber: Double = aneHelper.getDouble(object: inFRE)
-            trace("Number passed from AIR:", airNumber)
-            let swiftDouble: Double = 34343.31
-            return aneHelper.getFREObject(double: swiftDouble)
+            do {
+                let airNumber: Double = try inFRE.getAsDouble()
+                trace("Number passed from AIR:", airNumber)
+                let swiftDouble: Double = 34343.31
+                return try FREObject.newObject(double: swiftDouble)
+            } catch {
+            }
         }
         return nil
     }
 
     func runIntTests(argv: NSPointerArray) -> FREObject? {
         if let inFRE1 = argv.pointer(at: 0), let inFRE2 = argv.pointer(at: 1) {
-            trace("\n***********Start Int Uint test***********")
-            let airInt: Int = aneHelper.getInt(object: inFRE1)
-            let airUint: UInt = aneHelper.getUInt(object: inFRE2)
-            let swiftInt: Int32 = -666
-            let swiftUInt: UInt = 888
-            trace("Int passed from AIR:", airInt)
-            trace("Uint passed from AIR:", airUint)
-            _ = aneHelper.getFREObject(uint: swiftUInt)
-            return aneHelper.getFREObject(int32: swiftInt)
+            trace("***********Start Int Uint test***********", "file:", #file, "line:", #line, "column:", #column)
+            do {
+                let airInt: Int = try inFRE1.getAsInt()
+                let airUint: UInt = try inFRE2.getAsUInt()
+                trace("Int passed from AIR:", airInt)
+                trace("Uint passed from AIR:", airUint)
+                let swiftInt: Int = -666
+                let swiftUInt: UInt = 888
+
+
+                try _ = FREObject.newObject(uint: swiftUInt)
+                return try FREObject.newObject(int: swiftInt)
+            } catch {
+            }
         }
         return nil
     }
 
+    //TODO check whether the C ANE methods can be added in Swift
+    //http://stackoverflow.com/questions/30740560/new-conventionc-in-swift-2-how-can-i-use-it
+    //public typealias FREFunction = @convention(c) (FREContext?, UnsafeMutableRawPointer?, UInt32, UnsafeMutablePointer<FREObject?>?) -> FREObject?
+
+
     func runArrayTests(argv: NSPointerArray) -> FREObject? {
-        trace("\n***********Start Array test***********")
-        if let inFRE = argv.pointer(at: 0) {
+        trace("***********Start Array test***********")
+        if let inFRE: FREArray = argv.pointer(at: 0) {
+            do {
 
-            let airArray = aneHelper.getArray(arrayOrVector: inFRE)
-            trace("Array passed from AIR:", airArray)
-            trace("AIR Array length:", aneHelper.getArrayLength(arrayOrVector: inFRE))
+                let airArray = try inFRE.getAsArray()
+                let airArrayLen = try inFRE.getLength()
+                trace("Array passed from AIR:", airArray)
+                trace("AIR Array length:", airArrayLen)
 
-            var itemZero: FREObject?
-            let status: FREResult = FREGetArrayElementAt(arrayOrVector: inFRE, index: 0, value: &itemZero)
-            aneHelper.traceObjectType(tag: "AIR Array elem at 0 type", object: itemZero)
+                if let itemZero: FREObject = try inFRE.getObjectAt(index: 0) {
+                    let itemZeroVal: Int = try itemZero.getAsInt()
+                    trace("AIR Array elem at 0 type:", itemZero.getTypeAsString(), "value:", itemZeroVal)
 
-            if FRE_OK == status {
-                trace("AIR Array item 0:", aneHelper.getInt(object: itemZero!))
-                if let newVal = aneHelper.getFREObject(int32: 56) {
-                    _ = FRESetArrayElementAt(arrayOrVector: inFRE, index: 0, value: newVal)
+                    if let newVal = try FREObject.newObject(int: 56) {
+                        try inFRE.setObjectAt(index: 0, object: newVal)
+                    }
+
+                    return inFRE
+
                 }
+            } catch {
             }
 
-            return inFRE
+
+
+            do {
+                let airArray = try inFRE.getAsArray()
+                if let itemZero: FREObject = try inFRE.getObjectAt(index: 0) {
+                    let itemZeroVal: Int = try itemZero.getAsInt()
+                    trace("AIR Array elem at 0 type:", itemZero.getTypeAsString(), "value:", itemZeroVal)
+
+                }
+            } catch {
+            }
+
+
         }
         return nil
 
     }
 
     func runObjectTests(argv: NSPointerArray) -> FREObject? {
-        trace("\n***********Start Object test***********")
+        trace("***********Start Object test***********")
         if let person = argv.pointer(at: 0) {
-            if let freAge = aneHelper.getProperty(object: person, name: "age") {
-                let oldAge: Int = aneHelper.getInt(object: freAge)
-                let newAge: FREObject = aneHelper.getFREObject(int: oldAge + 10)!
+            do {
+                if let freAge: FREObject = try person.getProperty(name: "age") {
 
+                    let oldAge: Int = try freAge.getAsInt()
+                    let newAge: FREObject? = try FREObject.newObject(int: oldAge + 10)
+                    try person.setProperty(name: "age", prop: newAge!)
 
-                aneHelper.setProperty(object: person, name: "age", prop: newAge)
-                aneHelper.traceObjectType(tag: "person type is: ", object: person)
-                trace("current person age is", oldAge)
+                    let personType: String = person.getTypeAsString()
+                    trace("person type is:", personType)
+                    trace("current person age is", oldAge)
 
-                let addition: FREObject? = aneHelper.call(object: person, methodName: "add", params: 100, 33)
+                    if let addition: FREObject = try person.callMethod(methodName: "add",
+                            args: FREObject.toArray(args: 100, 33)) {
+                        let sum: Int = try addition.getAsInt()
+                        trace("addition result:", sum)
+                    }
 
-                if FRE_TYPE_NULL != aneHelper.getObjectType(object: addition) {
-                    trace("addition result:", aneHelper.getInt(object: addition!))
+                    let dictionary = try person.getAsDictionary()
+                    trace("AIR Object converted to Dictionary using getAsDictionary:", dictionary.description)
+
+                    return person
                 }
-
-                let dictionary = aneHelper.getDictionary(object: person)
-                trace("AIR Object converted to Dictionary:", dictionary.description)
-
-                return person
+            } catch {
             }
 
         }
         return nil
 
     }
-    
+
     func runBitmapTests(argv: NSPointerArray) -> FREObject? {
-        trace("\n***********Start Bitmap test***********")
-        if let objectBitmapData = argv.pointer(at: 0) {
-            if let img = aneHelper.getImage(object: objectBitmapData) {
+        trace("***********Start Bitmap test***********")
+        if let inFRE = argv.pointer(at: 0) {
+            if let cgimg = inFRE.getAsImage() {
+                let img: UIImage = UIImage(cgImage: cgimg)
                 trace("image loaded", img.size.width, "x", img.size.height)
                 if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-                    let imgView:UIImageView = UIImageView.init(image: img)
-                    let frame:CGRect = CGRect.init(x: 10, y: 100, width: img.size.width, height: img.size.height)
+                    let imgView: UIImageView = UIImageView.init(image: img)
+                    let frame: CGRect = CGRect.init(x: 10, y: 100, width: img.size.width, height: img.size.height)
                     imgView.frame = frame
                     rootViewController.view.addSubview(imgView)
                 }
             }
-            _ = FREReleaseBitmapData(object: objectBitmapData);
-            trace("bitmap test finish")
-            
-        }
-        return nil
-    }
-    
-    func runByteArrayTests(argv: NSPointerArray) -> FREObject? {
-        trace("\n***********Start ByteArray test***********")
-        if let asByteArray = argv.pointer(at: 0) {
-            let byteData:NSData? = aneHelper.getData(byteArray: asByteArray)
-                if let base64Encoded = byteData?.base64EncodedString(options: .init(rawValue: 0)) {
-                    trace("Encoded to Base64:", base64Encoded)
-                }
-            _ = FREReleaseByteArray(object: asByteArray)
-        }
-        return nil
-    }
-    
-    func runDataTests(argv: NSPointerArray) -> FREObject? {
-        trace("\n***********Start ActionScriptData test***********")
-        if let objectAs = argv.pointer(at: 0) {
-            _ = FRESetContextActionScriptData(ctx: dllContext, actionScriptData: objectAs)
-            var ret:FREObject?
-            _ = FREGetContextActionScriptData( ctx: dllContext, actionScriptData: &ret);
-            
-            let b64:String = "U3dpZnQgaW4gYW4gQU5FLiBTYXkgd2hhYWFhdCE="
-            
-            //this is pretty low level, don't use unless you are explicity using C code or libs
-            if let nsData = NSData.init(base64Encoded: b64, options: .init(rawValue: 0)) {
-                let rawPtr = nsData.bytes
-                _ = FRESetContextNativeData(ctx: dllContext, nativeData: rawPtr)
+            inFRE.release()
+
+
+
+
+            if let cgimg = inFRE.getAsImage() {
+                let img: UIImage = UIImage(cgImage: cgimg)
             }
-            
-            return ret
+            inFRE.release()
+
+
+
+            trace("bitmap test finish")
+        }
+        return nil
+    }
+
+    func runByteArrayTests(argv: NSPointerArray) -> FREObject? {
+        trace("***********Start ByteArray test***********")
+        if let asByteArray = argv.pointer(at: 0) {
+            let byteData: NSData? = asByteArray.getAsData()
+            if let base64Encoded = byteData?.base64EncodedString(options:.init(rawValue: 0)) {
+                trace("Encoded to Base64:", base64Encoded)
+            }
+            asByteArray.release()
+        }
+        return nil
+    }
+
+    func runDataTests(argv: NSPointerArray) -> FREObject? {
+        trace("***********Start ActionScriptData test***********")
+        if let objectAs = argv.pointer(at: 0) {
+            do {
+                try context.setActionScriptData(object: objectAs)
+                return try context.getActionScriptData()
+            } catch {
+            }
+        }
+        return nil
+    }
+
+    func runErrorTests(argv: NSPointerArray) -> FREObject? {
+        trace("***********Start Error Handling test***********")
+        if let person = argv.pointer(at: 0), let testString = argv.pointer(at: 1), let testInt = argv.pointer(at: 2) {
+            do {
+                _ = try person.getProperty(name: "doNotExist") //calling a property that doesn't exist
+            } catch let e as FREError {
+                e.printStackTrace(#file, #line, #column)
+            } catch {
+            }
+
+            do {
+                _ = try person.callMethod(methodName: "noMethod", args: nil) //calling an nonexistent method
+            } catch let e as FREError {
+                e.printStackTrace(#file, #line, #column)
+            } catch {
+            }
+
+
+            do {
+                _ = try person.callMethod(methodName: "add", args: FREObject.toArray(args: testInt)) //not passing enough args
+            } catch let e as FREError {
+                e.printStackTrace(#file, #line, #column)
+            } catch {
+            }
+
+
+            do {
+                _ = try testString.getAsInt() //get as wrong type
+            } catch let e as FREError {
+                e.printStackTrace(#file, #line, #column)
+            } catch {
+            }
+
         }
         return nil
     }
 
     func setFREContext(ctx: FREContext) {
-        dllContext = ctx
-        aneHelper.setFREContext(ctx: ctx)
+        context = ctx
     }
 
 

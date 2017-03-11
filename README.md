@@ -20,12 +20,12 @@ eg
 ````objectivec
 
 FRE_FUNCTION (runStringTests) {
-    return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
+return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
 }
 ...
 
 static FRENamedFunction extensionFunctions[] = {
-    {(const uint8_t *) "runStringTests", NULL, &runStringTests}
+{(const uint8_t *) "runStringTests", NULL, &runStringTests}
 }
 `````
 
@@ -43,63 +43,67 @@ Add Swift method
 
 ````swift
 func runStringTests(argv: NSPointerArray) -> FREObject? {
-    if let inFRE = argv.pointer(at: 0) {
-        //code
-    }
+if let inFRE = argv.pointer(at: 0) {
+//code
+}
 }
 `````
 
 
 ----------
 
-### How to use  
-Example - Converting a FREObject into a String
+### How to use
+######  The methods exposed by FlashRuntimeExtensions.swift are very similar to the Java API for Air Native Extensions. 
+
+Example - Convert a FREObject into a String, and String into FREObject
 
 ````swift
-var swiftString: String = ""
-var len: UInt32 = 0
-let status: FREResult = FREGetObjectAsUTF8(object: object, length: &len, value: &swiftString)
-
-var airString: FREObject?
-let status: FREResult = FRENewObjectFromUTF8(length: UInt32(swiftString.utf8.count), value: ret, object: &airString);
+do {
+let asString: String = try myFREObject.getAsString()
+trace("as3 String converted to Swift String :", airString)
+let swiftString: String = "I am a string from Swift"
+let freString: FREObject? = try FREObject.newObject(string: swiftString)
+} catch {}
 `````
 
-Example - Converting a FREObject into a String the easy way, using ANEHelper.swift
 
-!IMPORTANT - This will change shortly, to match the Android API ie ````let swiftString: String = object.getAsString()````   
+Example - Call a method on an FREObject
 
 ````swift
-let swiftString: String = aneHelper.getString(object: object)
-let airString: FREObject? = aneHelper.getFREObject(string: swiftString)
-trace("Swift string is:", swiftString)
+if let addition: FREObject = try person.callMethod(methodName: "add", 
+args: FREObject.toArray(args: 100, 33)) {
+let sum: Int = try addition.getAsInt()
+trace("addition result:", sum) //trace, noice!
+}
 `````
 
-Example - call a method on an FREObject
-
+Example - Reading items in array
 ````swift
-let paramsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-var addition: FREObject?
-var thrownException: FREObject?
-
-var param1: FREObject?
-_ = FRENewObjectFromInt32(value: 100, object: &param1)
-
-var param2: FREObject?
-_ = FRENewObjectFromInt32(value: 33, object: &param2)
-
-paramsArray.addPointer(param1)
-paramsArray.addPointer(param2)
-
-let status: FREResult = FRECallObjectMethod(object: myClass, methodName: "add",
-    argc: UInt32(paramsArray.count), argv: paramsArray, result: &addition,
-    thrownException: &thrownException)
+do {
+let airArray = try inFRE.getAsArray()
+if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) {
+let firstItemVal: Int = try firstItem.getAsInt()
+trace("AIR Array elem at 0 type:", firstItem.getTypeAsString(), "value:", firstItemVal)
+}
+} catch {}
 `````
 
-Example - call a method on a FREObject the (very) easy way, using ANEHelper.swift
+Example - Convert BitmapData to a UIImage
 ````swift
-let addition: FREObject? = aneHelper.call(object: myClass, methodName: "add", params: 100, 33)
+if let cgimg = inFRE.getAsImage() {
+let img: UIImage = UIImage(cgImage: cgimg)
+}
+inFRE.release()
 `````
 
+Example - Error handling
+````swift
+do {
+_ = try testString.getAsInt() //get as wrong type
+} catch let e as FREError {
+e.printStackTrace(#file,#line,#column)
+} catch {}
+`````
 ----------
 ### Running on Simulator
 
@@ -125,4 +129,3 @@ You will need
 - Xcode 8.2 / AppCode
 - IntelliJ IDEA
 - AIR 25 Beta SDK
-

@@ -13,7 +13,6 @@
 		285FECB67C2311471C2CD119 /* SwiftIOSANE_LIB.m in Sources */ = {isa = PBXBuildFile; fileRef = 285FE6D7F3D6356FA03A26C0 /* SwiftIOSANE_LIB.m */; };
 		CE1B450A1E678DCA00B9FB1B /* FlashRuntimeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B45091E678DCA00B9FB1B /* FlashRuntimeExtensions.swift */; };
 		CE1B450C1E678FE800B9FB1B /* FRESwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1B450B1E678FE800B9FB1B /* FRESwiftBridge.swift */; };
-		CE29D3781E6B567B0088A2F3 /* ANEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE29D3771E6B567B0088A2F3 /* ANEHelper.swift */; };
 		CE39808E1E58BAA90062485B /* SwiftIOSANE_FW.h in Headers */ = {isa = PBXBuildFile; fileRef = CE39808C1E58BAA90062485B /* SwiftIOSANE_FW.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE3980981E58BB070062485B /* SwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3980971E58BB070062485B /* SwiftController.swift */; };
 		CE39809A1E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3980991E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -50,7 +49,6 @@
 		285FEC93B40FBCDF5C7C0984 /* FlashRuntimeExtensionsBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashRuntimeExtensionsBridge.m; sourceTree = "<group>"; };
 		CE1B45091E678DCA00B9FB1B /* FlashRuntimeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashRuntimeExtensions.swift; sourceTree = "<group>"; };
 		CE1B450B1E678FE800B9FB1B /* FRESwiftBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FRESwiftBridge.swift; sourceTree = "<group>"; };
-		CE29D3771E6B567B0088A2F3 /* ANEHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANEHelper.swift; sourceTree = "<group>"; };
 		CE39808A1E58BAA90062485B /* SwiftIOSANE_FW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftIOSANE_FW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE39808C1E58BAA90062485B /* SwiftIOSANE_FW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftIOSANE_FW.h; sourceTree = "<group>"; };
 		CE39808D1E58BAA90062485B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				CE3980971E58BB070062485B /* SwiftController.swift */,
 				CE1B45091E678DCA00B9FB1B /* FlashRuntimeExtensions.swift */,
 				CE1B450B1E678FE800B9FB1B /* FRESwiftBridge.swift */,
-				CE29D3771E6B567B0088A2F3 /* ANEHelper.swift */,
 			);
 			path = SwiftIOSANE_FW;
 			sourceTree = "<group>";
@@ -267,7 +264,6 @@
 			files = (
 				CE3980981E58BB070062485B /* SwiftController.swift in Sources */,
 				CE1B450C1E678FE800B9FB1B /* FRESwiftBridge.swift in Sources */,
-				CE29D3781E6B567B0088A2F3 /* ANEHelper.swift in Sources */,
 				CE1B450A1E678DCA00B9FB1B /* FlashRuntimeExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

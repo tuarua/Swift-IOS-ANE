@@ -64,7 +64,7 @@ import Foundation
 
     func FRESetArrayLength(arrayOrVector: FREObject, length: UInt32) -> FREResult
 
-    func FREAcquireBitmapData(object: FREObject, descriptorToSet: UnsafeMutablePointer<FREBitmapData>) -> FREResult
+    //func FREAcquireBitmapData(object: FREObject, descriptorToSet: UnsafeMutablePointer<FREBitmapData>) -> FREResult
     
     func FREAcquireBitmapData2(object: FREObject, descriptorToSet: UnsafeMutablePointer<FREBitmapData2>) -> FREResult
     

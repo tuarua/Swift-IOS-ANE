@@ -72,6 +72,9 @@ FRE_FUNCTION(runDataTests) {
     return [swft runDataTestsWithArgv:getFREargs(argc, argv)];
 }
     
+FRE_FUNCTION(runErrorTests) {
+    return [swft runErrorTestsWithArgv:getFREargs(argc, argv)];
+}
 
 void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, uint32_t *numFunctionsToSet, const FRENamedFunction **functionsToSet) {
 
@@ -83,6 +86,7 @@ void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, u
             {(const uint8_t *) "runObjectTests", NULL, &runObjectTests},
             {(const uint8_t *) "runBitmapTests", NULL, &runBitmapTests},
             {(const uint8_t *) "runByteArrayTests", NULL, &runByteArrayTests},
+            {(const uint8_t *) "runErrorTests", NULL, &runErrorTests},
             {(const uint8_t *) "runDataTests", NULL, &runDataTests}
         
 

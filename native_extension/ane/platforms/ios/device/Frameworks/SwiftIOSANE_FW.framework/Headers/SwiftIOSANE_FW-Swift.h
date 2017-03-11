@@ -211,10 +211,33 @@ SWIFT_PROTOCOL("_TtC14SwiftIOSANE_FW22FRESwiftBridgeProtocol")
 - (FREResult)FRESetArrayLengthWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
                                          length:(uint32_t)length;
 
-- (FREResult)FREAcquireBitmapData2WithObject:(FREObject _Nonnull)object descriptorToSet:(FREBitmapData2 *_Nullable)descriptorToSet;
+- (FREResult)FREAcquireBitmapData2WithObject:(FREObject _Nonnull)object
+                             descriptorToSet:(FREBitmapData2 *_Nullable)descriptorToSet;
 
 - (FREResult)FREReleaseBitmapDataWithObject:(FREObject _Nonnull)object;
 
+- (FREResult)FREAcquireByteArrayWithObject:(FREObject _Nonnull)object
+                            byteArrayToSet:(FREByteArray *_Nullable)byteArrayToSet;
+
+- (FREResult)FREReleaseByteArrayWithObject:(FREObject _Nonnull)object;
+
+- (FREResult)FRESetContextActionScriptDataWithCtx:(FREContext _Nonnull)ctx
+                               actionScriptData:(FREObject _Nullable)actionScriptData;
+
+- (FREResult)FREGetContextActionScriptDataWithCtx:(FREContext _Nonnull)ctx
+                                 actionScriptData:(FREObject _Nullable)actionScriptData;
+
+- (FREResult)FREInvalidateBitmapDataRectWithObject:(FREObject _Nonnull)object
+                                         x:(uint32_t)x
+                                                 y:(uint32_t)y
+                                             width:(uint32_t)width
+                                            height:(uint32_t)height;
+
+- (FREResult) FRESetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
+                                  nativeData:(void *_Nullable)nativeData;
+
+- (FREResult) FREGetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
+                                  nativeData:(void *_Nullable *_Nullable)nativeData;
 @end
 
 
@@ -242,6 +265,10 @@ SWIFT_CLASS("_TtC14SwiftIOSANE_FW15SwiftController")
 - (FREObject _Nullable)runBitmapTestsWithArgv:(NSPointerArray *_Nullable)argv;
 
 - (FREObject _Nullable)runByteArrayTestsWithArgv:(NSPointerArray *_Nullable)argv;
+
+- (FREObject _Nullable)runDataTestsWithArgv:(NSPointerArray *_Nullable)argv;
+
+- (FREObject _Nullable)runErrorTestsWithArgv:(NSPointerArray *_Nullable)argv;
 
 - (void)setFREContextWithCtx:(FREContext _Nonnull)ctx;
 
