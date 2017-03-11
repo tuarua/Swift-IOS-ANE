@@ -67,6 +67,10 @@ public class SwiftIOSANE extends EventDispatcher {
         return extensionContext.call("runDataTests", value) as String;
     }
 
+    public function runErrorTests(value:Person, string:String, int:int):String {
+        return extensionContext.call("runErrorTests", value, string, int) as String;
+    }
+
     public function dispose():void {
         if (!extensionContext) {
             trace("[SwiftIOSANE] Error. ANE Already in a disposed or failed state...");

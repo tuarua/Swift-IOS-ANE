@@ -64,6 +64,7 @@ public class Main extends Sprite {
         ldr.load(new URLRequest(IMAGE_URL));
 
         var bitmap1:Bitmap;
+
         function ldr_complete(evt:Event):void {
             var bmp:Bitmap = ldr.content as Bitmap;
             ane.runBitmapTests(bmp.bitmapData);
@@ -74,6 +75,8 @@ public class Main extends Sprite {
         myByteArray.writeUTFBytes("Swift in an ANE. Say whaaaat!");
         ane.runByteArrayTests(myByteArray);
 
+
+        ane.runErrorTests(person, "test string", 78);
 
         var inData:String = "Saved and returned";
         var outData:String = ane.runDataTests(inData) as String;

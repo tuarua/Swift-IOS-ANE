@@ -155,13 +155,8 @@
     return FREGetObjectType(object, objectType);
 }
 
-- (FREResult)FREAcquireBitmapDataWithObject:(FREObject _Nonnull)object
-                            descriptorToSet:(FREBitmapData *_Nullable)descriptorToSet {
-    return FREAcquireBitmapData(object, descriptorToSet);
-}
-
 - (FREResult)FREAcquireBitmapData2WithObject:(FREObject _Nonnull)object
-                   descriptorToSet:(FREBitmapData2 *_Nullable)descriptorToSet {
+                             descriptorToSet:(FREBitmapData2 *_Nullable)descriptorToSet {
     return FREAcquireBitmapData2(object, descriptorToSet);
 }
 
@@ -170,7 +165,7 @@
 }
 
 - (FREResult)FREAcquireByteArrayWithObject:(FREObject _Nonnull)object
-                             byteArrayToSet:(FREByteArray *_Nullable)byteArrayToSet {
+                            byteArrayToSet:(FREByteArray *_Nullable)byteArrayToSet {
     return FREAcquireByteArray(object, byteArrayToSet);
 }
 
@@ -197,14 +192,14 @@
     return FREInvalidateBitmapDataRect(object, x, y, width, height);
 }
 
-- (FREResult) FRESetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
-                                  nativeData:(void *_Nullable)nativeData {
+- (FREResult)FRESetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
+                                 nativeData:(void *_Nullable)nativeData {
     return FRESetContextNativeData(ctx, nativeData);
-    
+
 }
 
-- (FREResult) FREGetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
-                                  nativeData:(void **_Nullable)nativeData {
+- (FREResult)FREGetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
+                                 nativeData:(void **_Nullable)nativeData {
     return FREGetContextNativeData(ctx, nativeData);
 }
 

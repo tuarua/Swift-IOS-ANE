@@ -50,7 +50,7 @@
 		</data>
 		<key>Headers/SwiftIOSANE_FW-Swift.h</key>
 		<data>
-		1ABZdFhJKSOqpmgpv6IUA4mMQjA=
+		S3LNE5ufy5vzr0cMOPYnROKvuxc=
 		</data>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<data>
@@ -62,19 +62,19 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftdoc</key>
 		<data>
-		9N9A0Hb0MSz6PqF3EpeOPLGL0lM=
+		ZE3xBeMa2YNY8id6wtHHaqfYSN4=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftmodule</key>
 		<data>
-		K/BhlWcggzJ/D1oeWtpsufgOCAc=
+		Mml89EIUVKUp5nhVMokUztNHOAc=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		s2dG3OLNMamibTWCvva2QZL+jWE=
+		SMQZA27NrKhNR0LoUbCRkx4+M5Y=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		19XftgOosehCTGkjhsisyN6Usrk=
+		uj+4ankxpg5VAEQEpgLeFOp39MA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -201,11 +201,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			1ABZdFhJKSOqpmgpv6IUA4mMQjA=
+			S3LNE5ufy5vzr0cMOPYnROKvuxc=
 			</data>
 			<key>hash2</key>
 			<data>
-			mmwvpVb39Ev4ggjfBLu1rilFyCL8Xf7pK/xiuXgLAtw=
+			3ruE4hSsK6ZzubyoPCDqd4hcjzomuxRVubRzgSsgjx8=
 			</data>
 		</dict>
 		<key>Headers/SwiftIOSANE_FW.h</key>
@@ -223,44 +223,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9N9A0Hb0MSz6PqF3EpeOPLGL0lM=
+			ZE3xBeMa2YNY8id6wtHHaqfYSN4=
 			</data>
 			<key>hash2</key>
 			<data>
-			Z8/PxPev3Sf2JcA9LL9Joaj9XNlkglZJfOrIS+9Ios8=
+			PpZ1T05fOwB58lyKK0njN60+COChrNwMV9W8gO0dmjU=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			K/BhlWcggzJ/D1oeWtpsufgOCAc=
+			Mml89EIUVKUp5nhVMokUztNHOAc=
 			</data>
 			<key>hash2</key>
 			<data>
-			IgBBQYL218gAFbyOr/i6uXt7qzDwg87XxfSiUoB0CUI=
+			o1Ms2+Bp7RZZCCCHXRmXkf7HYAFj8DR1KpFDhLfOkCI=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			s2dG3OLNMamibTWCvva2QZL+jWE=
+			SMQZA27NrKhNR0LoUbCRkx4+M5Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			uyILqSB4Pq3JTdL4F5Lh/YYY5DXeMeQz4VCYWeS+Ol0=
+			RZLvcc9ge2nslp7kzTWJ63QvGPKWLCicEimnvv9kiTo=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			19XftgOosehCTGkjhsisyN6Usrk=
+			uj+4ankxpg5VAEQEpgLeFOp39MA=
 			</data>
 			<key>hash2</key>
 			<data>
-			CO5iMvlZhXc58RRaWGaFpwFC7tTxfvCdN4dBXVhZEDw=
+			Lf8YTzys+7kqs29YD2s3uu7oG7UF/PWpkCOzUMe6SHw=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

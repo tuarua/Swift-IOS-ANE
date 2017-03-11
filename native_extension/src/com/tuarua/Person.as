@@ -10,6 +10,7 @@ public class Person {
     public var isMan:Boolean = false;
     public var height:Number = 1.80;
     public var city:City = new City();
+
     public function Person() {
         super();
     }
