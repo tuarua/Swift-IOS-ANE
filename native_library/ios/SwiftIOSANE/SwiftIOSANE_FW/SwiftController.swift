@@ -163,16 +163,6 @@ import Foundation
             }
             inFRE.release()
 
-
-
-
-            if let cgimg = inFRE.getAsImage() {
-                let img: UIImage = UIImage(cgImage: cgimg)
-            }
-            inFRE.release()
-
-
-
             trace("bitmap test finish")
         }
         return nil
