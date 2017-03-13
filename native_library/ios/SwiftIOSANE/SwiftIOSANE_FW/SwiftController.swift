@@ -42,8 +42,7 @@ import Foundation
 
                 return try FREObject.newObject(string: swiftString)
 
-            } catch {
-            }
+            } catch {}
         }
         return nil
     }
@@ -56,8 +55,7 @@ import Foundation
                 trace("Number passed from AIR:", airNumber)
                 let swiftDouble: Double = 34343.31
                 return try FREObject.newObject(double: swiftDouble)
-            } catch {
-            }
+            } catch {}
         }
         return nil
     }
@@ -76,8 +74,7 @@ import Foundation
 
                 try _ = FREObject.newObject(uint: swiftUInt)
                 return try FREObject.newObject(int: swiftInt)
-            } catch {
-            }
+            } catch {}
         }
         return nil
     }
@@ -108,8 +105,7 @@ import Foundation
                     return inFRE
 
                 }
-            } catch {
-            }
+            } catch {}
         }
         return nil
 
@@ -120,11 +116,11 @@ import Foundation
         if let person = argv.pointer(at: 0) {
             do {
                 if let freAge: FREObject = try person.getProperty(name: "age") {
-
                     let oldAge: Int = try freAge.getAsInt()
-                    let newAge: FREObject? = try FREObject.newObject(int: oldAge + 10)
-                    try person.setProperty(name: "age", prop: newAge!)
-
+                    if let newAge: FREObject = try FREObject.newObject(int: oldAge + 10) {
+                        try person.setProperty(name: "age", prop: newAge)
+                    }
+                    
                     let personType: String = person.getTypeAsString()
                     trace("person type is:", personType)
                     trace("current person age is", oldAge)
@@ -140,8 +136,7 @@ import Foundation
 
                     return person
                 }
-            } catch {
-            }
+            } catch {}
 
         }
         return nil
@@ -151,18 +146,23 @@ import Foundation
     func runBitmapTests(argv: NSPointerArray) -> FREObject? {
         trace("***********Start Bitmap test***********")
         if let inFRE = argv.pointer(at: 0) {
-            if let cgimg = inFRE.getAsImage() {
-                let img: UIImage = UIImage(cgImage: cgimg)
-                trace("image loaded", img.size.width, "x", img.size.height)
-                if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-                    let imgView: UIImageView = UIImageView.init(image: img)
-                    let frame: CGRect = CGRect.init(x: 10, y: 100, width: img.size.width, height: img.size.height)
-                    imgView.frame = frame
-                    rootViewController.view.addSubview(imgView)
-                }
+            defer {
+                inFRE.release()
             }
-            inFRE.release()
+            do {
+                if let cgimg = try inFRE.getAsImage() {
+                    let img: UIImage = UIImage(cgImage: cgimg)
+                    trace("image loaded", img.size.width, "x", img.size.height)
+                    if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+                        let imgView: UIImageView = UIImageView.init(image: img)
+                        let frame: CGRect = CGRect.init(x: 10, y: 100, width: img.size.width, height: img.size.height)
+                        imgView.frame = frame
+                        rootViewController.view.addSubview(imgView)
+                    }
+                }
 
+            } catch {}
+            
             trace("bitmap test finish")
         }
         return nil
@@ -171,11 +171,15 @@ import Foundation
     func runByteArrayTests(argv: NSPointerArray) -> FREObject? {
         trace("***********Start ByteArray test***********")
         if let asByteArray = argv.pointer(at: 0) {
-            let byteData: NSData? = asByteArray.getAsData()
-            if let base64Encoded = byteData?.base64EncodedString(options:.init(rawValue: 0)) {
-                trace("Encoded to Base64:", base64Encoded)
+            defer {
+                asByteArray.release()
             }
-            asByteArray.release()
+            do {
+                let byteData: NSData = try asByteArray.getAsData()
+                let base64Encoded = byteData.base64EncodedString(options:.init(rawValue: 0))
+                trace("Encoded to Base64:", base64Encoded)
+            } catch {}
+            
         }
         return nil
     }
@@ -186,8 +190,7 @@ import Foundation
             do {
                 try context.setActionScriptData(object: objectAs)
                 return try context.getActionScriptData()
-            } catch {
-            }
+            } catch {}
         }
         return nil
     }
@@ -199,31 +202,27 @@ import Foundation
                 _ = try person.getProperty(name: "doNotExist") //calling a property that doesn't exist
             } catch let e as FREError {
                 e.printStackTrace(#file, #line, #column)
-            } catch {
-            }
+            } catch {}
 
             do {
                 _ = try person.callMethod(methodName: "noMethod", args: nil) //calling an nonexistent method
             } catch let e as FREError {
                 e.printStackTrace(#file, #line, #column)
-            } catch {
-            }
+            } catch {}
 
 
             do {
                 _ = try person.callMethod(methodName: "add", args: FREObject.toArray(args: testInt)) //not passing enough args
             } catch let e as FREError {
                 e.printStackTrace(#file, #line, #column)
-            } catch {
-            }
+            } catch {}
 
 
             do {
                 _ = try testString.getAsInt() //get as wrong type
             } catch let e as FREError {
                 e.printStackTrace(#file, #line, #column)
-            } catch {
-            }
+            } catch {}
 
         }
         return nil
