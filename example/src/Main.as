@@ -27,7 +27,7 @@ public class Main extends Sprite {
 
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();
-        tf.size = 24;
+        tf.size = 32;
         tf.color = 0x333333;
         tf.align = TextFormatAlign.LEFT;
         textField.defaultTextFormat = tf;

@@ -79,8 +79,10 @@ if let addition: FREObject = try person.callMethod(methodName: "add", args: FREO
 Example - Reading items in array
 ````swift
 do {
-	let airArray = try inFRE.getAsArray()
-	if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) {
+	let airArray = try inFRE.getAsArray() //get as PointerArray
+
+    
+	if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) { //direct access to FREArray
 		let firstItemVal: Int = try firstItem.getAsInt()
 		trace("AIR Array elem at 0 type:", firstItem.getTypeAsString(), "value:", firstItemVal)
 	}
@@ -89,10 +91,14 @@ do {
 
 Example - Convert BitmapData to a UIImage
 ````swift
-if let cgimg = inFRE.getAsImage() {
-	let img: UIImage = UIImage(cgImage: cgimg)
+defer {
+    inFRE.release()
 }
-inFRE.release()
+do {
+    if let cgimg = try inFRE.getAsImage() {
+        let img: UIImage = UIImage(cgImage: cgimg)
+    }
+} catch {}
 `````
 
 Example - Error handling

@@ -66,7 +66,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftmodule</key>
 		<data>
-		Mml89EIUVKUp5nhVMokUztNHOAc=
+		VAHcFB7x/iNqyZY8xW+aJ7QNwdc=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		uj+4ankxpg5VAEQEpgLeFOp39MA=
+		l3tGnPBPDA5gs18kEsAuBKa5/Kc=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -234,11 +234,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Mml89EIUVKUp5nhVMokUztNHOAc=
+			VAHcFB7x/iNqyZY8xW+aJ7QNwdc=
 			</data>
 			<key>hash2</key>
 			<data>
-			o1Ms2+Bp7RZZCCCHXRmXkf7HYAFj8DR1KpFDhLfOkCI=
+			apeCCErsndP/mBLkbNKHiZTnty8M0ewnSr/621UcXgo=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftdoc</key>
@@ -256,11 +256,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			uj+4ankxpg5VAEQEpgLeFOp39MA=
+			l3tGnPBPDA5gs18kEsAuBKa5/Kc=
 			</data>
 			<key>hash2</key>
 			<data>
-			Lf8YTzys+7kqs29YD2s3uu7oG7UF/PWpkCOzUMe6SHw=
+			DRsbBQ/3MylNI+jQ7PVXW6eFkBjMOAknYc3pFDARU/E=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
