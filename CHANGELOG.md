@@ -1,3 +1,6 @@
+### 0.0.5 
+- Restructure
+
 ### 0.0.4 
 - Rewrite of API. Now similar to the Air Native Extension API for Android.
 
