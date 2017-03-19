@@ -22,14 +22,12 @@
  SOFTWARE.*/
 
 #import "SwiftIOSANE_LIB.h"
+#include "FlashRuntimeExtensions.h"
 #import "FlashRuntimeExtensionsBridge.h"
 
 FlashRuntimeExtensionsBridge *freBridge; // this runs the native FRE calls and returns to Swift
 SwiftController *swft; // our main Swift Controller
 FRESwiftBridge *swftBridge; // this is the bridge from Swift back to ObjectiveC
-
-const NSString *ANE_NAME = @"SwiftIOSANE";
-FREContext dllContext;
 
 #define FRE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 
@@ -93,7 +91,6 @@ void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, u
     };
     *numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
     *functionsToSet = extensionFunctions;
-    dllContext = ctx;
     
     freBridge = [[FlashRuntimeExtensionsBridge alloc] init];
     

@@ -34,4 +34,5 @@ FOUNDATION_EXPORT const unsigned char SwiftIOSANE_FWVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SwiftIOSANE_FW/PublicHeader.h>
 
-#import <SwiftIOSANE_FW/FlashRuntimeExtensions.h>
+#import <FRESwift/FlashRuntimeExtensions.h>
+#import <FRESwift/FRESwift.h>

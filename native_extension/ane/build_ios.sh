@@ -12,7 +12,7 @@ PROJECTNAME=SwiftIOSANE
 fwSuffix="_FW"
 libSuffix="_LIB"
 
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_25B"
+AIR_SDK="/Users/User/sdks/AIR/AIRSDK_25"
 echo $AIR_SDK
 
 #Setup the directory.
@@ -60,6 +60,8 @@ echo "Copying native libraries into place."
 cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/lib$PROJECTNAME$libSuffix.a" "$pathtome/platforms/ios/simulator/lib$PROJECTNAME.a"
 cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphoneos/lib$PROJECTNAME$libSuffix.a" "$pathtome/platforms/ios/device/lib$PROJECTNAME.a"
 
+cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/FRESwift.framework" "$pathtome/platforms/ios/simulator/Frameworks"
+cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphoneos/FRESwift.framework" "$pathtome/platforms/ios/device/Frameworks"
 
 cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/$PROJECTNAME$fwSuffix.framework" "$pathtome/platforms/ios/simulator/Frameworks"
 cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphoneos/$PROJECTNAME$fwSuffix.framework" "$pathtome/platforms/ios/device/Frameworks"
@@ -78,12 +80,7 @@ echo "Building Simulator Release."
 -platformoptions "$pathtome/platforms/ios/platform.xml" \
 -C $pathtome/platforms/ios/device/Frameworks/ . 
 
-#rm -r "$pathtome/platforms/ios/simulator"
-#rm -r "$pathtome/platforms/ios/device"
 rm -r "$pathtome/platforms/ios/default"
 rm "$pathtome/$PROJECTNAME.swc"
 rm "$pathtome/library.swf"
 
-#-platform iPhone-ARM  -C "$pathtome/platforms/ios/device" "library.swf" "lib$PROJECTNAME.a" \
-#-platformoptions "$pathtome/platforms/ios/platform.xml" \
-#-C $pathtome/platforms/ios/device/Frameworks/ . \

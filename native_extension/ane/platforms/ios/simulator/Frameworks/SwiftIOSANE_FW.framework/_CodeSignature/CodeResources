@@ -4,259 +4,105 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Frameworks/libswiftCore.dylib</key>
-		<data>
-		blagc+UjPVBTHaTHbrlBKbVn20I=
-		</data>
-		<key>Frameworks/libswiftCoreGraphics.dylib</key>
-		<data>
-		ZwEZ2UKWKCWUP8IzyKJascCU0+g=
-		</data>
-		<key>Frameworks/libswiftCoreImage.dylib</key>
-		<data>
-		kczkyFkTsCEEfoO5GHHQIgCOuAU=
-		</data>
-		<key>Frameworks/libswiftDarwin.dylib</key>
-		<data>
-		6AyKjKJx2BOxs2U2+zmyHkS4+Vg=
-		</data>
-		<key>Frameworks/libswiftDispatch.dylib</key>
-		<data>
-		u58ZPpBdRQ6Lk7gGRRqCiKnkbuM=
-		</data>
-		<key>Frameworks/libswiftFoundation.dylib</key>
-		<data>
-		MxmVCkFjPLhwbkpcTm8Knp8xPNE=
-		</data>
-		<key>Frameworks/libswiftObjectiveC.dylib</key>
-		<data>
-		pJCo1uj+xpnkl3uidZR4eV4ig7g=
-		</data>
-		<key>Frameworks/libswiftQuartzCore.dylib</key>
-		<data>
-		GFkfH9LdwOjFdGgcp8dBIwEVzyA=
-		</data>
-		<key>Frameworks/libswiftUIKit.dylib</key>
-		<data>
-		AA0v+jaj04fmfPqsLDKMF0ahBEo=
-		</data>
-		<key>Headers/FlashRuntimeExtensions.h</key>
-		<data>
-		Q5TJLXHp3ThyB7djK/cHK+MtS1M=
-		</data>
 		<key>Headers/SwiftIOSANE_FW-Swift.h</key>
 		<data>
-		S3LNE5ufy5vzr0cMOPYnROKvuxc=
+		9046MNU13NHpTkAFAgtpq3AnDLo=
 		</data>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<data>
-		0etM9V1ERYbVfaus3KqdlZg/AmE=
+		v5zGvIegsuE4p1OByaIACt7JcpA=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		hxo0c3+sDIqtIKkjG/LF1yuSfvo=
+		8w0/A/s2CztEiGAl+8xGrD5KwK0=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/i386.swiftdoc</key>
 		<data>
-		xCTA/ljOdwGj5WkjBSwGPdmUF/w=
+		FPZ125rz6TnQH3NVLmyEXgkCdzs=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/i386.swiftmodule</key>
 		<data>
-		nkCYISdVRTtX90Vk6dyIw4emn0M=
+		NAkvXIqyhBrMuB42g15Yr7zAeZY=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		odJ5ByxBDBe0yWCvQrwfD4GF+ZM=
+		vpEH7P3FgNG+34NG68skc8X7nsM=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		S57t+0RHyI+ID1wRGpSodSYSE84=
+		woYcN431uZXygcL1lg2cBRFVvnI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		DMSsJEzRxxjyRkZU5mche/w6W+c=
 		</data>
-		<key>libswiftRemoteMirror.dylib</key>
-		<data>
-		uaH9d6M/V47nuESS+k+xBhtuaFY=
-		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Frameworks/libswiftCore.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			blagc+UjPVBTHaTHbrlBKbVn20I=
-			</data>
-			<key>hash2</key>
-			<data>
-			xo8sgCnm+oo5/jDmzTfasJiLCmh9N+4xlZRm3RyI/i0=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftCoreGraphics.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			ZwEZ2UKWKCWUP8IzyKJascCU0+g=
-			</data>
-			<key>hash2</key>
-			<data>
-			Oh4dzU/Mo/++oAj30YuIo9OQvrArM2wT0ZDXf51l32c=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftCoreImage.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			kczkyFkTsCEEfoO5GHHQIgCOuAU=
-			</data>
-			<key>hash2</key>
-			<data>
-			FnvDmgNFr2JomOicwx+7EKcBGQdHHuJ5gh2aixoStCM=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftDarwin.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			6AyKjKJx2BOxs2U2+zmyHkS4+Vg=
-			</data>
-			<key>hash2</key>
-			<data>
-			r6BK+aU/Ol6Jy2VvRkMfSCchm2qQGgkL/LJRjHvfZH4=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftDispatch.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			u58ZPpBdRQ6Lk7gGRRqCiKnkbuM=
-			</data>
-			<key>hash2</key>
-			<data>
-			mMEYBQRiJbrtxpToV1gROvzsGsJexB2WPWmwSwpKUJ0=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftFoundation.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			MxmVCkFjPLhwbkpcTm8Knp8xPNE=
-			</data>
-			<key>hash2</key>
-			<data>
-			MGCWh4dhaytcVAWiQxaOHew039Kv2yZRBWZI1BMZQPw=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftObjectiveC.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			pJCo1uj+xpnkl3uidZR4eV4ig7g=
-			</data>
-			<key>hash2</key>
-			<data>
-			wxa7nr+6sAqMs0+ZRZWs7ZieYtNRpZxbtPcx1a3G748=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftQuartzCore.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			GFkfH9LdwOjFdGgcp8dBIwEVzyA=
-			</data>
-			<key>hash2</key>
-			<data>
-			dxH7nkJwZgOMO2piVKprv0hM3N8S65eGT+hz/QFVXAY=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftUIKit.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			AA0v+jaj04fmfPqsLDKMF0ahBEo=
-			</data>
-			<key>hash2</key>
-			<data>
-			ThQ3KVRv0n/Z7aDaVS1UKV3XtUQaXCz3KLm50pf6ty8=
-			</data>
-		</dict>
-		<key>Headers/FlashRuntimeExtensions.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Q5TJLXHp3ThyB7djK/cHK+MtS1M=
-			</data>
-			<key>hash2</key>
-			<data>
-			XT7E9Z1YC4dl1sdsGdFvALhgLhBQ5lSTdjnKwfrMduY=
-			</data>
-		</dict>
 		<key>Headers/SwiftIOSANE_FW-Swift.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			S3LNE5ufy5vzr0cMOPYnROKvuxc=
+			9046MNU13NHpTkAFAgtpq3AnDLo=
 			</data>
 			<key>hash2</key>
 			<data>
-			3ruE4hSsK6ZzubyoPCDqd4hcjzomuxRVubRzgSsgjx8=
+			Qilj408Z8sWFEMpFXVTa0mmJzBRqZ5xHLhze50LQesY=
 			</data>
 		</dict>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			0etM9V1ERYbVfaus3KqdlZg/AmE=
+			v5zGvIegsuE4p1OByaIACt7JcpA=
 			</data>
 			<key>hash2</key>
 			<data>
-			0OeQbG0wO+FHvWCBTEN7PhpX70DaVioJkAuxjYzqiyk=
+			mf9sk3IDSbj1S5B61M0tdFZVeH3l2ErWH/rnw0So/6A=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/i386.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			xCTA/ljOdwGj5WkjBSwGPdmUF/w=
+			FPZ125rz6TnQH3NVLmyEXgkCdzs=
 			</data>
 			<key>hash2</key>
 			<data>
-			CWmfHC1iPgESLx2JWyrpi/q4BlRlT0XpD+uzpMiLYZk=
+			rUJnp70hSnk7YBZ7+qwNTZkDYumvhmD15FfSMUeh2l4=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/i386.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			nkCYISdVRTtX90Vk6dyIw4emn0M=
+			NAkvXIqyhBrMuB42g15Yr7zAeZY=
 			</data>
 			<key>hash2</key>
 			<data>
-			4jns4m3EMXvLdZmZbxAIDStU/NBiK3LpAPRoD5nDsNI=
+			wC5A2FFuifdLRLJZoP7CRf8T0H1I+T1kAHS4+v4CUNQ=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			odJ5ByxBDBe0yWCvQrwfD4GF+ZM=
+			vpEH7P3FgNG+34NG68skc8X7nsM=
 			</data>
 			<key>hash2</key>
 			<data>
-			saw5SPkhKJHZfOLLLw/BTRa7F7TU38wpQU2IMlI7KZ8=
+			SRF3ouKOI7nPScCtyDv1rQtgsukw7igzTzoLtJ2jhzw=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			S57t+0RHyI+ID1wRGpSodSYSE84=
+			woYcN431uZXygcL1lg2cBRFVvnI=
 			</data>
 			<key>hash2</key>
 			<data>
-			H7xFPgY63w9rjqJeEGeOeXpAD8eklw5XQUQSO/qovc4=
+			yiRdS4s1URHRCCu3Z72jrJR9i6P4FGP9jmkrpDAOEEk=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -268,17 +114,6 @@
 			<key>hash2</key>
 			<data>
 			Th/qkUQ2w49eLVP0+PfhwLmFc8B5aJI6hABv8UIj1Vo=
-			</data>
-		</dict>
-		<key>libswiftRemoteMirror.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			uaH9d6M/V47nuESS+k+xBhtuaFY=
-			</data>
-			<key>hash2</key>
-			<data>
-			llHAZkO6n7nBJ/NRzRVfg87qHMoIjTZKIfCg7Ek9FsQ=
 			</data>
 		</dict>
 	</dict>

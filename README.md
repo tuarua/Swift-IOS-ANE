@@ -4,11 +4,11 @@ Example Xcode project showing how to programme Air Native Extensions for iOS usi
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5UR2T52J633RC)
 
-This project contains a translation of FlashRuntimeExtensions to Swift.
-It is comprised of 2 parts.
+It is comprised of 3 parts.
 
-1. A static library which exposes methods to AIR and a thin ObjectiveC API layer to the Swift code. 
-2. A dynamic Swift Framework which contains the main logic of the ANE.
+1. A static library which exposes methods to AIR and a thin ObjectiveC API layer to the Swift code.
+2. A dynamic Swift Framework which contains the translation of FlashRuntimeExtensions to Swift.
+3. A dynamic Swift Framework which contains the main logic of the ANE.
 
 > To allow FRE functions to be called from within Swift, a protocol acting 
 > as a bridge back to Objective C ,was used.
@@ -117,15 +117,7 @@ The example project can be run on the Simulator from IntelliJ
 ### Running on Device !
 
 The example project needs to be built and signed in the correct manner.
-An AIR based packaging tool is provided in /packager/AIR_ios_packager.dmg
-
-The option to install and debug on the device is included within the tool.
-The AIR tool fdb (Flash debugger) is used for debugging. This is only applicable when "Debug over network" is chosen
-
-![alt tag](https://github.com/tuarua/SwiftIOSANE/blob/master/screenshots/1.png)
-
-
-![alt tag](https://github.com/tuarua/SwiftIOSANE/blob/master/screenshots/2.png)
+An AIR based packaging tool is provided at https://github.com/tuarua/AIR-iOS-Packager
 
 ### Prerequisites
 

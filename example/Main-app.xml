@@ -193,7 +193,7 @@
                 <string>2</string>
             </array>
              <key>MinimumOSVersion</key>
-            <string>10.0</string>
+            <string>9.0</string>
             <!--<key>UIStatusBarStyle</key>-->
             <!--<string>UIStatusBarStyleBlackOpaque</string>-->
             <!--<key>UIRequiresPersistentWiFi</key>-->
