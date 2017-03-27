@@ -24,6 +24,7 @@
 #import "SwiftIOSANE_LIB.h"
 #include "FlashRuntimeExtensions.h"
 #import "FlashRuntimeExtensionsBridge.h"
+#import "SwiftIOSANE_FW-Swift.h"
 
 FlashRuntimeExtensionsBridge *freBridge; // this runs the native FRE calls and returns to Swift
 SwiftController *swft; // our main Swift Controller

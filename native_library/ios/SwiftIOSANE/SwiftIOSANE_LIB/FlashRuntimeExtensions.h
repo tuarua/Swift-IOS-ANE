@@ -480,15 +480,6 @@ FREResult FREInvalidateBitmapDataRect(
 
 FREResult FREReleaseBitmapData( FREObject object );
 
-/**
- * Referenced data is valid only for duration of the call
- * to a registered function.
- *
- * @return  FRE_OK
- *          FRE_TYPE_MISMATCH
- *          FRE_INVALID_OBJECT
- *          FRE_WRONG_THREAD
- */
 
 /* ByteArray Access ***********************************************************/
 
