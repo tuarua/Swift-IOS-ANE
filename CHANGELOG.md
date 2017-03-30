@@ -1,3 +1,7 @@
+### 0.0.6 
+- added getFunctions(). Functions are defined here. Removes need to edit -Swift.h bridging header
+- Update to Swift 3.1 + Xcode 8.3
+
 ### 0.0.5 
 - Restructure
 

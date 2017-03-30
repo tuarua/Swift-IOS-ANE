@@ -30,76 +30,41 @@ FlashRuntimeExtensionsBridge *freBridge; // this runs the native FRE calls and r
 SwiftController *swft; // our main Swift Controller
 FRESwiftBridge *swftBridge; // this is the bridge from Swift back to ObjectiveC
 
+NSArray * funcArray;
 #define FRE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 
-// convert argv into a pointer array which can be passed to Swift
-NSPointerArray * getFREargs(uint32_t argc, FREObject argv[]) {
-    NSPointerArray * pa = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsOpaqueMemory];
-    for (int i = 0; i < argc; ++i) {
-        FREObject freObject;
-        freObject = argv[i];
-        [pa addPointer:freObject];
-    }
-    return pa;
-}
-    
-FRE_FUNCTION (runStringTests) {
-    return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
-}
-FRE_FUNCTION (runNumberTests) {
-    return [swft runNumberTestsWithArgv:getFREargs(argc, argv)];
-}
-FRE_FUNCTION (runIntTests) {
-    return [swft runIntTestsWithArgv:getFREargs(argc, argv)];
-}
-FRE_FUNCTION (runArrayTests) {
-    return [swft runArrayTestsWithArgv:getFREargs(argc, argv)];
-}
-FRE_FUNCTION (runObjectTests) {
-    return [swft runObjectTestsWithArgv:getFREargs(argc, argv)];
-}
-    
-FRE_FUNCTION (runBitmapTests) {
-    return [swft runBitmapTestsWithArgv:getFREargs(argc, argv)];
-}
-    
-FRE_FUNCTION (runByteArrayTests) {
-    return [swft runByteArrayTestsWithArgv:getFREargs(argc, argv)];
-}
-
-FRE_FUNCTION(runDataTests) {
-    return [swft runDataTestsWithArgv:getFREargs(argc, argv)];
-}
-    
-FRE_FUNCTION(runErrorTests) {
-    return [swft runErrorTestsWithArgv:getFREargs(argc, argv)];
+FRE_FUNCTION(callSwiftFunction) {
+    NSString* fName = (__bridge NSString *)(functionData);
+    return [swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv];
 }
 
 void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, uint32_t *numFunctionsToSet, const FRENamedFunction **functionsToSet) {
 
-    static FRENamedFunction extensionFunctions[] = {
-            {(const uint8_t *) "runStringTests", NULL, &runStringTests},
-            {(const uint8_t *) "runNumberTests", NULL, &runNumberTests},
-            {(const uint8_t *) "runIntTests", NULL, &runIntTests},
-            {(const uint8_t *) "runArrayTests", NULL, &runArrayTests},
-            {(const uint8_t *) "runObjectTests", NULL, &runObjectTests},
-            {(const uint8_t *) "runBitmapTests", NULL, &runBitmapTests},
-            {(const uint8_t *) "runByteArrayTests", NULL, &runByteArrayTests},
-            {(const uint8_t *) "runErrorTests", NULL, &runErrorTests},
-            {(const uint8_t *) "runDataTests", NULL, &runDataTests}
-        
-
-    };
-    *numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
-    *functionsToSet = extensionFunctions;
+    /******* MAKE SURE TO SET NUM OF FUNCTIONS MANUALLY *****/
+    /********************************************************/
     
-    freBridge = [[FlashRuntimeExtensionsBridge alloc] init];
+    const int numFunctions = 9;
+    
+    /********************************************************/
+    /********************************************************/
     
     swft = [[SwiftController alloc] init];
     [swft setFREContextWithCtx:ctx];
-    
+    freBridge = [[FlashRuntimeExtensionsBridge alloc] init];
     swftBridge = [[FRESwiftBridge alloc] init];
     [swftBridge setDelegateWithBridge:freBridge];
+    
+    funcArray = [swft getFunctions];
+    static FRENamedFunction extensionFunctions[numFunctions] = {};
+    for (int i = 0; i < [funcArray count]; ++i) {
+        NSString * nme = [funcArray objectAtIndex:i];
+        FRENamedFunction nf = {(const uint8_t *) [nme UTF8String], (__bridge void *)(nme), &callSwiftFunction};
+        extensionFunctions[i] = nf;
+    }
+    
+    *numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
+    *functionsToSet = extensionFunctions;
+    
 }
 
 void contextFinalizer(FREContext ctx) {

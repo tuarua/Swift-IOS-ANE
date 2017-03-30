@@ -132,16 +132,13 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
  */
 SWIFT_CLASS("_TtC14SwiftIOSANE_FW15SwiftController")
 @interface SwiftController : NSObject
-- (FREObject _Nullable)runStringTestsWithArgv:(NSPointerArray *_Nullable)argv;
-- (FREObject _Nullable)runNumberTestsWithArgv:(NSPointerArray *_Nullable)argv;
-- (FREObject _Nullable)runIntTestsWithArgv:(NSPointerArray *_Nullable)argv;
-- (FREObject _Nullable)runArrayTestsWithArgv:(NSPointerArray *_Nullable)argv;
-- (FREObject _Nullable)runObjectTestsWithArgv:(NSPointerArray *_Nullable)argv;
-- (FREObject _Nullable)runBitmapTestsWithArgv:(NSPointerArray *_Nullable)argv;
-- (FREObject _Nullable)runByteArrayTestsWithArgv:(NSPointerArray *_Nullable)argv;
-- (FREObject _Nullable)runDataTestsWithArgv:(NSPointerArray *_Nullable)argv;
-- (FREObject _Nullable)runErrorTestsWithArgv:(NSPointerArray *_Nullable)argv;
+//Must have these 3 functions
 - (void)setFREContextWithCtx:(FREContext _Nonnull)ctx;
+- (NSArray *_Nonnull) getFunctions;
+- (FREObject _Nullable)callSwiftFunctionWithName:(NSString * _Nonnull)name
+                                             ctx:(FREContext _Nonnull)ctx
+                                            argc:(uint32_t)argc
+                                            argv:(FREObject _Nullable * _Nonnull)argv;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

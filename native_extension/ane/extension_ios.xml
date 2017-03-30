@@ -3,7 +3,7 @@
 	<id>com.tuarua.SwiftIOSANE</id>
 	<name>Swift IOS ANE</name>
 	<copyright>This work is licensed under MIT License, Copyright (c) 2017 Tua Rua Ltd.</copyright>
-	<versionNumber>0.0.5</versionNumber>
+	<versionNumber>0.0.6</versionNumber>
 	<platforms>
         
 	<platform name="iPhone-x86">

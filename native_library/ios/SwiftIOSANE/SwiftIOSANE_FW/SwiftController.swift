@@ -23,12 +23,32 @@
 
 import Foundation
 
-@objc class SwiftController: NSObject {
+@objc class SwiftController: FRESwiftController {
 
+    // must have this function !!
+    // Must set const numFunctions in SwiftOSXANE.m to the length of this Array
+    func getFunctions() -> Array<String> {
+        
+        functionsToSet["runStringTests"] = runStringTests
+        functionsToSet["runNumberTests"] = runNumberTests
+        functionsToSet["runIntTests"] = runIntTests
+        functionsToSet["runArrayTests"] = runArrayTests
+        functionsToSet["runObjectTests"] = runObjectTests
+        functionsToSet["runBitmapTests"] = runBitmapTests
+        functionsToSet["runByteArrayTests"] = runByteArrayTests
+        functionsToSet["runErrorTests"] = runErrorTests
+        functionsToSet["runDataTests"] = runDataTests
+        
+        var arr:Array<String> = []
+        for key in functionsToSet.keys {
+            arr.append(key)
+        }
+        return arr
+    }
 
-    func runStringTests(argv: NSPointerArray) -> FREObject? {
+    func runStringTests(ctx:FREContext, argc:FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start String test***********")
-        if let inFRE = argv.pointer(at: 0) {
+        if let inFRE = argv[0] {
             do {
                 let airString: String = try inFRE.getAsString()
                 trace("String passed from AIR:", airString)
@@ -47,9 +67,9 @@ import Foundation
         return nil
     }
 
-    func runNumberTests(argv: NSPointerArray) -> FREObject? {
+    func runNumberTests(ctx:FREContext, argc:FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Number test***********")
-        if let inFRE = argv.pointer(at: 0) {
+        if let inFRE = argv[0] {
             do {
                 let airNumber: Double = try inFRE.getAsDouble()
                 trace("Number passed from AIR:", airNumber)
@@ -60,8 +80,8 @@ import Foundation
         return nil
     }
 
-    func runIntTests(argv: NSPointerArray) -> FREObject? {
-        if let inFRE1 = argv.pointer(at: 0), let inFRE2 = argv.pointer(at: 1) {
+    func runIntTests(ctx:FREContext, argc:FREArgc, argv: FREArgv) -> FREObject? {
+        if let inFRE1 = argv[0], let inFRE2 = argv[1] {
             trace("***********Start Int Uint test***********", "file:", #file, "line:", #line, "column:", #column)
             do {
                 let airInt: Int = try inFRE1.getAsInt()
@@ -84,9 +104,9 @@ import Foundation
     //public typealias FREFunction = @convention(c) (FREContext?, UnsafeMutableRawPointer?, UInt32, UnsafeMutablePointer<FREObject?>?) -> FREObject?
 
 
-    func runArrayTests(argv: NSPointerArray) -> FREObject? {
+    func runArrayTests(ctx:FREContext, argc:FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Array test***********")
-        if let inFRE: FREArray = argv.pointer(at: 0) {
+        if let inFRE: FREArray = argv[0] {
             do {
 
                 let airArray = try inFRE.getAsArray()
@@ -111,9 +131,9 @@ import Foundation
 
     }
 
-    func runObjectTests(argv: NSPointerArray) -> FREObject? {
+    func runObjectTests(ctx:FREContext, argc:FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Object test***********")
-        if let person = argv.pointer(at: 0) {
+        if let person = argv[0] {
             do {
                 if let freAge: FREObject = try person.getProperty(name: "age") {
                     let oldAge: Int = try freAge.getAsInt()
@@ -143,9 +163,9 @@ import Foundation
 
     }
 
-    func runBitmapTests(argv: NSPointerArray) -> FREObject? {
+    func runBitmapTests(ctx:FREContext, argc:FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Bitmap test***********")
-        if let inFRE = argv.pointer(at: 0) {
+        if let inFRE = argv[0] {
             defer {
                 inFRE.release()
             }
@@ -168,9 +188,9 @@ import Foundation
         return nil
     }
 
-    func runByteArrayTests(argv: NSPointerArray) -> FREObject? {
+    func runByteArrayTests(ctx:FREContext, argc:FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start ByteArray test***********")
-        if let asByteArray = argv.pointer(at: 0) {
+        if let asByteArray = argv[0] {
             defer {
                 asByteArray.release()
             }
@@ -184,9 +204,9 @@ import Foundation
         return nil
     }
 
-    func runDataTests(argv: NSPointerArray) -> FREObject? {
+    func runDataTests(ctx:FREContext, argc:FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start ActionScriptData test***********")
-        if let objectAs = argv.pointer(at: 0) {
+        if let objectAs = argv[0] {
             do {
                 try context.setActionScriptData(object: objectAs)
                 return try context.getActionScriptData()
@@ -195,9 +215,9 @@ import Foundation
         return nil
     }
 
-    func runErrorTests(argv: NSPointerArray) -> FREObject? {
+    func runErrorTests(ctx:FREContext, argc:FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Error Handling test***********")
-        if let person = argv.pointer(at: 0), let testString = argv.pointer(at: 1), let testInt = argv.pointer(at: 2) {
+        if let person = argv[0], let testString = argv[1], let testInt = argv[2] {
             do {
                 _ = try person.getProperty(name: "doNotExist") //calling a property that doesn't exist
             } catch let e as FREError {
