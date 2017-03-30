@@ -30,8 +30,8 @@ Add Swift method(s) to the functionsToSet array in getFunctions()
 
 ````swift
 func getFunctions() -> Array<String> {
-functionsToSet["load"] = load
-...        
+  functionsToSet["load"] = load
+  ...        
 }
 `````
 
