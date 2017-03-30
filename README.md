@@ -14,41 +14,35 @@ It is comprised of 3 parts.
 > as a bridge back to Objective C ,was used.
 
 SwiftIOSANE_LIB/SwiftIOSANE_LIB.m is the entry point of the ANE. It acts as a thin layered API to your Swift controller.  
-Add methods here like you would an ObjC based ANE  
-eg
+Add the number of methods here 
 
 ````objectivec
+/********************************************************/
 
-FRE_FUNCTION (runStringTests) {
-  return [swft runStringTestsWithArgv:getFREargs(argc, argv)];
-}
-...
+const int numFunctions = 1;
 
-static FRENamedFunction extensionFunctions[] = {
-  {(const uint8_t *) "runStringTests", NULL, &runStringTests}
-}
-`````
-
-
-SwiftIOSANE_FW/SwiftIOSANE_FW-Swift.h
-Add the method to the header to expose to Swift 
-
-````objectivec
-- (FREObject _Nullable)runStringTestsWithArgv:(NSPointerArray *_Nullable)argv;
+/********************************************************/
 `````
 
 
 SwiftIOSANE_FW/SwiftController.swift  
-Add Swift method  
+Add Swift method(s) to the functionsToSet array in getFunctions()
 
 ````swift
-func runStringTests(argv: NSPointerArray) -> FREObject? {
-  if let inFRE = argv.pointer(at: 0) {
-    //code
-  }
+func getFunctions() -> Array<String> {
+functionsToSet["load"] = load
+...        
 }
 `````
 
+Add Swift method(s)
+
+````swift
+func load(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+//your code here
+return nil
+}
+`````
 
 ----------
 
@@ -59,10 +53,10 @@ Example - Convert a FREObject into a String, and String into FREObject
 
 ````swift
 do {
-	let asString: String = try myFREObject.getAsString()
-	trace("as3 String converted to Swift String :", asString)
-	let swiftString: String = "I am a string from Swift"
-	let freString: FREObject? = try FREObject.newObject(string: swiftString)
+let asString: String = try myFREObject.getAsString()
+trace("as3 String converted to Swift String :", asString)
+let swiftString: String = "I am a string from Swift"
+let freString: FREObject? = try FREObject.newObject(string: swiftString)
 } catch {}
 `````
 
@@ -71,42 +65,42 @@ Example - Call a method on an FREObject
 
 ````swift
 if let addition: FREObject = try person.callMethod(methodName: "add", args: FREObject.toArray(args: 100, 33)) {
-	let sum: Int = try addition.getAsInt()
-	trace("addition result:", sum) //trace, noice!
+let sum: Int = try addition.getAsInt()
+trace("addition result:", sum) //trace, noice!
 }
 `````
 
 Example - Reading items in array
 ````swift
 do {
-	let airArray = try inFRE.getAsArray() //get as PointerArray
+let airArray = try inFRE.getAsArray() //get as PointerArray
 
-    
-	if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) { //direct access to FREArray
-		let firstItemVal: Int = try firstItem.getAsInt()
-		trace("AIR Array elem at 0 type:", firstItem.getTypeAsString(), "value:", firstItemVal)
-	}
+
+if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) { //direct access to FREArray
+let firstItemVal: Int = try firstItem.getAsInt()
+trace("AIR Array elem at 0 type:", firstItem.getTypeAsString(), "value:", firstItemVal)
+}
 } catch {}
 `````
 
 Example - Convert BitmapData to a UIImage
 ````swift
 defer {
-    inFRE.release()
+inFRE.release()
 }
 do {
-    if let cgimg = try inFRE.getAsImage() {
-        let img: UIImage = UIImage(cgImage: cgimg)
-    }
+if let cgimg = try inFRE.getAsImage() {
+let img: UIImage = UIImage(cgImage: cgimg)
+}
 } catch {}
 `````
 
 Example - Error handling
 ````swift
 do {
-	_ = try testString.getAsInt() //get as wrong type
+_ = try testString.getAsInt() //get as wrong type
 } catch let e as FREError {
-	e.printStackTrace(#file,#line,#column)
+e.printStackTrace(#file,#line,#column)
 } catch {}
 `````
 ----------
@@ -123,6 +117,6 @@ An AIR based packaging tool is provided at https://github.com/tuarua/AIR-iOS-Pac
 
 You will need
 
-- Xcode 8.2 / AppCode
+- Xcode 8.3 / AppCode
 - IntelliJ IDEA
 - AIR 25

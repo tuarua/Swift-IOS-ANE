@@ -6,6 +6,7 @@
 #endif
 
 #pragma clang diagnostic ignored "-Wauto-import"
+
 #include <objc/NSObject.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -80,7 +81,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if !defined(SWIFT_CLASS)
 # if defined(__has_attribute) && __has_attribute(objc_subclassing_restricted)
 #  define SWIFT_CLASS(SWIFT_NAME) SWIFT_RUNTIME_NAME(SWIFT_NAME) __attribute__((objc_subclassing_restricted)) SWIFT_CLASS_EXTRA
-#  define SWIFT_CLASS_NAMED(SWIFT_NAME) __attribute__((objc_subclassing_restricted)) SWIFT_COMPILE_NAME(SWIFT_NAME) SWIFT_CLASS_EXTRA
+#  define SWIFT_CLASS_NAMED(SWIFT_NAME) __attribute__SwiftController((objc_subclassing_restricted)) SWIFT_COMPILE_NAME(SWIFT_NAME) SWIFT_CLASS_EXTRA
 # else
 #  define SWIFT_CLASS(SWIFT_NAME) SWIFT_RUNTIME_NAME(SWIFT_NAME) SWIFT_CLASS_EXTRA
 #  define SWIFT_CLASS_NAMED(SWIFT_NAME) SWIFT_COMPILE_NAME(SWIFT_NAME) SWIFT_CLASS_EXTRA
@@ -115,8 +116,30 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # define SWIFT_UNAVAILABLE __attribute__((unavailable))
 #endif
 #if defined(__has_feature) && __has_feature(modules)
+
+@import ObjectiveC;
+
 #endif
+
+#import <FRESwift/FlashRuntimeExtensions.h>
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
+
+/*
+ * 14 means 14 characters in Framework name
+ * 15 means 15 characters in Swift Class name
+ */
+SWIFT_CLASS("_TtC14SwiftIOSANE_FW15SwiftController")
+@interface SwiftController : NSObject
+//Must have these 3 functions
+- (void)setFREContextWithCtx:(FREContext _Nonnull)ctx;
+- (NSArray *_Nonnull) getFunctions;
+- (FREObject _Nullable)callSwiftFunctionWithName:(NSString * _Nonnull)name
+                                             ctx:(FREContext _Nonnull)ctx
+                                            argc:(uint32_t)argc
+                                            argv:(FREObject _Nullable * _Nonnull)argv;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 #pragma clang diagnostic pop
