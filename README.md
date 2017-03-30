@@ -26,7 +26,7 @@ const int numFunctions = 1;
 
 
 SwiftIOSANE_FW/SwiftController.swift  
-Add Swift method(s) to the functionsToSet array in getFunctions()
+Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
 
 ````swift
 func getFunctions() -> Array<String> {
