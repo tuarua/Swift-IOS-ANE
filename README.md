@@ -39,8 +39,8 @@ Add Swift method(s)
 
 ````swift
 func load(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-//your code here
-return nil
+  //your code here
+  return nil
 }
 `````
 
@@ -53,10 +53,10 @@ Example - Convert a FREObject into a String, and String into FREObject
 
 ````swift
 do {
-let asString: String = try myFREObject.getAsString()
-trace("as3 String converted to Swift String :", asString)
-let swiftString: String = "I am a string from Swift"
-let freString: FREObject? = try FREObject.newObject(string: swiftString)
+  let asString: String = try myFREObject.getAsString()
+  trace("as3 String converted to Swift String :", asString)
+  let swiftString: String = "I am a string from Swift"
+  let freString: FREObject? = try FREObject.newObject(string: swiftString)
 } catch {}
 `````
 
@@ -65,42 +65,42 @@ Example - Call a method on an FREObject
 
 ````swift
 if let addition: FREObject = try person.callMethod(methodName: "add", args: FREObject.toArray(args: 100, 33)) {
-let sum: Int = try addition.getAsInt()
-trace("addition result:", sum) //trace, noice!
+  let sum: Int = try addition.getAsInt()
+  trace("addition result:", sum) //trace, noice!
 }
 `````
 
 Example - Reading items in array
 ````swift
 do {
-let airArray = try inFRE.getAsArray() //get as PointerArray
+  let airArray = try inFRE.getAsArray() //get as PointerArray
 
 
-if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) { //direct access to FREArray
-let firstItemVal: Int = try firstItem.getAsInt()
-trace("AIR Array elem at 0 type:", firstItem.getTypeAsString(), "value:", firstItemVal)
-}
+  if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) { //direct access to FREArray
+    let firstItemVal: Int = try firstItem.getAsInt()
+    trace("AIR Array elem at 0 type:", firstItem.getTypeAsString(), "value:", firstItemVal)
+  }
 } catch {}
 `````
 
 Example - Convert BitmapData to a UIImage
 ````swift
 defer {
-inFRE.release()
+  inFRE.release()
 }
 do {
-if let cgimg = try inFRE.getAsImage() {
-let img: UIImage = UIImage(cgImage: cgimg)
-}
+  if let cgimg = try inFRE.getAsImage() {
+    let img: UIImage = UIImage(cgImage: cgimg)
+  }
 } catch {}
 `````
 
 Example - Error handling
 ````swift
 do {
-_ = try testString.getAsInt() //get as wrong type
+  _ = try testString.getAsInt() //get as wrong type
 } catch let e as FREError {
-e.printStackTrace(#file,#line,#column)
+  e.printStackTrace(#file,#line,#column)
 } catch {}
 `````
 ----------
