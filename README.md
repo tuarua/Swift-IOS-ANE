@@ -30,8 +30,8 @@ Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
 
 ````swift
 func getFunctions() -> Array<String> {
-  functionsToSet["load"] = load
-  ...        
+functionsToSet["load"] = load
+...        
 }
 `````
 
@@ -39,8 +39,8 @@ Add Swift method(s)
 
 ````swift
 func load(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-  //your code here
-  return nil
+//your code here
+return nil
 }
 `````
 
@@ -52,11 +52,11 @@ func load(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
 Example - Convert a FREObject into a String, and String into FREObject
 
 ````swift
+let airString: String = FREObjectSwift(freObject: inFRE0).value as? String
+trace("String passed from AIR:", airString)
+let swiftString: String = "I am a string from Swift"
 do {
-  let asString: String = try myFREObject.getAsString()
-  trace("as3 String converted to Swift String :", asString)
-  let swiftString: String = "I am a string from Swift"
-  let freString: FREObject? = try FREObject.newObject(string: swiftString)
+return try FREObjectSwift(string: swiftString).rawValue
 } catch {}
 `````
 
@@ -64,43 +64,49 @@ do {
 Example - Call a method on an FREObject
 
 ````swift
-if let addition: FREObject = try person.callMethod(methodName: "add", args: FREObject.toArray(args: 100, 33)) {
-  let sum: Int = try addition.getAsInt()
-  trace("addition result:", sum) //trace, noice!
+if let addition: FREObjectSwift = try person.callMethod(methodName: "add", args: 100, 31) {
+if let sum: Int = addition.value as? Int {
+trace("addition result:", sum)
+}
 }
 `````
 
 Example - Reading items in array
 ````swift
+let airArray: FREArraySwift = FREArraySwift.init(freObject: inFRE0)
 do {
-  let airArray = try inFRE.getAsArray() //get as PointerArray
-
-
-  if let firstItem: FREObject = try inFRE.getObjectAt(index: 0) { //direct access to FREArray
-    let firstItemVal: Int = try firstItem.getAsInt()
-    trace("AIR Array elem at 0 type:", firstItem.getTypeAsString(), "value:", firstItemVal)
-  }
+if let itemZero: FREObjectSwift = try airArray.getObjectAt(index: 0) {
+if let itemZeroVal: Int = itemZero.value as? Int {
+trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
+let newVal = try FREObjectSwift.init(int: 56)
+try airArray.setObjectAt(index: 0, object: newVal)
+return airArray.rawValue
+}
+}
 } catch {}
 `````
 
 Example - Convert BitmapData to a UIImage
 ````swift
+let asBitmapData = FREBitmapDataSwift.init(freObject: inFRE0)
 defer {
-  inFRE.release()
+asBitmapData.releaseData()
 }
 do {
-  if let cgimg = try inFRE.getAsImage() {
-    let img: UIImage = UIImage(cgImage: cgimg)
-  }
+if let cgimg = try asBitmapData.getAsImage() {
+let img: UIImage = UIImage(cgImage: cgimg)
+}
 } catch {}
 `````
 
 Example - Error handling
 ````swift
 do {
-  _ = try testString.getAsInt() //get as wrong type
+_ = try person.getProperty(name: "doNotExist") //calling a property that doesn't exist
 } catch let e as FREError {
-  e.printStackTrace(#file,#line,#column)
+if let aneError = e.getError(#file, #line, #column) {
+return aneError //return the error as an actionscript error
+}
 } catch {}
 `````
 ----------
