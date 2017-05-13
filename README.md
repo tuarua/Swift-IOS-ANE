@@ -47,7 +47,7 @@ func load(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
 ----------
 
 ### How to use
-######  The methods exposed by FlashRuntimeExtensions.swift are very similar to the Java API for Air Native Extensions. 
+######  The methods exposed by FlashRuntimeExtensions.swift are similar to the FreSharp API for Air Native Extensions. 
 
 Example - Convert a FREObject into a String, and String into FREObject
 
