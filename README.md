@@ -30,8 +30,8 @@ Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
 
 ````swift
 func getFunctions() -> Array<String> {
-functionsToSet["load"] = load
-...        
+  functionsToSet["load"] = load
+  ...        
 }
 `````
 
@@ -39,8 +39,8 @@ Add Swift method(s)
 
 ````swift
 func load(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-//your code here
-return nil
+  //your code here
+  return nil
 }
 `````
 
@@ -56,7 +56,7 @@ let airString: String = FREObjectSwift(freObject: inFRE0).value as? String
 trace("String passed from AIR:", airString)
 let swiftString: String = "I am a string from Swift"
 do {
-return try FREObjectSwift(string: swiftString).rawValue
+    return try FREObjectSwift(string: swiftString).rawValue
 } catch {}
 `````
 
@@ -65,9 +65,9 @@ Example - Call a method on an FREObject
 
 ````swift
 if let addition: FREObjectSwift = try person.callMethod(methodName: "add", args: 100, 31) {
-if let sum: Int = addition.value as? Int {
-trace("addition result:", sum)
-}
+    if let sum: Int = addition.value as? Int {
+        trace("addition result:", sum)
+    }
 }
 `````
 
@@ -75,14 +75,14 @@ Example - Reading items in array
 ````swift
 let airArray: FREArraySwift = FREArraySwift.init(freObject: inFRE0)
 do {
-if let itemZero: FREObjectSwift = try airArray.getObjectAt(index: 0) {
-if let itemZeroVal: Int = itemZero.value as? Int {
-trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
-let newVal = try FREObjectSwift.init(int: 56)
-try airArray.setObjectAt(index: 0, object: newVal)
-return airArray.rawValue
-}
-}
+    if let itemZero: FREObjectSwift = try airArray.getObjectAt(index: 0) {
+        if let itemZeroVal: Int = itemZero.value as? Int {
+            trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
+            let newVal = try FREObjectSwift.init(int: 56)
+            try airArray.setObjectAt(index: 0, object: newVal)
+            return airArray.rawValue
+         }
+    }
 } catch {}
 `````
 
@@ -90,23 +90,23 @@ Example - Convert BitmapData to a UIImage
 ````swift
 let asBitmapData = FREBitmapDataSwift.init(freObject: inFRE0)
 defer {
-asBitmapData.releaseData()
+    asBitmapData.releaseData()
 }
 do {
-if let cgimg = try asBitmapData.getAsImage() {
-let img: UIImage = UIImage(cgImage: cgimg)
-}
+    if let cgimg = try asBitmapData.getAsImage() {
+        let img: UIImage = UIImage(cgImage: cgimg)
+    }
 } catch {}
 `````
 
 Example - Error handling
 ````swift
 do {
-_ = try person.getProperty(name: "doNotExist") //calling a property that doesn't exist
+    _ = try person.getProperty(name: "doNotExist") //calling a property that doesn't exist
 } catch let e as FREError {
-if let aneError = e.getError(#file, #line, #column) {
-return aneError //return the error as an actionscript error
-}
+    if let aneError = e.getError(#file, #line, #column) {
+        return aneError //return the error as an actionscript error
+    }
 } catch {}
 `````
 ----------
