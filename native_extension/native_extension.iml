@@ -4,7 +4,7 @@
     <configurations>
       <configuration name="SwiftIOSANE" target-platform="Mobile" pure-as="true" output-type="Library" output-file="SwiftIOSANE.swc" output-folder="$MODULE_DIR$/bin">
         <dependencies>
-          <sdk name="AIRSDK_25B" />
+          <sdk name="AIRSDK_25" />
         </dependencies>
         <compiler-options>
           <option name="additionalOptions" value="-swf-version=30" />
@@ -21,7 +21,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="AIRSDK_25B" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="AIRSDK_25" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

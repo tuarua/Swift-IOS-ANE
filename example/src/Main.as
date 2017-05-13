@@ -1,5 +1,6 @@
 package {
 
+import com.tuarua.ANEError;
 import com.tuarua.Person;
 import com.tuarua.SwiftIOSANE;
 
@@ -76,7 +77,17 @@ public class Main extends Sprite {
         ane.runByteArrayTests(myByteArray);
 
 
-        ane.runErrorTests(person, "test string", 78);
+        try {
+            ane.runErrorTests(person);
+        } catch (e:ANEError) {
+            trace("Error captured in AS")
+            trace("e.message:", e.message);
+            trace("e.errorID:", e.errorID);
+            trace("e.type:", e.type);
+            trace("e.source:", e.source);
+            trace("e.getStackTrace():", e.getStackTrace());
+        }
+        ane.runErrorTests2("Test String");
 
         var inData:String = "Saved and returned";
         var outData:String = ane.runDataTests(inData) as String;

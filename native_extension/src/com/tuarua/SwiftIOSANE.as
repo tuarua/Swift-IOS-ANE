@@ -67,8 +67,15 @@ public class SwiftIOSANE extends EventDispatcher {
         return extensionContext.call("runDataTests", value) as String;
     }
 
-    public function runErrorTests(value:Person, string:String, int:int):String {
-        return extensionContext.call("runErrorTests", value, string, int) as String;
+    public function runErrorTests(value:Person):void {
+        var theRet:* = extensionContext.call("runErrorTests", value);
+        if(theRet is ANEError){
+            throw theRet as ANEError;
+        }
+    }
+
+    public function runErrorTests2(string:String):void {
+        extensionContext.call("runErrorTests2", string);
     }
 
     public function dispose():void {

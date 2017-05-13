@@ -22,7 +22,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/i386.swiftmodule</key>
 		<data>
-		lpmh2CU9qjNHG8EdRVndVHb/6TY=
+		kvv9i48naUEcm4958vfaZ9XRmqQ=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		NeoZYDwspVUM7W8JINrPX62Aw9E=
+		pk57/0dE1FNBGeNNgIhQCzspSoA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -76,11 +76,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			lpmh2CU9qjNHG8EdRVndVHb/6TY=
+			kvv9i48naUEcm4958vfaZ9XRmqQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			4fExUt8OlTW49Pai2WDQNaSYaVuUWKc0iElzMF4WYIQ=
+			/GTAtE0HrwD0PH8IdGrL6bIrp/iq18Bw9VF5YTeZ1/c=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/x86_64.swiftdoc</key>
@@ -98,11 +98,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			NeoZYDwspVUM7W8JINrPX62Aw9E=
+			pk57/0dE1FNBGeNNgIhQCzspSoA=
 			</data>
 			<key>hash2</key>
 			<data>
-			P3JCqw5B3QLx2YXWwf75BeO/jyh9WZeL35GygsPayaA=
+			EH3dheEZ3nbh31Mm443LwTxs27PPUT4z1Bamhi1o0us=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
