@@ -133,6 +133,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 #if defined(__has_feature) && __has_feature(modules)
 @import ObjectiveC;
+@import CoreGraphics;
 #endif
 
 #import <FRESwift/FRESwift.h>
@@ -162,8 +163,10 @@ SWIFT_CLASS("_TtC8FRESwift18FREBitmapDataSwift")
 @property (nonatomic) NSUInteger lineStride32;
 @property (nonatomic) uint32_t * _Null_unspecified bits32;
 - (nonnull instancetype)initWithFreObject:(FREObject _Nonnull)freObject OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithCgImage:(CGImageRef _Nonnull)cgImage OBJC_DESIGNATED_INITIALIZER;
 - (BOOL)acquireAndReturnError:(NSError * _Nullable * _Nullable)error;
 - (void)releaseData;
+- (BOOL)setPixelsWithCgImage:(CGImageRef _Nonnull)cgImage error:(NSError * _Nullable * _Nullable)error;
 - (BOOL)invalidateRectWithX:(NSUInteger)x y:(NSUInteger)y width:(NSUInteger)width height:(NSUInteger)height error:(NSError * _Nullable * _Nullable)error;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
@@ -176,6 +179,7 @@ SWIFT_CLASS("_TtC8FRESwift17FREByteArraySwift")
 @property (nonatomic) uint8_t * _Null_unspecified bytes;
 @property (nonatomic) NSUInteger length;
 - (nonnull instancetype)initWithFreByteArray:(FREObject _Nonnull)freByteArray OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithData:(NSData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
 - (BOOL)acquireAndReturnError:(NSError * _Nullable * _Nullable)error;
 - (void)releaseBytes;
 @property (nonatomic, readonly, strong) NSData * _Nullable value;
@@ -192,7 +196,6 @@ SWIFT_CLASS("_TtC8FRESwift15FREContextSwift")
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
-@class NSPointerArray;
 
 SWIFT_CLASS("_TtC8FRESwift14FREObjectSwift")
 @interface FREObjectSwift : NSObject
@@ -205,8 +208,8 @@ SWIFT_CLASS("_TtC8FRESwift14FREObjectSwift")
 - (nullable instancetype)initWithUint:(NSUInteger)uint error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithBool:(BOOL)bool_ error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithAny:(id _Nonnull)any error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithClassName:(NSString * _Nonnull)className args:(NSPointerArray * _Nullable)args error:(NSError * _Nullable * _Nullable)error OBJC_DESIGNATED_INITIALIZER;
 - (BOOL)setPropertyWithName:(NSString * _Nonnull)name prop:(FREObjectSwift * _Nullable)prop error:(NSError * _Nullable * _Nullable)error;
+- (BOOL)setPropertyWithName:(NSString * _Nonnull)name array:(FREArraySwift * _Nullable)array error:(NSError * _Nullable * _Nullable)error;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 @end
 
