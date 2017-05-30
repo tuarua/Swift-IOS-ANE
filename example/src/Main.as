@@ -1,8 +1,8 @@
 package {
 
-import com.tuarua.ANEError;
 import com.tuarua.Person;
 import com.tuarua.SwiftIOSANE;
+import com.tuarua.fre.ANEError;
 
 import flash.display.Bitmap;
 
