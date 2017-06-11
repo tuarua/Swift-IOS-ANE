@@ -162,7 +162,7 @@ import CoreImage
                     trace("current person age is", oldAge)
 
                     if let addition: FREObjectSwift = try person.callMethod(
-                            methodName: "add", args: 100, 31) {
+                      methodName: "add", args: 100, 31) {
 
                         if let sum: Int = addition.value as? Int {
                             trace("addition result:", sum)
@@ -204,7 +204,7 @@ import CoreImage
             if let cgimg = try asBitmapData.getAsImage() {
                 trace("CGIMG Ok")
 
-                
+
                 let context = CIContext()
                 let filter = CIFilter(name: "CISepiaTone")!
                 filter.setValue(0.8, forKey: kCIInputIntensityKey)
@@ -212,8 +212,8 @@ import CoreImage
                 filter.setValue(image, forKey: kCIInputImageKey)
                 let result = filter.outputImage!
                 let cgImage = context.createCGImage(result, from: result.extent)
-                
-                
+
+
                 let img: UIImage = UIImage(cgImage: cgImage!)
                 trace("image loaded", img.size.width, "x", img.size.height)
                 if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
