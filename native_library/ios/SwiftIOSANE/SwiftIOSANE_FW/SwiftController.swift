@@ -202,25 +202,20 @@ import CoreImage
         }
         do {
             if let cgimg = try asBitmapData.getAsImage() {
-                trace("CGIMG Ok")
-
-
                 let context = CIContext()
-                let filter = CIFilter(name: "CISepiaTone")!
-                filter.setValue(0.8, forKey: kCIInputIntensityKey)
-                let image = CIImage.init(cgImage: cgimg)
-                filter.setValue(image, forKey: kCIInputImageKey)
-                let result = filter.outputImage!
-                let cgImage = context.createCGImage(result, from: result.extent)
-
-
-                let img: UIImage = UIImage(cgImage: cgImage!)
-                trace("image loaded", img.size.width, "x", img.size.height)
-                if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-                    let imgView: UIImageView = UIImageView.init(image: img)
-                    let frame: CGRect = CGRect.init(x: 10, y: 100, width: img.size.width, height: img.size.height)
-                    imgView.frame = frame
-                    rootViewController.view.addSubview(imgView)
+                if let filter = CIFilter(name: "CISepiaTone") {
+                    filter.setValue(0.8, forKey: kCIInputIntensityKey)
+                    let image = CIImage.init(cgImage: cgimg)
+                    filter.setValue(image, forKey: kCIInputImageKey)
+                    let result = filter.outputImage!
+                    if let cgImage = context.createCGImage(result, from: result.extent) {
+                        let img:UIImage = UIImage.init(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
+                        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+                            let imgView: UIImageView = UIImageView.init(image: img)
+                            imgView.frame = CGRect.init(x: 10, y: 100, width: img.size.width, height: img.size.height)
+                            rootViewController.view.addSubview(imgView)
+                        }
+                    }
                 }
             }
         } catch {
