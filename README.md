@@ -100,7 +100,7 @@ defer {
 }
 do {
     if let cgimg = try asBitmapData.getAsImage() {
-        let img: UIImage = UIImage(cgImage: cgimg)
+        let img:UIImage = UIImage.init(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
            let imgView: UIImageView = UIImageView.init(image: img)
            imgView.frame = CGRect.init(x: 0, y: 0, width: img.size.width, height: img.size.height)
