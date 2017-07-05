@@ -19,10 +19,10 @@ Add the number of methods here
 
 ````objectivec
 static FRENamedFunction extensionFunctions[] =
-    {
-        { (const uint8_t*) "load", (__bridge void *)@"load", &callSwiftFunction }
-        ,{ (const uint8_t*) "goBack", (__bridge void *)@"goBack", &callSwiftFunction }
-    };
+{
+    { (const uint8_t*) "load", (__bridge void *)@"load", &callSwiftFunction }
+   ,{ (const uint8_t*) "goBack", (__bridge void *)@"goBack", &callSwiftFunction }
+};
 `````
 
 
@@ -31,9 +31,8 @@ Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
 
 ````swift
 func getFunctions() -> Array<String> {
-  functionsToSet["load"] = load
-  functionsToSet["goBack"] = goBack
-  ...        
+    functionsToSet["load"] = load
+    functionsToSet["goBack"] = goBack      
 }
 `````
 
@@ -41,13 +40,13 @@ Add Swift method(s)
 
 ````swift
 func load(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-  //your code here
-  return nil
+    //your code here
+    return nil
 }
 
 func goBack(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-  //your code here
-  return nil
+    //your code here
+    return nil
 }
 `````
 
