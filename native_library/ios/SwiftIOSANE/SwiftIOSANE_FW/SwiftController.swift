@@ -160,17 +160,13 @@ import CoreImage
 
                     trace("current person age is", oldAge)
 
-                    if let addition: FreObjectSwift = try person.callMethod(
-                      methodName: "add", args: 100, 31) {
-
+                    if let addition: FreObjectSwift = try person.callMethod(name: "add", args: 100, 31) {
                         if let sum: Int = addition.value as? Int {
                             trace("addition result:", sum)
                         }
-
                     }
-
                     if let dictionary: Dictionary<String, AnyObject> = person.value as? Dictionary<String, AnyObject> {
-                        trace("AIR Object converted to Dictionary using getAsDictionary:", dictionary.description)
+                        trace("AIR Object converted to Dictionary using as? Dictionary:", dictionary.description)
                     }
 
                     return person.rawValue
@@ -271,7 +267,7 @@ import CoreImage
         let person = FreObjectSwift.init(freObject: inFRE0)
 
         do {
-            _ = try person.callMethod(methodName: "add", args: 2) //not passing enough args
+            _ = try person.callMethod(name: "add", args: 2) //not passing enough args
         } catch let e as FreError {
             trace(e.message) //just catch in Swift, do not bubble to actionscript
         } catch {
