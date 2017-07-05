@@ -39,15 +39,6 @@ FRE_FUNCTION(callSwiftFunction) {
 }
 
 void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, uint32_t *numFunctionsToSet, const FRENamedFunction **functionsToSet) {
-
-    /******* MAKE SURE TO SET NUM OF FUNCTIONS MANUALLY *****/
-    /********************************************************/
-    
-    const int numFunctions = 10;
-    
-    /********************************************************/
-    /********************************************************/
-    
     swft = [[SwiftController alloc] init];
     [swft setFREContextWithCtx:ctx];
     freBridge = [[FlashRuntimeExtensionsBridge alloc] init];
@@ -55,14 +46,29 @@ void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, u
     [swftBridge setDelegateWithBridge:freBridge];
     
     funcArray = [swft getFunctions];
-    static FRENamedFunction extensionFunctions[numFunctions] = {};
-    for (int i = 0; i < [funcArray count]; ++i) {
-        NSString * nme = [funcArray objectAtIndex:i];
-        FRENamedFunction nf = {(const uint8_t *) [nme UTF8String], (__bridge void *)(nme), &callSwiftFunction};
-        extensionFunctions[i] = nf;
-    }
+    /**************************************************************************/
+    /********************* DO NO MODIFY ABOVE THIS LINE ***********************/
+    /**************************************************************************/
     
-    *numFunctionsToSet = sizeof(extensionFunctions) / sizeof(FRENamedFunction);
+    /******* MAKE SURE TO ADD FUNCTIONS HERE THE SAME AS SWIFT CONTROLLER *****/
+    /**************************************************************************/
+    static FRENamedFunction extensionFunctions[] =
+    {
+        { (const uint8_t*) "runStringTests", (__bridge void *)@"runStringTests", &callSwiftFunction }
+        ,{ (const uint8_t*) "runNumberTests", (__bridge void *)@"runNumberTests", &callSwiftFunction }
+        ,{ (const uint8_t*) "runIntTests", (__bridge void *)@"runIntTests", &callSwiftFunction }
+        ,{ (const uint8_t*) "runArrayTests", (__bridge void *)@"runArrayTests", &callSwiftFunction }
+        ,{ (const uint8_t*) "runObjectTests", (__bridge void *)@"runObjectTests", &callSwiftFunction }
+        ,{ (const uint8_t*) "runBitmapTests", (__bridge void *)@"runBitmapTests", &callSwiftFunction }
+        ,{ (const uint8_t*) "runByteArrayTests", (__bridge void *)@"runByteArrayTests", &callSwiftFunction }
+        ,{ (const uint8_t*) "runErrorTests", (__bridge void *)@"runErrorTests", &callSwiftFunction }
+        ,{ (const uint8_t*) "runErrorTests2", (__bridge void *)@"runErrorTests2", &callSwiftFunction }
+        ,{ (const uint8_t*) "runDataTests", (__bridge void *)@"runDataTests", &callSwiftFunction }
+    };
+    /**************************************************************************/
+    /**************************************************************************/
+    
+    *numFunctionsToSet = sizeof( extensionFunctions ) / sizeof( FRENamedFunction );
     *functionsToSet = extensionFunctions;
     
 }
