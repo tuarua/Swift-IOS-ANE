@@ -50,7 +50,7 @@
 		</data>
 		<key>Headers/FRESwift-Swift.h</key>
 		<data>
-		KhSrlWJ9n9kDNnrX2wBKn0WZdXk=
+		r3OH/9T9Yuz1pBwjPiqte93JIws=
 		</data>
 		<key>Headers/FRESwift.h</key>
 		<data>
@@ -62,7 +62,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		fMs/4DWnQ99aT9dEalW+AZgrSIE=
+		PyaenXsBzFSdvHGV9QMJ41ghxwo=
 		</data>
 		<key>Modules/FRESwift.swiftmodule/arm.swiftdoc</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Modules/FRESwift.swiftmodule/arm.swiftmodule</key>
 		<data>
-		HsrwjjnPGk93HMUBQ/PMBU6KUI8=
+		Md4B1lc3uZRDffYQ0tWLFbmMumU=
 		</data>
 		<key>Modules/FRESwift.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Modules/FRESwift.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		hGKij4kU1d4fPbqvQNark4OGAwk=
+		fZCbkn0YXwqUVjsEgLC1mEQ3j2w=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -216,11 +216,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KhSrlWJ9n9kDNnrX2wBKn0WZdXk=
+			r3OH/9T9Yuz1pBwjPiqte93JIws=
 			</data>
 			<key>hash2</key>
 			<data>
-			EjKPDi/kvVlLKfj8aAVyGFMt6TGAvwsnWSrR7RjSfLA=
+			FKHXCqFYso1mhAyYUxa18iu9wxJEjpiOu4k9k9/OgKk=
 			</data>
 		</dict>
 		<key>Headers/FRESwift.h</key>
@@ -260,11 +260,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			HsrwjjnPGk93HMUBQ/PMBU6KUI8=
+			Md4B1lc3uZRDffYQ0tWLFbmMumU=
 			</data>
 			<key>hash2</key>
 			<data>
-			JqyLovDO1sPzEvKMWSSHy1ZwRSIU021X1UvzTMwVZCA=
+			5aicWwSJEgSUvhr1hn2mTBefmlwbwDJXBDNbBnDcJKI=
 			</data>
 		</dict>
 		<key>Modules/FRESwift.swiftmodule/arm64.swiftdoc</key>
@@ -282,11 +282,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hGKij4kU1d4fPbqvQNark4OGAwk=
+			fZCbkn0YXwqUVjsEgLC1mEQ3j2w=
 			</data>
 			<key>hash2</key>
 			<data>
-			VTtvP0U5d+wnAmUZHmFJvCMtAFPvzEVi5ZforfI8l8E=
+			Z9JdjxZZ12F4PZRpkXHWopN11m+MVmP5o+WiX/FwvLI=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

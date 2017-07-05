@@ -173,7 +173,7 @@ public class FreSwiftHelper {
         //Swift.debugPrint("GET ACTIONSCRIPT TYPE----------------")
         if let aneUtils: FreObjectSwift = try? FreObjectSwift.init(className: "com.tuarua.fre.ANEUtils") {
             let param: FreObjectSwift = FreObjectSwift.init(freObject: rawValue)
-            if let classType: FreObjectSwift = try! aneUtils.callMethod(methodName: "getClassType", args: param) {
+            if let classType: FreObjectSwift = try! aneUtils.callMethod(name: "getClassType", args: param) {
                 let type: String? = try! FreSwiftHelper.getAsString(classType.rawValue!).lowercased()
 
                 if type == "int" {
@@ -202,7 +202,7 @@ public class FreSwiftHelper {
         }
 
         let param: FreObjectSwift = FreObjectSwift.init(freObject: rawValue)
-        guard let classProps1: FreObjectSwift = try aneUtils.callMethod(methodName: "getClassProps", args: param),
+        guard let classProps1: FreObjectSwift = try aneUtils.callMethod(name: "getClassProps", args: param),
               let rValue = classProps1.rawValue
           else {
             return Dictionary<String, AnyObject>()
@@ -277,10 +277,10 @@ public class FreSwiftHelper {
             return ""
         }
         do {
-            guard let rv = try thrownExceptionSwift.callMethod(methodName: "hasOwnProperty", args: "getStackTrace")?.rawValue,
+            guard let rv = try thrownExceptionSwift.callMethod(name: "hasOwnProperty", args: "getStackTrace")?.rawValue,
                   let hasStackTrace = try? getAsBool(rv),
                   hasStackTrace,
-                  let asStackTrace = try thrownExceptionSwift.callMethod(methodName: "getStackTrace"),
+                  let asStackTrace = try thrownExceptionSwift.callMethod(name: "getStackTrace"),
                   FreObjectTypeSwift.string == asStackTrace.getType(),
                   let ret: String = asStackTrace.value as? String
               else {
@@ -631,7 +631,7 @@ open class FreObjectSwift: NSObject {
         rawValue = try FreSwiftHelper.newObject(className, argsArray)
     }
 
-    public func callMethod(methodName: String, args: Any...) throws -> FreObjectSwift? {
+    public func callMethod(name: String, args: Any...) throws -> FreObjectSwift? {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
               line: #line, column: #column, file: #file)
@@ -647,16 +647,16 @@ open class FreObjectSwift: NSObject {
         var numArgs: UInt32 = 0
         numArgs = UInt32((argsArray.count))
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRECallObjectMethod(object: rv, methodName: methodName,
+        let status: FREResult = FRESwiftBridge.bridge.FRECallObjectMethod(object: rv, methodName: name,
           argc: numArgs, argv: argsArray,
           result: &ret, thrownException: &thrownException)
 
 #else
-        let status: FREResult = FRECallObjectMethod(rv, methodName, numArgs, FreSwiftHelper.arrayToFREArray(argsArray), &ret, &thrownException)
+        let status: FREResult = FRECallObjectMethod(rv, name, numArgs, FreSwiftHelper.arrayToFREArray(argsArray), &ret, &thrownException)
 #endif
         guard FRE_OK == status else {
             throw FreError(stackTrace: FreSwiftHelper.getActionscriptException(thrownException),
-              message: "cannot call method \"\(methodName)\"", type: FreSwiftHelper.getErrorCode(status),
+              message: "cannot call method \"\(name)\"", type: FreSwiftHelper.getErrorCode(status),
               line: #line, column: #column, file: #file)
         }
 

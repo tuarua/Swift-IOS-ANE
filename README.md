@@ -70,7 +70,7 @@ do {
 Example - Call a method on an FREObject
 
 ````swift
-if let addition: FreObjectSwift = try person.callMethod(methodName: "add", args: 100, 31) {
+if let addition: FreObjectSwift = try person.callMethod(name: "add", args: 100, 31) {
     if let sum: Int = addition.value as? Int {
         trace("addition result:", sum)
     }
