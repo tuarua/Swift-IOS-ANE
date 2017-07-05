@@ -1,5 +1,10 @@
+### 0.0.7 
+- Convert FreXxxxSwift classes to camel case.
+- Change FRENamedFunction array to prevent ARC of strings.
+- Prevent XCode from overwriting -Swift header. Optimised values are maintained.
+
 ### 0.0.6 
-- added getFunctions(). Functions are defined here. Removes need to edit -Swift.h bridging header
+- Added getFunctions(). Functions are defined here. Removes need to edit -Swift.h bridging header
 - Update to Swift 3.1 + Xcode 8.3
 
 ### 0.0.5 
