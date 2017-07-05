@@ -54,7 +54,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		sxg8k54HPlLdgijWRaRwZ2h9GF0=
+		m23oDnpq35Z9mnABLTghyxywvN8=
 		</data>
 		<key>Modules/FRESwift.swiftmodule/i386.swiftdoc</key>
 		<data>
@@ -62,7 +62,7 @@
 		</data>
 		<key>Modules/FRESwift.swiftmodule/i386.swiftmodule</key>
 		<data>
-		5Bl1uIsHaUVMqaBy2ioZtA4qETw=
+		zhQuLzaTapE+4prtPHmeVFOpkvM=
 		</data>
 		<key>Modules/FRESwift.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Modules/FRESwift.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		7ZupHdDjY2rzfCuoqQU4cyqwc/c=
+		ifZ6/SU+wwsjn2bmP0irGW6qbt0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -230,11 +230,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			5Bl1uIsHaUVMqaBy2ioZtA4qETw=
+			zhQuLzaTapE+4prtPHmeVFOpkvM=
 			</data>
 			<key>hash2</key>
 			<data>
-			ajOFVD8KM6oHSchpeX3W6m+QyJBrvjjZ12JYLDwsnso=
+			+J8dMRJ2kJ5Uc4dpuLv2UDtAc1ywge++5ajophdpFM0=
 			</data>
 		</dict>
 		<key>Modules/FRESwift.swiftmodule/x86_64.swiftdoc</key>
@@ -252,11 +252,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			7ZupHdDjY2rzfCuoqQU4cyqwc/c=
+			ifZ6/SU+wwsjn2bmP0irGW6qbt0=
 			</data>
 			<key>hash2</key>
 			<data>
-			86NoB1jUWkuVErWdvWpNCrihqu3B1hYwRea12OyuxXw=
+			XNxS4q8cG7KQZSnO+LCYpAKPIP/DE7U/YDl4htJN6Jo=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
