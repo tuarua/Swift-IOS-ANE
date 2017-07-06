@@ -14,7 +14,7 @@
 
 import Foundation
 
-@objc protocol FRESwiftBridgeProtocol {
+@objc protocol FreSwiftBridgeProtocol {
     func FREDispatchStatusEventAsync(ctx: FREContext, code: String, level: String) -> FREResult
 
     func FRENewObjectFromBool(value: Bool, object: FREObject?) -> FREResult
@@ -75,9 +75,9 @@ import Foundation
 
 }
 
-@objc class FRESwiftBridge: NSObject {
-    static var bridge: FRESwiftBridgeProtocol!
-    func setDelegate(bridge: FRESwiftBridgeProtocol) {
-        FRESwiftBridge.bridge = bridge
+@objc class FreSwiftBridge: NSObject {
+    static var bridge: FreSwiftBridgeProtocol!
+    func setDelegate(bridge: FreSwiftBridgeProtocol) {
+        FreSwiftBridge.bridge = bridge
     }
 }
