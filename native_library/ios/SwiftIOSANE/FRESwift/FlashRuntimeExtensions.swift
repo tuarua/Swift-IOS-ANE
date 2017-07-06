@@ -1,25 +1,17 @@
-/*@copyright The code is licensed under the[MIT
- License](http://opensource.org/licenses/MIT):
+/* Copyright 2017 Tua Rua Ltd.
  
- Copyright © 2017 -  Tua Rua Ltd.
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
  
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files(the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions :
+ http://www.apache.org/licenses/LICENSE-2.0
  
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.*/
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.*/
+
 
 import Foundation
 
@@ -29,7 +21,7 @@ public class FreSwiftHelper {
         var len: UInt32 = 0
         var valuePtr: UnsafePointer<UInt8>?
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREGetObjectAsUTF8(object: rawValue, length: &len, value: &valuePtr)
+        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsUTF8(object: rawValue, length: &len, value: &valuePtr)
 #else
         let status: FREResult = FREGetObjectAsUTF8(rawValue, &len, &valuePtr)
 #endif
@@ -46,7 +38,7 @@ public class FreSwiftHelper {
         var ret: Bool = false
         var val: UInt32 = 0
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREGetObjectAsBool(object: rawValue, value: &val)
+        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsBool(object: rawValue, value: &val)
 #else
         let status: FREResult = FREGetObjectAsBool(rawValue, &val)
 #endif
@@ -62,7 +54,7 @@ public class FreSwiftHelper {
     static func getAsDouble(_ rawValue: FREObject) throws -> Double {
         var ret: Double = 0.0
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREGetObjectAsDouble(object: rawValue, value: &ret)
+        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsDouble(object: rawValue, value: &ret)
 #else
         let status: FREResult = FREGetObjectAsDouble(rawValue, &ret)
 #endif
@@ -76,7 +68,7 @@ public class FreSwiftHelper {
     static func getAsInt(_ rawValue: FREObject) throws -> Int {
         var ret: Int32 = 0
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREGetObjectAsInt32(object: rawValue, value: &ret)
+        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsInt32(object: rawValue, value: &ret)
 #else
         let status: FREResult = FREGetObjectAsInt32(rawValue, &ret)
 #endif
@@ -90,7 +82,7 @@ public class FreSwiftHelper {
     static func getAsUInt(_ rawValue: FREObject) throws -> UInt {
         var ret: UInt32 = 0
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREGetObjectAsUint32(object: rawValue, value: &ret)
+        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsUint32(object: rawValue, value: &ret)
 #else
         let status: FREResult = FREGetObjectAsUint32(rawValue, &ret)
 #endif
@@ -156,7 +148,7 @@ public class FreSwiftHelper {
     public static func getType(_ rawValue: FREObject) -> FreObjectTypeSwift {
         var objectType: FREObjectType = FRE_TYPE_NULL
 #if os(iOS)
-        _ = FRESwiftBridge.bridge.FREGetObjectType(object: rawValue, objectType: &objectType)
+        _ = FreSwiftBridge.bridge.FREGetObjectType(object: rawValue, objectType: &objectType)
 #else
         FREGetObjectType(rawValue, &objectType)
 #endif
@@ -233,7 +225,7 @@ public class FreSwiftHelper {
         var thrownException: FREObject?
 
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREGetObjectProperty(object: rawValue,
+        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectProperty(object: rawValue,
           propertyName: name,
           propertyValue: &ret,
           thrownException: &thrownException)
@@ -253,7 +245,7 @@ public class FreSwiftHelper {
     static func setProperty(rawValue: FREObject, name: String, prop: FREObject?) throws {
         var thrownException: FREObject?
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRESetObjectProperty(object: rawValue,
+        let status: FREResult = FreSwiftBridge.bridge.FRESetObjectProperty(object: rawValue,
           propertyName: name,
           propertyValue: prop,
           thrownException: &thrownException)
@@ -296,7 +288,7 @@ public class FreSwiftHelper {
     static func newObject(_ string: String) throws -> FREObject? {
         var ret: FREObject?
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRENewObjectFromUTF8(length: UInt32(string.utf8.count),
+        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromUTF8(length: UInt32(string.utf8.count),
           value: string, object: &ret)
 #else
         let status: FREResult = FRENewObjectFromUTF8(UInt32(string.utf8.count), string, &ret)
@@ -312,7 +304,7 @@ public class FreSwiftHelper {
     static func newObject(_ double: Double) throws -> FREObject? {
         var ret: FREObject?
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRENewObjectFromDouble(value: double, object: &ret)
+        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromDouble(value: double, object: &ret)
 #else
         let status: FREResult = FRENewObjectFromDouble(double, &ret)
 #endif
@@ -326,7 +318,7 @@ public class FreSwiftHelper {
     static func newObject(_ int: Int) throws -> FREObject? {
         var ret: FREObject?
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRENewObjectFromInt32(value: Int32(int), object: &ret)
+        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromInt32(value: Int32(int), object: &ret)
 #else
         let status: FREResult = FRENewObjectFromInt32(Int32(int), &ret)
 #endif
@@ -340,7 +332,7 @@ public class FreSwiftHelper {
     static func newObject(_ uint: UInt) throws -> FREObject? {
         var ret: FREObject?
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRENewObjectFromUint32(value: UInt32(uint), object: &ret)
+        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromUint32(value: UInt32(uint), object: &ret)
 #else
         let status: FREResult = FRENewObjectFromUint32(UInt32(uint), &ret)
 #endif
@@ -354,7 +346,7 @@ public class FreSwiftHelper {
     static func newObject(_ bool: Bool) throws -> FREObject? {
         var ret: FREObject?
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRENewObjectFromBool(value: bool, object: &ret)
+        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromBool(value: bool, object: &ret)
 #else
         let b: UInt32 = (bool == true) ? 1 : 0
         let status: FREResult = FRENewObjectFromBool(b, &ret)
@@ -374,7 +366,7 @@ public class FreSwiftHelper {
             numArgs = UInt32((args?.count)!)
         }
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRENewObject(className: className, argc: numArgs, argv: args,
+        let status: FREResult = FreSwiftBridge.bridge.FRENewObject(className: className, argc: numArgs, argv: args,
           object: &ret, thrownException: &thrownException)
 #else
         let status: FREResult = FRENewObject(className, numArgs, arrayToFREArray(args), &ret, &thrownException)
@@ -473,7 +465,7 @@ open class FreContextSwift: NSObject {
               line: #line, column: #column, file: #file)
         }
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREDispatchStatusEventAsync(ctx: rv, code: code, level: level)
+        let status: FREResult = FreSwiftBridge.bridge.FREDispatchStatusEventAsync(ctx: rv, code: code, level: level)
 #else
         let status: FREResult = FREDispatchStatusEventAsync(rv, code, level)
 #endif
@@ -490,7 +482,7 @@ open class FreContextSwift: NSObject {
         }
         var ret: FREObject?
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREGetContextActionScriptData(ctx: rv, actionScriptData: &ret)
+        let status: FREResult = FreSwiftBridge.bridge.FREGetContextActionScriptData(ctx: rv, actionScriptData: &ret)
 #else
         let status: FREResult = FREGetContextActionScriptData(rv, &ret)
 #endif
@@ -508,7 +500,7 @@ open class FreContextSwift: NSObject {
               line: #line, column: #column, file: #file)
         }
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRESetContextActionScriptData(ctx: rv, actionScriptData: object)
+        let status: FREResult = FreSwiftBridge.bridge.FRESetContextActionScriptData(ctx: rv, actionScriptData: object)
 #else
         let status: FREResult = FRESetContextActionScriptData(rv, object)
 #endif
@@ -647,7 +639,7 @@ open class FreObjectSwift: NSObject {
         var numArgs: UInt32 = 0
         numArgs = UInt32((argsArray.count))
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRECallObjectMethod(object: rv, methodName: name,
+        let status: FREResult = FreSwiftBridge.bridge.FRECallObjectMethod(object: rv, methodName: name,
           argc: numArgs, argv: argsArray,
           result: &ret, thrownException: &thrownException)
 
@@ -763,7 +755,7 @@ public class FreArraySwift: NSObject {
         }
         var object: FREObject?
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREGetArrayElementA(arrayOrVector: rv, index: UInt32(index),
+        let status: FREResult = FreSwiftBridge.bridge.FREGetArrayElementA(arrayOrVector: rv, index: UInt32(index),
           value: &object)
 #else
         let status: FREResult = FREGetArrayElementAt(rv, UInt32(index), &object)
@@ -785,7 +777,7 @@ public class FreArraySwift: NSObject {
               line: #line, column: #column, file: #file)
         }
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
+        let status: FREResult = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
           value: object.rawValue)
 #else
         let status: FREResult = FRESetArrayElementAt(rv, UInt32(index), object.rawValue)
@@ -804,7 +796,7 @@ public class FreArraySwift: NSObject {
             do {
                 var ret: UInt32 = 0
 #if os(iOS)
-                let status: FREResult = FRESwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
+                let status: FREResult = FreSwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
 #else
                 let status: FREResult = FREGetArrayLength(rv, &ret)
 #endif
@@ -861,7 +853,7 @@ public class FreByteArraySwift: NSObject {
         defer {
             if let rv = rawValue {
 #if os(iOS)
-                _ = FRESwiftBridge.bridge.FREReleaseByteArray(object: rv)
+                _ = FreSwiftBridge.bridge.FREReleaseByteArray(object: rv)
 #else
                 FREReleaseByteArray(rv)
 #endif
@@ -878,7 +870,7 @@ public class FreByteArraySwift: NSObject {
 
             if let rv = rawValue {
 #if os(iOS)
-                let status: FREResult = FRESwiftBridge.bridge.FREAcquireByteArray(object: rv, byteArrayToSet: &_byteArray)
+                let status: FREResult = FreSwiftBridge.bridge.FREAcquireByteArray(object: rv, byteArrayToSet: &_byteArray)
 #else
                 let status: FREResult = FREAcquireByteArray(rv, &_byteArray)
 #endif
@@ -910,7 +902,7 @@ public class FreByteArraySwift: NSObject {
         }
 
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREAcquireByteArray(object: rv, byteArrayToSet: &_byteArray)
+        let status: FREResult = FreSwiftBridge.bridge.FREAcquireByteArray(object: rv, byteArrayToSet: &_byteArray)
 #else
         let status: FREResult = FREAcquireByteArray(rv, &_byteArray)
 #endif
@@ -927,7 +919,7 @@ public class FreByteArraySwift: NSObject {
             return
         }
 #if os(iOS)
-        _ = FRESwiftBridge.bridge.FREReleaseByteArray(object: rv)
+        _ = FreSwiftBridge.bridge.FREReleaseByteArray(object: rv)
 #else
         FREReleaseByteArray(rv)
 #endif
@@ -1011,7 +1003,7 @@ public class FreBitmapDataSwift: NSObject {
               line: #line, column: #column, file: #file)
         }
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREAcquireBitmapData2(object: rv, descriptorToSet: &_bitmapData)
+        let status: FREResult = FreSwiftBridge.bridge.FREAcquireBitmapData2(object: rv, descriptorToSet: &_bitmapData)
 #else
         let status: FREResult = FREAcquireBitmapData2(rv, &_bitmapData)
 #endif
@@ -1033,7 +1025,7 @@ public class FreBitmapDataSwift: NSObject {
             return
         }
 #if os(iOS)
-        _ = FRESwiftBridge.bridge.FREReleaseBitmapData(object: rv)
+        _ = FreSwiftBridge.bridge.FREReleaseBitmapData(object: rv)
 #else
         FREReleaseBitmapData(rv)
 #endif
@@ -1099,7 +1091,7 @@ public class FreBitmapDataSwift: NSObject {
               line: #line, column: #column, file: #file)
         }
 #if os(iOS)
-        let status: FREResult = FRESwiftBridge.bridge.FREInvalidateBitmapDataRect(object: rv, x: UInt32(x),
+        let status: FREResult = FreSwiftBridge.bridge.FREInvalidateBitmapDataRect(object: rv, x: UInt32(x),
           y: UInt32(y), width: UInt32(width), height: UInt32(height))
 #else
         let status: FREResult = FREInvalidateBitmapDataRect(rv, UInt32(x), UInt32(y), UInt32(width), UInt32(height))

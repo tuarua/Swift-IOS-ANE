@@ -28,7 +28,7 @@
 
 FlashRuntimeExtensionsBridge *freBridge; // this runs the native FRE calls and returns to Swift
 SwiftController *swft; // our main Swift Controller
-FRESwiftBridge *swftBridge; // this is the bridge from Swift back to ObjectiveC
+FreSwiftBridge *swftBridge; // this is the bridge from Swift back to ObjectiveC
 
 NSArray * funcArray;
 #define FRE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
@@ -42,7 +42,7 @@ void contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, u
     swft = [[SwiftController alloc] init];
     [swft setFREContextWithCtx:ctx];
     freBridge = [[FlashRuntimeExtensionsBridge alloc] init];
-    swftBridge = [[FRESwiftBridge alloc] init];
+    swftBridge = [[FreSwiftBridge alloc] init];
     [swftBridge setDelegateWithBridge:freBridge];
     
     funcArray = [swft getFunctions];

@@ -135,7 +135,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import ObjectiveC;
 #endif
 
-#import <FRESwift/FlashRuntimeExtensions.h>
+#import <FreSwift/FlashRuntimeExtensions.h>
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
@@ -145,8 +145,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
  * 13 means 13 characters in Framework name
  * 20 means 20 characters in Swift Protocol name
  */
-SWIFT_PROTOCOL("_TtC8FRESwift22FRESwiftBridgeProtocol")
-@protocol FRESwiftBridgeProtocol
+SWIFT_PROTOCOL("_TtC8FreSwift22FreSwiftBridgeProtocol")
+@protocol FreSwiftBridgeProtocol
 - (FREResult)FRENewObjectFromBoolWithValue:(BOOL)value
                                     object:(FREObject _Nullable)object;
 
@@ -256,8 +256,8 @@ SWIFT_PROTOCOL("_TtC8FRESwift22FRESwiftBridgeProtocol")
 @end
 
 
-SWIFT_CLASS("_TtC8FRESwift14FRESwiftBridge")
-@interface FRESwiftBridge : NSObject
+SWIFT_CLASS("_TtC8FreSwift14FreSwiftBridge")
+@interface FreSwiftBridge : NSObject
 - (void)setDelegateWithBridge:(id _Nonnull)bridge;
 @end
 

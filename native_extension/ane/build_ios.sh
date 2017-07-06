@@ -12,7 +12,7 @@ PROJECTNAME=SwiftIOSANE
 fwSuffix="_FW"
 libSuffix="_LIB"
 
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_25"
+AIR_SDK="/Users/User/sdks/AIR/AIRSDK_26"
 echo $AIR_SDK
 
 #Setup the directory.
@@ -60,13 +60,13 @@ echo "Copying native libraries into place."
 cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/lib$PROJECTNAME$libSuffix.a" "$pathtome/platforms/ios/simulator/lib$PROJECTNAME.a"
 cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphoneos/lib$PROJECTNAME$libSuffix.a" "$pathtome/platforms/ios/device/lib$PROJECTNAME.a"
 
-cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/FRESwift/FRESwift-Swift.h" "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/FRESwift.framework/Headers/FRESwift-Swift.h"
-cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/FRESwift/FRESwift-Swift.h" "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphoneos/FRESwift.framework/Headers/FRESwift-Swift.h"
-cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/FRESwift/FRESwift-Swift.h" "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Debug-iphonesimulator/FRESwift.framework/Headers/FRESwift-Swift.h"
-cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/FRESwift/FRESwift-Swift.h" "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Debug-iphoneos/FRESwift.framework/Headers/FRESwift-Swift.h"
+cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/FreSwift/FreSwift-Swift.h" "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/FreSwift.framework/Headers/FreSwift-Swift.h"
+cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/FreSwift/FreSwift-Swift.h" "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphoneos/FreSwift.framework/Headers/FreSwift-Swift.h"
+cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/FreSwift/FreSwift-Swift.h" "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Debug-iphonesimulator/FreSwift.framework/Headers/FreSwift-Swift.h"
+cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/FreSwift/FreSwift-Swift.h" "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Debug-iphoneos/FreSwift.framework/Headers/FreSwift-Swift.h"
 
-cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/FRESwift.framework" "$pathtome/platforms/ios/simulator/Frameworks"
-cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphoneos/FRESwift.framework" "$pathtome/platforms/ios/device/Frameworks"
+cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/FreSwift.framework" "$pathtome/platforms/ios/simulator/Frameworks"
+cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphoneos/FreSwift.framework" "$pathtome/platforms/ios/device/Frameworks"
 
 cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/$PROJECTNAME$fwSuffix.framework" "$pathtome/platforms/ios/simulator/Frameworks"
 cp -R -L "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphoneos/$PROJECTNAME$fwSuffix.framework" "$pathtome/platforms/ios/device/Frameworks"
