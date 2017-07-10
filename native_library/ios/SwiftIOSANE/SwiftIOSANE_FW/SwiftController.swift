@@ -26,6 +26,11 @@ import CoreImage
 
 @objc class SwiftController: FreSwiftController {
 
+    private var context: FreContextSwift!
+    private func trace(_ value: Any...){
+        freTrace(ctx: context, value: value)
+    }
+    
     // Must have this function. It exposes the methods to our entry ObjC.
     func getFunctions() -> Array<String> {
 
