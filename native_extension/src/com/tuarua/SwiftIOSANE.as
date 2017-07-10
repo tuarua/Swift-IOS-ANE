@@ -30,10 +30,9 @@ public class SwiftIOSANE extends EventDispatcher {
     }
 
     private function gotEvent(event:StatusEvent):void {
-        // trace("got event",event.level)
         switch (event.level) {
             case "TRACE":
-                trace(event.code);
+                trace("[" + name + "]", event.code);
                 break;
         }
     }
