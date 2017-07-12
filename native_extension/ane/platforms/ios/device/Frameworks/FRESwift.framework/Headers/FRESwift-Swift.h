@@ -140,6 +140,9 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
 
+#if __APPLE__
+#include "TargetConditionals.h"
+#if (TARGET_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE)
 
 /*
  * 13 means 13 characters in Framework name
@@ -260,6 +263,23 @@ SWIFT_CLASS("_TtC8FreSwift14FreSwiftBridge")
 @interface FreSwiftBridge : NSObject
 - (void)setDelegateWithBridge:(id _Nonnull)bridge;
 @end
+
+#elif TARGET_OS_MAC
+
+SWIFT_CLASS("_TtC8FreSwift8FreSwift")
+@interface FreSwift : NSObject
+- (FREObject _Nullable)initFreSwiftWithCtx:(FREContext _Nonnull)ctx
+                                      argc:(uint32_t)argc
+                                      argv:(FREObject _Nullable * _Nonnull)argv;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+
+@end
+
+#else
+#   error "Unknown Apple platform"
+#endif
+
+#endif
 
 
 #pragma clang diagnostic pop

@@ -4,6 +4,8 @@ import com.tuarua.Person;
 import com.tuarua.SwiftIOSANE;
 import com.tuarua.fre.ANEError;
 
+import flash.desktop.NativeApplication;
+
 import flash.display.Bitmap;
 
 import flash.display.Loader;
@@ -25,6 +27,7 @@ public class Main extends Sprite {
         super();
         stage.align = StageAlign.TOP_LEFT;
         stage.scaleMode = StageScaleMode.NO_SCALE;
+        NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
 
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();
@@ -94,6 +97,10 @@ public class Main extends Sprite {
         textField.text += outData + "\n";
 
         addChild(textField);
+    }
+
+    private function onExiting(event:Event):void {
+        ane.dispose();
     }
 }
 }

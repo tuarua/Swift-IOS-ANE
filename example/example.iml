@@ -11,7 +11,11 @@
           </entries>
           <sdk name="AIRSDK_25" />
         </dependencies>
-        <compiler-options />
+        <compiler-options>
+          <map>
+            <entry key="compiler.debug.swf" value="true" />
+          </map>
+        </compiler-options>
         <packaging-air-desktop />
         <packaging-android package-file-name="Main" />
         <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app.xml" package-file-name="SwiftTest3">

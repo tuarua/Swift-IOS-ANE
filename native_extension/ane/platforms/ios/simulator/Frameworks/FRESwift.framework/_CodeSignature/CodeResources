@@ -4,17 +4,9 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>.DS_Store</key>
-		<data>
-		+/pSlzmIV0TU1eDLCOaZ05Jnb1E=
-		</data>
 		<key>Frameworks/libswiftCore.dylib</key>
 		<data>
 		gPQtdp3Ik3WzMau/tHvNG0bN9G4=
-		</data>
-		<key>Frameworks/libswiftCoreFoundation.dylib</key>
-		<data>
-		OsD98ZxvsXrWq9+YKLUmDK3QGiw=
 		</data>
 		<key>Frameworks/libswiftCoreGraphics.dylib</key>
 		<data>
@@ -48,17 +40,13 @@
 		<data>
 		McgM+8MzubvqMEZdVuW7jHMYYV4=
 		</data>
-		<key>Frameworks/libswiftos.dylib</key>
-		<data>
-		JrOVRyAyGLL534KYrCxSVIZ8R2g=
-		</data>
 		<key>Headers/FlashRuntimeExtensions.h</key>
 		<data>
 		Q5TJLXHp3ThyB7djK/cHK+MtS1M=
 		</data>
 		<key>Headers/FreSwift-Swift.h</key>
 		<data>
-		QTVB+Rh60YU/u7RNMjKNslcOdAc=
+		LGiVv1gyoTgLlaYnHmidvuefYYo=
 		</data>
 		<key>Headers/FreSwift.h</key>
 		<data>
@@ -66,7 +54,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		0Fd4cns7kPTVs5V8Jk8ShAPrWFE=
+		jAAZ+W5OYUdLEbF92leeNNbRDXw=
 		</data>
 		<key>Modules/FreSwift.swiftmodule/i386.swiftdoc</key>
 		<data>
@@ -74,7 +62,7 @@
 		</data>
 		<key>Modules/FreSwift.swiftmodule/i386.swiftmodule</key>
 		<data>
-		yh5o7Ed9cpNi/VSyKG5Ppv5GOAo=
+		WedBPg0E+weWXrwrnKp6Vgi0DNU=
 		</data>
 		<key>Modules/FreSwift.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -82,7 +70,7 @@
 		</data>
 		<key>Modules/FreSwift.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		yAC7mCrJ7mXl9Qz2HBOFhLJsvqc=
+		blSSX5JugA6BrJior0179fIi70c=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -104,17 +92,6 @@
 			<key>hash2</key>
 			<data>
 			FMczgXVb/3R/gAGqUFDJz2lK+TjOG2h02bnkjH6HUrk=
-			</data>
-		</dict>
-		<key>Frameworks/libswiftCoreFoundation.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			OsD98ZxvsXrWq9+YKLUmDK3QGiw=
-			</data>
-			<key>hash2</key>
-			<data>
-			doDcfN3xLuH72A7FAw8fGYli5h5YCsnpu01KQ/BMuU0=
 			</data>
 		</dict>
 		<key>Frameworks/libswiftCoreGraphics.dylib</key>
@@ -205,17 +182,6 @@
 			ROSIwfDt3skQEuNVDpcbuXCfF7csJv31U6bsVo0ztcw=
 			</data>
 		</dict>
-		<key>Frameworks/libswiftos.dylib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			JrOVRyAyGLL534KYrCxSVIZ8R2g=
-			</data>
-			<key>hash2</key>
-			<data>
-			g38UaCsaEcudIzCggTikExq5D8ud4vFXXV4rSzxfzfk=
-			</data>
-		</dict>
 		<key>Headers/FlashRuntimeExtensions.h</key>
 		<dict>
 			<key>hash</key>
@@ -231,11 +197,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QTVB+Rh60YU/u7RNMjKNslcOdAc=
+			LGiVv1gyoTgLlaYnHmidvuefYYo=
 			</data>
 			<key>hash2</key>
 			<data>
-			8MzJXFISmUz2isQpBoSs3bwpGwrRQPbWApoMzXjV64Y=
+			cQKvEk13OyDYOfECyUk2Bnd1nxrrEMD8Mb1tGN2rDXE=
 			</data>
 		</dict>
 		<key>Headers/FreSwift.h</key>
@@ -264,11 +230,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yh5o7Ed9cpNi/VSyKG5Ppv5GOAo=
+			WedBPg0E+weWXrwrnKp6Vgi0DNU=
 			</data>
 			<key>hash2</key>
 			<data>
-			hjebBboUlEkPQo4MBG7occ6kVDWUal0tRD82tO3u0dc=
+			KP8t+5WOWiTDTLlNEA6/Tiu2Ajs2Rgxl3pZAvbsVIpk=
 			</data>
 		</dict>
 		<key>Modules/FreSwift.swiftmodule/x86_64.swiftdoc</key>
@@ -286,11 +252,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yAC7mCrJ7mXl9Qz2HBOFhLJsvqc=
+			blSSX5JugA6BrJior0179fIi70c=
 			</data>
 			<key>hash2</key>
 			<data>
-			4AMJI5oPAQf+Su+m7NRd1CMW8eSQRYuGVat2tJay3ro=
+			YNEx2vrZUXGFf4BrkSLb25+0I3xWS1e1enO+votuZvA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
