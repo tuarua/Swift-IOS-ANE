@@ -31,10 +31,19 @@ SwiftController *swft; // our main Swift Controller
 FreSwiftBridge *swftBridge; // this is the bridge from Swift back to ObjectiveC
 
 NSArray * funcArray;
-#define FRE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 
-FRE_FUNCTION(callSwiftFunction) {
-    NSString* fName = (__bridge NSString *)(functionData);
+/****************************************************************************/
+/****************** USE PREFIX TRSOA_ TO PREVENT CLASHES  ********************/
+/****************************************************************************/
+
+
+#define FRE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
+#define MAP_FUNCTION(fn, data) { (const uint8_t*)(#fn), (__bridge void *)(data), &TRSOA_callSwiftFunction }
+
+FRE_FUNCTION(TRSOA_callSwiftFunction) {
+    static NSString *const prefix = @"TRSOA_";
+    NSString* name = (__bridge NSString *)(functionData);
+    NSString* fName = [NSString stringWithFormat:@"%@%@", prefix, name];
     return [swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv];
 }
 
@@ -44,24 +53,27 @@ void TRSOA_contextInitializer(void *extData, const uint8_t *ctxType, FREContext 
     freBridge = [[FlashRuntimeExtensionsBridge alloc] init];
     swftBridge = [[FreSwiftBridge alloc] init];
     [swftBridge setDelegateWithBridge:freBridge];
-    funcArray = [swft getFunctions];
+    funcArray = [swft getFunctionsWithPrefix:@"TRSOA_"];
     
     /**************************************************************************/
     /******* MAKE SURE TO ADD FUNCTIONS HERE THE SAME AS SWIFT CONTROLLER *****/
     /**************************************************************************/
+
+    
     static FRENamedFunction extensionFunctions[] =
     {
-        { (const uint8_t*) "runStringTests", (__bridge void *)@"runStringTests", &callSwiftFunction }
-        ,{ (const uint8_t*) "runNumberTests", (__bridge void *)@"runNumberTests", &callSwiftFunction }
-        ,{ (const uint8_t*) "runIntTests", (__bridge void *)@"runIntTests", &callSwiftFunction }
-        ,{ (const uint8_t*) "runArrayTests", (__bridge void *)@"runArrayTests", &callSwiftFunction }
-        ,{ (const uint8_t*) "runObjectTests", (__bridge void *)@"runObjectTests", &callSwiftFunction }
-        ,{ (const uint8_t*) "runBitmapTests", (__bridge void *)@"runBitmapTests", &callSwiftFunction }
-        ,{ (const uint8_t*) "runByteArrayTests", (__bridge void *)@"runByteArrayTests", &callSwiftFunction }
-        ,{ (const uint8_t*) "runErrorTests", (__bridge void *)@"runErrorTests", &callSwiftFunction }
-        ,{ (const uint8_t*) "runErrorTests2", (__bridge void *)@"runErrorTests2", &callSwiftFunction }
-        ,{ (const uint8_t*) "runDataTests", (__bridge void *)@"runDataTests", &callSwiftFunction }
+         MAP_FUNCTION(runStringTests, @"runStringTests")
+        ,MAP_FUNCTION(runNumberTests, @"runNumberTests")
+        ,MAP_FUNCTION(runIntTests, @"runIntTests")
+        ,MAP_FUNCTION(runArrayTests, @"runArrayTests")
+        ,MAP_FUNCTION(runObjectTests, @"runObjectTests")
+        ,MAP_FUNCTION(runBitmapTests, @"runBitmapTests")
+        ,MAP_FUNCTION(runByteArrayTests, @"runByteArrayTests")
+        ,MAP_FUNCTION(runErrorTests, @"runErrorTests")
+        ,MAP_FUNCTION(runErrorTests2, @"runErrorTests2")
+        ,MAP_FUNCTION(runDataTests, @"runDataTests")
     };
+    
     /**************************************************************************/
     /**************************************************************************/
     
@@ -70,9 +82,7 @@ void TRSOA_contextInitializer(void *extData, const uint8_t *ctxType, FREContext 
     
 }
 
-void TRSOA_contextFinalizer(FREContext ctx) {
-    return;
-}
+void TRSOA_contextFinalizer(FREContext ctx) {}
 
 void TRSOAExtInizer(void **extData, FREContextInitializer *ctxInitializer, FREContextFinalizer *ctxFinalizer) {
     *ctxInitializer = &TRSOA_contextInitializer;
@@ -80,8 +90,7 @@ void TRSOAExtInizer(void **extData, FREContextInitializer *ctxInitializer, FRECo
 }
 
 void TRSOAExtFinizer(void *extData) {
-    FREContext nullCTX;
-    nullCTX = 0;
+    FREContext nullCTX = 0;
     TRSOA_contextFinalizer(nullCTX);
     return;
 }

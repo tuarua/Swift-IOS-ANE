@@ -1104,15 +1104,19 @@ public class FreBitmapDataSwift: NSObject {
     
 }
 
-public func freTrace(ctx:FreContextSwift, value: [Any]) {
-    var traceStr: String = ""
-    for i in value {
-        traceStr = traceStr + "\(i)" + " "
-    }
+public func sendEvent(ctx:FreContextSwift, name: String, value: String) {
     do {
-        try ctx.dispatchStatusEventAsync(code: traceStr, level: "TRACE")
+        try ctx.dispatchStatusEventAsync(code: value, level: name)
     } catch {
     }
+}
+
+public func freTrace(ctx:FreContextSwift, value: [Any]) {
+    var traceStr: String = ""
+    for i in 0..<value.count {
+        traceStr = traceStr + "\(value[i])" + " "
+    }
+    sendEvent(ctx: ctx, name: "TRACE", value: traceStr)
 }
 
 public func traceError(ctx:FreContextSwift, message: String, line: Int, column: Int, file: String, freError: FreError?) {

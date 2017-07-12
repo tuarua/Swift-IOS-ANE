@@ -16,8 +16,11 @@
 /*
  * This is your Swift header, interop methods are defined in here
  */
+#ifndef FREOBJCBRIDGE_FREBRIDGE_H
+#define FREOBJCBRIDGE_FREBRIDGE_H
 #import <Foundation/Foundation.h>
 #import <FreSwift/FlashRuntimeExtensions.h>
 #import "FreSwift-Swift.h"
 @interface FlashRuntimeExtensionsBridge : NSObject<FreSwiftBridgeProtocol>
 @end
+#endif
