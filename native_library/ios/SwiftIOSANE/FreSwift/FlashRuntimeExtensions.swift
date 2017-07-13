@@ -1134,7 +1134,7 @@ public var functionsToSet: FREFunctionMap = [:]
 public typealias FreSwiftController = NSObject
 
 public extension FreSwiftController {
-    func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+    @objc public func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         if let fm = functionsToSet[name] {
             return fm(ctx, argc, argv)
         }

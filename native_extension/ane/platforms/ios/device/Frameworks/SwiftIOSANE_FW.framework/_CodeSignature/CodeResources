@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/SwiftIOSANE_FW-Swift.h</key>
 		<data>
-		4hPk5ABcohC4srYhdX5v6jhsGQs=
+		VSBa2qHmgF+pHDZ+q0e0Mdpbhlo=
 		</data>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<data>
@@ -14,11 +14,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		4WRAR5zhEIpGo2sJG2fx69Zlz24=
+		1CTnRWC/50Mw/DHM/RNvYJsMzec=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftdoc</key>
 		<data>
-		FEM0o83kVHO+p+TM5+QHvezrQ+Q=
+		siFU/QwuQlwCijLxfhVdAJ30H3Y=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftmodule</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		0+adnivxjdUPfv5121IjfG9anSU=
+		1K2JLa1DH1P24+XS2kSY+NfYgS4=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftmodule</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		tJayu5MNqAP+tRZOmHESje8wUi8=
+		DMSsJEzRxxjyRkZU5mche/w6W+c=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -43,11 +43,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4hPk5ABcohC4srYhdX5v6jhsGQs=
+			VSBa2qHmgF+pHDZ+q0e0Mdpbhlo=
 			</data>
 			<key>hash2</key>
 			<data>
-			kauY/4+57E74DVwOYqSBBzyOhQS2GPhR+NyqZO44acM=
+			Av301PIwM6e6CeFfDHb9uvRnPWB6N0IPCRaCvKn/NLY=
 			</data>
 		</dict>
 		<key>Headers/SwiftIOSANE_FW.h</key>
@@ -65,11 +65,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			FEM0o83kVHO+p+TM5+QHvezrQ+Q=
+			siFU/QwuQlwCijLxfhVdAJ30H3Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			qR0wc1VwG91T3HvPkzgbZZt1fo31fpvKwGnAMBWptt4=
+			8Ajqlh8JN2Y56L332uaR08I/mnM8/0M4N80A0zewLbw=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftmodule</key>
@@ -87,11 +87,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0+adnivxjdUPfv5121IjfG9anSU=
+			1K2JLa1DH1P24+XS2kSY+NfYgS4=
 			</data>
 			<key>hash2</key>
 			<data>
-			WPakz/g6U7jnRCaEoU14L2+GJdrmFQJ5ABO/92IxZbM=
+			Dge17mvs5zSk1SPgO7Sm27v/PtvERszO+7gHoHZFhAc=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftmodule</key>
@@ -109,11 +109,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tJayu5MNqAP+tRZOmHESje8wUi8=
+			DMSsJEzRxxjyRkZU5mche/w6W+c=
 			</data>
 			<key>hash2</key>
 			<data>
-			V8/nTQBWw0y+EbDt/qxY6yTLdiYu/q8x4KcT/eDPS/g=
+			Th/qkUQ2w49eLVP0+PfhwLmFc8B5aJI6hABv8UIj1Vo=
 			</data>
 		</dict>
 	</dict>

@@ -16,12 +16,11 @@
 		CE3551D91E7F1BF1009375A7 /* FlashRuntimeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3551D31E7F1BF1009375A7 /* FlashRuntimeExtensions.swift */; };
 		CE3551DC1E7F1BF1009375A7 /* FreSwift-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3551D61E7F1BF1009375A7 /* FreSwift-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE3551DD1E7F1BF1009375A7 /* FreSwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3551D71E7F1BF1009375A7 /* FreSwiftBridge.swift */; };
-		CE3551E21E7F1C8F009375A7 /* FlashRuntimeExtensionsBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3551D51E7F1BF1009375A7 /* FlashRuntimeExtensionsBridge.m */; };
-		CE3551E31E7F1C9C009375A7 /* FlashRuntimeExtensionsBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3551D41E7F1BF1009375A7 /* FlashRuntimeExtensionsBridge.h */; };
 		CE39808E1E58BAA90062485B /* SwiftIOSANE_FW.h in Headers */ = {isa = PBXBuildFile; fileRef = CE39808C1E58BAA90062485B /* SwiftIOSANE_FW.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE3980981E58BB070062485B /* SwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3980971E58BB070062485B /* SwiftController.swift */; };
 		CE39809A1E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3980991E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE3980AD1E58BF3F0062485B /* SwiftIOSANE_FW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE39808A1E58BAA90062485B /* SwiftIOSANE_FW.framework */; };
+		CEDD70A11F16E2090078F77D /* FreMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = CEDD70A01F16E2090078F77D /* FreMacros.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,8 +69,6 @@
 		CE3551CD1E7F1B0F009375A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE3551D21E7F1BF1009375A7 /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashRuntimeExtensions.h; sourceTree = "<group>"; };
 		CE3551D31E7F1BF1009375A7 /* FlashRuntimeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashRuntimeExtensions.swift; sourceTree = "<group>"; };
-		CE3551D41E7F1BF1009375A7 /* FlashRuntimeExtensionsBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashRuntimeExtensionsBridge.h; sourceTree = "<group>"; };
-		CE3551D51E7F1BF1009375A7 /* FlashRuntimeExtensionsBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashRuntimeExtensionsBridge.m; sourceTree = "<group>"; };
 		CE3551D61E7F1BF1009375A7 /* FreSwift-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FreSwift-Swift.h"; sourceTree = "<group>"; };
 		CE3551D71E7F1BF1009375A7 /* FreSwiftBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreSwiftBridge.swift; sourceTree = "<group>"; };
 		CE39808A1E58BAA90062485B /* SwiftIOSANE_FW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftIOSANE_FW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +77,7 @@
 		CE3980971E58BB070062485B /* SwiftController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftController.swift; sourceTree = "<group>"; };
 		CE3980991E58BC3B0062485B /* SwiftIOSANE_FW-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftIOSANE_FW-Swift.h"; sourceTree = "<group>"; };
 		CE39809F1E58BEE10062485B /* libSwiftIOSANE_LIB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSwiftIOSANE_LIB.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEDD70A01F16E2090078F77D /* FreMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +123,6 @@
 				CE3551DE1E7F1C02009375A7 /* Misc */,
 				CE3551DF1E7F1C07009375A7 /* Headers */,
 				CE3551D31E7F1BF1009375A7 /* FlashRuntimeExtensions.swift */,
-				CE3551D51E7F1BF1009375A7 /* FlashRuntimeExtensionsBridge.m */,
 				CE3551D71E7F1BF1009375A7 /* FreSwiftBridge.swift */,
 			);
 			name = FreSwift;
@@ -144,9 +141,9 @@
 			isa = PBXGroup;
 			children = (
 				CE3551D21E7F1BF1009375A7 /* FlashRuntimeExtensions.h */,
-				CE3551D41E7F1BF1009375A7 /* FlashRuntimeExtensionsBridge.h */,
 				CE3551D61E7F1BF1009375A7 /* FreSwift-Swift.h */,
 				CE3551CC1E7F1B0F009375A7 /* FreSwift.h */,
+				CEDD70A01F16E2090078F77D /* FreMacros.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -217,6 +214,7 @@
 				CE3551D81E7F1BF1009375A7 /* FlashRuntimeExtensions.h in Headers */,
 				CE3551DC1E7F1BF1009375A7 /* FreSwift-Swift.h in Headers */,
 				CE3551CE1E7F1B0F009375A7 /* FreSwift.h in Headers */,
+				CEDD70A11F16E2090078F77D /* FreMacros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +232,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				285FE3EB871F2DD420623AEE /* SwiftIOSANE_LIB.h in Headers */,
-				CE3551E31E7F1C9C009375A7 /* FlashRuntimeExtensionsBridge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +409,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				285FECB67C2311471C2CD119 /* SwiftIOSANE_LIB.m in Sources */,
-				CE3551E21E7F1C8F009375A7 /* FlashRuntimeExtensionsBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
