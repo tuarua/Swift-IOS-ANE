@@ -24,7 +24,7 @@
 import Foundation
 import CoreImage
 
-@objc class SwiftController: FreSwiftController {
+public class SwiftController: FreSwiftController {
 
     private var context: FreContextSwift!
     private func trace(_ value: Any...){
@@ -32,7 +32,7 @@ import CoreImage
     }
     
     // Must have this function. It exposes the methods to our entry ObjC.
-    func getFunctions(prefix: String) -> Array<String> {
+    @objc public func getFunctions(prefix: String) -> Array<String> {
 
         functionsToSet["\(prefix)runStringTests"] = runStringTests
         functionsToSet["\(prefix)runNumberTests"] = runNumberTests
@@ -309,7 +309,7 @@ import CoreImage
 
     }
 
-    func setFREContext(ctx: FREContext) {
+    @objc public func setFREContext(ctx: FREContext) {
         context = FreContextSwift.init(freContext: ctx)
     }
 

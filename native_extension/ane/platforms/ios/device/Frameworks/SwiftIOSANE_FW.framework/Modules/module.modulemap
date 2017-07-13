@@ -7,5 +7,4 @@ framework module SwiftIOSANE_FW {
 
 module SwiftIOSANE_FW.Swift {
     header "SwiftIOSANE_FW-Swift.h"
-    requires objc
 }

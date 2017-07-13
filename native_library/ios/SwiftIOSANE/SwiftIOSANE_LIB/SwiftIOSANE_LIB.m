@@ -21,57 +21,44 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.*/
 
+
 #import "SwiftIOSANE_LIB.h"
+#import "FreMacros.h"
 #include "FlashRuntimeExtensions.h"
-#import "FlashRuntimeExtensionsBridge.h"
+
+#import "FreSwift-Swift.h"
+#import <FreSwift/FlashRuntimeExtensions.h>
 #import "SwiftIOSANE_FW-Swift.h"
 
-FlashRuntimeExtensionsBridge *freBridge; // this runs the native FRE calls and returns to Swift
-SwiftController *swft; // our main Swift Controller
-FreSwiftBridge *swftBridge; // this is the bridge from Swift back to ObjectiveC
-
-NSArray * funcArray;
-
-/****************************************************************************/
-/****************** USE PREFIX TRSOA_ TO PREVENT CLASHES  ********************/
-/****************************************************************************/
-
-
-#define FRE_FUNCTION(fn) FREObject (fn)(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
-#define MAP_FUNCTION(fn, data) { (const uint8_t*)(#fn), (__bridge void *)(data), &TRSOA_callSwiftFunction }
-
-FRE_FUNCTION(TRSOA_callSwiftFunction) {
-    static NSString *const prefix = @"TRSOA_";
-    NSString* name = (__bridge NSString *)(functionData);
-    NSString* fName = [NSString stringWithFormat:@"%@%@", prefix, name];
-    return [swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv];
+#define FRE_OBJC_BRIDGE TRSOA_FlashRuntimeExtensionsBridge // TRSOA is unique ID
+@interface FRE_OBJC_BRIDGE : NSObject<FreSwiftBridgeProtocol>
+@end
+@implementation FRE_OBJC_BRIDGE {
 }
+FRE_OBJC_BRIDGE_FUNCS
+@end
 
-void TRSOA_contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, uint32_t *numFunctionsToSet, const FRENamedFunction **functionsToSet) {
-    swft = [[SwiftController alloc] init];
-    [swft setFREContextWithCtx:ctx];
-    freBridge = [[FlashRuntimeExtensionsBridge alloc] init];
-    swftBridge = [[FreSwiftBridge alloc] init];
-    [swftBridge setDelegateWithBridge:freBridge];
-    funcArray = [swft getFunctionsWithPrefix:@"TRSOA_"];
+
+SWIFT_DECL(TRSOA) // use unique prefix throughout to prevent clashes with other ANEs
+CONTEXT_INIT(TRSOA) {
+    SWIFT_INITS(TRSOA)
     
     /**************************************************************************/
     /******* MAKE SURE TO ADD FUNCTIONS HERE THE SAME AS SWIFT CONTROLLER *****/
     /**************************************************************************/
 
-    
     static FRENamedFunction extensionFunctions[] =
     {
-         MAP_FUNCTION(runStringTests, @"runStringTests")
-        ,MAP_FUNCTION(runNumberTests, @"runNumberTests")
-        ,MAP_FUNCTION(runIntTests, @"runIntTests")
-        ,MAP_FUNCTION(runArrayTests, @"runArrayTests")
-        ,MAP_FUNCTION(runObjectTests, @"runObjectTests")
-        ,MAP_FUNCTION(runBitmapTests, @"runBitmapTests")
-        ,MAP_FUNCTION(runByteArrayTests, @"runByteArrayTests")
-        ,MAP_FUNCTION(runErrorTests, @"runErrorTests")
-        ,MAP_FUNCTION(runErrorTests2, @"runErrorTests2")
-        ,MAP_FUNCTION(runDataTests, @"runDataTests")
+         MAP_FUNCTION(TRSOA, runStringTests)
+        ,MAP_FUNCTION(TRSOA, runNumberTests)
+        ,MAP_FUNCTION(TRSOA, runIntTests)
+        ,MAP_FUNCTION(TRSOA, runArrayTests)
+        ,MAP_FUNCTION(TRSOA, runObjectTests)
+        ,MAP_FUNCTION(TRSOA, runBitmapTests)
+        ,MAP_FUNCTION(TRSOA, runByteArrayTests)
+        ,MAP_FUNCTION(TRSOA, runErrorTests)
+        ,MAP_FUNCTION(TRSOA, runErrorTests2)
+        ,MAP_FUNCTION(TRSOA, runDataTests)
     };
     
     /**************************************************************************/
@@ -82,17 +69,7 @@ void TRSOA_contextInitializer(void *extData, const uint8_t *ctxType, FREContext 
     
 }
 
-void TRSOA_contextFinalizer(FREContext ctx) {}
-
-void TRSOAExtInizer(void **extData, FREContextInitializer *ctxInitializer, FREContextFinalizer *ctxFinalizer) {
-    *ctxInitializer = &TRSOA_contextInitializer;
-    *ctxFinalizer = &TRSOA_contextFinalizer;
-}
-
-void TRSOAExtFinizer(void *extData) {
-    FREContext nullCTX = 0;
-    TRSOA_contextFinalizer(nullCTX);
-    return;
-}
-
-
+// TODO manually manage memory
+CONTEXT_FIN(TRSOA)
+EXTENSION_INIT(TRSOA)
+EXTENSION_FIN(TRSOA)
