@@ -30,7 +30,7 @@
 #import <FreSwift/FlashRuntimeExtensions.h>
 #import "SwiftIOSANE_FW-Swift.h"
 
-#define FRE_OBJC_BRIDGE TRSOA_FlashRuntimeExtensionsBridge // TRSOA is unique ID
+#define FRE_OBJC_BRIDGE TRSOA_FlashRuntimeExtensionsBridge // use unique prefix throughout to prevent clashes with other ANEs
 @interface FRE_OBJC_BRIDGE : NSObject<FreSwiftBridgeProtocol>
 @end
 @implementation FRE_OBJC_BRIDGE {
@@ -69,7 +69,8 @@ CONTEXT_INIT(TRSOA) {
     
 }
 
-// TODO manually manage memory
-CONTEXT_FIN(TRSOA)
+CONTEXT_FIN(TRSOA) {
+    //any clean up code here
+}
 EXTENSION_INIT(TRSOA)
 EXTENSION_FIN(TRSOA)

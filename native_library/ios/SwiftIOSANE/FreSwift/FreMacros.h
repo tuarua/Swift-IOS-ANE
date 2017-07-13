@@ -9,6 +9,17 @@
 #ifndef FreMacros_h
 #define FreMacros_h
 
+#if __APPLE__
+#include "TargetConditionals.h"
+#if (TARGET_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE)
+#define IOS
+#elif TARGET_OS_MAC
+#define OSX
+#else
+#   error "Unknown Apple platform"
+#endif
+#endif
+
 #import <Foundation/Foundation.h>
 #import <FreSwift/FlashRuntimeExtensions.h>
 #import <FreSwift/FreSwift-Swift.h>
@@ -19,7 +30,8 @@
 #define MAP_FUNCTION(prefix, fn) { (const uint8_t*)(#fn), (__bridge void *)(NSStringize(fn)), &prefix##_callSwiftFunction }
 
 #define CONTEXT_INIT(prefix) void (prefix##_contextInitializer)(void *extData, const uint8_t *ctxType, FREContext ctx, uint32_t *numFunctionsToSet, const FRENamedFunction **functionsToSet)
-#define CONTEXT_FIN(prefix) void (prefix##_contextFinalizer) (FREContext ctx){}
+
+#define CONTEXT_FIN(prefix) void (prefix##_contextFinalizer) (FREContext ctx)
 
 #define EXTENSION_INIT_DECL(prefix) void (prefix##ExtInizer) (void **extData, FREContextInitializer *ctxInitializer, FREContextFinalizer *ctxFinalizer)
 
@@ -44,13 +56,21 @@ NSString* fName = [NSString stringWithFormat:@"%@%@", NSStringize(prefix)"_", na
 return [swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv]; \
 }
 
+#ifdef IOS
 #define SWIFT_INITS(prefix) swft = [[SwiftController alloc] init]; \
 [swft setFREContextWithCtx:ctx]; \
 freBridge = [[prefix##_FlashRuntimeExtensionsBridge alloc] init]; \
 swftBridge = [[FreSwiftBridge alloc] init]; \
 [swftBridge setDelegateWithBridge:freBridge]; \
 funcArray = [swft getFunctionsWithPrefix:NSStringize(prefix)"_"];
+#else
+#define SWIFT_INITS(prefix) swft = [[SwiftController alloc] init]; \
+[swft setFREContextWithCtx:ctx]; \
+funcArray = [swft getFunctionsWithPrefix:NSStringize(prefix)"_"];
+#endif
 
+
+#ifdef IOS
 #define FRE_OBJC_BRIDGE_FUNCS \
 - (FREResult)FREDispatchStatusEventAsyncWithCtx:(FREContext)ctx \
 code:(NSString *_Nonnull)code \
@@ -222,5 +242,5 @@ return FRESetContextNativeData(ctx, nativeData); \
 nativeData:(void **_Nullable)nativeData { \
 return FREGetContextNativeData(ctx, nativeData); \
 };
-
+#endif
 #endif /* FreMacros_h */
