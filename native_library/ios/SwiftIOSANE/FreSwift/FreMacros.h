@@ -28,7 +28,7 @@
 
 #import <Foundation/Foundation.h>
 #import <FreSwift/FlashRuntimeExtensions.h>
-#import <FreSwift/FreSwift-Swift.h>
+#import <FreSwift/FreSwift-iOS-Swift.h>
 
 #define NSStringize_helper(x) #x
 #define NSStringize(x) @NSStringize_helper(x)

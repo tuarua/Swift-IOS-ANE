@@ -17,7 +17,7 @@
 
 #include "FlashRuntimeExtensions.h"
 
-#import "FreSwift-Swift.h"
+#import "FreSwift-iOS-Swift.h"
 #import <FreSwift/FlashRuntimeExtensions.h>
 #import "SwiftIOSANE_FW-Swift.h"
 

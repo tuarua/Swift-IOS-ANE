@@ -6,15 +6,15 @@
 	<dict>
 		<key>Headers/SwiftIOSANE_FW-Swift.h</key>
 		<data>
-		VSBa2qHmgF+pHDZ+q0e0Mdpbhlo=
+		4hPk5ABcohC4srYhdX5v6jhsGQs=
 		</data>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<data>
-		v5zGvIegsuE4p1OByaIACt7JcpA=
+		vf+sn3ppmF1lTtFFQd4R23hIyIM=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		1CTnRWC/50Mw/DHM/RNvYJsMzec=
+		aWXkz77V13sQKay2UjZmf/9leFU=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftdoc</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftmodule</key>
 		<data>
-		RCDTYQUm4xkIigXo/YQTXQT6AVs=
+		IW45jzngbVlQl2z2fokZAyjSktI=
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		iGkfV3meQTDGVwxnVeL44HjGWV0=
+		XjUZx7T+6PVJdeBY8erfHKzUHLs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -43,22 +43,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			VSBa2qHmgF+pHDZ+q0e0Mdpbhlo=
+			4hPk5ABcohC4srYhdX5v6jhsGQs=
 			</data>
 			<key>hash2</key>
 			<data>
-			Av301PIwM6e6CeFfDHb9uvRnPWB6N0IPCRaCvKn/NLY=
+			kauY/4+57E74DVwOYqSBBzyOhQS2GPhR+NyqZO44acM=
 			</data>
 		</dict>
 		<key>Headers/SwiftIOSANE_FW.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			v5zGvIegsuE4p1OByaIACt7JcpA=
+			vf+sn3ppmF1lTtFFQd4R23hIyIM=
 			</data>
 			<key>hash2</key>
 			<data>
-			mf9sk3IDSbj1S5B61M0tdFZVeH3l2ErWH/rnw0So/6A=
+			A2XataJON8TmoSGkoRby4OTyeUZPbAJJUCbDupcI5Wo=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm.swiftdoc</key>
@@ -76,11 +76,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RCDTYQUm4xkIigXo/YQTXQT6AVs=
+			IW45jzngbVlQl2z2fokZAyjSktI=
 			</data>
 			<key>hash2</key>
 			<data>
-			eFlXlM0owPg2nFSvOKTGtpGlT7XhV1s4YJ6wwZ8223s=
+			jDknYnn86EXQ9wcquDBFb/Sm+w86O0YkNaTw16sx6Yc=
 			</data>
 		</dict>
 		<key>Modules/SwiftIOSANE_FW.swiftmodule/arm64.swiftdoc</key>
@@ -98,11 +98,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			iGkfV3meQTDGVwxnVeL44HjGWV0=
+			XjUZx7T+6PVJdeBY8erfHKzUHLs=
 			</data>
 			<key>hash2</key>
 			<data>
-			PXF80MTfQUC2yEadV7DSUXRI2ZH58dwNdH3be2tTShY=
+			XCxofgzkafTJnycI0l1OgpmvYLzA6J8rpDvM4Ri0dSU=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
