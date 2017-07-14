@@ -1,10 +1,16 @@
-//
-//  FreMacros.h
-//  SwiftIOSANE
-//
-//  Created by Eoin Landy on 13/07/2017.
-//  Copyright © 2017 Tua Rua Ltd. All rights reserved.
-//
+/* Copyright 2017 Tua Rua Ltd.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.*/
 
 #ifndef FreMacros_h
 #define FreMacros_h
@@ -45,7 +51,7 @@
 #define EXTENSION_FIN(prefix) void (prefix##ExtFinizer) (void *extData) { \
 }
 
-
+#ifdef IOS
 #define SWIFT_DECL(prefix) prefix##_FlashRuntimeExtensionsBridge *freBridge; \
 SwiftController *swft;  \
 FreSwiftBridge *swftBridge;  \
@@ -55,15 +61,22 @@ NSString* name = (__bridge NSString *)(functionData); \
 NSString* fName = [NSString stringWithFormat:@"%@%@", NSStringize(prefix)"_", name]; \
 return [swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv]; \
 }
-
-#ifdef IOS
 #define SWIFT_INITS(prefix) swft = [[SwiftController alloc] init]; \
 [swft setFREContextWithCtx:ctx]; \
 freBridge = [[prefix##_FlashRuntimeExtensionsBridge alloc] init]; \
 swftBridge = [[FreSwiftBridge alloc] init]; \
 [swftBridge setDelegateWithBridge:freBridge]; \
 funcArray = [swft getFunctionsWithPrefix:NSStringize(prefix)"_"];
+
 #else
+#define SWIFT_DECL(prefix) SwiftController *swft; \
+NSArray * funcArray; \
+FREObject (prefix##_callSwiftFunction) (FREContext context, void* functionData, uint32_t argc, FREObject argv[]) {\
+NSString* name = (__bridge NSString *)(functionData); \
+NSString* fName = [NSString stringWithFormat:@"%@%@", NSStringize(prefix)"_", name]; \
+return [swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv]; \
+}
+
 #define SWIFT_INITS(prefix) swft = [[SwiftController alloc] init]; \
 [swft setFREContextWithCtx:ctx]; \
 funcArray = [swft getFunctionsWithPrefix:NSStringize(prefix)"_"];
