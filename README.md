@@ -20,7 +20,7 @@ Add the number of methods here
 ````objectivec
 static FRENamedFunction extensionFunctions[] =
 {
-MAP_FUNCTION(TRSOA, load)
+ MAP_FUNCTION(TRSOA, load)
 ,MAP_FUNCTION(TRSOA, goBack)
 };
 `````
