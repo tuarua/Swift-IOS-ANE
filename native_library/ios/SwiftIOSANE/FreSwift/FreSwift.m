@@ -18,10 +18,6 @@ FRE_FUNCTION(initFreSwift) {
     return [swft initFreSwiftWithCtx:context argc:argc argv:argv];
 }
 
-void TRFRE_contextFinalizer(FREContext ctx) {
-    return;
-}
-
 void TRFRE_contextInitializer(void *extData, const uint8_t *ctxType, FREContext ctx, uint32_t *numFunctionsToSet,
                         const FRENamedFunction **functionsToSet) {
     
@@ -41,8 +37,4 @@ void TRFRESExtInizer(void **extData, FREContextInitializer *ctxInitializer, FREC
 }
 
 void TRFRESExtFinizer(void *extData) {
-    FREContext nullCTX;
-    nullCTX = 0;
-    TRFRE_contextFinalizer(nullCTX);
-    return;
 }
