@@ -20,8 +20,8 @@ Add the number of methods here
 ````objectivec
 static FRENamedFunction extensionFunctions[] =
 {
-    { (const uint8_t*) "load", (__bridge void *)@"load", &callSwiftFunction }
-   ,{ (const uint8_t*) "goBack", (__bridge void *)@"goBack", &callSwiftFunction }
+MAP_FUNCTION(TRSOA, load)
+,MAP_FUNCTION(TRSOA, goBack)
 };
 `````
 
@@ -30,9 +30,9 @@ SwiftIOSANE_FW/SwiftController.swift
 Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
 
 ````swift
-func getFunctions() -> Array<String> {
-    functionsToSet["load"] = load
-    functionsToSet["goBack"] = goBack      
+@objc public func getFunctions(prefix: String) -> Array<String> {
+functionsToSet["\(prefix)load"] = load
+functionsToSet["\(prefix)goBack"] = goBack    
 }
 `````
 
