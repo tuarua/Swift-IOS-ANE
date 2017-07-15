@@ -55,8 +55,6 @@
 
 #define EXTENSION_FIN_DECL(prefix) void (prefix##ExtFinizer) (void *extData)
 #define EXTENSION_FIN(prefix) void (prefix##ExtFinizer) (void *extData) { \
-FREContext nullCTX = 0; \
-prefix##_contextFinalizer(nullCTX); \
 }
 
 #ifdef IOS
