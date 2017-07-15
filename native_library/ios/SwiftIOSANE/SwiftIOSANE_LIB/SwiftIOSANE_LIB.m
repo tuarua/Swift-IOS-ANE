@@ -13,12 +13,10 @@
  limitations under the License.*/
 
 #import "FreMacros.h"
-#import "SwiftIOSANE_LIB.h"
-
-#include "FlashRuntimeExtensions.h"
-
-#import "FreSwift-iOS-Swift.h"
 #import <FreSwift/FlashRuntimeExtensions.h>
+
+#import "SwiftIOSANE_LIB.h"
+#import "FreSwift-iOS-Swift.h"
 #import "SwiftIOSANE_FW-Swift.h"
 
 #define FRE_OBJC_BRIDGE TRSOA_FlashRuntimeExtensionsBridge // use unique prefix throughout to prevent clashes with other ANEs

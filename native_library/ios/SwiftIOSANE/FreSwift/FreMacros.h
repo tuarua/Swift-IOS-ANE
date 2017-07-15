@@ -60,35 +60,34 @@ prefix##_contextFinalizer(nullCTX); \
 }
 
 #ifdef IOS
-#define SWIFT_DECL(prefix) prefix##_FlashRuntimeExtensionsBridge *freBridge; \
-SwiftController *swft;  \
-FreSwiftBridge *swftBridge;  \
-NSArray * funcArray; \
+#define SWIFT_DECL(prefix) prefix##_FlashRuntimeExtensionsBridge * prefix##_freBridge; \
+SwiftController * prefix##_swft;  \
+FreSwiftBridge * prefix##_swftBridge;  \
+NSArray * prefix##_funcArray; \
 FREObject (prefix##_callSwiftFunction) (FREContext context, void* functionData, uint32_t argc, FREObject argv[]) {\
 NSString* name = (__bridge NSString *)(functionData); \
 NSString* fName = [NSString stringWithFormat:@"%@%@", NSStringize(prefix)"_", name]; \
-return [swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv]; \
+return [prefix##_swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv]; \
 }
-#define SWIFT_INITS(prefix) swft = [[SwiftController alloc] init]; \
-[swft setFREContextWithCtx:ctx]; \
-freBridge = [[prefix##_FlashRuntimeExtensionsBridge alloc] init]; \
-swftBridge = [[FreSwiftBridge alloc] init]; \
-[swftBridge setDelegateWithBridge:freBridge]; \
-funcArray = [swft getFunctionsWithPrefix:NSStringize(prefix)"_"];
-
+#define SWIFT_INITS(prefix) prefix##_swft = [[SwiftController alloc] init]; \
+[prefix##_swft setFREContextWithCtx:ctx]; \
+prefix##_freBridge = [[prefix##_FlashRuntimeExtensionsBridge alloc] init]; \
+prefix##_swftBridge = [[FreSwiftBridge alloc] init]; \
+[prefix##_swftBridge setDelegateWithBridge:prefix##_freBridge]; \
+prefix##_funcArray = [prefix##_swft getFunctionsWithPrefix:NSStringize(prefix)"_"];
 #else
-#define SWIFT_DECL(prefix) SwiftController *swft; \
-NSArray * funcArray; \
+#define SWIFT_DECL(prefix) SwiftController * prefix##_swft; \
+NSArray * prefix##_funcArray; \
 FREObject (prefix##_callSwiftFunction) (FREContext context, void* functionData, uint32_t argc, FREObject argv[]) {\
 NSString* name = (__bridge NSString *)(functionData); \
 NSString* fName = [NSString stringWithFormat:@"%@%@", NSStringize(prefix)"_", name]; \
-return [swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv]; \
+return [prefix##_swft callSwiftFunctionWithName:fName ctx:context argc:argc argv:argv]; \
 }
-
-#define SWIFT_INITS(prefix) swft = [[SwiftController alloc] init]; \
-[swft setFREContextWithCtx:ctx]; \
-funcArray = [swft getFunctionsWithPrefix:NSStringize(prefix)"_"];
+#define SWIFT_INITS(prefix) prefix##_swft = [[SwiftController alloc] init]; \
+[prefix##_swft setFREContextWithCtx:ctx]; \
+prefix##_funcArray = [prefix##_swft getFunctionsWithPrefix:NSStringize(prefix)"_"];
 #endif
+
 
 
 #ifdef IOS
