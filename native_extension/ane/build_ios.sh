@@ -12,7 +12,7 @@ PROJECTNAME=SwiftIOSANE
 fwSuffix="_FW"
 libSuffix="_LIB"
 
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_26"
+AIR_SDK="/Users/User/sdks/AIR/AIRSDK_27_B"
 echo $AIR_SDK
 
 #Setup the directory.
