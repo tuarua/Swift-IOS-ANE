@@ -12,7 +12,7 @@
 
     <!-- A universally unique application identifier. Must be unique across all AIR applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-    <id>com.tuarua.SwiftTest3</id>
+    <id>com.tuarua.SwiftTest4</id>
 
     <!-- Used as the filename for the application. Required. -->
     <filename>Main_Swift</filename>
@@ -202,7 +202,7 @@
         </InfoAdditions>
 
         <!-- A list of plist key/value pairs to be added to the application Entitlements.plist -->
-        <!--<Entitlements>
+        <Entitlements>
             <![CDATA[
             <key>keychain-access-groups</key>
             <array>
@@ -210,7 +210,7 @@
                 <string></string>
             </array>
             ]]>
-        </Entitlements>-->
+        </Entitlements>
 
         <!-- Display Resolution for the app (either "standard" or "high"). Optional. Default "standard" -->
         <requestedDisplayResolution>high</requestedDisplayResolution>

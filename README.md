@@ -123,17 +123,12 @@ do {
 ----------
 ### Running on Simulator
 
-The example project can be run on the Simulator from IntelliJ
+The example project can be run on the Simulator from IntelliJ using AIR 26. AIR 27 beta contains a bug when packaging.
 
-### Running on Device !
+### Running on Device
 
-The example project needs to be built and signed in the correct manner.   
-AIR's ADT does not yet handle signing of the shared Swift Libraries correctly.   
-
-An AIR based packaging tool is provided at https://github.com/tuarua/AIR-iOS-Packager     
-Here is a video [demonstrating how to use it](https://www.youtube.com/watch?v=H-G8WugNFQM&feature=youtu.be)       
-
-[![youtube video](https://raw.githubusercontent.com/tuarua/WebViewANE/master/screenshots/ios-packaging.jpg)](https://www.youtube.com/watch?v=H-G8WugNFQM&feature=youtu.be)
+The example project can be run on the device from IntelliJ using AIR27 Beta.
+AIR 27 now correctly signs the included Swift frameworks and therefore no resigning tool is needed.
 
 ### Prerequisites
 
@@ -141,4 +136,4 @@ You will need
 
 - Xcode 8.3 / AppCode
 - IntelliJ IDEA
-- AIR 25
+- AIR 26 RC and AIR 27 Beta
