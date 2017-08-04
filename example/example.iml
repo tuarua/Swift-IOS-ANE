@@ -9,22 +9,20 @@
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="AIRSDK_27_B" />
+          <sdk name="AIRSDK_26" />
         </dependencies>
         <compiler-options>
           <map>
             <entry key="compiler.debug.swf" value="true" />
           </map>
-          <option name="additionalOptions" value="-swf-version=38" />
         </compiler-options>
         <packaging-air-desktop />
         <packaging-android package-file-name="Main" />
-        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app.xml" package-file-name="SwiftTest3">
+        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app-26.xml" package-file-name="SwiftTest4">
           <files-to-package>
-            <FilePathAndPathInPackage file-path="$DOCUMENTS$/Swift-IOS-ANE/native_extension/ane/platforms/ios/device/Frameworks/FreSwift.framework" path-in-package="FreSwift.framework" />
-            <FilePathAndPathInPackage file-path="$DOCUMENTS$/Swift-IOS-ANE/native_extension/ane/platforms/ios/device/Frameworks/SwiftIOSANE_FW.framework" path-in-package="SwiftIOSANE_FW.framework" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/native/simulator" path-in-package="." />
           </files-to-package>
-          <AirSigningOptions sdk="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk" keystore-path="$USER_HOME$/Documents/appleCertsProv/2017/dev/tuarua_dev.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2017/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
+          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2017/dev/tuarua_dev.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2017/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
         </packaging-ios>
       </configuration>
       <configuration name="example Device" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/bin-release/device">
@@ -41,12 +39,11 @@
         </compiler-options>
         <packaging-air-desktop />
         <packaging-android package-file-name="example_Device" />
-        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app.xml" package-file-name="example_Device3">
+        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app-27.xml" package-file-name="example_Device4">
           <files-to-package>
-            <FilePathAndPathInPackage file-path="$DOCUMENTS$/Swift-IOS-ANE/native_extension/ane/platforms/ios/device/Frameworks/FreSwift.framework" path-in-package="FreSwift.framework" />
-            <FilePathAndPathInPackage file-path="$DOCUMENTS$/Swift-IOS-ANE/native_extension/ane/platforms/ios/device/Frameworks/SwiftIOSANE_FW.framework" path-in-package="SwiftIOSANE_FW.framework" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/native/device" path-in-package="." />
           </files-to-package>
-          <AirSigningOptions sdk="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk" keystore-path="$USER_HOME$/Documents/appleCertsProv/2017/dev/tuarua_dev.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2017/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
+          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2017/dev/tuarua_dev.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2017/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
         </packaging-ios>
       </configuration>
     </configurations>
@@ -57,7 +54,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="AIRSDK_27_B" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="AIRSDK_27_B&#9;AIRSDK_26" jdkType="__CompositeFlexSdk__" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="SwiftIOSANE-ios" level="project" />
     <orderEntry type="library" exported="" name="TesseractANE" level="project" />
