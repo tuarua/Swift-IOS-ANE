@@ -54,7 +54,10 @@ public class SwiftController: FreSwiftController {
         trace("String passed from AIR:", airString)
 
         let swiftString: String = "I am a string from Swift"
-
+        
+        //Instead of FREDispatchStatusEventAsync(ctx, code, level) - N.B. level is name, code is value
+        sendEvent(ctx: context, name: "MY_EVENT", value: "SUCCESS")
+         
         do {
             return try FreObjectSwift(string: swiftString).rawValue
         } catch {
