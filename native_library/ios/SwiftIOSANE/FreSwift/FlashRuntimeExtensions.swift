@@ -408,27 +408,6 @@ public class FreSwiftHelper {
     #if os(iOS)
     
     public static func toUIColor(freObject: FREObject, alpha: FREObject) throws -> UIColor {
-    let rgb = try FreSwiftHelper.getAsUInt(freObject);
-    let r = (rgb >> 16) & 0xFF
-    let g = (rgb >> 8) & 0xFF
-    let b = rgb & 0xFF
-    var a: CGFloat = CGFloat.init(1)
-    let aFre = FreObjectSwift.init(freObject: alpha)
-    if let alphaInt = aFre.value as? Int, alphaInt == 0 {
-    return UIColor.clear
-    }
-    if let alphaD = aFre.value as? Double {
-    a = CGFloat.init(alphaD)
-    }
-    let rFl: CGFloat = CGFloat.init(r) / 255
-    let gFl: CGFloat = CGFloat.init(g) / 255
-    let bFl: CGFloat = CGFloat.init(b) / 255
-    return UIColor.init(red: rFl, green: gFl, blue: bFl, alpha: a)
-    }
-    
-    #else
-    
-    public static func toCGColor(freObject: FREObject, alpha: FREObject) throws -> CGColor {
         let rgb = try FreSwiftHelper.getAsUInt(freObject);
         let r = (rgb >> 16) & 0xFF
         let g = (rgb >> 8) & 0xFF
@@ -436,7 +415,7 @@ public class FreSwiftHelper {
         var a: CGFloat = CGFloat.init(1)
         let aFre = FreObjectSwift.init(freObject: alpha)
         if let alphaInt = aFre.value as? Int, alphaInt == 0 {
-            return CGColor.clear
+            return UIColor.clear
         }
         if let alphaD = aFre.value as? Double {
             a = CGFloat.init(alphaD)
@@ -444,7 +423,28 @@ public class FreSwiftHelper {
         let rFl: CGFloat = CGFloat.init(r) / 255
         let gFl: CGFloat = CGFloat.init(g) / 255
         let bFl: CGFloat = CGFloat.init(b) / 255
-        return CGColor.init(red: rFl, green: gFl, blue: bFl, alpha: a)
+        return UIColor.init(red: rFl, green: gFl, blue: bFl, alpha: a)
+    }
+    
+    #else
+    
+    public static func toCGColor(freObject: FREObject, alpha: FREObject) throws -> CGColor {
+    let rgb = try FreSwiftHelper.getAsUInt(freObject);
+    let r = (rgb >> 16) & 0xFF
+    let g = (rgb >> 8) & 0xFF
+    let b = rgb & 0xFF
+    var a: CGFloat = CGFloat.init(1)
+    let aFre = FreObjectSwift.init(freObject: alpha)
+    if let alphaInt = aFre.value as? Int, alphaInt == 0 {
+    return CGColor.clear
+    }
+    if let alphaD = aFre.value as? Double {
+    a = CGFloat.init(alphaD)
+    }
+    let rFl: CGFloat = CGFloat.init(r) / 255
+    let gFl: CGFloat = CGFloat.init(g) / 255
+    let bFl: CGFloat = CGFloat.init(b) / 255
+    return CGColor.init(red: rFl, green: gFl, blue: bFl, alpha: a)
     }
     
     #endif
@@ -513,7 +513,13 @@ open class FreContextSwift: NSObject {
     
 }
 
-public struct FreError: Error {
+public class FreError: Error {
+    public var stackTrace: String = ""
+    public var message: String = ""
+    public var type: Code
+    public var line: Int = 0
+    public var column: Int = 0
+    public var file: String = ""
     
     public enum Code {
         case ok
@@ -528,6 +534,21 @@ public struct FreError: Error {
         case insufficientMemory
     }
     
+    public init(stackTrace:String, message:String, type:Code, line:Int, column : Int, file:String){
+        self.stackTrace = stackTrace
+        self.message = message
+        self.type = type
+        self.line = line
+        self.column = column
+        self.file = file
+    }
+    
+    public init(stackTrace:String, message:String, type:Code){
+        self.stackTrace = stackTrace
+        self.message = message
+        self.type = type
+    }
+    
     public func getError(_ oFile: String, _ oLine: Int, _ oColumn: Int) -> FREObject? {
         do {
             let _aneError = try FreObjectSwift.init(className: "com.tuarua.fre.ANEError",
@@ -540,16 +561,8 @@ public struct FreError: Error {
             
         } catch {
         }
-        
         return nil
     }
-    
-    public let stackTrace: String
-    public let message: String
-    public let type: Code
-    public let line: Int
-    public let column: Int
-    public let file: String
 }
 
 public enum FreObjectTypeSwift: UInt32 {
@@ -1104,40 +1117,67 @@ public class FreBitmapDataSwift: NSObject {
     
 }
 
-public func sendEvent(ctx:FreContextSwift, name: String, value: String) {
-    do {
-        try ctx.dispatchStatusEventAsync(code: value, level: name)
-    } catch {
-    }
-}
-
-public func freTrace(ctx:FreContextSwift, value: [Any]) {
-    var traceStr: String = ""
-    for i in 0..<value.count {
-        traceStr = traceStr + "\(value[i])" + " "
-    }
-    sendEvent(ctx: ctx, name: "TRACE", value: traceStr)
-}
-
-public func traceError(ctx:FreContextSwift, message: String, line: Int, column: Int, file: String, freError: FreError?) {
-    freTrace(ctx: ctx, value: ["ERROR:", "message:", message, "file:", "[\(file):\(line):\(column)]"])
-    if let freError = freError {
-        freTrace(ctx: ctx, value: [freError.type])
-        freTrace(ctx: ctx, value: [freError.stackTrace])
-    }
-}
-
 public typealias FREArgv = UnsafeMutablePointer<FREObject?>!
 public typealias FREArgc = UInt32
 public typealias FREFunctionMap = [String: (_: FREContext, _: FREArgc, _: FREArgv) -> FREObject?]
-public var functionsToSet: FREFunctionMap = [:]
-public typealias FreSwiftController = NSObject
+
+public protocol FreSwiftMainController {
+    var functionsToSet: FREFunctionMap { get set }
+    var context: FreContextSwift! { get set }
+    func getFunctions(prefix: String) -> Array<String>
+    func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject?
+}
+
+public extension FreSwiftMainController {
+    func trace(_ value: Any...) {
+        var traceStr: String = ""
+        for i in 0..<value.count {
+            traceStr = traceStr + "\(value[i])" + " "
+        }
+        sendEvent(name: "TRACE", value: traceStr)
+    }
+    
+    func traceError(message: String, line: Int, column: Int, file: String, freError: FreError?) {
+        trace(["ERROR:", "message:", message, "file:", "[\(file):\(line):\(column)]"])
+        if let freError = freError {
+            trace([freError.type])
+            trace([freError.stackTrace])
+        }
+    }
+    
+    func sendEvent(name: String, value: String) {
+        do {
+            try context.dispatchStatusEventAsync(code: value, level: name)
+        } catch {
+        }
+    }
+}
+
+public protocol FreSwiftController {
+    var context: FreContextSwift! { get set }
+}
 
 public extension FreSwiftController {
-    @objc public func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-        if let fm = functionsToSet[name] {
-            return fm(ctx, argc, argv)
+    func trace(_ value: Any...) {
+        var traceStr: String = ""
+        for i in 0..<value.count {
+            traceStr = traceStr + "\(value[i])" + " "
         }
-        return nil
+        sendEvent(name: "TRACE", value: traceStr)
+    }
+    
+    func traceError(message: String, line: Int, column: Int, file: String, freError: FreError?) {
+        trace(["ERROR:", "message:", message, "file:", "[\(file):\(line):\(column)]"])
+        if let freError = freError {
+            trace([freError.type])
+            trace([freError.stackTrace])
+        }
+    }
+    
+    func sendEvent(name: String, value: String) {
+        do {
+            try context.dispatchStatusEventAsync(code: value, level: name)
+        } catch {
+        }
     }
 }

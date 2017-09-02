@@ -15,12 +15,9 @@
 import Foundation
 import CoreImage
 
-public class SwiftController: FreSwiftController {
-
-    private var context: FreContextSwift!
-    private func trace(_ value: Any...){
-        freTrace(ctx: context, value: value)
-    }
+public class SwiftController: NSObject, FreSwiftMainController {
+    public var context: FreContextSwift!
+    public var functionsToSet: FREFunctionMap = [:]
     
     // Must have this function. It exposes the methods to our entry ObjC.
     @objc public func getFunctions(prefix: String) -> Array<String> {
@@ -56,7 +53,7 @@ public class SwiftController: FreSwiftController {
         let swiftString: String = "I am a string from Swift"
         
         //Instead of FREDispatchStatusEventAsync(ctx, code, level) - N.B. level is name, code is value
-        sendEvent(ctx: context, name: "MY_EVENT", value: "SUCCESS")
+        sendEvent(name: "MY_EVENT", value: "SUCCESS")
          
         do {
             return try FreObjectSwift(string: swiftString).rawValue
@@ -303,8 +300,16 @@ public class SwiftController: FreSwiftController {
 
     }
 
-    @objc public func setFREContext(ctx: FREContext) {
-        context = FreContextSwift.init(freContext: ctx)
+    // Must have this function. It exposes the methods to our entry ObjC.
+    public func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+        if let fm = functionsToSet[name] {
+            return fm(ctx, argc, argv)
+        }
+        return nil
+    }
+    
+    func setFREContext(ctx: FREContext) {
+        self.context = FreContextSwift.init(freContext: ctx)
     }
 
 
