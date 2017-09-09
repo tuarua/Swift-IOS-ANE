@@ -1,2 +1,2 @@
-# FRESwift
-FlashRuntimeExtensions.swift submodule files
+# FreSwift
+FlashRuntimeExtensions.swift Framework files

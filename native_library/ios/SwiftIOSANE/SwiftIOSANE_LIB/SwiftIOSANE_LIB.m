@@ -13,10 +13,8 @@
  limitations under the License.*/
 
 #import "FreMacros.h"
-#import <FreSwift/FlashRuntimeExtensions.h>
-
 #import "SwiftIOSANE_LIB.h"
-#import "FreSwift-iOS-Swift.h"
+#import <FreSwift/FreSwift-iOS-Swift.h>
 #import "SwiftIOSANE_FW-Swift.h"
 
 #define FRE_OBJC_BRIDGE TRSOA_FlashRuntimeExtensionsBridge // use unique prefix throughout to prevent clashes with other ANEs
@@ -48,6 +46,8 @@ CONTEXT_INIT(TRSOA) {
         ,MAP_FUNCTION(TRSOA, runErrorTests)
         ,MAP_FUNCTION(TRSOA, runErrorTests2)
         ,MAP_FUNCTION(TRSOA, runDataTests)
+        ,MAP_FUNCTION(TRSOA, runRectTests)
+        ,MAP_FUNCTION(TRSOA, runDateTests)
     };
     
     /**************************************************************************/

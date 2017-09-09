@@ -43,45 +43,50 @@ public class FreRectangleSwift: FreObjectSwift {
     
     override public var value: Any? {
         get {
-            do {
-                if let raw = rawValue {
-                    let idRes = try getAsCGRect(raw) as Any?
-                    return idRes
-                }
-            } catch {
+            if let rv = rawValue {
+                let idRes = CGRect.init(rv) as Any?
+                return idRes
             }
             return nil
         }
     }
     
-    private func getAsCGRect(_ rawValue: FREObject) throws -> CGRect {
-        var ret: CGRect = CGRect.init(x: 0, y: 0, width: 0, height: 0)
-        
-        if let xInt = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "x")).value as? Int {
-            ret.origin.x = CGFloat.init(xInt)
-        } else if let xDbl = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "x")).value as? Double {
-            ret.origin.x = CGFloat.init(xDbl)
+}
+
+public extension CGRect {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
         }
-        
-        if let yInt = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "y")).value as? Int {
-            ret.origin.y = CGFloat.init(yInt)
-        } else if let yDbl = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "y")).value as? Double {
-            ret.origin.y = CGFloat.init(yDbl)
+        var x: CGFloat = CGFloat.init(0)
+        var y: CGFloat = CGFloat.init(0)
+        var w: CGFloat = CGFloat.init(0)
+        var h: CGFloat = CGFloat.init(0)
+        do {
+            if let rvX = try FreSwiftHelper.getProperty(rawValue: rv, name: "x"), let xVal = CGFloat.init(rvX) {
+                x = xVal
+            }
+            if let rvY = try FreSwiftHelper.getProperty(rawValue: rv, name: "y"), let yVal = CGFloat.init(rvY) {
+                y = yVal
+            }
+            if let rvW = try FreSwiftHelper.getProperty(rawValue: rv, name: "width"), let wVal = CGFloat.init(rvW) {
+                w = wVal
+            }
+            if let rvH = try FreSwiftHelper.getProperty(rawValue: rv, name: "height"), let hVal = CGFloat.init(rvH) {
+                h = hVal
+            }
+        } catch {
         }
-        
-        if let wInt = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "width")).value as? Int {
-            ret.size.width = CGFloat.init(wInt)
-        } else if let wDbl = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "width")).value as? Double {
-            ret.size.width = CGFloat.init(wDbl)
-        }
-        
-        if let hInt = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "height")).value as? Int {
-            ret.size.height = CGFloat.init(hInt)
-        } else if let hDbl = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "height")).value as? Double {
-            ret.size.height = CGFloat.init(hDbl)
-        }
-        
-        return ret
+        self.init(x: x, y: y, width: w, height: h)
     }
     
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+    func toFREObject() -> FREObject? {
+        return FreRectangleSwift(value: self).rawValue
+    }
 }
