@@ -19,7 +19,6 @@ bin-release-temp/
 .tps
 
 # build files
-*.sh
 
 
 # Created by https://www.gitignore.io/api/intellij
