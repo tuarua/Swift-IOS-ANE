@@ -14,8 +14,10 @@
 
 import Foundation
 import CoreImage
+import FreSwift
 
 public class SwiftController: NSObject, FreSwiftMainController {
+    public var TAG: String? = "SwiftIOSANE"
     public var context: FreContextSwift!
     public var functionsToSet: FREFunctionMap = [:]
     
@@ -32,6 +34,8 @@ public class SwiftController: NSObject, FreSwiftMainController {
         functionsToSet["\(prefix)runErrorTests"] = runErrorTests
         functionsToSet["\(prefix)runErrorTests2"] = runErrorTests2
         functionsToSet["\(prefix)runDataTests"] = runDataTests
+        functionsToSet["\(prefix)runRectTests"] = runRectTests
+        functionsToSet["\(prefix)runDateTests"] = runDateTests
 
         var arr: Array<String> = []
         for key in functionsToSet.keys {
@@ -42,66 +46,52 @@ public class SwiftController: NSObject, FreSwiftMainController {
 
     func runStringTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start String test***********")
-        guard argc == 1,
-              let inFRE0 = argv[0],
-              let airString: String = FreObjectSwift(freObject: inFRE0).value as? String else {
-            return nil
+        guard argc > 0,
+            let inFRE0 = argv[0],
+            let airString = String(inFRE0) else {
+                return nil
         }
-
-        trace("String passed from AIR:", airString)
-
-        let swiftString: String = "I am a string from Swift"
         
-        //Instead of FREDispatchStatusEventAsync(ctx, code, level) - N.B. level is name, code is value
-        sendEvent(name: "MY_EVENT", value: "SUCCESS")
-         
-        do {
-            return try FreObjectSwift(string: swiftString).rawValue
-        } catch {
-        }
-        return nil
+        trace("String passed from AIR:", airString)
+        let swiftString: String = "I am a string from Swift"
+        return swiftString.toFREObject()
     }
 
     func runNumberTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Number test***********")
-        guard argc == 1, let inFRE0 = argv[0],
-              let airNumber: Double = FreObjectSwift(freObject: inFRE0).value as? Double else {
-            return nil
-        }
-
-        trace("Number passed from AIR:", airNumber)
+        guard argc > 0,
+            let inFRE0 = argv[0],
+            let airDouble = Double(inFRE0),
+            let airCGFloat = CGFloat(inFRE0),
+            let airFloat = Float(inFRE0)
+            else {return nil}
+        
+        trace("Number passed from AIR as Double:", airDouble.debugDescription)
+        trace("Number passed from AIR as CGFloat:", airCGFloat.description)
+        trace("Number passed from AIR as Float:", airFloat.description)
+        
         let swiftDouble: Double = 34343.31
-
-        do {
-            return try FreObjectSwift(double: swiftDouble).rawValue
-        } catch {
-        }
-
-        return nil
+        return swiftDouble.toFREObject()
     }
 
     func runIntTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Int Uint test***********")
-        guard argc == 2, let inFRE0 = argv[0],
-              let inFRE1 = argv[1],
-              let airInt: Int = FreObjectSwift(freObject: inFRE0).value as? Int,
-              let airUInt: Int = FreObjectSwift(freObject: inFRE1).value as? Int else {
-            return nil
+        guard argc > 1,
+            let inFRE0 = argv[0],
+            let inFRE1 = argv[1],
+            let airInt = Int(inFRE0),
+            let airUInt = UInt(inFRE1) else {
+                return nil
         }
-
-
+        
+        let optionalInt:Int? = Int(inFRE0)
+        
         trace("Int passed from AIR:", airInt)
+        trace("Int passed from AIR (optional):", optionalInt.debugDescription)
         trace("UInt passed from AIR:", airUInt)
-
+        
         let swiftInt: Int = -666
-        let swiftUInt: UInt = 888
-        do {
-            try _ = FreObjectSwift(uint: swiftUInt).value
-            return try FreObjectSwift(int: swiftInt).rawValue
-        } catch {
-        }
-
-        return nil
+        return swiftInt.toFREObject()
     }
 
     func runArrayTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
@@ -258,8 +248,6 @@ public class SwiftController: NSObject, FreSwiftMainController {
             return nil
         }
 
-
-
         let person = FreObjectSwift.init(freObject: inFRE0)
 
         do {
@@ -298,6 +286,39 @@ public class SwiftController: NSObject, FreSwiftMainController {
 
         return nil
 
+    }
+    
+    func runRectTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+        trace("***********Start Rectangle Point test***********")
+        guard argc > 1,
+            let inFRE0 = argv[0], //point, rectangle
+            let inFRE1 = argv[1] else {
+                trace("runRectTests returning early")
+                return nil
+        }
+        
+        if let frePoint = CGPoint(inFRE0) {
+            trace(frePoint.debugDescription)
+        }
+        
+        if let freRect = CGRect(inFRE1) {
+            trace(freRect.debugDescription)
+        }
+        return CGPoint.init(x: 10.2, y: 99.9).toFREObject()
+    }
+    
+    func runDateTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+        trace("***********Start Date test ***********")
+        
+        guard argc > 0,
+            let inFRE0 = argv[0] else {
+                return nil
+        }
+        if let date = Date(inFRE0) {
+            trace("timeIntervalSince1970 :", date.timeIntervalSince1970)
+            return date.toFREObject()
+        }
+        return nil
     }
 
     // Must have this function. It exposes the methods to our entry ObjC.

@@ -65,6 +65,15 @@ public class FreSwiftHelper {
         return ret
     }
     
+    static func getAsDate(_ rawValue: FREObject) throws -> Date {
+        var ret: Date = Date.init()
+        if let timeFre = try getProperty(rawValue: rawValue, name: "time") {
+            let time = try getAsDouble(timeFre)
+            ret = Date.init(timeIntervalSince1970: time / 1000.0)
+        }
+        return ret
+    }
+    
     static func getAsInt(_ rawValue: FREObject) throws -> Int {
         var ret: Int32 = 0
         #if os(iOS)
@@ -119,11 +128,38 @@ public class FreSwiftHelper {
             let byteData = asByteArray.value
             asByteArray.releaseBytes() //don't forget to release
             return byteData
+        case .point:
+            return nil
+        case .rectangle:
+            return nil
+        case .date:
+            return try getAsDate(rawValue)
         case .null:
             return nil
         }
         return nil
     }
+    
+    #if os(OSX)
+    public static func toCGColor(freObject: FREObject, alpha: FREObject) throws -> CGColor {
+    let rgb = try FreSwiftHelper.getAsUInt(freObject);
+    let r = (rgb >> 16) & 0xFF
+    let g = (rgb >> 8) & 0xFF
+    let b = rgb & 0xFF
+    var a: CGFloat = CGFloat.init(1)
+    let aFre = FreObjectSwift.init(freObject: alpha)
+    if let alphaInt = aFre.value as? Int, alphaInt == 0 {
+    return CGColor.clear
+    }
+    if let alphaD = aFre.value as? Double {
+    a = CGFloat.init(alphaD)
+    }
+    let rFl: CGFloat = CGFloat.init(r) / 255
+    let gFl: CGFloat = CGFloat.init(g) / 255
+    let bFl: CGFloat = CGFloat.init(b) / 255
+    return CGColor.init(red: rFl, green: gFl, blue: bFl, alpha: a)
+    }
+    #endif
     
     public static func toPointerArray(args: Any...) throws -> NSPointerArray {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
@@ -170,6 +206,8 @@ public class FreSwiftHelper {
                 
                 if type == "int" {
                     return FreObjectTypeSwift.int
+                } else if type == "date" {
+                    return FreObjectTypeSwift.date
                 } else if type == "string" {
                     return FreObjectTypeSwift.string
                 } else if type == "number" {
@@ -220,7 +258,7 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func getProperty(rawValue: FREObject, name: String) throws -> FREObject? {
+    public static func getProperty(rawValue: FREObject, name: String) throws -> FREObject? {
         var ret: FREObject?
         var thrownException: FREObject?
         
@@ -242,7 +280,7 @@ public class FreSwiftHelper {
     }
     
     
-    static func setProperty(rawValue: FREObject, name: String, prop: FREObject?) throws {
+    public static func setProperty(rawValue: FREObject, name: String, prop: FREObject?) throws {
         var thrownException: FREObject?
         #if os(iOS)
             let status: FREResult = FreSwiftBridge.bridge.FRESetObjectProperty(object: rawValue,
@@ -285,7 +323,7 @@ public class FreSwiftHelper {
         return ""
     }
     
-    static func newObject(_ string: String) throws -> FREObject? {
+    public static func newObject(_ string: String) throws -> FREObject? {
         var ret: FREObject?
         #if os(iOS)
             let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromUTF8(length: UInt32(string.utf8.count),
@@ -301,7 +339,7 @@ public class FreSwiftHelper {
     }
     
     
-    static func newObject(_ double: Double) throws -> FREObject? {
+    public static func newObject(_ double: Double) throws -> FREObject? {
         var ret: FREObject?
         #if os(iOS)
             let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromDouble(value: double, object: &ret)
@@ -315,7 +353,17 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func newObject(_ int: Int) throws -> FREObject? {
+    public static func newObject(_ date: Date) throws -> FREObject? {
+        var ret: FREObject?
+        let secs: Double = Double(date.timeIntervalSince1970) * 1000.0
+        let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
+        let arg: FREObject? = try FreObjectSwift.init(any: secs).rawValue
+        argsArray.addPointer(arg)
+        ret = try newObject("Date", argsArray)
+        return ret
+    }
+    
+    public static func newObject(_ int: Int) throws -> FREObject? {
         var ret: FREObject?
         #if os(iOS)
             let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromInt32(value: Int32(int), object: &ret)
@@ -329,7 +377,7 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func newObject(_ uint: UInt) throws -> FREObject? {
+    public static func newObject(_ uint: UInt) throws -> FREObject? {
         var ret: FREObject?
         #if os(iOS)
             let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromUint32(value: UInt32(uint), object: &ret)
@@ -343,7 +391,7 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func newObject(_ bool: Bool) throws -> FREObject? {
+    public static func newObject(_ bool: Bool) throws -> FREObject? {
         var ret: FREObject?
         #if os(iOS)
             let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromBool(value: bool, object: &ret)
@@ -358,7 +406,7 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func newObject(_ className: String, _ args: NSPointerArray?) throws -> FREObject? {
+    public static func newObject(_ className: String, _ args: NSPointerArray?) throws -> FREObject? {
         var ret: FREObject?
         var thrownException: FREObject?
         var numArgs: UInt32 = 0
@@ -404,50 +452,6 @@ public class FreSwiftHelper {
             return .ok
         }
     }
-    
-    #if os(iOS)
-    
-    public static func toUIColor(freObject: FREObject, alpha: FREObject) throws -> UIColor {
-        let rgb = try FreSwiftHelper.getAsUInt(freObject);
-        let r = (rgb >> 16) & 0xFF
-        let g = (rgb >> 8) & 0xFF
-        let b = rgb & 0xFF
-        var a: CGFloat = CGFloat.init(1)
-        let aFre = FreObjectSwift.init(freObject: alpha)
-        if let alphaInt = aFre.value as? Int, alphaInt == 0 {
-            return UIColor.clear
-        }
-        if let alphaD = aFre.value as? Double {
-            a = CGFloat.init(alphaD)
-        }
-        let rFl: CGFloat = CGFloat.init(r) / 255
-        let gFl: CGFloat = CGFloat.init(g) / 255
-        let bFl: CGFloat = CGFloat.init(b) / 255
-        return UIColor.init(red: rFl, green: gFl, blue: bFl, alpha: a)
-    }
-    
-    #else
-    
-    public static func toCGColor(freObject: FREObject, alpha: FREObject) throws -> CGColor {
-    let rgb = try FreSwiftHelper.getAsUInt(freObject);
-    let r = (rgb >> 16) & 0xFF
-    let g = (rgb >> 8) & 0xFF
-    let b = rgb & 0xFF
-    var a: CGFloat = CGFloat.init(1)
-    let aFre = FreObjectSwift.init(freObject: alpha)
-    if let alphaInt = aFre.value as? Int, alphaInt == 0 {
-    return CGColor.clear
-    }
-    if let alphaD = aFre.value as? Double {
-    a = CGFloat.init(alphaD)
-    }
-    let rFl: CGFloat = CGFloat.init(r) / 255
-    let gFl: CGFloat = CGFloat.init(g) / 255
-    let bFl: CGFloat = CGFloat.init(b) / 255
-    return CGColor.init(red: rFl, green: gFl, blue: bFl, alpha: a)
-    }
-    
-    #endif
     
 }
 
@@ -534,7 +538,7 @@ public class FreError: Error {
         case insufficientMemory
     }
     
-    public init(stackTrace:String, message:String, type:Code, line:Int, column : Int, file:String){
+    public init(stackTrace: String, message: String, type: Code, line: Int, column: Int, file: String) {
         self.stackTrace = stackTrace
         self.message = message
         self.type = type
@@ -543,7 +547,7 @@ public class FreError: Error {
         self.file = file
     }
     
-    public init(stackTrace:String, message:String, type:Code){
+    public init(stackTrace: String, message: String, type: Code) {
         self.stackTrace = stackTrace
         self.message = message
         self.type = type
@@ -565,6 +569,13 @@ public class FreError: Error {
     }
 }
 
+
+public class ArgCountError : FreError {
+    public init(message: String){
+        super.init(stackTrace: "", message: "\(message) - incorrect arguments", type: FreError.Code.invalidArgument)
+    }
+}
+
 public enum FreObjectTypeSwift: UInt32 {
     case object = 0
     case number = 1
@@ -577,11 +588,14 @@ public enum FreObjectTypeSwift: UInt32 {
     case null = 8
     case int = 9
     case cls = 10 //aka class
+    case rectangle = 11
+    case point = 12
+    case date = 13
 }
 
 open class FreObjectSwift: NSObject {
     public var rawValue: FREObject? = nil
-    public var value: Any? {
+    open var value: Any? {
         get {
             do {
                 if let raw = rawValue {
@@ -598,12 +612,20 @@ open class FreObjectSwift: NSObject {
         rawValue = freObject
     }
     
+    public init(freObjectSwift: FreObjectSwift?) {
+        rawValue = freObjectSwift?.rawValue
+    }
+    
     public init(string: String) throws {
         rawValue = try FreSwiftHelper.newObject(string)
     }
     
     public init(double: Double) throws {
         rawValue = try FreSwiftHelper.newObject(double)
+    }
+    
+    public init(date: Date) throws {
+        rawValue = try FreSwiftHelper.newObject(date)
     }
     
     public init(cgFloat: CGFloat) throws {
@@ -734,7 +756,10 @@ open class FreObjectSwift: NSObject {
             return try FreSwiftHelper.newObject(any as! Double)
         } else if any is Bool {
             return try FreSwiftHelper.newObject(any as! Bool)
-        } //TODO add Dict and others
+        } else if any is Date {
+            return try FreSwiftHelper.newObject(any as! Date)
+        }
+        //TODO add Dict and others
         
         Swift.debugPrint("_newObject NO MATCH")
         
@@ -759,6 +784,42 @@ public class FreArraySwift: NSObject {
             argsArray.addPointer(arg)
         }
         rawValue = try FreSwiftHelper.newObject(className, argsArray)
+    }
+    
+    public init(intArray: Array<Int>) throws {
+        super.init()
+        rawValue = try FreSwiftHelper.newObject("Array", nil)
+        let count = intArray.count
+        for i in 0..<count {
+            try setObjectAt(index: UInt(i), object: FreObjectSwift.init(int: intArray[i]))
+        }
+    }
+    
+    public init(stringArray: Array<String>) throws {
+        super.init()
+        rawValue = try FreSwiftHelper.newObject("Array", nil)
+        let count = stringArray.count
+        for i in 0..<count {
+            try setObjectAt(index: UInt(i), object: FreObjectSwift.init(string: stringArray[i]))
+        }
+    }
+    
+    public init(doubleArray: Array<Double>) throws {
+        super.init()
+        rawValue = try FreSwiftHelper.newObject("Array", nil)
+        let count = doubleArray.count
+        for i in 0..<count {
+            try setObjectAt(index: UInt(i), object: FreObjectSwift.init(double: doubleArray[i]))
+        }
+    }
+    
+    public init(boolArray: Array<Bool>) throws {
+        super.init()
+        rawValue = try FreSwiftHelper.newObject("Array", nil)
+        let count = boolArray.count
+        for i in 0..<count {
+            try setObjectAt(index: UInt(i), object: FreObjectSwift.init(bool: boolArray[i]))
+        }
     }
     
     public func getObjectAt(index: UInt) throws -> FreObjectSwift? {
@@ -979,6 +1040,12 @@ public class FreBitmapDataSwift: NSObject {
         rawValue = freObject
     }
     
+    public init(freObjectSwift: FreObjectSwift?) {
+        if let val = freObjectSwift?.rawValue {
+            rawValue = val
+        }
+    }
+    
     public init(cgImage: CGImage) {
         //TODO
         /*
@@ -991,7 +1058,6 @@ public class FreBitmapDataSwift: NSObject {
          case noneSkipFirst /* For example, XRGB. */
          case alphaOnly /* No color data, alpha data only */
          */
-        
         
         
         /*
@@ -1124,6 +1190,7 @@ public typealias FREFunctionMap = [String: (_: FREContext, _: FREArgc, _: FREArg
 public protocol FreSwiftMainController {
     var functionsToSet: FREFunctionMap { get set }
     var context: FreContextSwift! { get set }
+    var TAG: String? { get set }
     func getFunctions(prefix: String) -> Array<String>
     func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject?
 }
@@ -1132,9 +1199,25 @@ public extension FreSwiftMainController {
     func trace(_ value: Any...) {
         var traceStr: String = ""
         for i in 0..<value.count {
-            traceStr = traceStr + "\(value[i])" + " "
+            traceStr = "\(traceStr)\(self.TAG ?? ""): \(value[i]) "
         }
         sendEvent(name: "TRACE", value: traceStr)
+    }
+    
+    func info(_ value: Any...) {
+        var traceStr: String = ""
+        for i in 0..<value.count {
+            traceStr = "\(traceStr)\(self.TAG ?? ""): \(value[i]) "
+        }
+        sendEvent(name: "TRACE", value: "INFO: \(traceStr)")
+    }
+    
+    func warning(_ value: Any...) {
+        var traceStr: String = ""
+        for i in 0..<value.count {
+            traceStr = "\(traceStr)\(self.TAG ?? ""): \(value[i]) "
+        }
+        sendEvent(name: "TRACE", value: "WARNING: \(traceStr)")
     }
     
     func traceError(message: String, line: Int, column: Int, file: String, freError: FreError?) {
@@ -1155,6 +1238,7 @@ public extension FreSwiftMainController {
 
 public protocol FreSwiftController {
     var context: FreContextSwift! { get set }
+    var TAG: String? { get set }
 }
 
 public extension FreSwiftController {
@@ -1181,3 +1265,281 @@ public extension FreSwiftController {
         }
     }
 }
+
+//****** Extensions *****//
+
+public extension Double {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        let freObjectSwift: FreObjectSwift = FreObjectSwift.init(freObject: rv)
+        if let i = freObjectSwift.value as? Int {
+            self.init(i)
+        } else if let d = freObjectSwift.value as? Double {
+            self.init(d)
+        } else {
+            return nil
+        }
+    }
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FreObjectSwift(double: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+public extension Float {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        if let d = Double(rv) {
+            self.init(Float(d))
+        } else {
+            return nil
+        }
+    }
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+}
+
+public extension CGFloat {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        if let d = Double(rv) {
+            self.init(d)
+        } else {
+            return nil
+        }
+        
+    }
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FreObjectSwift(cgFloat: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+public extension Bool {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        if let b = FreObjectSwift.init(freObject: rv).value as? Bool {
+            self.init(b)
+        } else {
+            return nil
+        }
+    }
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FreObjectSwift(bool: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+public extension Date {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        if let d = FreObjectSwift.init(freObject: rv).value as? Date {
+            self.init(timeIntervalSince1970: d.timeIntervalSince1970)
+        } else {
+            return nil
+        }
+    }
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FreObjectSwift(date: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+public extension Int {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        if let i = FreObjectSwift.init(freObject: rv).value as? Int {
+            self.init(i)
+        } else {
+            return nil
+        }
+    }
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FreObjectSwift(int: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+public extension UInt {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        if let i = FreObjectSwift.init(freObject: rv).value as? Int {
+            self.init(i)
+        } else {
+            return nil
+        }
+    }
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FreObjectSwift(uint: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+public extension String {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject, FreSwiftHelper.getType(rv) == FreObjectTypeSwift.string else {
+            return nil
+        }
+        if let s = FreObjectSwift.init(freObject: rv).value as? String {
+            self.init(s)
+        } else {
+            return nil
+        }
+    }
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FreObjectSwift(string: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+#if os(iOS)
+    public extension UIColor {
+        convenience init(freObject: FREObject?, alpha: FREObject?) {
+            guard let rv = freObject, let rv2 = alpha else {
+                self.init()
+                return
+            }
+            do {
+                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let r = (rgb >> 16) & 0xFF
+                let g = (rgb >> 8) & 0xFF
+                let b = rgb & 0xFF
+                var a: CGFloat = CGFloat.init(1)
+                let aFre = FreObjectSwift.init(freObject: rv2)
+                if let alphaInt = aFre.value as? Int, alphaInt == 0 {
+                    self.init(white: 1.0, alpha: 0.0)
+                } else {
+                    if let alphaD = aFre.value as? Double {
+                        a = CGFloat.init(alphaD)
+                    }
+                    let rFl: CGFloat = CGFloat.init(r) / 255
+                    let gFl: CGFloat = CGFloat.init(g) / 255
+                    let bFl: CGFloat = CGFloat.init(b) / 255
+                    self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
+                }
+            } catch {
+                self.init()
+            }
+        }
+        convenience init(freObjectSwift: FreObjectSwift?, alpha: FreObjectSwift?) {
+            guard let fos = freObjectSwift, let rv = fos.rawValue,
+                let fos2 = freObjectSwift, let rv2 = fos2.rawValue else {
+                self.init()
+                return
+            }
+            self.init(freObject: rv, alpha: rv2)
+        }
+    }
+    
+    public extension UIColor {
+        convenience init(freObject: FREObject?) {
+            guard let rv = freObject else {
+                self.init()
+                return
+            }
+            do {
+                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let r = (rgb >> 16) & 0xFF
+                let g = (rgb >> 8) & 0xFF
+                let b = rgb & 0xFF
+                let a: CGFloat = CGFloat.init(1)
+                let rFl: CGFloat = CGFloat.init(r) / 255
+                let gFl: CGFloat = CGFloat.init(g) / 255
+                let bFl: CGFloat = CGFloat.init(b) / 255
+                self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
+            } catch {
+                self.init()
+            }
+        }
+        convenience init(freObjectSwift: FreObjectSwift?) {
+            guard let fos = freObjectSwift, let rv = fos.rawValue else {
+                self.init()
+                return
+            }
+            self.init(freObject: rv)
+        }
+    }
+#endif
+
+

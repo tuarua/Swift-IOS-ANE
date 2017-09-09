@@ -151,112 +151,80 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 SWIFT_PROTOCOL("_TtC8FreSwift22FreSwiftBridgeProtocol")
 @protocol FreSwiftBridgeProtocol
+- (FREResult)FREDispatchStatusEventAsyncWithCtx:(FREContext _Nonnull)ctx
+                                           code:(NSString * _Nonnull)code
+                                          level:(NSString * _Nonnull)level;
 - (FREResult)FRENewObjectFromBoolWithValue:(BOOL)value
                                     object:(FREObject _Nullable)object;
-
 - (FREResult)FRENewObjectFromInt32WithValue:(int32_t)value
                                      object:(FREObject _Nullable)object;
-
 - (FREResult)FRENewObjectFromUint32WithValue:(uint32_t)value
                                       object:(FREObject _Nullable)object;
-
 - (FREResult)FRENewObjectFromDoubleWithValue:(double)value
                                       object:(FREObject _Nullable)object;
-
 - (FREResult)FRENewObjectFromUTF8WithLength:(uint32_t)length
-                                      value:(NSString *_Nonnull)value
+                                      value:(NSString * _Nonnull)value
                                      object:(FREObject _Nullable)object;
-
 - (FREResult)FREGetObjectAsBoolWithObject:(FREObject _Nonnull)object
-                                    value:(uint32_t *_Nullable)value;
-
+                                    value:(uint32_t * _Nonnull)value;
 - (FREResult)FREGetObjectAsInt32WithObject:(FREObject _Nonnull)object
-                                     value:(int32_t *_Nullable)value;
-
+                                     value:(int32_t * _Nonnull)value;
 - (FREResult)FREGetObjectAsUint32WithObject:(FREObject _Nonnull)object
-                                      value:(uint32_t *_Nullable)value;
-
+                                      value:(uint32_t * _Nonnull)value;
 - (FREResult)FREGetObjectAsDoubleWithObject:(FREObject _Nonnull)object
-                                      value:(double *_Nullable)value;
-
-
-- (FREResult)FREGetObjectAsUTF8WithObject:(FREObject _Nonnull)object
-                                   length:(uint32_t *_Nullable)length
-                                    value:(const uint8_t *_Nullable *_Nullable)value;
-
-
-- (FREResult)FRENewObjectWithClassName:(NSString *_Nonnull)className
+                                      value:(double * _Nonnull)value;
+- (FREResult)FRENewObjectWithClassName:(NSString * _Nonnull)className
                                   argc:(uint32_t)argc
-                                  argv:(NSPointerArray *_Nullable)argv
-                                object:(FREObject _Nonnull)object
+                                  argv:(NSPointerArray * _Nullable)argv
+                                object:(FREObject _Nullable)object
                        thrownException:(FREObject _Nullable)thrownException;
-
-- (FREResult)FRECallObjectMethodWithObject:(FREObject _Nonnull)object
-                                methodName:(NSString *_Nonnull)className
-                                      argc:(uint32_t)argc
-                                      argv:(NSPointerArray *_Nullable)argv
-                                    result:(FREObject _Nonnull)result
-                           thrownException:(FREObject _Nullable)thrownException;
-
-
 - (FREResult)FREGetObjectPropertyWithObject:(FREObject _Nonnull)object
-                               propertyName:(NSString *_Nonnull)propertyName
-                              propertyValue:(FREObject _Nonnull)propertyValue
+                               propertyName:(NSString * _Nonnull)propertyName
+                              propertyValue:(FREObject _Nullable)propertyValue
                             thrownException:(FREObject _Nullable)thrownException;
-
 - (FREResult)FRESetObjectPropertyWithObject:(FREObject _Nonnull)object
-                               propertyName:(NSString *_Nonnull)propertyName
-                              propertyValue:(FREObject _Nonnull)propertyValue
+                               propertyName:(NSString * _Nonnull)propertyName
+                              propertyValue:(FREObject _Nullable)propertyValue
                             thrownException:(FREObject _Nullable)thrownException;
-
-- (FREResult)FREDispatchStatusEventAsyncWithCtx:(FREContext _Nonnull)ctx
-                                           code:(NSString *_Nonnull)code
-                                          level:(NSString *_Nonnull)level;
-
 - (FREResult)FREGetObjectTypeWithObject:(FREObject _Nullable)object
-                             objectType:(FREObjectType *_Nullable)objectType;//pointer
-
+                             objectType:(FREObjectType * _Nonnull)objectType;
+- (FREResult)FREGetObjectAsUTF8WithObject:(FREObject _Nonnull)object
+                                   length:(uint32_t * _Nonnull)length
+                                    value:(uint8_t const * _Nullable const * _Nullable)value;
+- (FREResult)FRECallObjectMethodWithObject:(FREObject _Nonnull)object
+                                methodName:(NSString * _Nonnull)methodName argc:(uint32_t)argc
+                                      argv:(NSPointerArray * _Nullable)argv
+                                    result:(FREObject _Nullable)result
+                           thrownException:(FREObject _Nullable)thrownException;
 - (FREResult)FRESetArrayElementAWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
                                             index:(uint32_t)index
-                                            value:(FREObject _Nonnull)value;
-
+                                            value:(FREObject _Nullable)value;
 - (FREResult)FREGetArrayElementAWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
                                             index:(uint32_t)index
                                             value:(FREObject _Nullable)value;
-
 - (FREResult)FREGetArrayLengthWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
-                                         length:(uint32_t *_Nullable)length;
-
+                                         length:(uint32_t * _Nonnull)length;
 - (FREResult)FRESetArrayLengthWithArrayOrVector:(FREObject _Nonnull)arrayOrVector
                                          length:(uint32_t)length;
-
 - (FREResult)FREAcquireBitmapData2WithObject:(FREObject _Nonnull)object
-                             descriptorToSet:(FREBitmapData2 *_Nullable)descriptorToSet;
-
+                             descriptorToSet:(FREBitmapData2 * _Nonnull)descriptorToSet;
 - (FREResult)FREReleaseBitmapDataWithObject:(FREObject _Nonnull)object;
-
 - (FREResult)FREAcquireByteArrayWithObject:(FREObject _Nonnull)object
-                            byteArrayToSet:(FREByteArray *_Nullable)byteArrayToSet;
-
+                            byteArrayToSet:(FREByteArray * _Nonnull)byteArrayToSet;
 - (FREResult)FREReleaseByteArrayWithObject:(FREObject _Nonnull)object;
-
 - (FREResult)FRESetContextActionScriptDataWithCtx:(FREContext _Nonnull)ctx
-                                 actionScriptData:(FREObject _Nullable)actionScriptData;
-
+                                 actionScriptData:(FREObject _Nonnull)actionScriptData;
 - (FREResult)FREGetContextActionScriptDataWithCtx:(FREContext _Nonnull)ctx
-                                 actionScriptData:(FREObject _Nullable)actionScriptData;
-
+                                 actionScriptData:(FREObject _Nonnull)actionScriptData;
 - (FREResult)FREInvalidateBitmapDataRectWithObject:(FREObject _Nonnull)object
                                                  x:(uint32_t)x
                                                  y:(uint32_t)y
                                              width:(uint32_t)width
                                             height:(uint32_t)height;
-
-- (FREResult) FRESetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
-                                  nativeData:(void *_Nullable)nativeData;
-
-- (FREResult) FREGetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
-                                  nativeData:(void *_Nullable *_Nullable)nativeData;
+- (FREResult)FRESetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
+                                 nativeData:(void const * _Nonnull)nativeData;
+- (FREResult)FREGetContextNativeDataWithCtx:(FREContext _Nonnull)ctx
+                                 nativeData:(void const * _Nonnull * _Nonnull)nativeData;
 @end
 
 

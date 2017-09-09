@@ -39,33 +39,42 @@ public class FrePointSwift: FreObjectSwift {
     
     override public var value: Any? {
         get {
-            do {
-                if let raw = rawValue {
-                    let idRes = try getAsCGPoint(raw) as Any?
-                    return idRes
-                }
-            } catch {
+            if let rv = rawValue {
+                let idRes = CGPoint.init(rv) as Any?
+                return idRes
             }
             return nil
         }
     }
     
-    private func getAsCGPoint(_ rawValue: FREObject) throws -> CGPoint {
-        var ret: CGPoint = CGPoint.init(x: 0, y: 0)
-        
-        if let xInt = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "x")).value as? Int {
-            ret.x = CGFloat.init(xInt)
-        } else if let xDbl = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "x")).value as? Double {
-            ret.x = CGFloat.init(xDbl)
+}
+
+public extension CGPoint {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
         }
-        
-        if let yInt = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "y")).value as? Int {
-            ret.y = CGFloat.init(yInt)
-        } else if let yDbl = try FreObjectSwift.init(freObject: FreSwiftHelper.getProperty(rawValue: rawValue, name: "y")).value as? Double {
-            ret.y = CGFloat.init(yDbl)
+        var x: CGFloat = CGFloat.init(0)
+        var y: CGFloat = CGFloat.init(0)
+        do {
+            if let rvX = try FreSwiftHelper.getProperty(rawValue: rv, name: "x"), let xVal = CGFloat.init(rvX) {
+                x = xVal
+            }
+            if let rvY = try FreSwiftHelper.getProperty(rawValue: rv, name: "y"), let yVal = CGFloat.init(rvY) {
+                y = yVal
+            }
+            
+        } catch {
         }
-        
-        return ret
+        self.init(x: x, y: y)
     }
-    
+    init?(_ freObjectSwift: FreObjectSwift?) {
+        guard let val = freObjectSwift, let rv = val.rawValue else {
+            return nil
+        }
+        self.init(rv)
+    }
+    func toFREObject() -> FREObject? {
+        return FrePointSwift(value: self).rawValue
+    }
 }
