@@ -61,7 +61,7 @@ The following table shows the primitive as3 types which can easily be converted 
 |:--------:|:--------:|:--------------|:-----------|
 | String | String | let str = String(argv[0]) | return str.toFREObject()|
 | int | Int | let i = Int(argv[0]) | return i.toFREObject()|
-| Boolean | Bool | let b = Int(argv[0]) | return b.toFREObject()|
+| Boolean | Bool | let b = Bool(argv[0]) | return b.toFREObject()|
 | Number | Double | let dbl = Double(argv[0]) | return dbl.toFREObject()|
 | Number | CGFloat | let cfl = CGFloat(argv[0]) | return cfl.toFREObject()|
 | Date | Date | let date = Date(argv[0]) | return date.toFREObject()|
