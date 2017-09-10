@@ -3,6 +3,13 @@
 Example Xcode project showing how to create Air Native Extensions for iOS using Swift.
 It supports iOS 9.0+
 
+This project is used as the basis for the following ANEs   
+[Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
+[AdMob ANE](https://github.com/tuarua/AdMob-ANE)  
+
+
+-------------
+
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5UR2T52J633RC)
 
 It is comprised of 3 parts.
