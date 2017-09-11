@@ -136,7 +136,7 @@ Example - Error handling
 ````swift
 do {
     _ = try person.getProperty(name: "doNotExist") //calling a property that doesn't exist
-} catch let e as FREError {
+} catch let e as FreError {
     if let aneError = e.getError(#file, #line, #column) {
         return aneError //return the error as an actionscript error
     }
