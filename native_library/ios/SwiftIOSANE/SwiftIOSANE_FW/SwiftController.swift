@@ -12,14 +12,17 @@
  See the License for the specific language governing permissions and
  limitations under the License.*/
 
+import UIKit
 import Foundation
 import CoreImage
 import FreSwift
 
+
 public class SwiftController: NSObject, FreSwiftMainController {
-    public var TAG: String? = "SwiftIOSANE"
+    public var TAG: String? = "SwiftController"
     public var context: FreContextSwift!
     public var functionsToSet: FREFunctionMap = [:]
+    private var appDidFinishLaunchingNotif:Notification?
     
     // Must have this function. It exposes the methods to our entry ObjC.
     @objc public func getFunctions(prefix: String) -> Array<String> {
@@ -46,6 +49,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
 
     func runStringTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start String test***********")
+        
         guard argc > 0,
             let inFRE0 = argv[0],
             let airString = String(inFRE0) else {
@@ -97,82 +101,74 @@ public class SwiftController: NSObject, FreSwiftMainController {
     func runArrayTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Array test NEW ***********")
 
-        guard argc == 1, let inFRE0 = argv[0] else {
+        guard argc > 0, let inFRE0 = argv[0] else {
             return nil
         }
-
-        let airArray: FreArraySwift = FreArraySwift.init(freObject: inFRE0)
+        
+        let airArray: FREArray = FREArray.init(inFRE0)
         do {
             let airArrayLen = airArray.length
-
+            
             trace("Array passed from AIR:", airArray.value)
             trace("AIR Array length:", airArrayLen)
-
-
-            if let itemZero: FreObjectSwift = try airArray.getObjectAt(index: 0) {
-                if let itemZeroVal: Int = itemZero.value as? Int {
-                    trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
-                    let newVal = try FreObjectSwift.init(int: 56)
-                    try airArray.setObjectAt(index: 0, object: newVal)
-                    return airArray.rawValue
-                }
+            
+            if let itemZero = try Int(airArray.at(index: 0)) {
+                trace("AIR Array elem at 0 type:", "value:", itemZero)
+                try airArray.set(index: 0, value: 56)
+                return airArray.rawValue
             }
-
+            
         } catch let e as FreError {
             _ = e.getError(#file, #line, #column)
         } catch {
         }
-
+        
         return nil
 
     }
 
     func runObjectTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Object test***********")
-
-        guard argc == 1, let inFRE0 = argv[0] else {
+        
+        guard argc > 0, let person = argv[0] else {
             return nil
         }
-
-
-        let person = FreObjectSwift.init(freObject: inFRE0)
-
+        
         do {
-
-            if let freAge = try person.getProperty(name: "age") {
-                if let oldAge: Int = freAge.value as? Int {
-                    let newAge = try FreObjectSwift.init(int: oldAge + 10)
-                    try person.setProperty(name: "age", prop: newAge)
-
-                    trace("current person age is", oldAge)
-
-                    if let addition: FreObjectSwift = try person.callMethod(name: "add", args: 100, 31) {
-                        if let sum: Int = addition.value as? Int {
-                            trace("addition result:", sum)
-                        }
+            let newPerson = try FREObject(className: "com.tuarua.Person")
+            trace("We created a new person. type =", newPerson?.type ?? "unknown")
+            
+            if let oldAge = try Int(person.getProp(name: "age")) {
+                trace("current person age is", oldAge)
+                try person.setProp(name: "age", value: oldAge + 10)
+                if let addition = try person.call(method: "add", args: 100, 31) {
+                    if let result = Int(addition) {
+                        trace("addition result:", result)
                     }
-                    if let dictionary: Dictionary<String, AnyObject> = person.value as? Dictionary<String, AnyObject> {
-                        trace("AIR Object converted to Dictionary using as? Dictionary:", dictionary.description)
-                    }
-
-                    return person.rawValue
-
                 }
-
+                
+                if let dictionary = Dictionary.init(person) {
+                    trace("AIR Object converted to Dictionary using getAsDictionary:", dictionary.description)
+                }
+                
             }
+            
+            return person
+            
         } catch let e as FreError {
             _ = e.getError(#file, #line, #column)
         } catch {
         }
-
-
+        
+        
         return nil
+
 
     }
 
     func runBitmapTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Bitmap test***********")
-        guard argc == 1, let inFRE0 = argv[0] else {
+        guard argc > 0, let inFRE0 = argv[0] else {
             return nil
         }
 
@@ -192,6 +188,9 @@ public class SwiftController: NSObject, FreSwiftMainController {
                     if let cgImage = context.createCGImage(result, from: result.extent) {
                         let img:UIImage = UIImage.init(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
                         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+                            
+                            
+                            
                             let imgView: UIImageView = UIImageView.init(image: img)
                             imgView.frame = CGRect.init(x: 10, y: 120, width: img.size.width, height: img.size.height)
                             rootViewController.view.addSubview(imgView)
@@ -242,48 +241,42 @@ public class SwiftController: NSObject, FreSwiftMainController {
 
     func runErrorTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Error Handling test***********")
-
-        guard argc == 1,
-              let inFRE0 = argv[0] else {
-            return nil
+        
+        guard argc > 0,
+            let person = argv[0] else {
+                return nil
         }
-
-        let person = FreObjectSwift.init(freObject: inFRE0)
-
+        
         do {
-            _ = try person.callMethod(name: "add", args: 2) //not passing enough args
+            _ = try person.call(method: "add", args: 2) //not passing enough args
         } catch let e as FreError {
             trace(e.message) //just catch in Swift, do not bubble to actionscript
         } catch {
         }
-
+        
         do {
-            _ = try person.getProperty(name: "doNotExist") //calling a property that doesn't exist
+            _ = try person.getProp(name: "doNotExist") //calling a property that doesn't exist
         } catch let e as FreError {
             if let aneError = e.getError(#file, #line, #column) {
                 return aneError //return the error as an actionscript error
             }
         } catch {
         }
-
+        
         return nil
     }
 
     func runErrorTests2(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-        guard argc == 1,
-              let inFRE0 = argv[0] else {
-            return nil
+        guard argc > 0,
+            let expectInt = argv[0] else {
+                return nil
         }
-
-        let expectInt = FreObjectSwift.init(freObject: inFRE0)
-        guard FreObjectTypeSwift.int == expectInt.getType() else {
+        
+        guard FreObjectTypeSwift.int == expectInt.type else {
             trace("Oops, we expected the FREObject to be passed as an int but it's not")
             return nil
         }
-
-        let _: Int = expectInt.value as! Int;
-
-
+        
         return nil
 
     }
@@ -291,7 +284,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
     func runRectTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Rectangle Point test***********")
         guard argc > 1,
-            let inFRE0 = argv[0], //point, rectangle
+            let inFRE0:FREObject = argv[0], //point, rectangle
             let inFRE1 = argv[1] else {
                 trace("runRectTests returning early")
                 return nil
@@ -321,7 +314,8 @@ public class SwiftController: NSObject, FreSwiftMainController {
         return nil
     }
 
-    // Must have this function. It exposes the methods to our entry ObjC.
+    // Must have these 3 functions. 
+    //Exposes the methods to our entry ObjC.
     public func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         if let fm = functionsToSet[name] {
             return fm(ctx, argc, argv)
@@ -329,8 +323,23 @@ public class SwiftController: NSObject, FreSwiftMainController {
         return nil
     }
     
+    //Here we set our FREContext
     func setFREContext(ctx: FREContext) {
         self.context = FreContextSwift.init(freContext: ctx)
+    }
+    
+    
+    @objc func applicationDidFinishLaunching(_ notification: Notification) {
+        appDidFinishLaunchingNotif = notification
+    }
+    
+    // Here we add observers for any app delegate stuff
+    // Observers are independant of other ANEs and cause no conflicts
+    // DO NOT OVERRIDE THE DEFAULT !!
+    func onLoad() {
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidFinishLaunching),
+                                               name: NSNotification.Name.UIApplicationDidFinishLaunching, object: nil)
+        
     }
 
 

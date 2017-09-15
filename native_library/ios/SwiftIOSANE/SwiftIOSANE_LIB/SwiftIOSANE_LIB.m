@@ -25,8 +25,9 @@
 FRE_OBJC_BRIDGE_FUNCS
 @end
 
-
+@implementation SwiftIOSANE_LIB
 SWIFT_DECL(TRSOA) // use unique prefix throughout to prevent clashes with other ANEs
+
 CONTEXT_INIT(TRSOA) {
     SWIFT_INITS(TRSOA)
     
@@ -50,6 +51,8 @@ CONTEXT_INIT(TRSOA) {
         ,MAP_FUNCTION(TRSOA, runDateTests)
     };
     
+
+    
     /**************************************************************************/
     /**************************************************************************/
     
@@ -62,3 +65,4 @@ CONTEXT_FIN(TRSOA) {
 }
 EXTENSION_INIT(TRSOA)
 EXTENSION_FIN(TRSOA)
+@end
