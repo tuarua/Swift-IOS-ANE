@@ -25,16 +25,28 @@ public class FreRectangleSwift: FreObjectSwift {
     public init(value: CGRect) {
         var freObject: FREObject? = nil
         do {
-            let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-            let arg0: FREObject? = try FreObjectSwift.init(cgFloat: value.origin.x).rawValue
-            argsArray.addPointer(arg0)
-            let arg1: FREObject? = try FreObjectSwift.init(cgFloat: value.origin.y).rawValue
-            argsArray.addPointer(arg1)
-            let arg2: FREObject? = try FreObjectSwift.init(cgFloat: value.width).rawValue
-            argsArray.addPointer(arg2)
-            let arg3: FREObject? = try FreObjectSwift.init(cgFloat: value.height).rawValue
-            argsArray.addPointer(arg3)
-            freObject = try FreSwiftHelper.newObject("flash.geom.Rectangle", argsArray)
+//            let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
+//            //let arg0: FREObject? = try FreObjectSwift.init(cgFloat: value.origin.x).rawValue
+//            let arg0: FREObject? = CGFloat.init(value.origin.x).toFREObject()
+//            argsArray.addPointer(arg0)
+//            //let arg1: FREObject? = try FreObjectSwift.init(cgFloat: value.origin.y).rawValue
+//            let arg1: FREObject? = CGFloat.init(value.origin.y).toFREObject()
+//            argsArray.addPointer(arg1)
+//            //let arg2: FREObject? = try FreObjectSwift.init(cgFloat: value.width).rawValue
+//            let arg2: FREObject? = CGFloat.init(value.width).toFREObject()
+//            argsArray.addPointer(arg2)
+//            //let arg3: FREObject? = try FreObjectSwift.init(cgFloat: value.height).rawValue
+//            let arg3: FREObject? = CGFloat.init(value.height).toFREObject()
+//            argsArray.addPointer(arg3)
+//            freObject = try FreSwiftHelper.newObject(className: "flash.geom.Rectangle", argsArray)
+            
+            
+            freObject = try FREObject.init(className: "flash.geom.Rectangle",
+                                           args: CGFloat.init(value.origin.x),
+                                           CGFloat.init(value.origin.y),
+                                           CGFloat.init(value.width),
+                                           CGFloat.init(value.height))
+            
         } catch {
         }
         
@@ -80,12 +92,12 @@ public extension CGRect {
         self.init(x: x, y: y, width: w, height: h)
     }
     
-    init?(_ freObjectSwift: FreObjectSwift?) {
-        guard let val = freObjectSwift, let rv = val.rawValue else {
-            return nil
-        }
-        self.init(rv)
-    }
+//    init?(_ freObjectSwift: FreObjectSwift?) {
+//        guard let val = freObjectSwift, let rv = val.rawValue else {
+//            return nil
+//        }
+//        self.init(rv)
+//    }
     func toFREObject() -> FREObject? {
         return FreRectangleSwift(value: self).rawValue
     }
