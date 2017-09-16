@@ -1,4 +1,7 @@
-### 0.0.7 
+### 1.2.0
+- Refactor FreSwift
+
+### 0.0.7
 - Convert FreXxxxSwift classes to camel case.
 - Change FRENamedFunction array to prevent ARC of strings.
 - Prevent XCode from overwriting -Swift header. Optimised values are maintained.

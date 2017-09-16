@@ -27,8 +27,8 @@ Add the number of methods here
 ````objectivec
 static FRENamedFunction extensionFunctions[] =
 {
- MAP_FUNCTION(TRSOA, load)
-,MAP_FUNCTION(TRSOA, goBack)
+    MAP_FUNCTION(TRSOA, load)
+   ,MAP_FUNCTION(TRSOA, goBack)
 };
 `````
 
@@ -38,8 +38,8 @@ Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
 
 ````swift
 @objc public func getFunctions(prefix: String) -> Array<String> {
-functionsToSet["\(prefix)load"] = load
-functionsToSet["\(prefix)goBack"] = goBack    
+    functionsToSet["\(prefix)load"] = load
+    functionsToSet["\(prefix)goBack"] = goBack
 }
 `````
 
@@ -91,10 +91,10 @@ FreSwift is fully extensible. New conversion types can be added in your own proj
 Example - Call a method on an FREObject
 
 ````swift
-let person = FreObjetSwift(argv[0])
-if let addition: FreObjectSwift = try person.callMethod(name: "add", args: 100, 31) {
-    if let sum: Int = addition.value as? Int {
-        trace("addition result:", sum)
+let person = argv[0]
+if let addition = try person.call(method: "add", args: 100, 31) {
+    if let result = Int(addition) {
+        trace("addition result:", result)
     }
 }
 `````
@@ -103,13 +103,10 @@ Example - Reading items in array
 ````swift
 let airArray: FreArraySwift = FreArraySwift.init(freObject: inFRE0)
 do {
-    if let itemZero: FreObjectSwift = try airArray.getObjectAt(index: 0) {
-        if let itemZeroVal: Int = itemZero.value as? Int {
-            trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
-            let newVal = try FreObjectSwift.init(int: 56)
-            try airArray.setObjectAt(index: 0, object: newVal)
-            return airArray.rawValue
-         }
+    if let itemZero = try Int(airArray.at(index: 0)) {
+        trace("AIR Array elem at 0 type:", "value:", itemZero)
+        try airArray.set(index: 0, value: 56)
+        return airArray.rawValue
     }
 } catch {}
 `````
@@ -135,7 +132,7 @@ do {
 Example - Error handling
 ````swift
 do {
-    _ = try person.getProperty(name: "doNotExist") //calling a property that doesn't exist
+    _ = try person.getProp(name: "doNotExist") //calling a property that doesn't exist
 } catch let e as FreError {
     if let aneError = e.getError(#file, #line, #column) {
         return aneError //return the error as an actionscript error
@@ -143,19 +140,28 @@ do {
 } catch {}
 `````
 ----------
+
+**Dependencies**
+To run without building:
+From the command line cd into /example and run:
+
+````shell
+bash get_ios_dependencies.sh
+`````
+
 ### Running on Simulator
 
-The example project can be run on the Simulator from IntelliJ using AIR 26. AIR 27 beta contains a bug when packaging.
+The example project can be run on the Simulator from IntelliJ using AIR 26. AIR 27 contains a bug when packaging.
 
 ### Running on Device
 
-The example project can be run on the device from IntelliJ using AIR27 Beta.
+The example project can be run on the device from IntelliJ using AIR 27.
 AIR 27 now correctly signs the included Swift frameworks and therefore no resigning tool is needed.
 
 ### Prerequisites
 
 You will need
 
-- Xcode 8.3 / AppCode
+- Xcode 8.3 / AppCode - N.B. Xcode 9.0 is NOT supported
 - IntelliJ IDEA
-- AIR 26 RC and AIR 27 Beta
+- AIR 26 and AIR 27

@@ -44,7 +44,7 @@ public class Main extends Sprite {
         person.age = 21;
         person.name = "Tom";
 
-        var myArray:Array = new Array();
+        var myArray:Array = [];
         myArray.push(3, 1, 4, 2, 6, 5);
 
         var resultString:String = ane.runStringTests("I am a string from AIR");

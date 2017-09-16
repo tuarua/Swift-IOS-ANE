@@ -12,7 +12,21 @@
  See the License for the specific language governing permissions and
  limitations under the License.*/
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-@interface SwiftIOSANE_LIB : NSObject
-@end
+import Foundation
+
+public enum FreObjectTypeSwift: UInt32 {
+    case object = 0
+    case number = 1
+    case string = 2
+    case bytearray = 3
+    case array = 4
+    case vector = 5
+    case bitmapdata = 6
+    case boolean = 7
+    case null = 8
+    case int = 9
+    case cls = 10 //aka class
+    case rectangle = 11
+    case point = 12
+    case date = 13
+}

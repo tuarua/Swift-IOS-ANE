@@ -12,7 +12,10 @@
  See the License for the specific language governing permissions and
  limitations under the License.*/
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-@interface SwiftIOSANE_LIB : NSObject
-@end
+import Foundation
+
+public class ArgCountError : FreError {
+    public init(message: String){
+        super.init(stackTrace: "", message: "\(message) - incorrect arguments", type: FreError.Code.invalidArgument)
+    }
+}
