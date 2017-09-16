@@ -32,7 +32,7 @@
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="AIRSDK_27_B" />
+          <sdk name="AIRSDK_27" />
         </dependencies>
         <compiler-options>
           <option name="additionalOptions" value="-swf-version=38" />
@@ -54,7 +54,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="AIRSDK_27_B&#9;AIRSDK_26" jdkType="__CompositeFlexSdk__" />
+    <orderEntry type="jdk" jdkName="AIRSDK_26&#9;AIRSDK_27" jdkType="__CompositeFlexSdk__" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="SwiftIOSANE-ios" level="project" />
     <orderEntry type="library" exported="" name="TesseractANE" level="project" />

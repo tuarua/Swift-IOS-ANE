@@ -25,12 +25,8 @@ public class FrePointSwift: FreObjectSwift {
     public init(value: CGPoint) {
         var freObject: FREObject? = nil
         do {
-            let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-            let arg0: FREObject? = try FreObjectSwift.init(cgFloat: value.x).rawValue
-            argsArray.addPointer(arg0)
-            let arg1: FREObject? = try FreObjectSwift.init(cgFloat: value.y).rawValue
-            argsArray.addPointer(arg1)
-            freObject = try FreSwiftHelper.newObject("flash.geom.Point", argsArray)
+            freObject = try FREObject.init(className: "flash.geom.Point",
+                                           args: CGFloat.init(value.x), CGFloat.init(value.y))
         } catch {
         }
         
@@ -68,12 +64,12 @@ public extension CGPoint {
         }
         self.init(x: x, y: y)
     }
-    init?(_ freObjectSwift: FreObjectSwift?) {
-        guard let val = freObjectSwift, let rv = val.rawValue else {
-            return nil
-        }
-        self.init(rv)
-    }
+//    init?(_ freObjectSwift: FreObjectSwift?) {
+//        guard let val = freObjectSwift, let rv = val.rawValue else {
+//            return nil
+//        }
+//        self.init(rv)
+//    }
     func toFREObject() -> FREObject? {
         return FrePointSwift(value: self).rawValue
     }
