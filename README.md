@@ -101,7 +101,7 @@ if let addition = try person.call(method: "add", args: 100, 31) {
 
 Example - Reading items in array
 ````swift
-let airArray: FreArraySwift = FreArraySwift.init(freObject: inFRE0)
+let airArray: FREArray = FREArray.init(argv[0])
 do {
     if let itemZero = try Int(airArray.at(index: 0)) {
         trace("AIR Array elem at 0 type:", "value:", itemZero)
