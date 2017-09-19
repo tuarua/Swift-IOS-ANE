@@ -335,7 +335,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
     
     // Here we add observers for any app delegate stuff
     // Observers are independant of other ANEs and cause no conflicts
-    // DO NOT OVERRIDE THE DEFAULT !!
+    // DO NOT OVERRIDE THE DELEGATE in the .m file
     func onLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidFinishLaunching),
                                                name: NSNotification.Name.UIApplicationDidFinishLaunching, object: nil)
