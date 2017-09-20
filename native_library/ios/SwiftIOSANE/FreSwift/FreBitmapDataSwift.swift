@@ -32,32 +32,18 @@ public class FreBitmapDataSwift: NSObject {
     }
 
     public init(cgImage: CGImage) {
-        //TODO
-        /*
-         case none /* For example, RGB. */
-         case premultipliedLast /* For example, premultiplied RGBA */
-         case premultipliedFirst /* For example, premultiplied ARGB */
-         case last /* For example, non-premultiplied RGBA */
-         case first /* For example, non-premultiplied ARGB */
-         case noneSkipLast /* For example, RBGX. */
-         case noneSkipFirst /* For example, XRGB. */
-         case alphaOnly /* No color data, alpha data only */
-         */
-
-
-        /*
-         typedef struct {
-         uint32_t  width;           /* width of the BitmapData bitmap */
-         uint32_t  height;          /* height of the BitmapData bitmap */
-         uint32_t  hasAlpha;        /* if non-zero, pixel format is ARGB32, otherwise pixel format is _RGB32, host endianness */
-         uint32_t  isPremultiplied; /* pixel color values are premultiplied with alpha if non-zero, un-multiplied if zero */
-         uint32_t  lineStride32;    /* line stride in number of 32 bit values, typically the same as width */
-         uint32_t* bits32;          /* pointer to the first 32-bit pixel of the bitmap data */
-         } FREBitmapData;
-         */
-
-        //cgImage.alphaInfo.rawValue
-        //_bitmapData = FREBitmapData.init(width: cgImage.width, height: cgImage.height, hasAlpha: <#T##UInt32#>, isPremultiplied: <#T##UInt32#>, lineStride32: <#T##UInt32#>, isInvertedY: <#T##UInt32#>, bits32: nil)
+        super.init()
+        do {
+            if let freObject = try FREObject.init(className: "flash.display.BitmapData",
+                                                 args: UInt32(cgImage.width),UInt32(cgImage.height),false,0) {
+                rawValue = freObject
+                try acquire()
+                try setPixels(cgImage: cgImage)
+                releaseData()
+            }
+        } catch {
+            releaseData()
+        }
     }
 
     public func acquire() throws {

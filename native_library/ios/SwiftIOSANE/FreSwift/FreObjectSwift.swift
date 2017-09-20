@@ -93,6 +93,10 @@ open class FreObjectSwift: NSObject {
             return try FreSwiftHelper.newObject(any as! Bool)
         } else if any is Date {
             return try FreSwiftHelper.newObject(any as! Date)
+        } else if any is CGRect {
+            return FreRectangleSwift.init(value: any as! CGRect).rawValue
+        } else if any is CGPoint {
+            return FrePointSwift.init(value: any as! CGPoint).rawValue
         }
         //TODO add Dict and others
 
