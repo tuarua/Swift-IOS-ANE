@@ -25,6 +25,7 @@ public protocol FreSwiftMainController {
     var TAG: String? { get set }
     func getFunctions(prefix: String) -> Array<String>
     func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject?
+    func onLoad()
 }
 
 public extension FreSwiftMainController {
@@ -74,6 +75,22 @@ public extension FreSwiftController {
             traceStr = traceStr + "\(value[i])" + " "
         }
         sendEvent(name: "TRACE", value: traceStr)
+    }
+    
+    func info(_ value: Any...) {
+        var traceStr: String = "\(self.TAG ?? ""):"
+        for i in 0..<value.count {
+            traceStr = "\(traceStr) \(value[i]) "
+        }
+        sendEvent(name: "TRACE", value: "INFO: \(traceStr)")
+    }
+    
+    func warning(_ value: Any...) {
+        var traceStr: String = "\(self.TAG ?? ""):"
+        for i in 0..<value.count {
+            traceStr = "\(traceStr) \(value[i]) "
+        }
+        sendEvent(name: "TRACE", value: "WARNING: \(traceStr)")
     }
 
     func sendEvent(name: String, value: String) {
