@@ -150,7 +150,7 @@ do {
 
 #### applicationDidFinishLaunching
 The static library contains a predefined `+(void)load` method in FreMacros.h. This method can safely be declared in different ANEs.
-It is also called once for each ANE and very early in the cycle. In here the SwiftController is inited and `onLoad()` called.
+It is also called once for each ANE and very early in the launch cycle. In here the SwiftController is inited and `onLoad()` called.
 This makes an ideal place to add observers for applicationDidFinishLaunching and any other calls which would normally be added as app delegates, thus removing the restriction of one ANE declaring itself as the "owner".   
 Note: We have no FREContext yet so calls such as trace, sendEvent will not work.
 
