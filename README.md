@@ -148,6 +148,25 @@ do {
 `````
 ----------
 
+###### applicationDidFinishLaunching
+The static library contains a predefined `+(void)load` method in FreMacros.h. This method can safely be declared in different ANEs.
+It is also called once and very early in the cycle. In here the SwiftController is inited and `onLoad()` called.
+This makes an ideal place to add observers for applicationDidFinishLaunching and any other calls which would normally be added as app delegates.   
+Note: We have no FREContext yet so calls such as trace, sendEvent will not work.
+
+````swift
+@objc func applicationDidFinishLaunching(_ notification: Notification) {
+   appDidFinishLaunchingNotif = notification //save the notification for later
+}
+func onLoad() {
+NotificationCenter.default.addObserver(self, 
+            selector: #selector(applicationDidFinishLaunching),
+            name: NSNotification.Name.UIApplicationDidFinishLaunching, 
+            object: nil)      
+}
+`````
+----------
+
 **Dependencies**
 To run without building:
 From the command line cd into /example and run:
