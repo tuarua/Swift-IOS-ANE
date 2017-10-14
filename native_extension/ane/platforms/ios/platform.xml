@@ -6,13 +6,10 @@
         <option>-lstdc++</option>
         <option>-w</option>
         <option>-ObjC</option>
-        <!--<option>-rpath @executable_path</option>-->
         <option>-rpath @executable_path/Frameworks</option>
     </linkerOptions>
     
     <packagedDependencies>
-<!--        <packagedDependency>FreSwift.framework</packagedDependency>-->
-<!--        <packagedDependency>SwiftIOSANE_FW.framework</packagedDependency>-->
 <packagedDependency>Frameworks/FreSwift.framework</packagedDependency>
 <packagedDependency>Frameworks/SwiftIOSANE_FW.framework</packagedDependency>
     </packagedDependencies>
