@@ -123,7 +123,7 @@ public class FreBitmapDataSwift: NSObject {
               CGImageAlphaInfo.noneSkipFirst.rawValue)
         }
 
-        let renderingIntent: CGColorRenderingIntent = CGColorRenderingIntent.defaultIntent;
+        let renderingIntent: CGColorRenderingIntent = CGColorRenderingIntent.defaultIntent
         let imageRef: CGImage = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent,
           bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow, space: colorSpaceRef,
           bitmapInfo: bitmapInfo, provider: provider, decode: nil, shouldInterpolate: false,
