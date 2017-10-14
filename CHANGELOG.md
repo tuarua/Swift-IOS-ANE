@@ -1,3 +1,7 @@
+### 1.2.1
+- Set bitcode enabled to false
+- Improve FreBitmapData
+
 ### 1.2.0
 - Refactor FreSwift
 
