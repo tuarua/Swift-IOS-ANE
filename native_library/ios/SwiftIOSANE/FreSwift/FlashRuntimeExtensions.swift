@@ -225,6 +225,15 @@ public class FREArray: NSObject {
             try set(index: UInt(i), object: FreObjectSwift.init(bool: boolArray[i]))
         }
     }
+    
+    public init(anyArray: Array<Any>) throws {
+        super.init()
+        rawValue = try FreSwiftHelper.newObject(className: "Array")
+        let count = anyArray.count
+        for i in 0..<count {
+            try set(index: UInt(i), object: FreObjectSwift.init(any: anyArray[i]))
+        }
+    }
 
     public func at(index: UInt) throws -> FREObject? {
         guard let rv = rawValue else {
@@ -536,6 +545,22 @@ public extension UIColor {
 }
 #endif
 
+public extension Dictionary where Key == String, Value == Any {
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        do {
+            if let val: Dictionary<String, Any> = try FreSwiftHelper.getAsDictionary(rv) {
+                self = val
+            }
+        } catch {
+            return
+        }
+        
+    }
+}
 
 public extension Dictionary where Key == String, Value == AnyObject {
     init?(_ freObject: FREObject?) {
@@ -553,3 +578,139 @@ public extension Dictionary where Key == String, Value == AnyObject {
 
     }
 }
+
+public extension Dictionary where Key == String, Value == NSObject {
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        do {
+            if let val: Dictionary<String, NSObject> = try FreSwiftHelper.getAsDictionary(rv) {
+                self = val
+            }
+        } catch {
+            return
+        }
+        
+    }
+}
+
+public extension Array where Element == String {
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        do {
+            if let val: Array<String> = try FreSwiftHelper.getAsArray(rv) {
+                self = val
+            }
+        } catch {
+            return
+        }
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FREArray.init(stringArray: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+public extension Array where Element == Int {
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        do {
+            if let val: Array<Int> = try FreSwiftHelper.getAsArray(rv) {
+                self = val
+            }
+        } catch {
+            return
+        }
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FREArray.init(intArray: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+public extension Array where Element == Bool {
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        do {
+            if let val: Array<Bool> = try FreSwiftHelper.getAsArray(rv) {
+                self = val
+            }
+        } catch {
+            return
+        }
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FREArray.init(boolArray: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+public extension Array where Element == Double {
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        do {
+            if let val: Array<Double> = try FreSwiftHelper.getAsArray(rv) {
+                self = val
+            }
+        } catch {
+            return
+        }
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FREArray.init(doubleArray: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
+
+public extension Array where Element == Any {
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        do {
+            if let val: Array<Any> = try FreSwiftHelper.getAsArray(rv) {
+                self = val
+            }
+        } catch {
+            return
+        }
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            return try FREArray.init(anyArray: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+    
+}
+
+

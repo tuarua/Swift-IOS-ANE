@@ -149,7 +149,7 @@ public class FreSwiftHelper {
         case .boolean:
             return try getAsBool(rawValue)
         case .object, .cls:
-            return try getAsDictionary(rawValue)
+            return try getAsDictionary(rawValue) as Dictionary<String, AnyObject>?
         case .number:
             return try getAsDouble(rawValue)
         case .bitmapdata: //TODO
@@ -278,7 +278,125 @@ public class FreSwiftHelper {
 
         return ret
     }
+    
+    static func getAsDictionary(_ rawValue: FREObject) throws -> Dictionary<String, Any>? {
+        //Swift.debugPrint("GET AS DICTIONARY **************************")
+        var ret: Dictionary = Dictionary<String, Any>()
+        guard let aneUtils = try FREObject.init(className: "com.tuarua.fre.ANEUtils"),
+            let classProps1 = try aneUtils.call(method: "getClassProps", args: rawValue) else {
+                return nil
+        }
+        let array: FREArray = FREArray.init(classProps1)
+        let arrayLength = array.length
+        for i in 0..<arrayLength {
+            if let elem: FREObject = try array.at(index: i) {
+                if let propNameAs = try elem.getProp(name: "name") {
+                    if let propName = String(propNameAs) {
+                        if let propval = try FreObjectSwift.init(freObject: rawValue.getProp(name: propName)).value {
+                            ret.updateValue(propval as Any, forKey: propName)
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ret
+    }
+    
+    static func getAsDictionary(_ rawValue: FREObject) throws -> Dictionary<String, NSObject>? {
+        //Swift.debugPrint("GET AS DICTIONARY **************************")
+        var ret: Dictionary = Dictionary<String, NSObject>()
+        guard let aneUtils = try FREObject.init(className: "com.tuarua.fre.ANEUtils"),
+            let classProps1 = try aneUtils.call(method: "getClassProps", args: rawValue) else {
+                return nil
+        }
+        let array: FREArray = FREArray.init(classProps1)
+        let arrayLength = array.length
+        for i in 0..<arrayLength {
+            if let elem: FREObject = try array.at(index: i) {
+                if let propNameAs = try elem.getProp(name: "name") {
+                    if let propName = String(propNameAs) {
+                        if let propval = try FreObjectSwift.init(freObject: rawValue.getProp(name: propName)).value {
+                            ret.updateValue(propval as! NSObject, forKey: propName)
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ret
+    }
+    
+    static func getAsArray(_ rawValue: FREObject) throws -> Array<String>? {
+        var ret: Array<String> = Array<String>()
+        let array: FREArray = FREArray.init(rawValue)
+        let arrayLength = array.length
+        for i in 0..<arrayLength {
+            if let elem: FREObject = try array.at(index: i) {
+                if let v:String = String(elem) {
+                    ret.append(v)
+                }
+            }
+        }
+        return ret
+    }
+    
+    static func getAsArray(_ rawValue: FREObject) throws -> Array<Int>? {
+        var ret: Array<Int> = Array<Int>()
+        let array: FREArray = FREArray.init(rawValue)
+        let arrayLength = array.length
+        for i in 0..<arrayLength {
+            if let elem: FREObject = try array.at(index: i) {
+                if let v:Int = Int(elem) {
+                    ret.append(v)
+                }
+            }
+        }
+        return ret
+    }
 
+    static func getAsArray(_ rawValue: FREObject) throws -> Array<Bool>? {
+        var ret: Array<Bool> = Array<Bool>()
+        let array: FREArray = FREArray.init(rawValue)
+        let arrayLength = array.length
+        for i in 0..<arrayLength {
+            if let elem: FREObject = try array.at(index: i) {
+                if let v:Bool = Bool(elem) {
+                    ret.append(v)
+                }
+            }
+        }
+        return ret
+    }
+    
+    static func getAsArray(_ rawValue: FREObject) throws -> Array<Double>? {
+        var ret: Array<Double> = Array<Double>()
+        let array: FREArray = FREArray.init(rawValue)
+        let arrayLength = array.length
+        for i in 0..<arrayLength {
+            if let elem: FREObject = try array.at(index: i) {
+                if let v:Double = Double(elem) {
+                    ret.append(v)
+                }
+            }
+        }
+        return ret
+    }
+    
+    static func getAsArray(_ rawValue: FREObject) throws -> Array<Any>? {
+        var ret: Array<Any> = Array<Any>()
+        let array: FREArray = FREArray.init(rawValue)
+        let arrayLength = array.length
+        for i in 0..<arrayLength {
+            if let elem: FREObject = try array.at(index: i) {
+                if let v:Any = FreObjectSwift.init(freObject: elem).value {
+                    ret.append(v)
+                }
+            }
+        }
+        return ret
+    }
+    
     public static func getProperty(rawValue: FREObject, name: String) throws -> FREObject? {
         var ret: FREObject?
         var thrownException: FREObject?
