@@ -84,3 +84,6 @@ fabric.properties
 
 bak/
 Carthage/
+docs/
+
+create_docs.sh
