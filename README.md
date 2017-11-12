@@ -76,10 +76,10 @@ The following table shows the primitive as3 types which can easily be converted 
 | Date | Date | `let date = Date(argv[0])` | `return date.toFREObject()`|
 | Rectangle | CGRect | `let rect = CGRect(argv[0])` | `return rect.toFREObject()` |
 | Point | CGPoint | `let pnt = CGPoint(argv[0])` | `return pnt.toFREObject()` |
-| Vector int | Array<Int>? | `let a = Array<Int>(argv[0])` | `return a.toFREObject()`|
-| Vector Boolean | Array<Bool>? | `let a = Array<Bool>(argv[0])` | `return a.toFREObject()`|
-| Vector Number | Array<Double>? | `let a = Array<Double>(argv[0])` | `return a.toFREObject()`|
-| Vector String | Array<String>? | `let a = Array<String>(argv[0])` | `return a.toFREObject()`|
+| Vector int | Array<`Int`> | `let a = Array<Int>(argv[0])` | `return a.toFREObject()`|
+| Vector Boolean | Array<`Bool`> | `let a = Array<Bool>(argv[0])` | `return a.toFREObject()`|
+| Vector Number | Array<`Double`> | `let a = Array<Double>(argv[0])` | `return a.toFREObject()`|
+| Vector String | Array<`String`> | `let a = Array<String>(argv[0])` | `return a.toFREObject()`|
 | Object | Dictionary<String, Any>? | `let dct = Dictionary.init(argv[0])` | N/A |
 
 Example
