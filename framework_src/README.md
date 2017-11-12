@@ -7,7 +7,6 @@ It supports iOS 9.0+
 This project is used as the basis for the following ANEs   
 [Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
 [AdMob ANE](https://github.com/tuarua/AdMob-ANE)  
-[WebViewANE](https://github.com/tuarua/WebViewANE )   
 
 
 -------------
@@ -76,11 +75,7 @@ The following table shows the primitive as3 types which can easily be converted 
 | Date | Date | `let date = Date(argv[0])` | `return date.toFREObject()`|
 | Rectangle | CGRect | `let rect = CGRect(argv[0])` | `return rect.toFREObject()` |
 | Point | CGPoint | `let pnt = CGPoint(argv[0])` | `return pnt.toFREObject()` |
-| Vector int | Array<Int> | `val arr = Array<Int>(argv[0])` | `return arr.ttoFREObject()`|
-| Vector Boolean | Array<Bool> | `val arr = Array<Bool>(argv[0])` | `return arr.ttoFREObject()`|
-| Vector Number | Array<Double> | `val arr = Array<Double>(argv[0])` | `return arr.ttoFREObject()`|
-| Vector String | Array<String> | `val arr = Array<String>(argv[0])` | `return arr.ttoFREObject()`|
-| Object | Dictionary<String, Any>? | `val dict = Dictionary.init(argv[0])` | N/A |
+
 
 Example
 ````swift
@@ -191,7 +186,7 @@ AIR 27 now correctly signs the included Swift frameworks and therefore no resign
 
 ### Submitting to App Store
 ADT is not currently producing a valid ipa for the App Store.  
-Please see the [README here](package_for_ios_appstore/) for package script         
+Please see the [README here](/example/package_for_ios_appstore/) for package script         
 This is a minor inconvenience and only needs to be done when your app is ready to go to the App Store.
 
 ### Prerequisites

@@ -1,3 +1,8 @@
+### 1.2.2
+- Added starter project
+- Added conversions for Bool, String, Double, Int Arrays
+- Fixed Dictionary conversion for Objects with null values
+
 ### 1.2.1
 - Set bitcode enabled to false
 - Improve FreBitmapData
