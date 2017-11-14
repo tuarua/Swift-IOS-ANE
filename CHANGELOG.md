@@ -1,4 +1,5 @@
-### 1.2.2
+### 1.3.0
+- Upgraded to Xcode 8.3.3
 - Added starter project
 - Added conversions for Bool, String, Double, Int Arrays
 - Fixed Dictionary conversion for Objects with null values
