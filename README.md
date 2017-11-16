@@ -2,7 +2,7 @@
 
 Example Xcode project showing how to create Air Native Extensions for iOS using Swift.
 It supports iOS 9.0+
-#### Xcode 8.3.3 must be used. Xcode 9 is not yet supported
+#### Xcode 8.3.3 must be used. Xcode 9 will be supported soon.
 
 This project is used as the basis for the following ANEs   
 [Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
@@ -159,6 +159,6 @@ This is a minor inconvenience and only needs to be done when your app is ready t
 
 You will need
 
-- Xcode 8.3.3 / AppCode - N.B. Xcode 9.0 is NOT supported
+- Xcode 8.3.3 / AppCode - N.B. Xcode 9 will be supported soon.
 - IntelliJ IDEA
 - AIR 26 and AIR 27
