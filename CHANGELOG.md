@@ -1,3 +1,9 @@
+### 1.3.0
+- Upgraded to Xcode 8.3.3
+- Added starter project
+- Added conversions for Bool, String, Double, Int Arrays
+- Fixed Dictionary conversion for Objects with null values
+
 ### 1.2.1
 - Set bitcode enabled to false
 - Improve FreBitmapData

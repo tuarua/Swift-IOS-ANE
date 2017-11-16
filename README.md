@@ -2,63 +2,22 @@
 
 Example Xcode project showing how to create Air Native Extensions for iOS using Swift.
 It supports iOS 9.0+
-#### Xcode 8.3 must be used. Xcode 9 is not yet supported
+#### Xcode 8.3.3 must be used. Xcode 9 will be supported soon.
 
 This project is used as the basis for the following ANEs   
 [Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
 [AdMob ANE](https://github.com/tuarua/AdMob-ANE)  
+[WebViewANE](https://github.com/tuarua/WebViewANE )   
 
 
 -------------
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5UR2T52J633RC)
 
-It is comprised of 3 parts.
+### Getting Started
 
-1. A static library which exposes methods to AIR and a thin ObjectiveC API layer to the Swift code.
-2. A dynamic Swift Framework which contains the translation of FlashRuntimeExtensions to Swift.
-3. A dynamic Swift Framework which contains the main logic of the ANE.
+A basic Hello World [starter project](/starter_project) is included 
 
-> To allow FRE functions to be called from within Swift a protocol acting 
-> as a bridge back to Objective C was used.
-
-SwiftIOSANE_LIB/SwiftIOSANE_LIB.m is the entry point of the ANE. It acts as a thin layered API to your Swift controller.  
-Add the number of methods here 
-
-````objectivec
-static FRENamedFunction extensionFunctions[] =
-{
-    MAP_FUNCTION(TRSOA, load)
-   ,MAP_FUNCTION(TRSOA, goBack)
-};
-`````
-
-
-SwiftIOSANE_FW/SwiftController.swift  
-Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
-
-````swift
-@objc public func getFunctions(prefix: String) -> Array<String> {
-    functionsToSet["\(prefix)load"] = load
-    functionsToSet["\(prefix)goBack"] = goBack
-}
-`````
-
-Add Swift method(s)
-
-````swift
-func load(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-    //your code here
-    return nil
-}
-
-func goBack(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-    //your code here
-    return nil
-}
-`````
-
-----------
 
 ### How to use
 ###### Converting from FREObject args into Swift types, returning FREObjects
@@ -75,9 +34,14 @@ The following table shows the primitive as3 types which can easily be converted 
 | Date | Date | `let date = Date(argv[0])` | `return date.toFREObject()`|
 | Rectangle | CGRect | `let rect = CGRect(argv[0])` | `return rect.toFREObject()` |
 | Point | CGPoint | `let pnt = CGPoint(argv[0])` | `return pnt.toFREObject()` |
-
+| Vector int | Array<`Int`> | `let a = Array<Int>(argv[0])` | `return a.toFREObject()`|
+| Vector Boolean | Array<`Bool`> | `let a = Array<Bool>(argv[0])` | `return a.toFREObject()`|
+| Vector Number | Array<`Double`> | `let a = Array<Double>(argv[0])` | `return a.toFREObject()`|
+| Vector String | Array<`String`> | `let a = Array<String>(argv[0])` | `return a.toFREObject()`|
+| Object | Dictionary<String, Any>? | `let dct = Dictionary.init(argv[0])` | N/A |
 
 Example
+
 ````swift
 let airString = String(argv[0])
 trace("String passed from AIR:", airString)
@@ -100,6 +64,13 @@ if let addition = try person.call(method: "add", args: 100, 31) {
 }
 `````
 
+Example - Create a new FREObject
+
+````swift
+let person = try FREObject(className: "com.tuarua.Person")
+try person.setProp(name: "age", value: 30)
+`````
+
 Example - Sending events back to AIR  (replaces dispatchStatusEventAsync)
 
 ````swift
@@ -107,6 +78,7 @@ sendEvent(name: "MY_EVENT", value: "My message")
 `````
 
 Example - Reading items in array
+
 ````swift
 let airArray: FREArray = FREArray.init(argv[0])
 do {
@@ -119,6 +91,7 @@ do {
 `````
 
 Example - Convert BitmapData to a UIImage and add to native view
+
 ````swift
 let asBitmapData = FreBitmapDataSwift.init(freObject: inFRE0)
 defer {
@@ -137,6 +110,7 @@ do {
 `````
   
 Example - Error handling
+
 ````swift
 do {
     _ = try person.getProp(name: "doNotExist") //calling a property that doesn't exist
@@ -167,14 +141,6 @@ NotificationCenter.default.addObserver(self,
 `````
 ----------
 
-**Dependencies**
-To run without building:
-From the command line cd into /example and run:
-
-````shell
-bash get_ios_dependencies.sh
-`````
-
 ### Running on Simulator
 
 The example project can be run on the Simulator from IntelliJ using AIR 26. AIR 27 contains a bug when packaging.
@@ -186,13 +152,13 @@ AIR 27 now correctly signs the included Swift frameworks and therefore no resign
 
 ### Submitting to App Store
 ADT is not currently producing a valid ipa for the App Store.  
-Please see the [README here](/example/package_for_ios_appstore/) for package script         
+Please see the [README here](package_for_ios_appstore/) for package script         
 This is a minor inconvenience and only needs to be done when your app is ready to go to the App Store.
 
 ### Prerequisites
 
 You will need
 
-- Xcode 8.3 / AppCode - N.B. Xcode 9.0 is NOT supported
+- Xcode 8.3.3 / AppCode - N.B. Xcode 9 will be supported soon.
 - IntelliJ IDEA
 - AIR 26 and AIR 27
