@@ -18,6 +18,8 @@ This project is used as the basis for the following ANEs
 
 A basic Hello World [starter project](/starter_project) is included 
 
+A walkthrough video is available on [Youtube](https://www.youtube.com/watch?v=pjZPzo1A6Ro)
+
 
 ### How to use
 ###### Converting from FREObject args into Swift types, returning FREObjects
