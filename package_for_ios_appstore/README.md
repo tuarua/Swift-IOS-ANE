@@ -1,5 +1,8 @@
 #### Resigning for App Store Submission
 
+This script is for users who are still using AIR 27
+AIR 28 now correctly creates a valid ipa for the App Store
+
 
 1. Disconnect and power off any connected iOS devices
 2. Ensure Xcode 8.3 is your default Xcode (Xcode 9 is not yet supported)
