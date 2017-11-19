@@ -3,7 +3,7 @@
 Example Xcode project showing how to create Air Native Extensions for iOS using Swift.
 It supports iOS 9.0+
 
-#### Xcode Xcode 9.1 (9B55) must be used with Apple Swift version 4.0.2 (swiftlang-900.0.69.2 clang-900.0.38)
+#### Xcode 9.1 (9B55) must be used with Apple Swift version 4.0.2 (swiftlang-900.0.69.2 clang-900.0.38)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 ABI stability is planned for Swift 5 in late 2018
 
