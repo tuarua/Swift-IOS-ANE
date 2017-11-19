@@ -24,9 +24,11 @@ A basic Hello World [starter project](/starter_project) is included
 A walkthrough video is available on [Youtube](https://www.youtube.com/watch?v=pjZPzo1A6Ro)
 
 
-### How to use 
-The following table shows the primitive as3 types which can easily be converted to/from Swift types
+### How to use
 
+[Full documentation](https://tuarua.github.io/swiftdocs/freswift/index.html) is provided   
+
+The following table shows the primitive as3 types which can easily be converted to/from Swift types
 
 | AS3 type | Swift type | AS3 param->Swift | return Swift->AS3 |
 |:--------:|:--------:|:--------------|:-----------|

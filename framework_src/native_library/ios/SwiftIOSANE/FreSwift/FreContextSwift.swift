@@ -13,14 +13,16 @@
  limitations under the License.*/
 
 import Foundation
-
+/// FreContextSwift: wrapper for FREContext.
 open class FreContextSwift: NSObject {
+    /// FREContext
     public var rawValue: FREContext? = nil
 
+    /// init: inits a FreContextSwift.
     public init(freContext: FREContext) {
         rawValue = freContext
     }
-
+    /// :nodoc:
     public func dispatchStatusEventAsync(code: String, level: String) throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
@@ -37,6 +39,7 @@ open class FreContextSwift: NSObject {
         }
     }
 
+    /// getActionScriptData: Call this function to get an extension context’s ActionScript data.
     public func getActionScriptData() throws -> FREObject? {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
@@ -55,7 +58,7 @@ open class FreContextSwift: NSObject {
         return ret
     }
 
-
+    /// setActionScriptData: Call this function to set an extension context’s ActionScript data.
     public func setActionScriptData(object: FREObject) throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,

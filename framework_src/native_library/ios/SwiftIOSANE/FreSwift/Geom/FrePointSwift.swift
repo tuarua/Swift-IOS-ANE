@@ -16,7 +16,7 @@ import Foundation
 #if os(OSX)
     import Cocoa
 #endif
-
+/// :nodoc:
 public class FrePointSwift: FreObjectSwift {
     override public init(freObject: FREObject?) {
         super.init(freObject: freObject)
@@ -46,6 +46,13 @@ public class FrePointSwift: FreObjectSwift {
 }
 
 public extension CGPoint {
+    /// init: Initialise a CGPoint from a FREObject.
+    ///
+    /// ```swift
+    /// let rect = CGPoint.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type flash.geom.Point
+    /// - returns: CGPoint?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
@@ -64,12 +71,12 @@ public extension CGPoint {
         }
         self.init(x: x, y: y)
     }
-//    init?(_ freObjectSwift: FreObjectSwift?) {
-//        guard let val = freObjectSwift, let rv = val.rawValue else {
-//            return nil
-//        }
-//        self.init(rv)
-//    }
+    /// toFREObject: Converts a CGPoint into a FREObject of AS3 type flash.geom.Point.
+    ///
+    /// ```swift
+    /// let fre = CGPoint.init().toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         return FrePointSwift(value: self).rawValue
     }
