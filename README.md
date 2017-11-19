@@ -2,7 +2,7 @@
 
 Example Xcode project showing how to create Air Native Extensions for iOS using Swift.
 It supports iOS 9.0+
-#### Xcode 8.3.3 must be used. Xcode 9 will be supported soon.
+#### Xcode 9.1 must be used.
 
 This project is used as the basis for the following ANEs   
 [Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
@@ -145,22 +145,17 @@ NotificationCenter.default.addObserver(self,
 
 ### Running on Simulator
 
-The example project can be run on the Simulator from IntelliJ using AIR 26. AIR 27 contains a bug when packaging.
+The example project can be run on the Simulator from IntelliJ using AIR 28.
 
 ### Running on Device
 
-The example project can be run on the device from IntelliJ using AIR 27.
-AIR 27 now correctly signs the included Swift frameworks and therefore no resigning tool is needed.
+The example project can be run on the device from IntelliJ using AIR 28.
 
-### Submitting to App Store
-ADT is not currently producing a valid ipa for the App Store.  
-Please see the [README here](package_for_ios_appstore/) for package script         
-This is a minor inconvenience and only needs to be done when your app is ready to go to the App Store.
 
 ### Prerequisites
 
 You will need
 
-- Xcode 8.3.3 / AppCode - N.B. Xcode 9 will be supported soon.
+- Xcode 9.1 / AppCode
 - IntelliJ IDEA
-- AIR 26 and AIR 27
+- AIR 28

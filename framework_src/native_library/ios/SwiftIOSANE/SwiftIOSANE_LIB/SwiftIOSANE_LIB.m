@@ -14,8 +14,7 @@
 
 #import "FreMacros.h"
 #import "SwiftIOSANE_LIB.h"
-#import <FreSwift/FreSwift-iOS-Swift.h>
-#import "SwiftIOSANE_FW-Swift.h"
+#import <SwiftIOSANE_FW/SwiftIOSANE_FW.h>
 
 #define FRE_OBJC_BRIDGE TRSOA_FlashRuntimeExtensionsBridge // use unique prefix throughout to prevent clashes with other ANEs
 @interface FRE_OBJC_BRIDGE : NSObject<FreSwiftBridgeProtocol>

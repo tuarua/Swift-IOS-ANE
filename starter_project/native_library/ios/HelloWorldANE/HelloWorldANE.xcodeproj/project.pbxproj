@@ -12,7 +12,6 @@
 		CE0560431FB25D1B00D06976 /* SwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0560411FB25D1B00D06976 /* SwiftController.swift */; };
 		CE0560451FB25DD000D06976 /* HelloWorldANE_FW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE87F4831FB259FA005CF7DF /* HelloWorldANE_FW.framework */; };
 		CE05604A1FB25DF600D06976 /* HelloWorldANE_LIB.h in Headers */ = {isa = PBXBuildFile; fileRef = CE87F4771FB259DB005CF7DF /* HelloWorldANE_LIB.h */; };
-		CE05604C1FB25E5500D06976 /* HelloWorldANE_FW-Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = CE05604B1FB25E5500D06976 /* HelloWorldANE_FW-Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE05604E1FB25E8E00D06976 /* FreMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = CE05604D1FB25E8E00D06976 /* FreMacros.h */; };
 		CE05604F1FB25E9F00D06976 /* FreMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = CE05604D1FB25E8E00D06976 /* FreMacros.h */; };
 		CE87F4791FB259DB005CF7DF /* HelloWorldANE_LIB.m in Sources */ = {isa = PBXBuildFile; fileRef = CE87F4781FB259DB005CF7DF /* HelloWorldANE_LIB.m */; };
@@ -32,7 +31,6 @@
 /* Begin PBXFileReference section */
 		CE05603E1FB25CE200D06976 /* FreSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FreSwift.framework; path = Carthage/Build/iOS/FreSwift.framework; sourceTree = "<group>"; };
 		CE0560411FB25D1B00D06976 /* SwiftController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftController.swift; sourceTree = "<group>"; };
-		CE05604B1FB25E5500D06976 /* HelloWorldANE_FW-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HelloWorldANE_FW-Swift.h"; sourceTree = "<group>"; };
 		CE05604D1FB25E8E00D06976 /* FreMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreMacros.h; sourceTree = "<group>"; };
 		CE87F4751FB259DB005CF7DF /* libHelloWorldANE_LIB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHelloWorldANE_LIB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE87F4771FB259DB005CF7DF /* HelloWorldANE_LIB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldANE_LIB.h; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 		CE87F4841FB259FA005CF7DF /* HelloWorldANE_FW */ = {
 			isa = PBXGroup;
 			children = (
-				CE05604B1FB25E5500D06976 /* HelloWorldANE_FW-Swift.h */,
 				CE87F4851FB259FA005CF7DF /* HelloWorldANE_FW.h */,
 				CE87F4861FB259FA005CF7DF /* Info.plist */,
 				CE0560411FB25D1B00D06976 /* SwiftController.swift */,
@@ -127,7 +124,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE05604C1FB25E5500D06976 /* HelloWorldANE_FW-Swift.h in Headers */,
 				CE87F4871FB259FA005CF7DF /* HelloWorldANE_FW.h in Headers */,
 				CE05604F1FB25E9F00D06976 /* FreMacros.h in Headers */,
 			);
@@ -143,6 +139,7 @@
 				CE87F4711FB259DB005CF7DF /* Sources */,
 				CE87F4721FB259DB005CF7DF /* Frameworks */,
 				CE0560481FB25DEC00D06976 /* Headers */,
+				CEDDADE01FBFB84900D6EB5F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -178,7 +175,7 @@
 		CE87F45D1FB259C9005CF7DF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Tua Rua Ltd";
 				TargetAttributes = {
 					CE87F4741FB259DB005CF7DF = {
@@ -188,7 +185,7 @@
 					};
 					CE87F4821FB259FA005CF7DF = {
 						CreatedOnToolsVersion = 8.3;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -220,6 +217,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CEDDADE01FBFB84900D6EB5F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = ../../../native_extension/ane/build_ios.sh;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CE87F4711FB259DB005CF7DF /* Sources */ = {
@@ -259,7 +272,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -267,7 +282,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -309,7 +328,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -317,7 +338,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -339,6 +364,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -412,7 +438,8 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -446,7 +473,8 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
