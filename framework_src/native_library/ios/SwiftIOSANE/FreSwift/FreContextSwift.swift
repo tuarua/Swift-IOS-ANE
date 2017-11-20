@@ -19,6 +19,7 @@ open class FreContextSwift: NSObject {
     public var rawValue: FREContext? = nil
 
     /// init: inits a FreContextSwift.
+    /// - parameter freContext: FREContext
     public init(freContext: FREContext) {
         rawValue = freContext
     }
@@ -40,6 +41,7 @@ open class FreContextSwift: NSObject {
     }
 
     /// getActionScriptData: Call this function to get an extension context’s ActionScript data.
+    /// - throws: Can throw a `FreError` on fail
     public func getActionScriptData() throws -> FREObject? {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
@@ -59,6 +61,8 @@ open class FreContextSwift: NSObject {
     }
 
     /// setActionScriptData: Call this function to set an extension context’s ActionScript data.
+    /// - parameter object: FREObject to set
+    /// - throws: Can throw a `FreError` on fail
     public func setActionScriptData(object: FREObject) throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,

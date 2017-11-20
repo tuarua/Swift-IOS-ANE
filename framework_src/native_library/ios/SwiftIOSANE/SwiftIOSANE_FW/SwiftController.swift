@@ -177,7 +177,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
             asBitmapData.releaseData()
         }
         do {
-            if let cgimg = try asBitmapData.getAsImage() {
+            if let cgimg = try asBitmapData.asCGImage() {
                 
                 let context = CIContext()
                 if let filter = CIFilter(name: "CISepiaTone") {

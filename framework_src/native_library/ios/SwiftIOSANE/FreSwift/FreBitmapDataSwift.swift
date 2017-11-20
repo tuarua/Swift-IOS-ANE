@@ -13,6 +13,7 @@
  limitations under the License.*/
 
 import Foundation
+
 /// FreBitmapDataSwift: wrapper for FREBitmapData2.
 public class FreBitmapDataSwift: NSObject {
     private typealias FREBitmapData = FREBitmapData2
@@ -69,6 +70,7 @@ public class FreBitmapDataSwift: NSObject {
     }
 
     /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSdb11516da818ea8d-755819ea133426056e1-8000.html)
+    /// - throws: Can throw a `FreError` on fail
     public func acquire() throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
@@ -118,7 +120,7 @@ public class FreBitmapDataSwift: NSObject {
     /// Handles conversion to a CGImage
     /// - throws: Can throw a `FreError` on fail
     /// returns: CGImage?
-    public func getAsImage() throws -> CGImage? {
+    public func asCGImage() throws -> CGImage? {
         try self.acquire()
 
         let releaseProvider: CGDataProviderReleaseDataCallback = { (info: UnsafeMutableRawPointer?,
@@ -163,6 +165,7 @@ public class FreBitmapDataSwift: NSObject {
     }
 
     /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSb464b1207c184b14-62b8e11f12937b86be4-7fed.html)
+    /// - throws: Can throw a `FreError` on fail
     public func invalidateRect(x: UInt, y: UInt, width: UInt, height: UInt) throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
@@ -180,5 +183,28 @@ public class FreBitmapDataSwift: NSObject {
               line: #line, column: #column, file: #file)
         }
     }
-
 }
+
+public extension UIImage {
+    /// Converts a FREObject of AS3 type BitmapData into a UIImage
+    convenience init(freObject: FREObject?) {
+        guard let rv = freObject else {
+            self.init()
+            return
+        }
+        let asBitmapData = FreBitmapDataSwift.init(freObject: rv)
+        defer {
+            asBitmapData.releaseData()
+        }
+        do {
+            if let cgimg = try asBitmapData.asCGImage() {
+                self.init(cgImage: cgimg, scale: UIScreen.main.scale, orientation: .up)
+            } else {
+                self.init()
+            }
+        } catch {
+            self.init()
+        }
+    }
+}
+

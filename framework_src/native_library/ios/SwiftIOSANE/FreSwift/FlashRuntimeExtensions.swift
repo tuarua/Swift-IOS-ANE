@@ -19,7 +19,7 @@ public typealias FREArgv = UnsafeMutablePointer<FREObject?>!
 public typealias FREArgc = UInt32
 public typealias FREFunctionMap = [String: (_: FREContext, _: FREArgc, _: FREArgv) -> FREObject?]
 
-/// FreSwiftMainController: Out SwiftController extends this Protocol.
+/// FreSwiftMainController: Our SwiftController extends this Protocol.
 public protocol FreSwiftMainController {
     /// Map of functions to connect Objective C to Swift
     var functionsToSet: FREFunctionMap { get set }
@@ -30,6 +30,10 @@ public protocol FreSwiftMainController {
     /// Returns functions which connect Objective C to Swift
     func getFunctions(prefix: String) -> Array<String>
     /// Allows Objective C to call our Swift Controller
+    /// - parameter name: name of the function
+    /// - parameter ctx: context
+    /// - parameter argc: number of arguments
+    /// - parameter argv: array of FREObject arguments
     func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject?
     /// Called by Objective C when ANE is loaded into memory
     /// ```swift
@@ -52,7 +56,7 @@ public extension FreSwiftMainController {
     /// ```swift
     /// trace("Hello")
     /// ```
-    /// - parameter value:
+    /// - parameter value: value to trace to console
     /// - returns: Void
     func trace(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
@@ -68,7 +72,7 @@ public extension FreSwiftMainController {
     /// ```swift
     /// info("Hello")
     /// ```
-    /// - parameter value:
+    /// - parameter value: value to trace to console
     /// - returns: Void
     func info(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
@@ -83,7 +87,7 @@ public extension FreSwiftMainController {
     /// ```swift
     /// warning("Hello")
     /// ```
-    /// - parameter value:
+    /// - parameter value: value to trace to console
     /// - returns: Void
     func warning(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
@@ -126,7 +130,7 @@ public extension FreSwiftController {
     /// ```swift
     /// trace("Hello")
     /// ```
-    /// - parameter value:
+    /// - parameter value: value to trace to console
     /// - returns: Void
     func trace(_ value: Any...) {
         var traceStr: String = ""
@@ -142,7 +146,7 @@ public extension FreSwiftController {
     /// ```swift
     /// info("Hello")
     /// ```
-    /// - parameter value:
+    /// - parameter value: value to trace to console
     /// - returns: Void
     func info(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
@@ -158,7 +162,7 @@ public extension FreSwiftController {
     /// ```swift
     /// warning("Hello")
     /// ```
-    /// - parameter value:
+    /// - parameter value: value to trace to console
     /// - returns: Void
     func warning(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
@@ -195,6 +199,7 @@ public extension FREObject {
     /// let myName = argv[0].getProp("name")
     /// ```
     /// - parameter name: name of the property to return
+    /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
     func getProp(name: String) throws -> FREObject? {
         if let ret = try FreSwiftHelper.getProperty(rawValue: self, name: name) {
@@ -204,6 +209,8 @@ public extension FREObject {
     }
 
     /// setProp: sets the Property of a FREObject.
+    /// - parameter name: name of the property to set
+    /// - parameter value: value to set to
     /// - throws: Can throw a `FreError` on fail
     /// - returns: Void
     func setProp(name: String, value: Any?) throws {
@@ -308,7 +315,9 @@ public class FREArray: NSObject {
 
     /// init: Initialise a FREArray of type specified by className.
     ///
-    /// - parameter freObject: FREObject which is of AS3 type Object or a Class
+    /// - parameter className: name of AS3 class to create
+    /// - parameter args: arguments to pass to the method
+    /// - throws: Can throw a `FreError` on fail
     public init(className: String, args: Any...) throws {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         for i in 0..<args.count {
@@ -321,6 +330,7 @@ public class FREArray: NSObject {
     /// init: Initialise a FREArray with a Array<Int>.
     ///
     /// - parameter intArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(intArray: Array<Int>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -333,6 +343,7 @@ public class FREArray: NSObject {
     /// init: Initialise a FREArray with a Array<String>.
     ///
     /// - parameter stringArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(stringArray: Array<String>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -345,6 +356,7 @@ public class FREArray: NSObject {
     /// init: Initialise a FREArray with a Array<Double>.
     ///
     /// - parameter doubleArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(doubleArray: Array<Double>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -357,6 +369,7 @@ public class FREArray: NSObject {
     /// init: Initialise a FREArray with a Array<Bool>.
     ///
     /// - parameter boolArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(boolArray: Array<Bool>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -369,6 +382,7 @@ public class FREArray: NSObject {
     /// init: Initialise a FREArray with a Array<Any>.
     ///
     /// - parameter anyArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(anyArray: Array<Any>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -421,8 +435,8 @@ public class FREArray: NSObject {
 
     /// set: Sets FREObject at position index
     ///
-    /// - parameter index:
-    /// - parameter value:
+    /// - parameter index: index of item
+    /// - parameter value: value to set
     /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
     public func set(index: UInt, value: Any) throws {
@@ -887,6 +901,8 @@ public extension Dictionary where Key == String, Value == NSObject {
         
     }
 }
+
+
 
 public extension Array where Element == String {
     /// init: Initialise a Array<String> from a FREObject.
