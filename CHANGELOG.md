@@ -1,4 +1,4 @@
-### 1.4.0
+### 2.0.0
 - Upgraded to Xcode 9.1
 - Upgraded to Swift version 4.0.2 (swiftlang-900.0.69.2 clang-900.0.38)
 - Upgraded to AIR SDK 28
