@@ -13,17 +13,24 @@
  limitations under the License.*/
 
 import Foundation
-
+/// FreByteArraySwift: wrapper for FREByteArray.
 public class FreByteArraySwift: NSObject {
+    /// raw FREObject value.
     public var rawValue: FREObject? = nil
+    ///  An UnsafeMutablePointer<UInt8> that is a pointer to the bytes in the ActionScript ByteArray object.
     public var bytes: UnsafeMutablePointer<UInt8>!
+    /// A UInt that is the number of bytes in the bytes array.
     public var length: UInt = 0
     private var _byteArray: FREByteArray = FREByteArray.init()
 
+    /// init: inits with a FREObject
+    /// - parameter freByteArray: FREObject of AS3 type ByteArray
     public init(freByteArray: FREObject) {
         rawValue = freByteArray
     }
 
+    // init: inits with a NSData
+    /// - parameter data: NSData which will be converted into FREByteArray
     public init(data: NSData) {
         super.init()
         defer {
@@ -66,6 +73,8 @@ public class FreByteArraySwift: NSObject {
 
     }
 
+    /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSb464b1207c184b14342e2bac129470ccccb-8000.html)
+    /// - throws: Can throw a `FreError` on fail
     public func acquire() throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
@@ -84,7 +93,8 @@ public class FreByteArraySwift: NSObject {
         length = UInt(_byteArray.length)
         bytes = _byteArray.bytes
     }
-
+    
+    /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSb464b1207c184b1466485a1a1294715f88b-8000.html)
     public func releaseBytes() { //can't override release
         guard let rv = rawValue else {
             return
@@ -96,11 +106,17 @@ public class FreByteArraySwift: NSObject {
 #endif
     }
 
+    /// Handles conversion to a NSData
+    /// - throws: Can throw a `FreError` on fail
+    /// returns: NSData
     func getAsData() throws -> NSData {
         try self.acquire()
         return NSData.init(bytes: bytes, length: Int(length))
     }
 
+    /// Handles conversion to a NSData
+    /// - throws: Can throw a `FreError` on fail
+    /// returns: NSData?
     public var value: NSData? {
         get {
             do {

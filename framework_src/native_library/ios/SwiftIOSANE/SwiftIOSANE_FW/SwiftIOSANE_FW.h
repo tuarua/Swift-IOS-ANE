@@ -14,8 +14,6 @@
 
 #import <UIKit/UIKit.h>
 
-
-
 //! Project version number for SwiftIOSANE_FW.
 FOUNDATION_EXPORT double SwiftIOSANE_FWVersionNumber;
 
@@ -25,5 +23,6 @@ FOUNDATION_EXPORT const unsigned char SwiftIOSANE_FWVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SwiftIOSANE_FW/PublicHeader.h>
 
-#import <FRESwift/FlashRuntimeExtensions.h>
-#import <FRESwift/FRESwift.h>
+#import <FreSwift/FlashRuntimeExtensions.h>
+#import <FreSwift/FreSwift.h>
+

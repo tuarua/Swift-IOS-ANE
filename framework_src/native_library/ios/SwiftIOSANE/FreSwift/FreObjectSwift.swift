@@ -13,7 +13,7 @@
  limitations under the License.*/
 
 import Foundation
-
+/// :nodoc:
 open class FreObjectSwift: NSObject {
     public var rawValue: FREObject? = nil
     open var value: Any? {

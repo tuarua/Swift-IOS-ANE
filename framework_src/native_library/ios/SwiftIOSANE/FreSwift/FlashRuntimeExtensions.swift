@@ -19,16 +19,45 @@ public typealias FREArgv = UnsafeMutablePointer<FREObject?>!
 public typealias FREArgc = UInt32
 public typealias FREFunctionMap = [String: (_: FREContext, _: FREArgc, _: FREArgv) -> FREObject?]
 
+/// FreSwiftMainController: Our SwiftController extends this Protocol.
 public protocol FreSwiftMainController {
+    /// Map of functions to connect Objective C to Swift
     var functionsToSet: FREFunctionMap { get set }
+    /// FREContext
     var context: FreContextSwift! { get set }
+    /// Tag used when tracing logs
     var TAG: String? { get set }
+    /// Returns functions which connect Objective C to Swift
     func getFunctions(prefix: String) -> Array<String>
+    /// Allows Objective C to call our Swift Controller
+    /// - parameter name: name of the function
+    /// - parameter ctx: context
+    /// - parameter argc: number of arguments
+    /// - parameter argv: array of FREObject arguments
     func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject?
+    /// Called by Objective C when ANE is loaded into memory
+    /// ```swift
+    /// @objc func applicationDidFinishLaunching(_ notification: Notification) {
+    ///     appDidFinishLaunchingNotif = notification
+    /// }
+    ///
+    /// public func onLoad() {
+    ///    NotificationCenter.default.addObserver(self, selector: #selector(applicationDidFinishLaunching),
+    ///                                           name: NSNotification.Name.UIApplicationDidFinishLaunching, object: nil)
+    ///
+    /// }
+    /// ```
     func onLoad()
 }
 
 public extension FreSwiftMainController {
+    /// trace: sends StatusEvent to our swc with a level of "TRACE"
+    ///
+    /// ```swift
+    /// trace("Hello")
+    /// ```
+    /// - parameter value: value to trace to console
+    /// - returns: Void
     func trace(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
         for i in 0..<value.count {
@@ -37,6 +66,14 @@ public extension FreSwiftMainController {
         sendEvent(name: "TRACE", value: traceStr)
     }
 
+    /// info: sends StatusEvent to our swc with a level of "TRACE"
+    /// The output string is prefixed with [INFO]
+    ///
+    /// ```swift
+    /// info("Hello")
+    /// ```
+    /// - parameter value: value to trace to console
+    /// - returns: Void
     func info(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
         for i in 0..<value.count {
@@ -44,7 +81,14 @@ public extension FreSwiftMainController {
         }
         sendEvent(name: "TRACE", value: "INFO: \(traceStr)")
     }
-
+    /// warning: sends StatusEvent to our swc with a level of "TRACE"
+    /// The output string is prefixed with [WARNING]
+    ///
+    /// ```swift
+    /// warning("Hello")
+    /// ```
+    /// - parameter value: value to trace to console
+    /// - returns: Void
     func warning(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
         for i in 0..<value.count {
@@ -53,6 +97,15 @@ public extension FreSwiftMainController {
         sendEvent(name: "TRACE", value: "WARNING: \(traceStr)")
     }
 
+    /// sendEvent: sends StatusEvent to our swc with a level of name and code of value
+    /// replaces DispatchStatusEventAsync
+    ///
+    /// ```swift
+    /// sendEvent("MY_EVENT", "ok")
+    /// ```
+    /// - parameter name: name of event
+    /// - parameter value: value passed with event
+    /// - returns: Void
     func sendEvent(name: String, value: String) {
         autoreleasepool {
             do {
@@ -63,12 +116,22 @@ public extension FreSwiftMainController {
     }
 }
 
+/// FreSwiftController: Protocol for Swift classes to conform to
 public protocol FreSwiftController {
+    /// FREContext
     var context: FreContextSwift! { get set }
+    /// Tag used when tracing logs
     var TAG: String? { get set }
 }
 
 public extension FreSwiftController {
+    /// trace: sends StatusEvent to our swc with a level of "TRACE"
+    ///
+    /// ```swift
+    /// trace("Hello")
+    /// ```
+    /// - parameter value: value to trace to console
+    /// - returns: Void
     func trace(_ value: Any...) {
         var traceStr: String = ""
         for i in 0..<value.count {
@@ -77,6 +140,14 @@ public extension FreSwiftController {
         sendEvent(name: "TRACE", value: traceStr)
     }
     
+    /// info: sends StatusEvent to our swc with a level of "TRACE"
+    /// The output string is prefixed with [INFO]
+    ///
+    /// ```swift
+    /// info("Hello")
+    /// ```
+    /// - parameter value: value to trace to console
+    /// - returns: Void
     func info(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
         for i in 0..<value.count {
@@ -85,6 +156,14 @@ public extension FreSwiftController {
         sendEvent(name: "TRACE", value: "INFO: \(traceStr)")
     }
     
+    /// warning: sends StatusEvent to our swc with a level of "TRACE"
+    /// The output string is prefixed with [WARNING]
+    ///
+    /// ```swift
+    /// warning("Hello")
+    /// ```
+    /// - parameter value: value to trace to console
+    /// - returns: Void
     func warning(_ value: Any...) {
         var traceStr: String = "\(self.TAG ?? ""):"
         for i in 0..<value.count {
@@ -93,6 +172,15 @@ public extension FreSwiftController {
         sendEvent(name: "TRACE", value: "WARNING: \(traceStr)")
     }
 
+    /// sendEvent: sends StatusEvent to our swc with a level of name and code of value
+    /// replaces DispatchStatusEventAsync
+    ///
+    /// ```swift
+    /// sendEvent("MY_EVENT", "ok")
+    /// ```
+    /// - parameter name: name of event
+    /// - parameter value: value passed with event
+    /// - returns: Void
     func sendEvent(name: String, value: String) {
         autoreleasepool {
             do {
@@ -103,9 +191,16 @@ public extension FreSwiftController {
     }
 }
 
-//****** Extensions *****//
-
+/// FREObject: Extends FREObject with Swift syntax.
 public extension FREObject {
+    /// getProp: returns the Property of a FREObject.
+    ///
+    /// ```swift
+    /// let myName = argv[0].getProp("name")
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - throws: Can throw a `FreError` on fail
+    /// - returns: FREObject?
     func getProp(name: String) throws -> FREObject? {
         if let ret = try FreSwiftHelper.getProperty(rawValue: self, name: name) {
             return ret
@@ -113,6 +208,11 @@ public extension FREObject {
         return nil
     }
 
+    /// setProp: sets the Property of a FREObject.
+    /// - parameter name: name of the property to set
+    /// - parameter value: value to set to
+    /// - throws: Can throw a `FreError` on fail
+    /// - returns: Void
     func setProp(name: String, value: Any?) throws {
         if value is FREObject {
             try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: value as? FREObject)
@@ -141,6 +241,15 @@ public extension FREObject {
         }
     }
 
+    /// init: Creates a new FREObject.
+    ///
+    /// ```swift
+    /// let newPerson = try FREObject(className: "com.tuarua.Person", args: 1, true, "Free")
+    /// ```
+    /// - parameter className: name of AS3 class to create
+    /// - parameter args: arguments to use. These are automatically converted to FREObjects
+    /// - throws: Can throw a `FreError` on fail
+    /// - returns: FREObject?
     init?(className: String, args: Any?...) throws {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         for i in 0..<args.count {
@@ -154,6 +263,14 @@ public extension FREObject {
         }
     }
 
+    /// init: Creates a new FREObject.
+    ///
+    /// ```swift
+    /// let newPerson = try FREObject(className: "com.tuarua.Person")
+    /// ```
+    /// - parameter className: name of AS3 class to create
+    /// - throws: Can throw a `FreError` on fail
+    /// - returns: FREObject?
     init?(className: String) throws {
         if let rv = try FreSwiftHelper.newObject(className: className) {
             self.init(rv)
@@ -162,10 +279,20 @@ public extension FREObject {
         }
     }
 
+    /// call: Calls a method on a FREObject.
+    ///
+    /// ```swift
+    /// try person.call(method: "add", args: 100, 31)
+    /// ```
+    /// - parameter method: name of AS3 method to call
+    /// - parameter args: arguments to pass to the method
+    /// - throws: Can throw a `FreError` on fail
+    /// - returns: FREObject?
     func call(method: String, args: Any...) throws -> FREObject? {
         return try FreSwiftHelper.callMethod(self, name: method, args: args)
     }
 
+    /// returns the type of the FREOject
     var type: FreObjectTypeSwift {
         get {
             return FreSwiftHelper.getType(self)
@@ -174,13 +301,23 @@ public extension FREObject {
 
 }
 
+/// FREArray: Additional type which matches Java version of FRE
 public class FREArray: NSObject {
+    /// raw FREObject value
     public var rawValue: FREObject? = nil
 
+    /// init: Initialise a FREArray from a FREObject.
+    ///
+    /// - parameter freObject: FREObject which is of AS3 type Array
     public init(_ freObject: FREObject) {
         rawValue = freObject
     }
 
+    /// init: Initialise a FREArray of type specified by className.
+    ///
+    /// - parameter className: name of AS3 class to create
+    /// - parameter args: arguments to pass to the method
+    /// - throws: Can throw a `FreError` on fail
     public init(className: String, args: Any...) throws {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         for i in 0..<args.count {
@@ -190,6 +327,10 @@ public class FREArray: NSObject {
         rawValue = try FreSwiftHelper.newObject(className: className, argsArray)
     }
 
+    /// init: Initialise a FREArray with a Array<Int>.
+    ///
+    /// - parameter intArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(intArray: Array<Int>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -199,6 +340,10 @@ public class FREArray: NSObject {
         }
     }
 
+    /// init: Initialise a FREArray with a Array<String>.
+    ///
+    /// - parameter stringArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(stringArray: Array<String>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -208,6 +353,10 @@ public class FREArray: NSObject {
         }
     }
 
+    /// init: Initialise a FREArray with a Array<Double>.
+    ///
+    /// - parameter doubleArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(doubleArray: Array<Double>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -217,6 +366,10 @@ public class FREArray: NSObject {
         }
     }
 
+    /// init: Initialise a FREArray with a Array<Bool>.
+    ///
+    /// - parameter boolArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(boolArray: Array<Bool>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -226,6 +379,10 @@ public class FREArray: NSObject {
         }
     }
     
+    /// init: Initialise a FREArray with a Array<Any>.
+    ///
+    /// - parameter anyArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
     public init(anyArray: Array<Any>) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
@@ -235,6 +392,11 @@ public class FREArray: NSObject {
         }
     }
 
+    /// at: Returns FREObject at position index
+    ///
+    /// - parameter index:
+    /// - throws: Can throw a `FreError` on fail
+    /// - returns: FREObject?
     public func at(index: UInt) throws -> FREObject? {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
@@ -271,11 +433,17 @@ public class FREArray: NSObject {
         }
     }
 
+    /// set: Sets FREObject at position index
+    ///
+    /// - parameter index: index of item
+    /// - parameter value: value to set
+    /// - throws: Can throw a `FreError` on fail
+    /// - returns: FREObject?
     public func set(index: UInt, value: Any) throws {
         try set(index: index, object: FreObjectSwift.init(any: value))
     }
 
-
+    /// length: length of FREArray
     public var length: UInt {
         get {
             guard let rv = rawValue else {
@@ -300,6 +468,8 @@ public class FREArray: NSObject {
         }
     }
 
+    /// value: Converts FREArray to Swift array
+    /// - returns: Array<Any?>
     public var value: Array<Any?> {
         get {
             var ret: [Any?] = []
@@ -317,6 +487,13 @@ public class FREArray: NSObject {
 }
 
 public extension Double {
+    /// init: Initialise a Double from a FREObject.
+    ///
+    /// ```swift
+    /// let myDouble = Double(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Number
+    /// - returns: Double?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
@@ -330,7 +507,13 @@ public extension Double {
             return nil
         }
     }
-
+    /// toFREObject: Converts a Double into a FREObject of AS3 type Number.
+    ///
+    /// ```swift
+    // let myDouble = 1.0
+    /// let fre = myDouble.toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FreObjectSwift(double: self).rawValue
@@ -341,6 +524,13 @@ public extension Double {
 }
 
 public extension Float {
+    /// init: Initialise a Float from a FREObject.
+    ///
+    /// ```swift
+    /// let myFloat = Float(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Number
+    /// - returns: Float?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
@@ -351,7 +541,13 @@ public extension Float {
             return nil
         }
     }
-
+    /// toFREObject: Converts a Float into a FREObject of AS3 type Number.
+    ///
+    /// ```swift
+    // let myFloat = Float.init()
+    /// let fre = myFloat.toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FreObjectSwift(cgFloat: CGFloat.init(self)).rawValue
@@ -363,6 +559,13 @@ public extension Float {
 }
 
 public extension CGFloat {
+    /// init: Initialise a CGFloat from a FREObject.
+    ///
+    /// ```swift
+    /// let myCGFloat = CGFloat(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Number
+    /// - returns: CGFloat?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
@@ -374,7 +577,13 @@ public extension CGFloat {
         }
 
     }
-
+    /// toFREObject: Converts a CGFloat into a FREObject of AS3 type Number.
+    ///
+    /// ```swift
+    // let myCGFloat = CGFloat.init()
+    /// let fre = myCGFloat.toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FreObjectSwift(cgFloat: self).rawValue
@@ -385,6 +594,13 @@ public extension CGFloat {
 }
 
 public extension Bool {
+    /// init: Initialise a Bool from a FREObject.
+    ///
+    /// ```swift
+    /// let myBool= Bool(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Boolean
+    /// - returns: Bool?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
@@ -395,7 +611,12 @@ public extension Bool {
             return nil
         }
     }
-
+    /// toFREObject: Converts a Bool into a FREObject of AS3 type Boolean.
+    ///
+    /// ```swift
+    /// let fre = true.toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FreObjectSwift(bool: self).rawValue
@@ -406,7 +627,13 @@ public extension Bool {
 }
 
 public extension Date {
-    /// Converts a FREOBhect into a Date.
+    /// init: Initialise a Date from a FREObject.
+    ///
+    /// ```swift
+    /// let d = Date(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Date.
+    /// - returns: Date?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
@@ -417,7 +644,12 @@ public extension Date {
             return nil
         }
     }
-    /// Converts Date into a FREObject.
+    /// toFREObject: Converts a Date into a FREObject of AS3 type Date.
+    ///
+    /// ```swift
+    /// let fre = Date().toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FreObjectSwift(date: self).rawValue
@@ -428,7 +660,13 @@ public extension Date {
 }
 
 public extension Int {
-    /// Converts a FREOBhect into a Int.
+    /// init: Initialise a Int from a FREObject.
+    ///
+    /// ```swift
+    /// let myInt= Int(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type int
+    /// - returns: Int?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
@@ -439,7 +677,13 @@ public extension Int {
             return nil
         }
     }
-    /// Converts Int into a FREObject.
+    /// toFREObject: Converts a Int into a FREObject of AS3 type int.
+    ///
+    /// ```swift
+    /// let v:Int = 3
+    /// let fre = v.toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FreObjectSwift(int: self).rawValue
@@ -450,7 +694,13 @@ public extension Int {
 }
 
 public extension UInt {
-    /// Converts a FREOBhect into a UInt.
+    /// init: Initialise a UInt from a FREObject.
+    ///
+    /// ```swift
+    /// let myUInt = UInt(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type uint
+    /// - returns: UInt?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
@@ -462,7 +712,13 @@ public extension UInt {
         }
     }
 
-    /// Converts UInt into a FREObject.
+    /// toFREObject: Converts a UInt into a FREObject of AS3 type uint.
+    ///
+    /// ```swift
+    /// let v:UInt = 3
+    /// let fre = v.toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FreObjectSwift(uint: self).rawValue
@@ -473,7 +729,14 @@ public extension UInt {
 }
 
 public extension String {
-    /// Converts a FREOBhect into a String.
+    /// init: Initialise a String from a FREObject.
+    ///
+    /// ```swift
+    /// let myString = String(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type String
+    /// - returns: String?
+    
     init?(_ freObject: FREObject?) {
         guard let rv = freObject, FreSwiftHelper.getType(rv) == FreObjectTypeSwift.string else {
             return nil
@@ -485,7 +748,12 @@ public extension String {
         }
     }
 
-    /// Converts String into a FREObject.
+    /// toFREObject: Converts a String into a FREObject of AS3 type String.
+    ///
+    /// ```swift
+    /// let fre = "Hello".toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FreObjectSwift(string: self).rawValue
@@ -497,6 +765,14 @@ public extension String {
 
 #if os(iOS)
 public extension UIColor {
+    /// init: Initialise a UIColor from 2 FREObjects.
+    ///
+    /// ```swift
+    /// let clr = UIColor(freObject: argv[0], alpha: argv[1])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type uint
+    /// - parameter alpha: FREObject which is of AS3 type Number
+    /// - returns: UIColor?
     convenience init(freObject: FREObject?, alpha: FREObject?) {
         guard let rv = freObject, let rv2 = alpha else {
             self.init()
@@ -524,6 +800,14 @@ public extension UIColor {
             self.init()
         }
     }
+    /// init: Initialise a UIColor from a FREObject.
+    /// alpha is set as 1.0
+    ///
+    /// ```swift
+    /// let clr = UIColor(freObject: argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type uint
+    /// - returns: UIColor?
     convenience init(freObject: FREObject?) {
         guard let rv = freObject else {
             self.init()
@@ -547,6 +831,13 @@ public extension UIColor {
 #endif
 
 public extension Dictionary where Key == String, Value == Any {
+    /// init: Initialise a Dictionary<String, Any> from a FREObjects.
+    ///
+    /// ```swift
+    /// let dictionary:Dictionary<String, Any>? = Dictionary.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Object or a Class
+    /// - returns: Dictionary?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
@@ -564,6 +855,13 @@ public extension Dictionary where Key == String, Value == Any {
 }
 
 public extension Dictionary where Key == String, Value == AnyObject {
+    /// init: Initialise a Dictionary<String, AnyObject> from a FREObject.
+    ///
+    /// ```swift
+    /// let dictionary:Dictionary<String, AnyObject>? = Dictionary.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Object or a Class
+    /// - returns: Dictionary?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
@@ -581,6 +879,13 @@ public extension Dictionary where Key == String, Value == AnyObject {
 }
 
 public extension Dictionary where Key == String, Value == NSObject {
+    /// init: Initialise a Dictionary<String, NSObject> from a FREObject.
+    ///
+    /// ```swift
+    /// let dictionary:Dictionary<String, NSObject>? = Dictionary.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Object or a Class
+    /// - returns: Dictionary?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
@@ -597,7 +902,16 @@ public extension Dictionary where Key == String, Value == NSObject {
     }
 }
 
+
+
 public extension Array where Element == String {
+    /// init: Initialise a Array<String> from a FREObject.
+    ///
+    /// ```swift
+    /// let array = Array<String>.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Vector.<String>
+    /// - returns: Array<String>?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
@@ -611,6 +925,9 @@ public extension Array where Element == String {
             return
         }
     }
+    /// toFREObject: Converts an String Array into a FREObject of AS3 type Vector.<String>.
+    ///
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FREArray.init(stringArray: self).rawValue
@@ -621,6 +938,13 @@ public extension Array where Element == String {
 }
 
 public extension Array where Element == Int {
+    /// init: Initialise a Array<Int> from a FREObject.
+    ///
+    /// ```swift
+    /// let array = Array<Int>.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Vector.<Int>
+    /// - returns: Array<Int>?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
@@ -634,6 +958,9 @@ public extension Array where Element == Int {
             return
         }
     }
+    /// toFREObject: Converts an Int Array into a FREObject of AS3 type Vector.<int>.
+    ///
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FREArray.init(intArray: self).rawValue
@@ -644,6 +971,13 @@ public extension Array where Element == Int {
 }
 
 public extension Array where Element == Bool {
+    /// init: Initialise a Array<Bool> from a FREObject.
+    ///
+    /// ```swift
+    /// let array = Array<Bool>.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Vector.<Boolean>
+    /// - returns: Array<Bool>?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
@@ -657,6 +991,9 @@ public extension Array where Element == Bool {
             return
         }
     }
+    /// toFREObject: Converts a Bool Array into a FREObject of AS3 type Vector.<Boolean>.
+    ///
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FREArray.init(boolArray: self).rawValue
@@ -667,6 +1004,13 @@ public extension Array where Element == Bool {
 }
 
 public extension Array where Element == Double {
+    /// init: Initialise a Array<Double> from a FREObject.
+    ///
+    /// ```swift
+    /// let array = Array<Double>.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Vector.<Number>
+    /// - returns: Array<Double>?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
@@ -680,6 +1024,9 @@ public extension Array where Element == Double {
             return
         }
     }
+    /// toFREObject: Converts a Double Array into a FREObject of AS3 type Vector.<Number>.
+    ///
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FREArray.init(doubleArray: self).rawValue
@@ -691,6 +1038,13 @@ public extension Array where Element == Double {
 
 
 public extension Array where Element == Any {
+    /// init: Initialise a Array<Any> from a FREObject.
+    ///
+    /// ```swift
+    /// let array = Array<Any>.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Array
+    /// - returns: Array<Any>?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
@@ -704,6 +1058,9 @@ public extension Array where Element == Any {
             return
         }
     }
+    /// toFREObject: Converts an Any Array into a FREObject of AS3 type Array.
+    ///
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
             return try FREArray.init(anyArray: self).rawValue
@@ -711,7 +1068,6 @@ public extension Array where Element == Any {
         }
         return nil
     }
-    
 }
 
 

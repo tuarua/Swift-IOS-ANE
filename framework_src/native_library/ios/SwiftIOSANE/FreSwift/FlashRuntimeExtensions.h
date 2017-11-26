@@ -29,6 +29,7 @@ extern "C" {
 #endif
 
 typedef void *      FREContext;
+/// FREObject: from FlashRuntimeExtensions.h
 typedef void *      FREObject;
 
 /* Initialization *************************************************************/
@@ -42,6 +43,7 @@ typedef void *      FREObject;
  *            FRE_INVALID_OBJECT, which is reported as null in AS.
  */
 
+    
 typedef FREObject (*FREFunction)(
         FREContext ctx,
 		void*      functionData,

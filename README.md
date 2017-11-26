@@ -2,7 +2,10 @@
 
 Example Xcode project showing how to create Air Native Extensions for iOS using Swift.
 It supports iOS 9.0+
-#### Xcode 8.3.3 must be used. Xcode 9 will be supported soon.
+
+#### Xcode 9.1 (9B55) must be used with Apple Swift version 4.0.2 (swiftlang-900.0.69.2 clang-900.0.38)
+It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
+ABI stability is planned for Swift 5 in late 2018
 
 This project is used as the basis for the following ANEs   
 [Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
@@ -22,9 +25,10 @@ A walkthrough video is available on [Youtube](https://www.youtube.com/watch?v=pj
 
 
 ### How to use
-###### Converting from FREObject args into Swift types, returning FREObjects
-The following table shows the primitive as3 types which can easily be converted to/from Swift types
 
+[Full documentation](https://tuarua.github.io/swiftdocs/freswift/index.html) is provided   
+
+The following table shows the primitive as3 types which can easily be converted to/from Swift types
 
 | AS3 type | Swift type | AS3 param->Swift | return Swift->AS3 |
 |:--------:|:--------:|:--------------|:-----------|
@@ -145,21 +149,17 @@ NotificationCenter.default.addObserver(self,
 
 ### Running on Simulator
 
-The example project can be run on the Simulator from IntelliJ using AIR 28 Beta or AIR 26. AIR 27 contains a bug when packaging.
+The example project can be run on the Simulator from IntelliJ using AIR 28.
 
 ### Running on Device
 
-The example project can be run on the device from IntelliJ using AIR 27+
+The example project can be run on the device from IntelliJ using AIR 28.
 
-### Submitting to App Store
-AIR 28 Beta should be used if possible.
-If using AIR 27 please see the [README here](package_for_ios_appstore/) for package script
-This is a minor inconvenience and only needs to be done when your app is ready to go to the App Store.
 
 ### Prerequisites
 
 You will need
 
-- Xcode 8.3.3 / AppCode - N.B. Xcode 9 will be supported soon.
+- Xcode 9.1 / AppCode
 - IntelliJ IDEA
-- AIR 26 and AIR 27
+- AIR 28

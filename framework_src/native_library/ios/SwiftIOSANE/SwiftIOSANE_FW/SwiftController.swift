@@ -17,7 +17,6 @@ import Foundation
 import CoreImage
 import FreSwift
 
-
 public class SwiftController: NSObject, FreSwiftMainController {
     public var TAG: String? = "SwiftController"
     public var context: FreContextSwift!
@@ -178,7 +177,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
             asBitmapData.releaseData()
         }
         do {
-            if let cgimg = try asBitmapData.getAsImage() {
+            if let cgimg = try asBitmapData.asCGImage() {
                 
                 let context = CIContext()
                 if let filter = CIFilter(name: "CISepiaTone") {
@@ -314,7 +313,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
 
     // Must have these 3 functions. 
     //Exposes the methods to our entry ObjC.
-    public func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+    @objc public func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         if let fm = functionsToSet[name] {
             return fm(ctx, argc, argv)
         }
@@ -322,7 +321,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
     }
     
     //Here we set our FREContext
-    func setFREContext(ctx: FREContext) {
+    @objc public func setFREContext(ctx: FREContext) {
         self.context = FreContextSwift.init(freContext: ctx)
     }
     
@@ -334,7 +333,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
     // Here we add observers for any app delegate stuff
     // Observers are independant of other ANEs and cause no conflicts
     // DO NOT OVERRIDE THE DEFAULT !!
-    public func onLoad() {
+    @objc public func onLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidFinishLaunching),
                                                name: NSNotification.Name.UIApplicationDidFinishLaunching, object: nil)
         

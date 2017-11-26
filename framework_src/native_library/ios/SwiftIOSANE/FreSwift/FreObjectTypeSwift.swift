@@ -13,20 +13,35 @@
  limitations under the License.*/
 
 import Foundation
-
+/// FreObjectTypeSwift: Provides Swift mappings for FREObjectType.   
+/// Adds additional AS3 types (cls, rectangle, point, date)
 public enum FreObjectTypeSwift: UInt32 {
+    /// Object
     case object = 0
+    /// Number
     case number = 1
+    /// String
     case string = 2
+    /// ByteArray
     case bytearray = 3
+    /// Array
     case array = 4
+    /// Vector
     case vector = 5
+    /// Bitmapdata
     case bitmapdata = 6
+    /// Boolean
     case boolean = 7
+    /// NULL
     case null = 8
+    /// int
     case int = 9
+    /// Class
     case cls = 10 //aka class
+    /// flash.geom.Rectangle
     case rectangle = 11
+    /// flash.geom.Point
     case point = 12
+    /// Date
     case date = 13
 }

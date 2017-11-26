@@ -13,7 +13,7 @@
    limitations under the License.*/
 
 import Foundation
-
+/// :nodoc:
 @objc public protocol FreSwiftBridgeProtocol {
     @objc func FREDispatchStatusEventAsync(ctx: FREContext, code: String, level: String) -> FREResult
 
@@ -74,9 +74,9 @@ import Foundation
     @objc func FREGetContextNativeData(ctx: FREContext, nativeData: UnsafeMutablePointer<UnsafeRawPointer>) -> FREResult
 
 }
-
+/// :nodoc:
 public class FreSwiftBridge: NSObject {
-    @objc  public static var bridge: FreSwiftBridgeProtocol!
+    @objc public static var bridge: FreSwiftBridgeProtocol!
     @objc public func setDelegate(bridge: FreSwiftBridgeProtocol) {
         FreSwiftBridge.bridge = bridge
     }

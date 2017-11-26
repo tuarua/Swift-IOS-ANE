@@ -16,7 +16,7 @@ import Foundation
 #if os(OSX)
     import Cocoa
 #endif
-
+/// :nodoc:
 public class FreRectangleSwift: FreObjectSwift {
     override public init(freObject: FREObject?) {
         super.init(freObject: freObject)
@@ -49,7 +49,15 @@ public class FreRectangleSwift: FreObjectSwift {
     
 }
 
+
 public extension CGRect {
+    /// init: Initialise a CGRect from a FREObject.
+    ///
+    /// ```swift
+    /// let rect = CGRect.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type flash.geom.Rectangle.
+    /// - returns: CGRect?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
@@ -75,6 +83,12 @@ public extension CGRect {
         }
         self.init(x: x, y: y, width: w, height: h)
     }
+    /// toFREObject: Converts a CGRect into a FREObject of AS3 type flash.geom.Rectangle.
+    ///
+    /// ```swift
+    /// let fre = CGRect.init().toFREObject()
+    /// ```
+    /// - returns: FREObject
     func toFREObject() -> FREObject? {
         return FreRectangleSwift(value: self).rawValue
     }

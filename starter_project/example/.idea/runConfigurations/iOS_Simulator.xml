@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Example iOS simulator" type="FlashRunConfigurationType" factoryName="Flash App">
-    <option name="BCName" value="example Simulator" />
+  <configuration default="false" name="iOS Simulator" type="FlashRunConfigurationType" factoryName="Flash App">
+    <option name="BCName" value="HelloWorldExample Simulator" />
     <option name="IOSSimulatorSdkPath" value="/Applications/Xcode9.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk" />
     <option name="adlOptions" value="" />
     <option name="airProgramParameters" value="" />
-    <option name="appDescriptorForEmulator" value="Android" />
+    <option name="appDescriptorForEmulator" value="IOS" />
     <option name="debugTransport" value="USB" />
     <option name="debuggerSdkRaw" value="BC SDK" />
     <option name="emulator" value="NexusOne" />
@@ -22,7 +22,7 @@
       </LauncherParameters>
     </option>
     <option name="mobileRunTarget" value="iOSSimulator" />
-    <option name="moduleName" value="example" />
+    <option name="moduleName" value="HelloWorldExample" />
     <option name="overriddenMainClass" value="" />
     <option name="overriddenOutputFileName" value="" />
     <option name="overrideMainClass" value="false" />

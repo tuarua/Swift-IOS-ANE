@@ -1,7 +1,6 @@
 #import "FreMacros.h"
 #import "HelloWorldANE_LIB.h"
-#import <FreSwift/FreSwift-iOS-Swift.h>
-#import "HelloWorldANE_FW-Swift.h"
+#import <HelloWorldANE_FW/HelloWorldANE_FW.h>
 
 #define FRE_OBJC_BRIDGE MCHW_FlashRuntimeExtensionsBridge // use unique prefix throughout to prevent clashes with other ANEs
 @interface FRE_OBJC_BRIDGE : NSObject<FreSwiftBridgeProtocol>

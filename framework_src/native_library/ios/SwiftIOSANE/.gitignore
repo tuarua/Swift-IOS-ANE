@@ -87,3 +87,5 @@ Carthage/
 docs/
 
 create_docs.sh
+FreSwift.framework.zip
+README.md
