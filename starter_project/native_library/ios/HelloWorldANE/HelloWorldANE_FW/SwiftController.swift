@@ -33,7 +33,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
             return ArgCountError(message: "sayHello").getError(#file, #line, #column)
         }
         
-        sendEvent(name: "My_EVENT", value: "ok") //async event
+        sendEvent(name: "MY_EVENT", value: "ok") //async event
         
         for i in 0..<numRepeats {
             trace("Hello \(i)")
