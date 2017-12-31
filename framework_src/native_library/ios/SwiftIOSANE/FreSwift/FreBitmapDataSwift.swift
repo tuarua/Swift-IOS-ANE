@@ -184,7 +184,7 @@ public class FreBitmapDataSwift: NSObject {
         }
     }
 }
-
+#if os(iOS)
 public extension UIImage {
     /// Converts a FREObject of AS3 type BitmapData into a UIImage
     convenience init?(freObject: FREObject?) {
@@ -206,4 +206,4 @@ public extension UIImage {
         }
     }
 }
-
+#endif

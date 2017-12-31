@@ -896,41 +896,6 @@ public extension NSColor {
 
 #if os(iOS)
 public extension UIColor {
-    /// init: Initialise a UIColor from 2 FREObjects.
-    ///
-    /// ```swift
-    /// let clr = UIColor(freObject: argv[0], alpha: argv[1])
-    /// ```
-    /// - parameter freObject: FREObject which is of AS3 type uint
-    /// - parameter alpha: FREObject which is of AS3 type Number
-    /// - returns: UIColor?
-    convenience init?(freObject: FREObject?, alpha: FREObject?) {
-        guard let rv = freObject, let rv2 = alpha else {
-            return nil
-        }
-        do {
-            let rgb = try FreSwiftHelper.getAsUInt(rv);
-            let r = (rgb >> 16) & 0xFF
-            let g = (rgb >> 8) & 0xFF
-            let b = rgb & 0xFF
-            var a: CGFloat = CGFloat.init(1)
-            let aFre = FreObjectSwift.init(freObject: rv2)
-            if let alphaInt = aFre.value as? Int, alphaInt == 0 {
-                self.init(white: 1.0, alpha: 0.0)
-            } else {
-                if let alphaD = aFre.value as? Double {
-                    a = CGFloat.init(alphaD)
-                }
-                let rFl: CGFloat = CGFloat.init(r) / 255
-                let gFl: CGFloat = CGFloat.init(g) / 255
-                let bFl: CGFloat = CGFloat.init(b) / 255
-                self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
-            }
-        } catch {
-           return nil
-        }
-    }
-    
     /// init: Initialise a UIColor from a FREObject.
     ///
     /// ```swift
