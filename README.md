@@ -72,7 +72,7 @@ if let addition = try person.call(method: "add", args: 100, 31) {
 }
 `````
 
-Example - Get a property of a FREObject
+Example - Get a property of a FREObject, convert to Int
 
 ````swift
 let person = argv[0]
@@ -81,14 +81,7 @@ if let age = Int(person["age"]) {
 }
 `````
 
-Example - Set a property of a FREObject
-
-````swift
-let person = argv[0]
-try person.setProp("age", 32)
-`````
-
-Example - Create a new FREObject
+Example - Create a new FREObject, set property of FREObject
 
 ````swift
 let person = try FREObject(className: "com.tuarua.Person")
