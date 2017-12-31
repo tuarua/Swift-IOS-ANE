@@ -509,11 +509,12 @@ public class FREArray: NSObject {
     }
 }
 
-/// accessor: Returns FREObject at position index
-///
-/// - parameter index:
-/// - returns: FREObject?
+
 public extension FREArray {
+    /// accessor: Returns FREObject at position index
+    ///
+    /// - parameter index:
+    /// - returns: FREObject?
     subscript(index: UInt) -> FREObject? {
         get {
             do{
