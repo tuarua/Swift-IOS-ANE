@@ -291,28 +291,52 @@ public extension FREObject {
     func call(method: String, args: Any...) throws -> FREObject? {
         return try FreSwiftHelper.callMethod(self, name: method, args: args)
     }
-
+    
     /// returns the type of the FREOject
     var type: FreObjectTypeSwift {
         get {
             return FreSwiftHelper.getType(self)
         }
     }
-
+    
+    /// accessor: returns the Property of a FREObject. Shorthand for `getProp`
+    ///
+    /// ```swift
+    /// let myName = argv[0]["name"]
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - returns: FREObject?
+    subscript(_ name: String) -> FREObject? {
+        get {
+            if let ret = try? self.getProp(name: name) {
+                return ret
+            }
+            return nil
+        }
+    }
+    
+    /// value: returns the Swift value of a FREObject.
+    ///
+    /// - returns: Any?
+    public var value: Any? {
+        get {
+            return FreObjectSwift.init(freObject: self).value
+        }
+    }
 }
 
 /// FREArray: Additional type which matches Java version of FRE
 public class FREArray: NSObject {
     /// raw FREObject value
     public var rawValue: FREObject? = nil
-
+    
     /// init: Initialise a FREArray from a FREObject.
     ///
     /// - parameter freObject: FREObject which is of AS3 type Array
     public init(_ freObject: FREObject) {
         rawValue = freObject
     }
-
+    
     /// init: Initialise a FREArray of type specified by className.
     ///
     /// - parameter className: name of AS3 class to create
@@ -400,18 +424,18 @@ public class FREArray: NSObject {
     public func at(index: UInt) throws -> FREObject? {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
+                           line: #line, column: #column, file: #file)
         }
         var object: FREObject?
-#if os(iOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetArrayElementA(arrayOrVector: rv, index: UInt32(index),
-          value: &object)
-#else
-        let status: FREResult = FREGetArrayElementAt(rv, UInt32(index), &object)
-#endif
+        #if os(iOS)
+            let status: FREResult = FreSwiftBridge.bridge.FREGetArrayElementA(arrayOrVector: rv, index: UInt32(index),
+                                                                              value: &object)
+        #else
+            let status: FREResult = FREGetArrayElementAt(rv, UInt32(index), &object)
+        #endif
         guard FRE_OK == status else {
             throw FreError(stackTrace: "", message: "cannot get object at \(index) ", type: FreSwiftHelper.getErrorCode(status),
-              line: #line, column: #column, file: #file)
+                           line: #line, column: #column, file: #file)
         }
         return object
     }
@@ -419,20 +443,20 @@ public class FREArray: NSObject {
     fileprivate func set(index: UInt, object: FreObjectSwift) throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
+                           line: #line, column: #column, file: #file)
         }
-#if os(iOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
-          value: object.rawValue)
-#else
-        let status: FREResult = FRESetArrayElementAt(rv, UInt32(index), object.rawValue)
-#endif
+        #if os(iOS)
+            let status: FREResult = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
+                                                                              value: object.rawValue)
+        #else
+            let status: FREResult = FRESetArrayElementAt(rv, UInt32(index), object.rawValue)
+        #endif
         guard FRE_OK == status else {
             throw FreError(stackTrace: "", message: "cannot set object at \(index) ", type: FreSwiftHelper.getErrorCode(status),
-              line: #line, column: #column, file: #file)
+                           line: #line, column: #column, file: #file)
         }
     }
-
+    
     /// set: Sets FREObject at position index
     ///
     /// - parameter index: index of item
@@ -451,23 +475,23 @@ public class FREArray: NSObject {
             }
             do {
                 var ret: UInt32 = 0
-#if os(iOS)
-                let status: FREResult = FreSwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
-#else
-                let status: FREResult = FREGetArrayLength(rv, &ret)
-#endif
+                #if os(iOS)
+                    let status: FREResult = FreSwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
+                #else
+                    let status: FREResult = FREGetArrayLength(rv, &ret)
+                #endif
                 guard FRE_OK == status else {
                     throw FreError(stackTrace: "", message: "cannot get length of array", type: FreSwiftHelper.getErrorCode(status),
-                      line: #line, column: #column, file: #file)
+                                   line: #line, column: #column, file: #file)
                 }
                 return UInt(ret)
-
+                
             } catch {
             }
             return 0
         }
     }
-
+    
     /// value: Converts FREArray to Swift array
     /// - returns: Array<Any?>
     public var value: Array<Any?> {
@@ -483,7 +507,21 @@ public class FREArray: NSObject {
             return ret
         }
     }
+}
 
+/// accessor: Returns FREObject at position index
+///
+/// - parameter index:
+/// - returns: FREObject?
+public extension FREArray {
+    subscript(index: UInt) -> FREObject? {
+        get {
+            do{
+                return try self.at(index: index)
+            }catch{}
+            return nil
+        }
+    }
 }
 
 public extension Double {
@@ -763,20 +801,19 @@ public extension String {
     }
 }
 
-#if os(iOS)
-public extension UIColor {
-    /// init: Initialise a UIColor from 2 FREObjects.
+#if os(OSX)
+public extension NSColor {
+    /// init: Initialise a NSColor from 2 FREObjects.
     ///
     /// ```swift
-    /// let clr = UIColor(freObject: argv[0], alpha: argv[1])
+    /// let clr = NSColor(freObject: argv[0], alpha: argv[1])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type uint
     /// - parameter alpha: FREObject which is of AS3 type Number
-    /// - returns: UIColor?
-    convenience init(freObject: FREObject?, alpha: FREObject?) {
+    /// - returns: NSColor?
+    convenience init?(freObject: FREObject?, alpha: FREObject?) {
         guard let rv = freObject, let rv2 = alpha else {
-            self.init()
-            return
+            return nil
         }
         do {
             let rgb = try FreSwiftHelper.getAsUInt(rv);
@@ -797,21 +834,48 @@ public extension UIColor {
                 self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
             }
         } catch {
-            self.init()
+            return nil
         }
     }
-    /// init: Initialise a UIColor from a FREObject.
+    
+    /// init: Initialise a NSColor from a FREObject.
+    ///
+    /// ```swift
+    /// let clr = NSColor(freObjectARGB: argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type ARGB uint
+    /// - returns: NSColor?
+    convenience init?(freObjectARGB: FREObject?) {
+        guard let rv = freObjectARGB else {
+            return nil
+        }
+        if let fli = CGFloat.init(rv) {
+            let rgb = Int.init(fli)
+            let a = (rgb >> 24) & 0xFF
+            let r = (rgb >> 16) & 0xFF
+            let g = (rgb >> 8) & 0xFF
+            let b = rgb & 0xFF
+            let aFl: CGFloat = CGFloat.init(a) / 255
+            let rFl: CGFloat = CGFloat.init(r) / 255
+            let gFl: CGFloat = CGFloat.init(g) / 255
+            let bFl: CGFloat = CGFloat.init(b) / 255
+            self.init(red: rFl, green: gFl, blue: bFl, alpha: aFl)
+        } else {
+            return nil
+        }
+    }
+    
+    /// init: Initialise a NSColor from a FREObject.
     /// alpha is set as 1.0
     ///
     /// ```swift
-    /// let clr = UIColor(freObject: argv[0])
+    /// let clr = NSColor(freObject: argv[0])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type uint
-    /// - returns: UIColor?
-    convenience init(freObject: FREObject?) {
+    /// - returns: NSColor?
+    convenience init?(freObject: FREObject?) {
         guard let rv = freObject else {
-            self.init()
-            return
+            return nil
         }
         do {
             let rgb = try FreSwiftHelper.getAsUInt(rv);
@@ -824,7 +888,65 @@ public extension UIColor {
             let bFl: CGFloat = CGFloat.init(b) / 255
             self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
         } catch {
-            self.init()
+            return nil
+        }
+    }
+}
+#endif
+
+#if os(iOS)
+public extension UIColor {
+    /// init: Initialise a UIColor from a FREObject.
+    ///
+    /// ```swift
+    /// let clr = UIColor(freObjectARGB: argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type ARGB uint
+    /// - returns: UIColor?
+    convenience init?(freObjectARGB: FREObject?) {
+        guard let rv = freObjectARGB else {
+            return nil
+        }
+        if let fli = CGFloat.init(rv) {
+            let rgb = Int.init(fli)
+            let a = (rgb >> 24) & 0xFF
+            let r = (rgb >> 16) & 0xFF
+            let g = (rgb >> 8) & 0xFF
+            let b = rgb & 0xFF
+            let aFl: CGFloat = CGFloat.init(a) / 255
+            let rFl: CGFloat = CGFloat.init(r) / 255
+            let gFl: CGFloat = CGFloat.init(g) / 255
+            let bFl: CGFloat = CGFloat.init(b) / 255
+            self.init(red: rFl, green: gFl, blue: bFl, alpha: aFl)
+        } else {
+            return nil
+        }
+    }
+    
+    /// init: Initialise a UIColor from a FREObject.
+    /// alpha is set as 1.0
+    ///
+    /// ```swift
+    /// let clr = UIColor(freObject: argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type uint
+    /// - returns: UIColor?
+    convenience init?(freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        do {
+            let rgb = try FreSwiftHelper.getAsUInt(rv);
+            let r = (rgb >> 16) & 0xFF
+            let g = (rgb >> 8) & 0xFF
+            let b = rgb & 0xFF
+            let a: CGFloat = CGFloat.init(1)
+            let rFl: CGFloat = CGFloat.init(r) / 255
+            let gFl: CGFloat = CGFloat.init(g) / 255
+            let bFl: CGFloat = CGFloat.init(b) / 255
+            self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
+        } catch {
+            return nil
         }
     }
 }
@@ -901,8 +1023,6 @@ public extension Dictionary where Key == String, Value == NSObject {
         
     }
 }
-
-
 
 public extension Array where Element == String {
     /// init: Initialise a Array<String> from a FREObject.

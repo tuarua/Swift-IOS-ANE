@@ -72,7 +72,16 @@ if let addition = try person.call(method: "add", args: 100, 31) {
 }
 `````
 
-Example - Create a new FREObject
+Example - Get a property of a FREObject, convert to Int
+
+````swift
+let person = argv[0]
+if let age = Int(person["age"]) {
+    trace(age)
+}
+`````
+
+Example - Create a new FREObject, set property of FREObject
 
 ````swift
 let person = try FREObject(className: "com.tuarua.Person")
@@ -90,7 +99,7 @@ Example - Reading items in array
 ````swift
 let airArray: FREArray = FREArray.init(argv[0])
 do {
-    if let itemZero = try Int(airArray.at(index: 0)) {
+    if let itemZero = Int(airArray[0]) {
         trace("AIR Array elem at 0 type:", "value:", itemZero)
         try airArray.set(index: 0, value: 56)
         return airArray.rawValue
@@ -101,20 +110,13 @@ do {
 Example - Convert BitmapData to a UIImage and add to native view
 
 ````swift
-let asBitmapData = FreBitmapDataSwift.init(freObject: inFRE0)
-defer {
-    asBitmapData.releaseData()
-}
-do {
-    if let cgimg = try asBitmapData.asCGImage() {
-        let img:UIImage = UIImage.init(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
-        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-           let imgView: UIImageView = UIImageView.init(image: img)
-           imgView.frame = CGRect.init(x: 0, y: 0, width: img.size.width, height: img.size.height)
-           rootViewController.view.addSubview(imgView)
-        }
+if let img = UIImage.init(freObject: argv[0]) {
+    if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+        let imgView: UIImageView = UIImageView.init(image: img)
+        imgView.frame = CGRect.init(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        rootViewController.view.addSubview(imgView)
     }
-} catch {}
+}
 `````
   
 Example - Error handling

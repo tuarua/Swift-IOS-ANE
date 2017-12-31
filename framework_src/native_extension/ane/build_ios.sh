@@ -12,7 +12,7 @@ PROJECTNAME=SwiftIOSANE
 fwSuffix="_FW"
 libSuffix="_LIB"
 
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_28_B"
+AIR_SDK="/Users/User/sdks/AIR/AIRSDK_28"
 echo $AIR_SDK
 
 if [ ! -d "$pathtome/../../native_library/ios/$PROJECTNAME/Build/Products/Release-iphonesimulator/" ]; then

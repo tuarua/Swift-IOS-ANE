@@ -67,8 +67,6 @@ public class Main extends Sprite {
         ldr.contentLoaderInfo.addEventListener(Event.COMPLETE, ldr_complete);
         ldr.load(new URLRequest(IMAGE_URL));
 
-        var bitmap1:Bitmap;
-
         function ldr_complete(evt:Event):void {
             var bmp:Bitmap = ldr.content as Bitmap;
             ane.runBitmapTests(bmp.bitmapData);

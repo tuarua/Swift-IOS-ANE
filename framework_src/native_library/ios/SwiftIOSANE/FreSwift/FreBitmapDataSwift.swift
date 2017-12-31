@@ -184,13 +184,12 @@ public class FreBitmapDataSwift: NSObject {
         }
     }
 }
-
+#if os(iOS)
 public extension UIImage {
     /// Converts a FREObject of AS3 type BitmapData into a UIImage
-    convenience init(freObject: FREObject?) {
+    convenience init?(freObject: FREObject?) {
         guard let rv = freObject else {
-            self.init()
-            return
+            return nil
         }
         let asBitmapData = FreBitmapDataSwift.init(freObject: rv)
         defer {
@@ -200,11 +199,11 @@ public extension UIImage {
             if let cgimg = try asBitmapData.asCGImage() {
                 self.init(cgImage: cgimg, scale: UIScreen.main.scale, orientation: .up)
             } else {
-                self.init()
+                return nil
             }
         } catch {
-            self.init()
+            return nil
         }
     }
 }
-
+#endif
