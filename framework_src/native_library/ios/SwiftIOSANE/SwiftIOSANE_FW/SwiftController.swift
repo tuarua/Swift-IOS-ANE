@@ -137,7 +137,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
             let newPerson = try FREObject(className: "com.tuarua.Person")
             trace("We created a new person. type =", newPerson?.type ?? "unknown")
             
-            if let oldAge = try Int(person.getProp(name: "age")) {
+            if let oldAge = Int(person["age"]) {
                 trace("current person age is", oldAge)
                 try person.setProp(name: "age", value: oldAge + 10)
                 if let addition = try person.call(method: "add", args: 100, 31) {
@@ -178,7 +178,6 @@ public class SwiftController: NSObject, FreSwiftMainController {
         }
         do {
             if let cgimg = try asBitmapData.asCGImage() {
-                
                 let context = CIContext()
                 if let filter = CIFilter(name: "CISepiaTone") {
                     filter.setValue(0.8, forKey: kCIInputIntensityKey)

@@ -1,3 +1,9 @@
+### 2.1.0
+- Added subscript for getProp i.e. myFreObject["propName"]
+- Added subscript for FREArray i.e. myFreArray[0]
+- Added support for ARGB in UIColor / NSColor
+- Improve UIImage Extension
+
 ### 2.0.0
 - Upgraded to Xcode 9.1
 - Upgraded to Swift version 4.0.2 (swiftlang-900.0.69.2 clang-900.0.38)
