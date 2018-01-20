@@ -33,7 +33,11 @@ CONTEXT_INIT(MCHW) {
 }
 
 CONTEXT_FIN(MCHW) {
-    //any clean up code here
+    [MCHW_swft dispose];
+    MCHW_swft = nil;
+    MCHW_freBridge = nil;
+    MCHW_swftBridge = nil;
+    MCHW_funcArray = nil;
 }
 EXTENSION_INIT(MCHW)
 EXTENSION_FIN(MCHW)

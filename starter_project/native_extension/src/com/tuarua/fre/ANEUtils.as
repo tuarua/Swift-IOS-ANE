@@ -138,13 +138,11 @@ public class ANEUtils {
     }
 
     public static function getClassType(clz:*):String {
-        var xml:XML = describeType(clz);
-        return xml.@name;
+        return getQualifiedClassName(clz);
     }
 
     public function getClassType(clz:*):String {
-        var xml:XML = describeType(clz);
-        return xml.@name;
+        return getQualifiedClassName(clz);
     }
 
 }

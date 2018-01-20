@@ -1,3 +1,7 @@
+### 2.2.0
+- Added UIColor.toFREObject() 
+- Improved performance for Number,Int conversion
+
 ### 2.1.0
 - Added subscript for getProp i.e. myFreObject["propName"]
 - Added subscript for FREArray i.e. myFreArray[0]

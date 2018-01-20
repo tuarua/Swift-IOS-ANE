@@ -65,7 +65,7 @@ public extension FreSwiftMainController {
         }
         sendEvent(name: "TRACE", value: traceStr)
     }
-
+    
     /// info: sends StatusEvent to our swc with a level of "TRACE"
     /// The output string is prefixed with [INFO]
     ///
@@ -96,7 +96,7 @@ public extension FreSwiftMainController {
         }
         sendEvent(name: "TRACE", value: "WARNING: \(traceStr)")
     }
-
+    
     /// sendEvent: sends StatusEvent to our swc with a level of name and code of value
     /// replaces DispatchStatusEventAsync
     ///
@@ -171,7 +171,7 @@ public extension FreSwiftController {
         }
         sendEvent(name: "TRACE", value: "WARNING: \(traceStr)")
     }
-
+    
     /// sendEvent: sends StatusEvent to our swc with a level of name and code of value
     /// replaces DispatchStatusEventAsync
     ///
@@ -207,7 +207,7 @@ public extension FREObject {
         }
         return nil
     }
-
+    
     /// setProp: sets the Property of a FREObject.
     /// - parameter name: name of the property to set
     /// - parameter value: value to set to
@@ -240,7 +240,7 @@ public extension FREObject {
             try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! Date).toFREObject())
         }
     }
-
+    
     /// init: Creates a new FREObject.
     ///
     /// ```swift
@@ -262,7 +262,7 @@ public extension FREObject {
             return nil
         }
     }
-
+    
     /// init: Creates a new FREObject.
     ///
     /// ```swift
@@ -278,7 +278,7 @@ public extension FREObject {
             return nil
         }
     }
-
+    
     /// call: Calls a method on a FREObject.
     ///
     /// ```swift
@@ -350,7 +350,7 @@ public class FREArray: NSObject {
         }
         rawValue = try FreSwiftHelper.newObject(className: className, argsArray)
     }
-
+    
     /// init: Initialise a FREArray with a Array<Int>.
     ///
     /// - parameter intArray: array to be converted
@@ -363,7 +363,7 @@ public class FREArray: NSObject {
             try set(index: UInt(i), object: FreObjectSwift.init(int: intArray[i]))
         }
     }
-
+    
     /// init: Initialise a FREArray with a Array<String>.
     ///
     /// - parameter stringArray: array to be converted
@@ -376,7 +376,7 @@ public class FREArray: NSObject {
             try set(index: UInt(i), object: FreObjectSwift.init(string: stringArray[i]))
         }
     }
-
+    
     /// init: Initialise a FREArray with a Array<Double>.
     ///
     /// - parameter doubleArray: array to be converted
@@ -389,7 +389,7 @@ public class FREArray: NSObject {
             try set(index: UInt(i), object: FreObjectSwift.init(double: doubleArray[i]))
         }
     }
-
+    
     /// init: Initialise a FREArray with a Array<Bool>.
     ///
     /// - parameter boolArray: array to be converted
@@ -415,7 +415,7 @@ public class FREArray: NSObject {
             try set(index: UInt(i), object: FreObjectSwift.init(any: anyArray[i]))
         }
     }
-
+    
     /// at: Returns FREObject at position index
     ///
     /// - parameter index:
@@ -439,7 +439,7 @@ public class FREArray: NSObject {
         }
         return object
     }
-
+    
     fileprivate func set(index: UInt, object: FreObjectSwift) throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
@@ -466,7 +466,7 @@ public class FREArray: NSObject {
     public func set(index: UInt, value: Any) throws {
         try set(index: index, object: FreObjectSwift.init(any: value))
     }
-
+    
     /// length: length of FREArray
     public var length: UInt {
         get {
@@ -509,7 +509,6 @@ public class FREArray: NSObject {
     }
 }
 
-
 public extension FREArray {
     /// accessor: Returns FREObject at position index
     ///
@@ -537,10 +536,9 @@ public extension Double {
         guard let rv = freObject else {
             return nil
         }
-        let freObjectSwift: FreObjectSwift = FreObjectSwift.init(freObject: rv)
-        if let i = freObjectSwift.value as? Int {
+        if let i = try? FreSwiftHelper.getAsInt(rv) as Int {
             self.init(i)
-        } else if let d = freObjectSwift.value as? Double {
+        } else if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
             self.init(d)
         } else {
             return nil
@@ -574,7 +572,7 @@ public extension Float {
         guard let rv = freObject else {
             return nil
         }
-        if let d = Double(rv) {
+        if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
             self.init(Float(d))
         } else {
             return nil
@@ -594,7 +592,7 @@ public extension Float {
         }
         return nil
     }
-
+    
 }
 
 public extension CGFloat {
@@ -609,12 +607,12 @@ public extension CGFloat {
         guard let rv = freObject else {
             return nil
         }
-        if let d = Double(rv) {
+        if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
             self.init(d)
         } else {
             return nil
         }
-
+        
     }
     /// toFREObject: Converts a CGFloat into a FREObject of AS3 type Number.
     ///
@@ -644,7 +642,7 @@ public extension Bool {
         guard let rv = freObject else {
             return nil
         }
-        if let b = FreObjectSwift.init(freObject: rv).value as? Bool {
+        if let b = try? FreSwiftHelper.getAsBool(rv) as Bool {
             self.init(b)
         } else {
             return nil
@@ -677,7 +675,7 @@ public extension Date {
         guard let rv = freObject else {
             return nil
         }
-        if let d = FreObjectSwift.init(freObject: rv).value as? Date {
+        if let d = try? FreSwiftHelper.getAsDate(rv) as Date {
             self.init(timeIntervalSince1970: d.timeIntervalSince1970)
         } else {
             return nil
@@ -710,7 +708,7 @@ public extension Int {
         guard let rv = freObject else {
             return nil
         }
-        if let i = FreObjectSwift.init(freObject: rv).value as? Int {
+        if let i = try? FreSwiftHelper.getAsInt(rv) as Int {
             self.init(i)
         } else {
             return nil
@@ -744,13 +742,13 @@ public extension UInt {
         guard let rv = freObject else {
             return nil
         }
-        if let i = FreObjectSwift.init(freObject: rv).value as? Int {
+        if let i = try? FreSwiftHelper.getAsInt(rv) as Int {
             self.init(i)
         } else {
             return nil
         }
     }
-
+    
     /// toFREObject: Converts a UInt into a FREObject of AS3 type uint.
     ///
     /// ```swift
@@ -780,13 +778,13 @@ public extension String {
         guard let rv = freObject, FreSwiftHelper.getType(rv) == FreObjectTypeSwift.string else {
             return nil
         }
-        if let s = FreObjectSwift.init(freObject: rv).value as? String {
-            self.init(s)
+        if let i = try? FreSwiftHelper.getAsString(rv) as String {
+            self.init(i)
         } else {
             return nil
         }
     }
-
+    
     /// toFREObject: Converts a String into a FREObject of AS3 type String.
     ///
     /// ```swift
@@ -803,154 +801,221 @@ public extension String {
 }
 
 #if os(OSX)
-public extension NSColor {
-    /// init: Initialise a NSColor from 2 FREObjects.
-    ///
-    /// ```swift
-    /// let clr = NSColor(freObject: argv[0], alpha: argv[1])
-    /// ```
-    /// - parameter freObject: FREObject which is of AS3 type uint
-    /// - parameter alpha: FREObject which is of AS3 type Number
-    /// - returns: NSColor?
-    convenience init?(freObject: FREObject?, alpha: FREObject?) {
-        guard let rv = freObject, let rv2 = alpha else {
-            return nil
-        }
-        do {
-            let rgb = try FreSwiftHelper.getAsUInt(rv);
-            let r = (rgb >> 16) & 0xFF
-            let g = (rgb >> 8) & 0xFF
-            let b = rgb & 0xFF
-            var a: CGFloat = CGFloat.init(1)
-            let aFre = FreObjectSwift.init(freObject: rv2)
-            if let alphaInt = aFre.value as? Int, alphaInt == 0 {
-                self.init(white: 1.0, alpha: 0.0)
-            } else {
-                if let alphaD = aFre.value as? Double {
-                    a = CGFloat.init(alphaD)
+    public extension NSColor {
+        /// init: Initialise a NSColor from 2 FREObjects.
+        ///
+        /// ```swift
+        /// let clr = NSColor(freObject: argv[0], alpha: argv[1])
+        /// ```
+        /// - parameter freObject: FREObject which is of AS3 type uint
+        /// - parameter alpha: FREObject which is of AS3 type Number
+        /// - returns: NSColor?
+        convenience init?(freObject: FREObject?, alpha: FREObject?) {
+            guard let rv = freObject, let rv2 = alpha else {
+                return nil
+            }
+            do {
+                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let r = (rgb >> 16) & 0xFF
+                let g = (rgb >> 8) & 0xFF
+                let b = rgb & 0xFF
+                var a: CGFloat = CGFloat.init(1)
+                let aFre = FreObjectSwift.init(freObject: rv2)
+                if let alphaInt = aFre.value as? Int, alphaInt == 0 {
+                    self.init(white: 1.0, alpha: 0.0)
+                } else {
+                    if let alphaD = aFre.value as? Double {
+                        a = CGFloat.init(alphaD)
+                    }
+                    let rFl: CGFloat = CGFloat.init(r) / 255
+                    let gFl: CGFloat = CGFloat.init(g) / 255
+                    let bFl: CGFloat = CGFloat.init(b) / 255
+                    self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
                 }
+            } catch {
+                return nil
+            }
+        }
+        
+        /// init: Initialise a NSColor from a FREObject.
+        ///
+        /// ```swift
+        /// let clr = NSColor(freObjectARGB: argv[0])
+        /// ```
+        /// - parameter freObject: FREObject which is of AS3 type ARGB uint
+        /// - returns: NSColor?
+        convenience init?(freObjectARGB: FREObject?) {
+            guard let rv = freObjectARGB else {
+                return nil
+            }
+            if let fli = CGFloat.init(rv) {
+                let rgb = Int.init(fli)
+                let a = (rgb >> 24) & 0xFF
+                let r = (rgb >> 16) & 0xFF
+                let g = (rgb >> 8) & 0xFF
+                let b = rgb & 0xFF
+                let aFl: CGFloat = CGFloat.init(a) / 255
+                let rFl: CGFloat = CGFloat.init(r) / 255
+                let gFl: CGFloat = CGFloat.init(g) / 255
+                let bFl: CGFloat = CGFloat.init(b) / 255
+                self.init(red: rFl, green: gFl, blue: bFl, alpha: aFl)
+            } else {
+                return nil
+            }
+        }
+        
+        /// init: Initialise a NSColor from a FREObject.
+        /// alpha is set as 1.0
+        ///
+        /// ```swift
+        /// let clr = NSColor(freObject: argv[0])
+        /// ```
+        /// - parameter freObject: FREObject which is of AS3 type uint
+        /// - returns: NSColor?
+        convenience init?(freObject: FREObject?) {
+            guard let rv = freObject else {
+                return nil
+            }
+            do {
+                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let r = (rgb >> 16) & 0xFF
+                let g = (rgb >> 8) & 0xFF
+                let b = rgb & 0xFF
+                let a: CGFloat = CGFloat.init(1)
                 let rFl: CGFloat = CGFloat.init(r) / 255
                 let gFl: CGFloat = CGFloat.init(g) / 255
                 let bFl: CGFloat = CGFloat.init(b) / 255
                 self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
+            } catch {
+                return nil
             }
-        } catch {
-            return nil
         }
     }
-    
-    /// init: Initialise a NSColor from a FREObject.
-    ///
-    /// ```swift
-    /// let clr = NSColor(freObjectARGB: argv[0])
-    /// ```
-    /// - parameter freObject: FREObject which is of AS3 type ARGB uint
-    /// - returns: NSColor?
-    convenience init?(freObjectARGB: FREObject?) {
-        guard let rv = freObjectARGB else {
-            return nil
-        }
-        if let fli = CGFloat.init(rv) {
-            let rgb = Int.init(fli)
-            let a = (rgb >> 24) & 0xFF
-            let r = (rgb >> 16) & 0xFF
-            let g = (rgb >> 8) & 0xFF
-            let b = rgb & 0xFF
-            let aFl: CGFloat = CGFloat.init(a) / 255
-            let rFl: CGFloat = CGFloat.init(r) / 255
-            let gFl: CGFloat = CGFloat.init(g) / 255
-            let bFl: CGFloat = CGFloat.init(b) / 255
-            self.init(red: rFl, green: gFl, blue: bFl, alpha: aFl)
-        } else {
-            return nil
-        }
-    }
-    
-    /// init: Initialise a NSColor from a FREObject.
-    /// alpha is set as 1.0
-    ///
-    /// ```swift
-    /// let clr = NSColor(freObject: argv[0])
-    /// ```
-    /// - parameter freObject: FREObject which is of AS3 type uint
-    /// - returns: NSColor?
-    convenience init?(freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
-        do {
-            let rgb = try FreSwiftHelper.getAsUInt(rv);
-            let r = (rgb >> 16) & 0xFF
-            let g = (rgb >> 8) & 0xFF
-            let b = rgb & 0xFF
-            let a: CGFloat = CGFloat.init(1)
-            let rFl: CGFloat = CGFloat.init(r) / 255
-            let gFl: CGFloat = CGFloat.init(g) / 255
-            let bFl: CGFloat = CGFloat.init(b) / 255
-            self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
-        } catch {
-            return nil
-        }
-    }
-}
 #endif
 
 #if os(iOS)
-public extension UIColor {
-    /// init: Initialise a UIColor from a FREObject.
-    ///
-    /// ```swift
-    /// let clr = UIColor(freObjectARGB: argv[0])
-    /// ```
-    /// - parameter freObject: FREObject which is of AS3 type ARGB uint
-    /// - returns: UIColor?
-    convenience init?(freObjectARGB: FREObject?) {
-        guard let rv = freObjectARGB else {
+    public extension UIColor {
+        /// init: Initialise a UIColor from 2 FREObjects.
+        ///
+        /// ```swift
+        /// let clr = UIColor(freObject: argv[0], alpha: argv[1])
+        /// ```
+        /// - parameter freObject: FREObject which is of AS3 type uint
+        /// - parameter alpha: FREObject which is of AS3 type Number
+        /// - returns: UIColor?
+        convenience init?(freObject: FREObject?, alpha: FREObject?) {
+            guard let rv = freObject, let rv2 = alpha else {
+                return nil
+            }
+            do {
+                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let r = (rgb >> 16) & 0xFF
+                let g = (rgb >> 8) & 0xFF
+                let b = rgb & 0xFF
+                var a: CGFloat = CGFloat.init(1)
+                let aFre = FreObjectSwift.init(freObject: rv2)
+                if let alphaInt = aFre.value as? Int, alphaInt == 0 {
+                    self.init(white: 1.0, alpha: 0.0)
+                } else {
+                    if let alphaD = aFre.value as? Double {
+                        a = CGFloat.init(alphaD)
+                    }
+                    let rFl: CGFloat = CGFloat.init(r) / 255
+                    let gFl: CGFloat = CGFloat.init(g) / 255
+                    let bFl: CGFloat = CGFloat.init(b) / 255
+                    self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
+                }
+            } catch {
+                return nil
+            }
+        }
+        
+        /// init: Initialise a UIColor from a FREObject.
+        ///
+        /// ```swift
+        /// let clr = UIColor(freObjectARGB: argv[0])
+        /// ```
+        /// - parameter freObject: FREObject which is of AS3 type ARGB uint
+        /// - returns: UIColor?
+        convenience init?(freObjectARGB: FREObject?) {
+            guard let rv = freObjectARGB else {
+                return nil
+            }
+            if let fli = CGFloat.init(rv) {
+                let rgb = Int.init(fli)
+                let a = (rgb >> 24) & 0xFF
+                let r = (rgb >> 16) & 0xFF
+                let g = (rgb >> 8) & 0xFF
+                let b = rgb & 0xFF
+                let aFl: CGFloat = CGFloat.init(a) / 255
+                let rFl: CGFloat = CGFloat.init(r) / 255
+                let gFl: CGFloat = CGFloat.init(g) / 255
+                let bFl: CGFloat = CGFloat.init(b) / 255
+                self.init(red: rFl, green: gFl, blue: bFl, alpha: aFl)
+            } else {
+                return nil
+            }
+        }
+        
+        /// init: Initialise a UIColor from a FREObject.
+        /// alpha is set as 1.0
+        ///
+        /// ```swift
+        /// let clr = UIColor(freObject: argv[0])
+        /// ```
+        /// - parameter freObject: FREObject which is of AS3 type uint
+        /// - returns: UIColor?
+        convenience init?(freObject: FREObject?) {
+            guard let rv = freObject else {
+                return nil
+            }
+            do {
+                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let r = (rgb >> 16) & 0xFF
+                let g = (rgb >> 8) & 0xFF
+                let b = rgb & 0xFF
+                let a: CGFloat = CGFloat.init(1)
+                let rFl: CGFloat = CGFloat.init(r) / 255
+                let gFl: CGFloat = CGFloat.init(g) / 255
+                let bFl: CGFloat = CGFloat.init(b) / 255
+                self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
+            } catch {
+                return nil
+            }
+        }
+        
+        /// toFREObject: Converts a UIColor into a FREObject of AS3 type uint.
+        ///
+        /// - returns: FREObject
+        func toFREObjectARGB() -> FREObject? {
+            var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+            if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+                var colorAsUInt : UInt32 = 0
+                colorAsUInt += UInt32(alpha * 255.0) << 24
+                    + UInt32(red * 255.0) << 16
+                    + UInt32(green * 255.0) << 8
+                    + UInt32(blue * 255.0)
+                return UInt.init(colorAsUInt).toFREObject()
+            }
             return nil
         }
-        if let fli = CGFloat.init(rv) {
-            let rgb = Int.init(fli)
-            let a = (rgb >> 24) & 0xFF
-            let r = (rgb >> 16) & 0xFF
-            let g = (rgb >> 8) & 0xFF
-            let b = rgb & 0xFF
-            let aFl: CGFloat = CGFloat.init(a) / 255
-            let rFl: CGFloat = CGFloat.init(r) / 255
-            let gFl: CGFloat = CGFloat.init(g) / 255
-            let bFl: CGFloat = CGFloat.init(b) / 255
-            self.init(red: rFl, green: gFl, blue: bFl, alpha: aFl)
-        } else {
+        
+        /// toFREObject: Converts a UIColor into a FREObject of AS3 type uint.
+        ///
+        /// - returns: FREObject
+        func toFREObject() -> FREObject? {
+            var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+            if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+                var colorAsUInt : UInt32 = 0
+                colorAsUInt += UInt32(red * 255.0) << 16
+                    + UInt32(green * 255.0) << 8
+                    + UInt32(blue * 255.0)
+                return UInt.init(colorAsUInt).toFREObject()
+            }
             return nil
         }
+        
     }
-    
-    /// init: Initialise a UIColor from a FREObject.
-    /// alpha is set as 1.0
-    ///
-    /// ```swift
-    /// let clr = UIColor(freObject: argv[0])
-    /// ```
-    /// - parameter freObject: FREObject which is of AS3 type uint
-    /// - returns: UIColor?
-    convenience init?(freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
-        do {
-            let rgb = try FreSwiftHelper.getAsUInt(rv);
-            let r = (rgb >> 16) & 0xFF
-            let g = (rgb >> 8) & 0xFF
-            let b = rgb & 0xFF
-            let a: CGFloat = CGFloat.init(1)
-            let rFl: CGFloat = CGFloat.init(r) / 255
-            let gFl: CGFloat = CGFloat.init(g) / 255
-            let bFl: CGFloat = CGFloat.init(b) / 255
-            self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
-        } catch {
-            return nil
-        }
-    }
-}
 #endif
 
 public extension Dictionary where Key == String, Value == Any {
@@ -997,7 +1062,7 @@ public extension Dictionary where Key == String, Value == AnyObject {
         } catch {
             return
         }
-
+        
     }
 }
 
