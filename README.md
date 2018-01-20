@@ -25,7 +25,6 @@ A walkthrough video is available on [Youtube](https://www.youtube.com/watch?v=pj
 
 A video showing how to create an ANE using CoreML is also available on [Youtube](https://www.youtube.com/watch?v=tSr0GbQdZDk)
 
-
 ### How to use
 
 [Full documentation](https://tuarua.github.io/swiftdocs/freswift/index.html) is provided   
@@ -150,6 +149,9 @@ NotificationCenter.default.addObserver(self,
 }
 `````
 ----------
+
+### Required AS3 classes
+com.tuarua.fre.ANEUtils.as and com.tuarua.fre.ANEError.as are required by FreSwift and should be included in the AS3 library of your ANE 
 
 ### Running on Simulator
 

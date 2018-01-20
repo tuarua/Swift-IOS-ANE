@@ -50,6 +50,11 @@ public class SwiftController: NSObject, FreSwiftMainController {
     }
     
     
+    @objc public func dispose() {
+        NotificationCenter.default.removeObserver(self)
+        // Add other clean up code here
+    }
+    
     @objc func applicationDidFinishLaunching(_ notification: Notification) {
         
     }
