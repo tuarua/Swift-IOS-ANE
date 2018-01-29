@@ -21,10 +21,10 @@ public class SwiftController: NSObject, FreSwiftMainController {
     public var TAG: String? = "SwiftController"
     public var context: FreContextSwift!
     public var functionsToSet: FREFunctionMap = [:]
-    private var appDidFinishLaunchingNotif:Notification?
+    private var appDidFinishLaunchingNotif: Notification?
     
     // Must have this function. It exposes the methods to our entry ObjC.
-    @objc public func getFunctions(prefix: String) -> Array<String> {
+    @objc public func getFunctions(prefix: String) -> [String] {
 
         functionsToSet["\(prefix)runStringTests"] = runStringTests
         functionsToSet["\(prefix)runNumberTests"] = runNumberTests
@@ -39,7 +39,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
         functionsToSet["\(prefix)runRectTests"] = runRectTests
         functionsToSet["\(prefix)runDateTests"] = runDateTests
 
-        var arr: Array<String> = []
+        var arr: [String] = []
         for key in functionsToSet.keys {
             arr.append(key)
         }
@@ -87,7 +87,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
                 return nil
         }
         
-        let optionalInt:Int? = Int(inFRE0)
+        let optionalInt: Int? = Int(inFRE0)
         
         trace("Int passed from AIR:", airInt)
         trace("Int passed from AIR (optional):", optionalInt.debugDescription)
@@ -159,9 +159,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
         } catch {
         }
         
-        
         return nil
-
 
     }
 
@@ -185,7 +183,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
                     filter.setValue(image, forKey: kCIInputImageKey)
                     let result = filter.outputImage!
                     if let cgImage = context.createCGImage(result, from: result.extent) {
-                        let img:UIImage = UIImage.init(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
+                        let img: UIImage = UIImage.init(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
                         if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
                             let imgView: UIImageView = UIImageView.init(image: img)
                             imgView.frame = CGRect.init(x: 10, y: 120, width: img.size.width, height: img.size.height)
@@ -197,9 +195,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
         } catch {
         }
 
-
         trace("bitmap test finish")
-
 
         return nil
     }
@@ -280,7 +276,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
     func runRectTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Rectangle Point test***********")
         guard argc > 1,
-            let inFRE0:FREObject = argv[0], //point, rectangle
+            let inFRE0: FREObject = argv[0], //point, rectangle
             let inFRE1 = argv[1] else {
                 trace("runRectTests returning early")
                 return nil
@@ -324,7 +320,6 @@ public class SwiftController: NSObject, FreSwiftMainController {
         self.context = FreContextSwift.init(freContext: ctx)
     }
     
-    
     @objc func applicationDidFinishLaunching(_ notification: Notification) {
         appDidFinishLaunchingNotif = notification
     }
@@ -337,6 +332,5 @@ public class SwiftController: NSObject, FreSwiftMainController {
                                                name: NSNotification.Name.UIApplicationDidFinishLaunching, object: nil)
         
     }
-
 
 }

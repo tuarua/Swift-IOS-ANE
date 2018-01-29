@@ -19,7 +19,7 @@ public class FreBitmapDataSwift: NSObject {
     private typealias FREBitmapData = FREBitmapData2
 
     /// raw FREObject value.
-    public var rawValue: FREObject? = nil
+    public var rawValue: FREObject?
     private var _bitmapData: FREBitmapData = FREBitmapData.init()
     /// A Int that specifies the width, in pixels, of the bitmap. This value corresponds to the width property of
     /// the ActionScript BitmapData class object. This field is read-only.
@@ -58,7 +58,8 @@ public class FreBitmapDataSwift: NSObject {
         super.init()
         do {
             if let freObject = try FREObject.init(className: "flash.display.BitmapData",
-                                                 args: UInt32(cgImage.width),UInt32(cgImage.height),false,0) {
+                                                 args: UInt32(cgImage.width),
+                                                 UInt32(cgImage.height), false, 0) {
                 rawValue = freObject
                 try acquire()
                 try setPixels(cgImage: cgImage)
@@ -82,8 +83,9 @@ public class FreBitmapDataSwift: NSObject {
         let status: FREResult = FREAcquireBitmapData2(rv, &_bitmapData)
 #endif
         guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot acquire BitmapData", type: FreSwiftHelper.getErrorCode(status),
-              line: #line, column: #column, file: #file)
+            throw FreError(stackTrace: "", message: "cannot acquire BitmapData",
+                           type: FreSwiftHelper.getErrorCode(status),
+                           line: #line, column: #column, file: #file)
         }
         width = Int(_bitmapData.width)
         height = Int(_bitmapData.height)
@@ -111,7 +113,7 @@ public class FreBitmapDataSwift: NSObject {
     public func setPixels(cgImage: CGImage) throws {
         if let dp = cgImage.dataProvider {
             if let data: NSData = dp.data {
-                memcpy(bits32, data.bytes, data.length);
+                memcpy(bits32, data.bytes, data.length)
             }
             try invalidateRect(x: 0, y: 0, width: UInt(cgImage.width), height: UInt(cgImage.height))
         }
@@ -124,7 +126,7 @@ public class FreBitmapDataSwift: NSObject {
         try self.acquire()
 
         let releaseProvider: CGDataProviderReleaseDataCallback = { (info: UnsafeMutableRawPointer?,
-                                                                    data: UnsafeRawPointer, size: Int) -> () in
+                                                                    data: UnsafeRawPointer, size: Int) -> Void in
             // https://developer.apple.com/reference/coregraphics/cgdataproviderreleasedatacallback
             // N.B. 'CGDataProviderRelease' is unavailable: Core Foundation objects are automatically memory managed
             return
@@ -132,11 +134,10 @@ public class FreBitmapDataSwift: NSObject {
         let provider: CGDataProvider = CGDataProvider(dataInfo: nil, data: bits32, size: (width * height * 4),
           releaseData: releaseProvider)!
 
-
-        let bytesPerPixel = 4;
-        let bitsPerPixel = 32;
-        let bytesPerRow: Int = bytesPerPixel * Int(lineStride32);
-        let bitsPerComponent = 8;
+        let bytesPerPixel = 4
+        let bitsPerPixel = 32
+        let bytesPerRow: Int = bytesPerPixel * Int(lineStride32)
+        let bitsPerComponent = 8
         let colorSpaceRef: CGColorSpace = CGColorSpaceCreateDeviceRGB()
 
         var bitmapInfo: CGBitmapInfo
@@ -158,7 +159,7 @@ public class FreBitmapDataSwift: NSObject {
         let imageRef: CGImage = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent,
           bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow, space: colorSpaceRef,
           bitmapInfo: bitmapInfo, provider: provider, decode: nil, shouldInterpolate: false,
-          intent: renderingIntent)!;
+          intent: renderingIntent)!
 
         return imageRef
 

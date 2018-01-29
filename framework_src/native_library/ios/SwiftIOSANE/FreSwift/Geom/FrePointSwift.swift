@@ -34,13 +34,11 @@ public class FrePointSwift: FreObjectSwift {
     }
     
     override public var value: Any? {
-        get {
-            if let rv = rawValue {
-                let idRes = CGPoint.init(rv) as Any?
-                return idRes
-            }
-            return nil
+        if let rv = rawValue {
+            let idRes = CGPoint.init(rv) as Any?
+            return idRes
         }
+        return nil
     }
     
 }

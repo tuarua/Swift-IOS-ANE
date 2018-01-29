@@ -16,7 +16,7 @@ import Foundation
 
 public class FreSwiftHelper {
 
-    static func callMethod(_ rawValue: FREObject?, name: String, args: Array<Any>) throws -> FREObject? {
+    static func callMethod(_ rawValue: FREObject?, name: String, args: [Any]) throws -> FREObject? {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
               line: #line, column: #column, file: #file)
@@ -36,7 +36,11 @@ public class FreSwiftHelper {
           result: &ret, thrownException: &thrownException)
 
 #else
-        let status: FREResult = FRECallObjectMethod(rv, name, numArgs, FreSwiftHelper.arrayToFREArray(argsArray), &ret, &thrownException)
+        let status: FREResult = FRECallObjectMethod(rv,
+                                                    name,
+                                                    numArgs,
+                                                    FreSwiftHelper.arrayToFREArray(argsArray),
+                                                    &ret, &thrownException)
 #endif
         guard FRE_OK == status else {
             throw FreError(stackTrace: FreSwiftHelper.getActionscriptException(thrownException),
@@ -52,7 +56,8 @@ public class FreSwiftHelper {
         var len: UInt32 = 0
         var valuePtr: UnsafePointer<UInt8>?
 #if os(iOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsUTF8(object: rawValue, length: &len, value: &valuePtr)
+        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsUTF8(object: rawValue,
+                                                                         length: &len, value: &valuePtr)
 #else
         let status: FREResult = FREGetObjectAsUTF8(rawValue, &len, &valuePtr)
 #endif
@@ -81,7 +86,6 @@ public class FreSwiftHelper {
         ret = val == 1 ? true : false
         return ret
     }
-
 
     static func getAsDouble(_ rawValue: FREObject) throws -> Double {
         var ret: Double = 0.0
@@ -134,7 +138,6 @@ public class FreSwiftHelper {
         return UInt(ret)
     }
 
-
     static func getAsId(_ rawValue: FREObject) throws -> Any? {
         let objectType: FreObjectTypeSwift = getType(rawValue)
 
@@ -149,7 +152,7 @@ public class FreSwiftHelper {
         case .boolean:
             return try getAsBool(rawValue)
         case .object, .cls:
-            return try getAsDictionary(rawValue) as Dictionary<String, AnyObject>?
+            return try getAsDictionary(rawValue) as [String: AnyObject]?
         case .number:
             return try getAsDouble(rawValue)
         case .bitmapdata: //TODO
@@ -173,7 +176,7 @@ public class FreSwiftHelper {
 
 #if os(OSX)
     public static func toCGColor(freObject: FREObject, alpha: FREObject) throws -> CGColor {
-        let rgb = try FreSwiftHelper.getAsUInt(freObject);
+        let rgb = try FreSwiftHelper.getAsUInt(freObject)
         let r = (rgb >> 16) & 0xFF
         let g = (rgb >> 8) & 0xFF
         let b = rgb & 0xFF
@@ -221,7 +224,6 @@ public class FreSwiftHelper {
 #endif
         let type: FreObjectTypeSwift = FreObjectTypeSwift(rawValue: objectType.rawValue)!
 
-
         return FreObjectTypeSwift.number == type || FreObjectTypeSwift.object == type
           ? getActionscriptType(rawValue)
           : type
@@ -232,19 +234,20 @@ public class FreSwiftHelper {
         do {
             if let aneUtils = try FREObject.init(className: "com.tuarua.fre.ANEUtils") {
                 if let classType = try aneUtils.call(method: "getClassType", args: rawValue) {
-                    let type: String? = try! FreSwiftHelper.getAsString(classType).lowercased()
-                    if type == "int" {
-                        return FreObjectTypeSwift.int
-                    } else if type == "date" {
-                        return FreObjectTypeSwift.date
-                    } else if type == "string" {
-                        return FreObjectTypeSwift.string
-                    } else if type == "number" {
-                        return FreObjectTypeSwift.number
-                    } else if type == "boolean" {
-                        return FreObjectTypeSwift.boolean
-                    } else {
-                        return FreObjectTypeSwift.cls
+                    if let type = try? FreSwiftHelper.getAsString(classType).lowercased() {
+                        if type == "int" {
+                            return FreObjectTypeSwift.int
+                        } else if type == "date" {
+                            return FreObjectTypeSwift.date
+                        } else if type == "string" {
+                            return FreObjectTypeSwift.string
+                        } else if type == "number" {
+                            return FreObjectTypeSwift.number
+                        } else if type == "boolean" {
+                            return FreObjectTypeSwift.boolean
+                        } else {
+                            return FreObjectTypeSwift.cls
+                        }
                     }
                 }
             }
@@ -254,8 +257,8 @@ public class FreSwiftHelper {
         return FreObjectTypeSwift.null
     }
 
-    static func getAsDictionary(_ rawValue: FREObject) throws -> Dictionary<String, AnyObject>? {
-        var ret: Dictionary = Dictionary<String, AnyObject>()
+    static func getAsDictionary(_ rawValue: FREObject) throws -> [String: AnyObject]? {
+        var ret = [String: AnyObject]()
         guard let aneUtils = try FREObject.init(className: "com.tuarua.fre.ANEUtils"),
               let classProps1 = try aneUtils.call(method: "getClassProps", args: rawValue) else {
             return nil
@@ -277,8 +280,8 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func getAsDictionary(_ rawValue: FREObject) throws -> Dictionary<String, Any>? {
-        var ret: Dictionary = Dictionary<String, Any>()
+    static func getAsDictionary(_ rawValue: FREObject) throws -> [String: Any]? {
+        var ret = [String: Any]()
         guard let aneUtils = try FREObject.init(className: "com.tuarua.fre.ANEUtils"),
             let classProps1 = try aneUtils.call(method: "getClassProps", args: rawValue) else {
                 return nil
@@ -300,8 +303,8 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func getAsDictionary(_ rawValue: FREObject) throws -> Dictionary<String, NSObject>? {
-        var ret: Dictionary = Dictionary<String, NSObject>()
+    static func getAsDictionary(_ rawValue: FREObject) throws -> [String: NSObject]? {
+        var ret = [String: NSObject]()
         guard let aneUtils = try FREObject.init(className: "com.tuarua.fre.ANEUtils"),
             let classProps1 = try aneUtils.call(method: "getClassProps", args: rawValue) else {
                 return nil
@@ -312,8 +315,9 @@ public class FreSwiftHelper {
             if let elem: FREObject = try array.at(index: i) {
                 if let propNameAs = try elem.getProp(name: "name") {
                     if let propName = String(propNameAs) {
-                        if let propval = try FreObjectSwift.init(freObject: rawValue.getProp(name: propName)).value {
-                            ret.updateValue(propval as! NSObject, forKey: propName)
+                        if let propval = try FreObjectSwift.init(freObject: rawValue.getProp(name: propName)).value,
+                            let pv = propval as? NSObject {
+                            ret.updateValue(pv, forKey: propName)
                         }
                     }
                 }
@@ -323,13 +327,13 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func getAsArray(_ rawValue: FREObject) throws -> Array<String>? {
-        var ret: Array<String> = Array<String>()
+    static func getAsArray(_ rawValue: FREObject) throws -> [String]? {
+        var ret = [String]()
         let array: FREArray = FREArray.init(rawValue)
         let arrayLength = array.length
         for i in 0..<arrayLength {
             if let elem: FREObject = try array.at(index: i) {
-                if let v:String = String(elem) {
+                if let v: String = String(elem) {
                     ret.append(v)
                 }
             }
@@ -337,13 +341,13 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func getAsArray(_ rawValue: FREObject) throws -> Array<Int>? {
-        var ret: Array<Int> = Array<Int>()
+    static func getAsArray(_ rawValue: FREObject) throws -> [Int]? {
+        var ret = [Int]()
         let array: FREArray = FREArray.init(rawValue)
         let arrayLength = array.length
         for i in 0..<arrayLength {
             if let elem: FREObject = try array.at(index: i) {
-                if let v:Int = Int(elem) {
+                if let v: Int = Int(elem) {
                     ret.append(v)
                 }
             }
@@ -351,13 +355,13 @@ public class FreSwiftHelper {
         return ret
     }
 
-    static func getAsArray(_ rawValue: FREObject) throws -> Array<Bool>? {
-        var ret: Array<Bool> = Array<Bool>()
+    static func getAsArray(_ rawValue: FREObject) throws -> [Bool]? {
+        var ret = [Bool]()
         let array: FREArray = FREArray.init(rawValue)
         let arrayLength = array.length
         for i in 0..<arrayLength {
             if let elem: FREObject = try array.at(index: i) {
-                if let v:Bool = Bool(elem) {
+                if let v: Bool = Bool(elem) {
                     ret.append(v)
                 }
             }
@@ -365,13 +369,13 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func getAsArray(_ rawValue: FREObject) throws -> Array<Double>? {
-        var ret: Array<Double> = Array<Double>()
+    static func getAsArray(_ rawValue: FREObject) throws -> [Double]? {
+        var ret: [Double] = [Double]()
         let array: FREArray = FREArray.init(rawValue)
         let arrayLength = array.length
         for i in 0..<arrayLength {
             if let elem: FREObject = try array.at(index: i) {
-                if let v:Double = Double(elem) {
+                if let v: Double = Double(elem) {
                     ret.append(v)
                 }
             }
@@ -379,13 +383,13 @@ public class FreSwiftHelper {
         return ret
     }
     
-    static func getAsArray(_ rawValue: FREObject) throws -> Array<Any>? {
-        var ret: Array<Any> = Array<Any>()
+    static func getAsArray(_ rawValue: FREObject) throws -> [Any]? {
+        var ret: [Any] = [Any]()
         let array: FREArray = FREArray.init(rawValue)
         let arrayLength = array.length
         for i in 0..<arrayLength {
             if let elem: FREObject = try array.at(index: i) {
-                if let v:Any = FreObjectSwift.init(freObject: elem).value {
+                if let v: Any = FreObjectSwift.init(freObject: elem).value {
                     ret.append(v)
                 }
             }
@@ -413,7 +417,6 @@ public class FreSwiftHelper {
         }
         return ret
     }
-
 
     public static func setProperty(rawValue: FREObject, name: String, prop: FREObject?) throws {
         var thrownException: FREObject?
@@ -470,7 +473,6 @@ public class FreSwiftHelper {
         }
         return ret
     }
-
 
     public static func newObject(_ double: Double) throws -> FREObject? {
         var ret: FREObject?
@@ -574,7 +576,6 @@ public class FreSwiftHelper {
         return ret
     }
 
-
     public static func newObject(className: String) throws -> FREObject? {
         var ret: FREObject?
         var thrownException: FREObject?
@@ -591,7 +592,6 @@ public class FreSwiftHelper {
         }
         return ret
     }
-
 
     static func getErrorCode(_ result: FREResult) -> FreError.Code {
         switch result {

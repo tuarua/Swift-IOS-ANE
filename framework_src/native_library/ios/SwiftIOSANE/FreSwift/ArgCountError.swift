@@ -14,10 +14,10 @@
 
 import Foundation
 /// ArgCountError: Extension for FreError.
-public class ArgCountError : FreError {
+public class ArgCountError: FreError {
     /// init: inits ArgCountError.
     /// - parameter message: String
-    public init(message: String){
+    public init(message: String) {
         super.init(stackTrace: "", message: "\(message) - incorrect arguments", type: FreError.Code.invalidArgument)
     }
 }

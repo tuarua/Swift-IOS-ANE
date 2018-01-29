@@ -15,18 +15,16 @@
 import Foundation
 /// :nodoc:
 open class FreObjectSwift: NSObject {
-    public var rawValue: FREObject? = nil
+    public var rawValue: FREObject?
     open var value: Any? {
-        get {
-            do {
-                if let raw = rawValue {
-                    let idRes = try FreSwiftHelper.getAsId(raw)
-                    return idRes
-                }
-            } catch {
+        do {
+            if let raw = rawValue {
+                let idRes = try FreSwiftHelper.getAsId(raw)
+                return idRes
             }
-            return nil
+        } catch {
         }
+        return nil
     }
 
     public init(freObject: FREObject?) {
@@ -73,32 +71,32 @@ open class FreObjectSwift: NSObject {
     fileprivate func _newObject(any: Any?) throws -> FREObject? {
         if any == nil {
             return nil
-        } else if any is FREObject {
-            return (any as! FREObject)
-        } else if any is FreObjectSwift {
-            return (any as! FreObjectSwift).rawValue
-        } else if any is String {
-            return try FreSwiftHelper.newObject(any as! String)
-        } else if any is Int {
-            return try FreSwiftHelper.newObject(any as! Int)
-        } else if any is Int32 {
-            return try FreSwiftHelper.newObject(any as! Int)
-        } else if any is UInt {
-            return try FreSwiftHelper.newObject(any as! UInt)
-        } else if any is UInt32 {
-            return try FreSwiftHelper.newObject(any as! UInt)
-        } else if any is Double {
-            return try FreSwiftHelper.newObject(any as! Double)
-        } else if any is CGFloat {
-            return try FreSwiftHelper.newObject(any as! CGFloat)
-        } else if any is Bool {
-            return try FreSwiftHelper.newObject(any as! Bool)
-        } else if any is Date {
-            return try FreSwiftHelper.newObject(any as! Date)
-        } else if any is CGRect {
-            return FreRectangleSwift.init(value: any as! CGRect).rawValue
-        } else if any is CGPoint {
-            return FrePointSwift.init(value: any as! CGPoint).rawValue
+        } else if any is FREObject, let v = any as? FREObject {
+            return (v)
+        } else if any is FreObjectSwift, let v = any as? FreObjectSwift {
+            return v.rawValue
+        } else if any is String, let v = any as? String {
+            return try FreSwiftHelper.newObject(v)
+        } else if any is Int, let v = any as? Int {
+            return try FreSwiftHelper.newObject(v)
+        } else if any is Int32, let v = any as? Int32 {
+            return try FreSwiftHelper.newObject(Int(v))
+        } else if any is UInt, let v = any as? UInt {
+            return try FreSwiftHelper.newObject(v)
+        } else if any is UInt32, let v = any as? UInt32 {
+            return try FreSwiftHelper.newObject(UInt(v))
+        } else if any is Double, let v = any as? Double {
+            return try FreSwiftHelper.newObject(v)
+        } else if any is CGFloat, let v = any as? CGFloat {
+            return try FreSwiftHelper.newObject(v)
+        } else if any is Bool, let v = any as? Bool {
+            return try FreSwiftHelper.newObject(v)
+        } else if any is Date, let v = any as? Date {
+            return try FreSwiftHelper.newObject(v)
+        } else if any is CGRect, let v = any as? CGRect {
+            return FreRectangleSwift.init(value: v).rawValue
+        } else if any is CGPoint, let v = any as? CGPoint {
+            return FrePointSwift.init(value: v).rawValue
         }
         //TODO add Dict and others
 
@@ -109,4 +107,3 @@ open class FreObjectSwift: NSObject {
     }
 
 }
-

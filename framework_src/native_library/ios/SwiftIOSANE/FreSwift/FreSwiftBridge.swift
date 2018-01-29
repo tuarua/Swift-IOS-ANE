@@ -35,17 +35,24 @@ import Foundation
 
     @objc func FREGetObjectAsDouble(object: FREObject, value: UnsafeMutablePointer<Double>) -> FREResult
 
-    @objc func FRENewObject(className: String, argc: UInt32, argv: NSPointerArray?, object: FREObject?, thrownException: FREObject?) -> FREResult
+    @objc func FRENewObject(className: String, argc: UInt32, argv: NSPointerArray?, object: FREObject?,
+                            thrownException: FREObject?) -> FREResult
 
-    @objc func FREGetObjectProperty(object: FREObject, propertyName: String, propertyValue: FREObject?, thrownException: FREObject?) -> FREResult
+    @objc func FREGetObjectProperty(object: FREObject, propertyName: String, propertyValue: FREObject?,
+                                    thrownException: FREObject?) -> FREResult
 
-    @objc func FRESetObjectProperty(object: FREObject, propertyName: String, propertyValue: FREObject?, thrownException: FREObject?) -> FREResult
+    @objc func FRESetObjectProperty(object: FREObject, propertyName: String, propertyValue: FREObject?,
+                                    thrownException: FREObject?) -> FREResult
 
     @objc func FREGetObjectType(object: FREObject?, objectType: UnsafeMutablePointer<FREObjectType>) -> FREResult
 
-    @objc func FREGetObjectAsUTF8(object: FREObject, length: UnsafeMutablePointer<UInt32>, value: UnsafePointer<UnsafePointer<UInt8>?>?) -> FREResult
+    @objc func FREGetObjectAsUTF8(object: FREObject, length: UnsafeMutablePointer<UInt32>,
+                                  value: UnsafePointer<UnsafePointer<UInt8>?>?) -> FREResult
 
-    @objc func FRECallObjectMethod(object: FREObject, methodName: String, argc: UInt32, argv: NSPointerArray?, result: FREObject?, thrownException: FREObject?) -> FREResult
+    @objc func FRECallObjectMethod(object: FREObject, methodName: String, argc: UInt32,
+                                   argv: NSPointerArray?,
+                                   result: FREObject?,
+                                   thrownException: FREObject?) -> FREResult
 
     @objc func FRESetArrayElementA(arrayOrVector: FREObject, index: UInt32, value: FREObject?) -> FREResult
 
@@ -55,7 +62,8 @@ import Foundation
 
     @objc func FRESetArrayLength(arrayOrVector: FREObject, length: UInt32) -> FREResult
     
-    @objc func FREAcquireBitmapData2(object: FREObject, descriptorToSet: UnsafeMutablePointer<FREBitmapData2>) -> FREResult
+    @objc func FREAcquireBitmapData2(object: FREObject,
+                                     descriptorToSet: UnsafeMutablePointer<FREBitmapData2>) -> FREResult
     
     @objc func FREReleaseBitmapData(object: FREObject) -> FREResult
     
@@ -67,11 +75,13 @@ import Foundation
     
     @objc func FREGetContextActionScriptData(ctx: FREContext, actionScriptData: FREObject) -> FREResult
     
-    @objc func FREInvalidateBitmapDataRect(object: FREObject, x:UInt32, y:UInt32, width:UInt32, height:UInt32) -> FREResult
+    @objc func FREInvalidateBitmapDataRect(object: FREObject, x: UInt32, y: UInt32,
+                                           width: UInt32, height: UInt32) -> FREResult
     
     @objc func FRESetContextNativeData(ctx: FREContext, nativeData: UnsafeRawPointer) -> FREResult
     
-    @objc func FREGetContextNativeData(ctx: FREContext, nativeData: UnsafeMutablePointer<UnsafeRawPointer>) -> FREResult
+    @objc func FREGetContextNativeData(ctx: FREContext,
+                                       nativeData: UnsafeMutablePointer<UnsafeRawPointer>) -> FREResult
 
 }
 /// :nodoc:

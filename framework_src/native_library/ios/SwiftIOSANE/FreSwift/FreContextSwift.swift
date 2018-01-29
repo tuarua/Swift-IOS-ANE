@@ -16,7 +16,7 @@ import Foundation
 /// FreContextSwift: wrapper for FREContext.
 open class FreContextSwift: NSObject {
     /// FREContext
-    public var rawValue: FREContext? = nil
+    public var rawValue: FREContext?
 
     /// init: inits a FreContextSwift.
     /// - parameter freContext: FREContext
@@ -54,7 +54,8 @@ open class FreContextSwift: NSObject {
         let status: FREResult = FREGetContextActionScriptData(rv, &ret)
 #endif
         guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot get actionscript data", type: FreSwiftHelper.getErrorCode(status),
+            throw FreError(stackTrace: "", message: "cannot get actionscript data",
+                           type: FreSwiftHelper.getErrorCode(status),
               line: #line, column: #column, file: #file)
         }
         return ret

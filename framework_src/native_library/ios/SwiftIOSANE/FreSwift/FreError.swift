@@ -95,4 +95,3 @@ public class FreError: Error {
         return nil
     }
 }
-

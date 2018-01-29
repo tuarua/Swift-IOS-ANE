@@ -38,17 +38,14 @@ public class FreRectangleSwift: FreObjectSwift {
     }
     
     override public var value: Any? {
-        get {
-            if let rv = rawValue {
-                let idRes = CGRect.init(rv) as Any?
-                return idRes
-            }
-            return nil
+        if let rv = rawValue {
+            let idRes = CGRect.init(rv) as Any?
+            return idRes
         }
+        return nil
     }
     
 }
-
 
 public extension CGRect {
     /// init: Initialise a CGRect from a FREObject.

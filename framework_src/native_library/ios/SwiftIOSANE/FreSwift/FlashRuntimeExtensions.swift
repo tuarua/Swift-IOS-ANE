@@ -12,7 +12,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.*/
 
-
 import Foundation
 
 public typealias FREArgv = UnsafeMutablePointer<FREObject?>!
@@ -28,7 +27,7 @@ public protocol FreSwiftMainController {
     /// Tag used when tracing logs
     var TAG: String? { get set }
     /// Returns functions which connect Objective C to Swift
-    func getFunctions(prefix: String) -> Array<String>
+    func getFunctions(prefix: String) -> [String]
     /// Allows Objective C to call our Swift Controller
     /// - parameter name: name of the function
     /// - parameter ctx: context
@@ -43,7 +42,8 @@ public protocol FreSwiftMainController {
     ///
     /// public func onLoad() {
     ///    NotificationCenter.default.addObserver(self, selector: #selector(applicationDidFinishLaunching),
-    ///                                           name: NSNotification.Name.UIApplicationDidFinishLaunching, object: nil)
+    ///                                           name: NSNotification.Name.UIApplicationDidFinishLaunching,
+    ///                                           object: nil)
     ///
     /// }
     /// ```
@@ -135,7 +135,7 @@ public extension FreSwiftController {
     func trace(_ value: Any...) {
         var traceStr: String = ""
         for i in 0..<value.count {
-            traceStr = traceStr + "\(value[i])" + " "
+            traceStr.append("\(value[i]) ")
         }
         sendEvent(name: "TRACE", value: traceStr)
     }
@@ -217,27 +217,49 @@ public extension FREObject {
         if value is FREObject {
             try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: value as? FREObject)
         } else if value is FREArray {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! FREArray).rawValue)
+            if let v = value as? FREArray {
+              try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.rawValue)
+            }
         } else if value is FreObjectSwift {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! FreObjectSwift).rawValue)
+            if let v = value as? FreObjectSwift {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.rawValue)
+            }
         } else if value is String {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! String).toFREObject())
+            if let v = value as? String {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
+            }
         } else if value is Int {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! Int).toFREObject())
+            if let v = value as? Int {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
+            }
         } else if value is Int32 {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! Int).toFREObject())
+            if let v = value as? Int32 {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (Int(v)).toFREObject())
+            }
         } else if value is UInt {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! UInt).toFREObject())
+            if let v = value as? UInt {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
+            }
         } else if value is UInt32 {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! UInt).toFREObject())
+            if let v = value as? UInt32 {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (UInt(v)).toFREObject())
+            }
         } else if value is Double {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! Double).toFREObject())
+            if let v = value as? Double {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
+            }
         } else if value is CGFloat {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! CGFloat).toFREObject())
+            if let v = value as? CGFloat {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
+            }
         } else if value is Bool {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! Bool).toFREObject())
+            if let v = value as? Bool {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
+            }
         } else if value is Date {
-            try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: (value as! Date).toFREObject())
+            if let v = value as? Date {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
+            }
         }
     }
     
@@ -294,9 +316,7 @@ public extension FREObject {
     
     /// returns the type of the FREOject
     var type: FreObjectTypeSwift {
-        get {
-            return FreSwiftHelper.getType(self)
-        }
+        return FreSwiftHelper.getType(self)
     }
     
     /// accessor: returns the Property of a FREObject. Shorthand for `getProp`
@@ -319,16 +339,14 @@ public extension FREObject {
     ///
     /// - returns: Any?
     public var value: Any? {
-        get {
-            return FreObjectSwift.init(freObject: self).value
-        }
+        return FreObjectSwift.init(freObject: self).value
     }
 }
 
 /// FREArray: Additional type which matches Java version of FRE
 public class FREArray: NSObject {
     /// raw FREObject value
-    public var rawValue: FREObject? = nil
+    public var rawValue: FREObject?
     
     /// init: Initialise a FREArray from a FREObject.
     ///
@@ -355,7 +373,7 @@ public class FREArray: NSObject {
     ///
     /// - parameter intArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
-    public init(intArray: Array<Int>) throws {
+    public init(intArray: [Int]) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = intArray.count
@@ -368,7 +386,7 @@ public class FREArray: NSObject {
     ///
     /// - parameter stringArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
-    public init(stringArray: Array<String>) throws {
+    public init(stringArray: [String]) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = stringArray.count
@@ -381,7 +399,7 @@ public class FREArray: NSObject {
     ///
     /// - parameter doubleArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
-    public init(doubleArray: Array<Double>) throws {
+    public init(doubleArray: [Double]) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = doubleArray.count
@@ -394,7 +412,7 @@ public class FREArray: NSObject {
     ///
     /// - parameter boolArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
-    public init(boolArray: Array<Bool>) throws {
+    public init(boolArray: [Bool]) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = boolArray.count
@@ -407,7 +425,7 @@ public class FREArray: NSObject {
     ///
     /// - parameter anyArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
-    public init(anyArray: Array<Any>) throws {
+    public init(anyArray: [Any]) throws {
         super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = anyArray.count
@@ -434,8 +452,9 @@ public class FREArray: NSObject {
             let status: FREResult = FREGetArrayElementAt(rv, UInt32(index), &object)
         #endif
         guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot get object at \(index) ", type: FreSwiftHelper.getErrorCode(status),
-                           line: #line, column: #column, file: #file)
+            throw FreError(stackTrace: "", message: "cannot get object at \(index) ",
+                type: FreSwiftHelper.getErrorCode(status),
+                line: #line, column: #column, file: #file)
         }
         return object
     }
@@ -452,8 +471,9 @@ public class FREArray: NSObject {
             let status: FREResult = FRESetArrayElementAt(rv, UInt32(index), object.rawValue)
         #endif
         guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot set object at \(index) ", type: FreSwiftHelper.getErrorCode(status),
-                           line: #line, column: #column, file: #file)
+            throw FreError(stackTrace: "", message: "cannot set object at \(index) ",
+                type: FreSwiftHelper.getErrorCode(status),
+                line: #line, column: #column, file: #file)
         }
     }
     
@@ -469,43 +489,40 @@ public class FREArray: NSObject {
     
     /// length: length of FREArray
     public var length: UInt {
-        get {
-            guard let rv = rawValue else {
-                return 0
-            }
-            do {
-                var ret: UInt32 = 0
-                #if os(iOS)
-                    let status: FREResult = FreSwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
-                #else
-                    let status: FREResult = FREGetArrayLength(rv, &ret)
-                #endif
-                guard FRE_OK == status else {
-                    throw FreError(stackTrace: "", message: "cannot get length of array", type: FreSwiftHelper.getErrorCode(status),
-                                   line: #line, column: #column, file: #file)
-                }
-                return UInt(ret)
-                
-            } catch {
-            }
+        guard let rv = rawValue else {
             return 0
         }
+        do {
+            var ret: UInt32 = 0
+            #if os(iOS)
+                let status: FREResult = FreSwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
+            #else
+                let status: FREResult = FREGetArrayLength(rv, &ret)
+            #endif
+            guard FRE_OK == status else {
+                throw FreError(stackTrace: "", message: "cannot get length of array",
+                               type: FreSwiftHelper.getErrorCode(status),
+                               line: #line, column: #column, file: #file)
+            }
+            return UInt(ret)
+            
+        } catch {
+        }
+        return 0
     }
     
     /// value: Converts FREArray to Swift array
     /// - returns: Array<Any?>
-    public var value: Array<Any?> {
-        get {
-            var ret: [Any?] = []
-            do {
-                for i in 0..<length {
-                    let elem: FreObjectSwift = try FreObjectSwift.init(freObject: at(index: i))
-                    ret.append(elem.value)
-                }
-            } catch {
+    public var value: [Any?] {
+        var ret: [Any?] = []
+        do {
+            for i in 0..<length {
+                let elem: FreObjectSwift = try FreObjectSwift.init(freObject: at(index: i))
+                ret.append(elem.value)
             }
-            return ret
+        } catch {
         }
+        return ret
     }
 }
 
@@ -516,9 +533,9 @@ public extension FREArray {
     /// - returns: FREObject?
     subscript(index: UInt) -> FREObject? {
         get {
-            do{
+            do {
                 return try self.at(index: index)
-            }catch{}
+            } catch {}
             return nil
         }
     }
@@ -815,7 +832,7 @@ public extension String {
                 return nil
             }
             do {
-                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let rgb = try FreSwiftHelper.getAsUInt(rv)
                 let r = (rgb >> 16) & 0xFF
                 let g = (rgb >> 8) & 0xFF
                 let b = rgb & 0xFF
@@ -877,7 +894,7 @@ public extension String {
                 return nil
             }
             do {
-                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let rgb = try FreSwiftHelper.getAsUInt(rv)
                 let r = (rgb >> 16) & 0xFF
                 let g = (rgb >> 8) & 0xFF
                 let b = rgb & 0xFF
@@ -908,7 +925,7 @@ public extension String {
                 return nil
             }
             do {
-                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let rgb = try FreSwiftHelper.getAsUInt(rv)
                 let r = (rgb >> 16) & 0xFF
                 let g = (rgb >> 8) & 0xFF
                 let b = rgb & 0xFF
@@ -970,7 +987,7 @@ public extension String {
                 return nil
             }
             do {
-                let rgb = try FreSwiftHelper.getAsUInt(rv);
+                let rgb = try FreSwiftHelper.getAsUInt(rv)
                 let r = (rgb >> 16) & 0xFF
                 let g = (rgb >> 8) & 0xFF
                 let b = rgb & 0xFF
@@ -990,7 +1007,7 @@ public extension String {
         func toFREObjectARGB() -> FREObject? {
             var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
             if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
-                var colorAsUInt : UInt32 = 0
+                var colorAsUInt: UInt32 = 0
                 colorAsUInt += UInt32(alpha * 255.0) << 24
                     + UInt32(red * 255.0) << 16
                     + UInt32(green * 255.0) << 8
@@ -1006,7 +1023,7 @@ public extension String {
         func toFREObject() -> FREObject? {
             var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
             if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
-                var colorAsUInt : UInt32 = 0
+                var colorAsUInt: UInt32 = 0
                 colorAsUInt += UInt32(red * 255.0) << 16
                     + UInt32(green * 255.0) << 8
                     + UInt32(blue * 255.0)
@@ -1032,7 +1049,7 @@ public extension Dictionary where Key == String, Value == Any {
             return
         }
         do {
-            if let val: Dictionary<String, Any> = try FreSwiftHelper.getAsDictionary(rv) {
+            if let val: [String: Any] = try FreSwiftHelper.getAsDictionary(rv) {
                 self = val
             }
         } catch {
@@ -1056,7 +1073,7 @@ public extension Dictionary where Key == String, Value == AnyObject {
             return
         }
         do {
-            if let val: Dictionary<String, AnyObject> = try FreSwiftHelper.getAsDictionary(rv) {
+            if let val: [String: AnyObject] = try FreSwiftHelper.getAsDictionary(rv) {
                 self = val
             }
         } catch {
@@ -1080,7 +1097,7 @@ public extension Dictionary where Key == String, Value == NSObject {
             return
         }
         do {
-            if let val: Dictionary<String, NSObject> = try FreSwiftHelper.getAsDictionary(rv) {
+            if let val: [String: NSObject] = try FreSwiftHelper.getAsDictionary(rv) {
                 self = val
             }
         } catch {
@@ -1104,7 +1121,7 @@ public extension Array where Element == String {
             return
         }
         do {
-            if let val: Array<String> = try FreSwiftHelper.getAsArray(rv) {
+            if let val: [String] = try FreSwiftHelper.getAsArray(rv) {
                 self = val
             }
         } catch {
@@ -1137,7 +1154,7 @@ public extension Array where Element == Int {
             return
         }
         do {
-            if let val: Array<Int> = try FreSwiftHelper.getAsArray(rv) {
+            if let val: [Int] = try FreSwiftHelper.getAsArray(rv) {
                 self = val
             }
         } catch {
@@ -1170,7 +1187,7 @@ public extension Array where Element == Bool {
             return
         }
         do {
-            if let val: Array<Bool> = try FreSwiftHelper.getAsArray(rv) {
+            if let val: [Bool] = try FreSwiftHelper.getAsArray(rv) {
                 self = val
             }
         } catch {
@@ -1203,7 +1220,7 @@ public extension Array where Element == Double {
             return
         }
         do {
-            if let val: Array<Double> = try FreSwiftHelper.getAsArray(rv) {
+            if let val: [Double] = try FreSwiftHelper.getAsArray(rv) {
                 self = val
             }
         } catch {
@@ -1222,7 +1239,6 @@ public extension Array where Element == Double {
     }
 }
 
-
 public extension Array where Element == Any {
     /// init: Initialise a Array<Any> from a FREObject.
     ///
@@ -1237,7 +1253,7 @@ public extension Array where Element == Any {
             return
         }
         do {
-            if let val: Array<Any> = try FreSwiftHelper.getAsArray(rv) {
+            if let val: [Any] = try FreSwiftHelper.getAsArray(rv) {
                 self = val
             }
         } catch {
@@ -1255,5 +1271,3 @@ public extension Array where Element == Any {
         return nil
     }
 }
-
-
