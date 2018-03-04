@@ -1,7 +1,7 @@
-# iOS Swift ANE Starter Project  
+# tvOS Swift ANE Starter Project  
 
-Example Xcode project showing how to create Air Native Extensions for iOS using Swift.
-It supports iOS 9.0+
+Example Xcode project showing how to create Air Native Extensions for tvOS using Swift.   
+It supports tvOS 9.2+
 #### Xcode 9.1 must be used.
 
 The ANE is comprised of 3 parts.
@@ -55,7 +55,7 @@ func goBack(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
 From the command line cd into example/ and run:
 
 ````shell
-bash get_ios_dependencies.sh
+bash get_tvos_dependencies.sh
 `````
 
 
