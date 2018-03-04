@@ -8,10 +8,10 @@ It is not possible to mix Swift versions in the same app. Therefore all Swift ba
 ABI stability is planned for Swift 5 in late 2018
 
 This project is used as the basis for the following ANEs   
-[Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)     
-[AdMob ANE](https://github.com/tuarua/AdMob-ANE)
-[WebViewANE](https://github.com/tuarua/WebViewANE )
-[AR-ANE](https://github.com/tuarua/AR-ANE)
+[Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)       
+[AdMob ANE](https://github.com/tuarua/AdMob-ANE)   
+[WebViewANE](https://github.com/tuarua/WebViewANE)    
+[AR-ANE](https://github.com/tuarua/AR-ANE)     
 [ML-ANE](https://github.com/tuarua/ML-ANE)
 
 
