@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension xmlns="http://ns.adobe.com/air/extension/24.0">
+    <id>com.mycompany.HelloWorldANE</id>
+	<name>Hello World ANE</name>
+	<copyright>This work is licensed under Apache License, Copyright (c) 2017 Tua Rua Ltd.</copyright>
+	<versionNumber>0.0.1</versionNumber>
+    <platforms>
+     <platform name="appleTV-ARM">
+        <applicationDeployment>
+            <nativeLibrary>libHelloWorldANE.a</nativeLibrary>
+            <initializer>MCHWExtInizer</initializer>
+            <finalizer>MCHWExtFinizer</finalizer>
+        </applicationDeployment>
+    </platform>
+    </platforms>
+</extension>

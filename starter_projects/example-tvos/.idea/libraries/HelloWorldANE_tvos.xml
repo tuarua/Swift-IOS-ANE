@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="HelloWorldANE-tvos" type="flex">
+    <CLASSES>
+      <root url="jar://$DOCUMENTS$/Swift-IOS-ANE/starter_projects/native_extension/ane/HelloWorldANE-tvos.ane!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

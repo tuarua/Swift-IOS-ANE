@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension xmlns="http://ns.adobe.com/air/extension/19.0">
+	<id>com.tuarua.CommonDependencies</id>
+	<name>CommonDependencies</name>
+	<copyright>This work is licensed under Apache License, Copyright (c) 2018 Tua Rua Ltd.</copyright>
+	<versionNumber>2.3.0</versionNumber>
+	<platforms>
+	<platform name="MacOS-x86-64">
+		<applicationDeployment>
+			<nativeLibrary>FreSwift.framework</nativeLibrary>
+			<initializer>TRFRESExtInizer</initializer>
+			<finalizer>TRFRESExtFinizer</finalizer>
+		</applicationDeployment>
+	</platform>
+    <platform name="default">
+        <applicationDeployment/>
+    </platform>
+	</platforms>
+</extension>

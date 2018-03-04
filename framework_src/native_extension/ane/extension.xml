@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension xmlns="http://ns.adobe.com/air/extension/24.0">
+	<id>com.tuarua.FreSwiftExampleANE</id>
+	<name>FreSwift Example ANE</name>
+	<copyright>This work is licensed under MIT License, Copyright (c) 2018 Tua Rua Ltd.</copyright>
+	<versionNumber>0.1.0</versionNumber>
+	<platforms>
+	<platform name="iPhone-x86">
+		<applicationDeployment>
+			<nativeLibrary>libFreSwiftExampleANE.a</nativeLibrary>
+			<initializer>TRFSAExtInizer</initializer>
+			<finalizer>TRFSAExtFinizer</finalizer>
+		</applicationDeployment>
+	</platform>
+    <platform name="iPhone-ARM">
+        <applicationDeployment>
+            <nativeLibrary>libFreSwiftExampleANE.a</nativeLibrary>
+            <initializer>TRFSAExtInizer</initializer>
+            <finalizer>TRFSAExtFinizer</finalizer>
+        </applicationDeployment>
+    </platform>
+    <platform name="appleTV-ARM">
+        <applicationDeployment>
+            <nativeLibrary>libFreSwiftExampleANE.a</nativeLibrary>
+            <initializer>TRFSAExtInizer</initializer>
+            <finalizer>TRFSAExtFinizer</finalizer>
+        </applicationDeployment>
+    </platform>
+    <platform name="MacOS-x86-64">
+        <applicationDeployment>
+            <nativeLibrary>FreSwiftExampleANE.framework</nativeLibrary>
+            <initializer>TRFSAExtInizer</initializer>
+            <finalizer>TRFSAExtFinizer</finalizer>
+        </applicationDeployment>
+    </platform>
+    
+    <!--
+    <platform name="default">
+        <applicationDeployment/>
+    </platform>
+     -->
+	</platforms>
+</extension>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension xmlns="http://ns.adobe.com/air/extension/19.0">
+	<id>com.mycompany.HelloWorldANE</id>
+	<name>Hello World ANE</name>
+	<copyright></copyright>
+	<versionNumber>0.0.1</versionNumber>
+	<platforms>
+	<platform name="MacOS-x86-64">
+		<applicationDeployment>
+			<nativeLibrary>HelloWorldANE.framework</nativeLibrary>
+			<initializer>MCHWExtInizer</initializer>
+			<finalizer>MCHWExtFinizer</finalizer>
+		</applicationDeployment>
+	</platform>
+	</platforms>
+</extension>

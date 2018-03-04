@@ -1,12 +1,6 @@
-# Swift iOS ANE  
+# FreSwift
 
-This folder contains the full source for FreSwift and an extensive test bed.   
+### DANGER ZONE
 
-
-### Prerequisites
-
-You will need
-
-- Xcode 9.1 / AppCode
-- IntelliJ IDEA
-- AIR 28
+This folder contains the full source for FreSwift and an extensive test bed.
+This is for advanced users only.

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="Flex" version="4">
+  <component name="FlexBuildConfigurationManager" active="tvOS Device">
+    <configurations>
+      <configuration name="tvOS Device" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/bin-release">
+        <dependencies target-player="27.0">
+          <entries>
+            <entry library-name="HelloWorldANE-tvos" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+          </entries>
+          <sdk name="AIRSDK_28" />
+        </dependencies>
+        <compiler-options />
+        <packaging-air-desktop />
+        <packaging-android package-file-name="Main" />
+        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app.xml" package-file-name="Main">
+          <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/tvos_dependencies/device" path-in-package="." />
+          </files-to-package>
+          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2018/dev/tua_rua_dev_2018.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2018/dev/TuaRua_tvOS_Dev.mobileprovision" />
+        </packaging-ios>
+      </configuration>
+    </configurations>
+    <compiler-options />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="AIRSDK_28" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="HelloWorldANE" level="project" />
+    <orderEntry type="library" exported="" name="HelloWorldANE-ios" level="project" />
+    <orderEntry type="library" exported="" name="HelloWorldANE-tvos" level="project" />
+  </component>
+</module>
