@@ -1,6 +1,6 @@
-# Swift OSX ANE Starter Project
+# OSX Swift ANE Starter Project
 
-Example Xcode project showing how to create Air Native Extensions for OSX using Swift.
+Example Xcode project showing how to create Air Native Extensions for OSX using Swift.    
 It supports OSX 10.10+
 
 #### Xcode 9.1 (9B55) must be used with Apple Swift version 4.0.2 (swiftlang-900.0.69.2 clang-900.0.38)
