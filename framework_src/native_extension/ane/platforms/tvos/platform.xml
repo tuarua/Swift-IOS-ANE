@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<platform xmlns="http://ns.adobe.com/air/extension/24.0">
+    <sdkVersion>11.1</sdkVersion>
+    <linkerOptions>
+        <option>-w</option>
+        <option>-ObjC</option>
+        <option>-rpath @executable_path/Frameworks</option>
+    </linkerOptions>
+    
+    <packagedDependencies>
+        <packagedDependency>Frameworks/FreSwift.framework</packagedDependency>
+        <packagedDependency>Frameworks/FreSwiftExampleANE_FW.framework</packagedDependency>
+    </packagedDependencies>
+    
+   </platform>

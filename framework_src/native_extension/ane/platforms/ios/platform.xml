@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<platform xmlns="http://ns.adobe.com/air/extension/19.0">
+<platform xmlns="http://ns.adobe.com/air/extension/24.0">
     <sdkVersion>11.1</sdkVersion>
     <linkerOptions>
         <option>-ios_version_min 9.0</option>
@@ -10,8 +10,8 @@
     </linkerOptions>
     
     <packagedDependencies>
-<packagedDependency>Frameworks/FreSwift.framework</packagedDependency>
-<packagedDependency>Frameworks/SwiftIOSANE_FW.framework</packagedDependency>
+        <packagedDependency>Frameworks/FreSwift.framework</packagedDependency>
+        <packagedDependency>Frameworks/FreSwiftExampleANE_FW.framework</packagedDependency>
     </packagedDependencies>
     
    </platform>

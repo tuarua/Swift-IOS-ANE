@@ -1,3 +1,8 @@
+### 2.3.0
+- SwiftLint
+- added tvOS support
+- Merge OSX, iOS, tvOS into same project
+
 ### 2.2.0
 - Added UIColor.toFREObject() 
 - Improved performance for Number,Int conversion

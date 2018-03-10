@@ -1,12 +1,25 @@
 /*
- * Copyright Tua Rua Ltd. (c) 2017.
+ * Copyright 2018 Tua Rua Ltd.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
  */
 
 package com.tuarua.fre {
 import flash.utils.describeType;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
-
+/** @private */
 public class ANEUtils {
     public function ANEUtils() {
     }
@@ -21,6 +34,20 @@ public class ANEUtils {
 
     public static function getClassProps(clz:*):Vector.<Object> {
         var ret:Vector.<Object> = new <Object>[];
+        var isObject:Boolean = false;
+        for (var id:String in clz) {
+            var objc:Object = {};
+            objc.name = id;
+            if (clz.hasOwnProperty(id)) {
+                objc.type = getClassType(clz[id]);
+                objc.cls = objc.type == "*" ? null : getClass(Class(getDefinitionByName(objc.type)));
+                ret.push(objc);
+                isObject = true;
+            }
+        }
+        if (isObject) {
+            return ret;
+        }
         var xml:XML = describeType(clz);
         if (xml.variable && xml.variable.length() > 0) {
             for each (var prop:XML in xml.variable) {
@@ -29,7 +56,6 @@ public class ANEUtils {
                 obj.type = prop.@type.toString();
                 obj.cls = obj.type == "*" ? null : getClass(Class(getDefinitionByName(obj.type)));
                 ret.push(obj);
-                //trace(obj.name, obj.type);
             }
         } else if (xml.factory && xml.factory.variable && xml.factory.variable.length() > 0) {
             for each (var propb:XML in xml.factory.variable) {
@@ -38,20 +64,6 @@ public class ANEUtils {
                 objb.type = propb.@type.toString();
                 objb.cls = objb.type == "*" ? null : getClass(Class(getDefinitionByName(objb.type)));
                 ret.push(objb);
-                //trace(objb.name, objb.type);
-            }
-        } else {
-            for (var id:String in clz) {
-                var objc:Object = {};
-                objc.name = id;
-                if (clz.hasOwnProperty(id)) {
-                    objc.type = getClassType(clz[id]);
-                    objc.cls = objc.type == "*" ? null : getClass(Class(getDefinitionByName(objc.type)));
-                    //objc.cls = getClass(Class(getDefinitionByName(objc.type)));
-                    //trace(objc.name, objc.type);
-                    ret.push(objc);
-                }
-
             }
         }
         return ret;
@@ -67,7 +79,6 @@ public class ANEUtils {
                 obj.type = prop.@type.toString();
                 obj.cls = obj.type == "*" ? null : getClass(Class(getDefinitionByName(obj.type)));
                 ret.push(obj);
-                //trace(obj.name, obj.type);
             }
         } else if (xml.factory && xml.factory.variable && xml.factory.variable.length() > 0) {
             for each (var propb:XML in xml.factory.variable) {
@@ -76,7 +87,6 @@ public class ANEUtils {
                 objb.type = propb.@type.toString();
                 objb.cls = objb.type == "*" ? null : getClass(Class(getDefinitionByName(objb.type)));
                 ret.push(objb);
-                //trace(objb.name, objb.type);
             }
         } else {
             for (var id:String in clz) {
@@ -85,8 +95,6 @@ public class ANEUtils {
                 if (clz.hasOwnProperty(id)) {
                     objc.type = getClassType(clz[id]);
                     objc.cls = objc.type == "*" ? null : getClass(Class(getDefinitionByName(objc.type)));
-                    //objc.cls = getClass(Class(getDefinitionByName(objc.type)));
-                    //trace(objc.name, objc.type);
                     ret.push(objc);
                 }
 
@@ -128,7 +136,6 @@ public class ANEUtils {
                     classInstance[name] = new Date(Date.parse(from[name]));
                     break;
                 default: //Object or Class
-                    //trace("we want to convert " + name + " into", propCls);
                     classInstance[name] = (propCls == null) ? from[name] : map(from[name], getPropClass(name, to));
                     break;
             }

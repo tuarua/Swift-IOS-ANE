@@ -1,16 +1,18 @@
-# Swift iOS ANE  
+# FreSwift
 
-Example Xcode project showing how to create Air Native Extensions for iOS using Swift.
-It supports iOS 9.0+
+Example Xcode projects showing how to create AIR Native Extensions for iOS, tvOS & OSX using Swift.   
+It supports iOS 9.0+, tvOS 9.2+, OSX 10.10+
 
 #### Xcode 9.1 (9B55) must be used with Apple Swift version 4.0.2 (swiftlang-900.0.69.2 clang-900.0.38)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 ABI stability is planned for Swift 5 in late 2018
 
 This project is used as the basis for the following ANEs   
-[Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
-[AdMob ANE](https://github.com/tuarua/AdMob-ANE)  
-[WebViewANE](https://github.com/tuarua/WebViewANE )   
+[Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)       
+[AdMob ANE](https://github.com/tuarua/AdMob-ANE)   
+[WebViewANE](https://github.com/tuarua/WebViewANE)    
+[AR-ANE](https://github.com/tuarua/AR-ANE)     
+[ML-ANE](https://github.com/tuarua/ML-ANE)
 
 
 -------------
@@ -19,11 +21,9 @@ This project is used as the basis for the following ANEs
 
 ### Getting Started
 
-A basic Hello World [starter project](/starter_project) is included 
+A basic Hello World [starter project](/starter_projects) is included for each target
 
-A walkthrough video is available on [Youtube](https://www.youtube.com/watch?v=pjZPzo1A6Ro)
-
-A video showing how to create an ANE using CoreML is also available on [Youtube](https://www.youtube.com/watch?v=tSr0GbQdZDk)
+An iOS based walkthrough video is available on [Youtube](https://www.youtube.com/watch?v=pjZPzo1A6Ro)
 
 ### How to use
 
@@ -106,7 +106,7 @@ do {
 } catch {}
 `````
 
-Example - Convert BitmapData to a UIImage and add to native view
+Example - Convert BitmapData to a UIImage and add to native view (iOS tvOS)
 
 ````swift
 if let img = UIImage.init(freObject: argv[0]) {
@@ -151,15 +151,7 @@ NotificationCenter.default.addObserver(self,
 ----------
 
 ### Required AS3 classes
-com.tuarua.fre.ANEUtils.as and com.tuarua.fre.ANEError.as are required by FreSwift and should be included in the AS3 library of your ANE 
-
-### Running on Simulator
-
-The example project can be run on the Simulator from IntelliJ using AIR 28.
-
-### Running on Device
-
-The example project can be run on the device from IntelliJ using AIR 28.
+com.tuarua.fre.ANEUtils.as and com.tuarua.fre.ANEError.as are required by FreSwift and should be included in the AS3 library of your ANE
 
 
 ### Prerequisites
@@ -169,3 +161,4 @@ You will need
 - Xcode 9.1 / AppCode
 - IntelliJ IDEA
 - AIR 28
+- wget
