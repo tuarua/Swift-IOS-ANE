@@ -13,9 +13,10 @@
  limitations under the License.*/
 
 #import "FreMacros.h"
-#import "FreSwiftExampleANE_LIB.h"
-#import <FreSwiftExampleANE_FW/FreSwiftExampleANE_FW.h>
+#import "FreSwiftExampleANE_oc.h"
 
+#if defined(IOS) || defined(TVOS)
+#import <FreSwiftExampleANE_FW/FreSwiftExampleANE_FW.h>
 #define FRE_OBJC_BRIDGE TRFSA_FlashRuntimeExtensionsBridge // use unique prefix throughout to prevent clashes with other ANEs
 @interface FRE_OBJC_BRIDGE : NSObject<FreSwiftBridgeProtocol>
 @end
@@ -23,6 +24,9 @@
 }
 FRE_OBJC_BRIDGE_FUNCS
 @end
+#else
+#import <FreSwiftExampleANE/FreSwiftExampleANE-Swift.h>
+#endif
 
 @implementation FreSwiftExampleANE_LIB
 SWIFT_DECL(TRFSA) // use unique prefix throughout to prevent clashes with other ANEs
@@ -33,10 +37,10 @@ CONTEXT_INIT(TRFSA) {
     /**************************************************************************/
     /******* MAKE SURE TO ADD FUNCTIONS HERE THE SAME AS SWIFT CONTROLLER *****/
     /**************************************************************************/
-    
+
     static FRENamedFunction extensionFunctions[] =
     {
-        MAP_FUNCTION(TRFSA, runStringTests)
+         MAP_FUNCTION(TRFSA, runStringTests)
         ,MAP_FUNCTION(TRFSA, runNumberTests)
         ,MAP_FUNCTION(TRFSA, runIntTests)
         ,MAP_FUNCTION(TRFSA, runArrayTests)
@@ -50,8 +54,6 @@ CONTEXT_INIT(TRFSA) {
         ,MAP_FUNCTION(TRFSA, runDateTests)
     };
     
-    
-    
     /**************************************************************************/
     /**************************************************************************/
     
@@ -62,11 +64,12 @@ CONTEXT_INIT(TRFSA) {
 CONTEXT_FIN(TRFSA) {
     [TRFSA_swft dispose];
     TRFSA_swft = nil;
+#if defined(IOS) || defined(TVOS)
     TRFSA_freBridge = nil;
     TRFSA_swftBridge = nil;
+#endif
     TRFSA_funcArray = nil;
 }
 EXTENSION_INIT(TRFSA)
 EXTENSION_FIN(TRFSA)
 @end
-

@@ -13,6 +13,19 @@
  limitations under the License.*/
 
 #import <Foundation/Foundation.h>
+#if defined(IOS) || defined(TVOS)
 #import <UIKit/UIKit.h>
-@interface FreSwiftExampleANE_LIB : NSObject
-@end
+#endif
+
+//! Project version number for FreSwiftExampleANE_FW.
+FOUNDATION_EXPORT double FreSwiftExampleANE_FWVersionNumber;
+
+//! Project version string for FreSwiftExampleANE_FW.
+FOUNDATION_EXPORT const unsigned char FreSwiftExampleANE_FWVersionString[];
+
+
+// In this header, you should import all the public headers of your framework using statements like #import <FreSwiftExampleANE_FW/PublicHeader.h>
+
+#import <FreSwift/FlashRuntimeExtensions.h>
+#import <FreSwift/FreSwift.h>
+
