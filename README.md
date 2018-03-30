@@ -158,7 +158,8 @@ com.tuarua.fre.ANEUtils.as and com.tuarua.fre.ANEError.as are required by FreSwi
 
 You will need
 
-- Xcode 9.3 / AppCode
+- Xcode 9.3
+- Xcode 9.1 for iOS Simulator
 - IntelliJ IDEA
 - AIR 29
 - wget
