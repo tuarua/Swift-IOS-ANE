@@ -1,3 +1,8 @@
+### 2.4.0
+- Upgraded to Xcode 9.3
+- Upgraded to Swift version 4.1 (swiftlang-902.0.48 clang-902.0.37.1)
+- Upgraded to AIR SDK 29
+
 ### 2.3.0
 - SwiftLint
 - added tvOS support
