@@ -245,6 +245,13 @@ done
 rm -r "$pathtome/platforms/tvos/device/Frameworks/$PROJECTNAME$fwSuffix.framework/Frameworks"
 fi
 
+if [ -f "$pathtome/../../example-tvos/tvos_dependencies/device/Frameworks/$PROJECTNAME$fwSuffix.framework/libswiftRemoteMirror.dylib" ]; then
+rm "$pathtome/../../example-tvos/tvos_dependencies/device/Frameworks/$PROJECTNAME$fwSuffix.framework/libswiftRemoteMirror.dylib"
+fi
+if [ -f "$pathtome/platforms/tvos/device/Frameworks/$PROJECTNAME$fwSuffix.framework/libswiftRemoteMirror.dylib" ]; then
+rm "$pathtome/platforms/tvos/device/Frameworks/$PROJECTNAME$fwSuffix.framework/libswiftRemoteMirror.dylib"
+fi
+
 cp -R -L "$pathtome/platforms/tvos/device/Frameworks/FreSwift.framework" "$pathtome/../../example-tvos/tvos_dependencies/device/Frameworks"
 cp -R -L "$pathtome/platforms/tvos/device/Frameworks/$PROJECTNAME$fwSuffix.framework" "$pathtome/../../example-tvos/tvos_dependencies/device/Frameworks"
 
