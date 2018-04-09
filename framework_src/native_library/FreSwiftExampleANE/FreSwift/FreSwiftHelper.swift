@@ -354,6 +354,20 @@ public class FreSwiftHelper {
         }
         return ret
     }
+    
+    static func getAsArray(_ rawValue: FREObject) throws -> [UInt]? {
+        var ret = [UInt]()
+        let array: FREArray = FREArray.init(rawValue)
+        let arrayLength = array.length
+        for i in 0..<arrayLength {
+            if let elem: FREObject = try array.at(index: i) {
+                if let v: UInt = UInt(elem) {
+                    ret.append(v)
+                }
+            }
+        }
+        return ret
+    }
 
     static func getAsArray(_ rawValue: FREObject) throws -> [Bool]? {
         var ret = [Bool]()

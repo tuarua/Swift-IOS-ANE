@@ -32,6 +32,8 @@ public class Main extends Sprite {
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
 
         trace(Capabilities.screenResolutionX + "x" + Capabilities.screenResolutionY );
+        trace("Capabilities.version:", Capabilities.version, Capabilities.os);
+
 
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();

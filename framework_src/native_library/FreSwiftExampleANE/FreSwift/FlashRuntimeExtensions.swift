@@ -382,6 +382,19 @@ public class FREArray: NSObject {
         }
     }
     
+    /// init: Initialise a FREArray with a Array<UInt>.
+    ///
+    /// - parameter intArray: array to be converted
+    /// - throws: Can throw a `FreError` on fail
+    public init(uintArray: [UInt]) throws {
+        super.init()
+        rawValue = try FreSwiftHelper.newObject(className: "Array")
+        let count = uintArray.count
+        for i in 0..<count {
+            try set(index: UInt(i), object: FreObjectSwift.init(uint: uintArray[i]))
+        }
+    }
+    
     /// init: Initialise a FREArray with a Array<String>.
     ///
     /// - parameter stringArray: array to be converted
@@ -1173,6 +1186,39 @@ public extension Array where Element == Int {
     }
 }
 
+public extension Array where Element == UInt {
+    /// init: Initialise a Array<UInt> from a FREObject.
+    ///
+    /// ```swift
+    /// let array = Array<UInt>.init(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Vector.<UInt>
+    /// - returns: Array<UInt>?
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        do {
+            if let val: [UInt] = try FreSwiftHelper.getAsArray(rv) {
+                self = val
+            }
+        } catch {
+            return
+        }
+    }
+    /// toFREObject: Converts an Int Array into a FREObject of AS3 type Vector.<int>.
+    ///
+    /// - returns: FREObject
+    func toFREObject() -> FREObject? {
+        do {
+            return try FREArray.init(uintArray: self).rawValue
+        } catch {
+        }
+        return nil
+    }
+}
+
 public extension Array where Element == Bool {
     /// init: Initialise a Array<Bool> from a FREObject.
     ///
@@ -1271,15 +1317,3 @@ public extension Array where Element == Any {
         return nil
     }
 }
-
-#if os(OSX)
-// compiles for OS X
-#elseif os(iOS)
-// compiles for iOS
-#elseif os(tvOS)
-// compiles for TV OS
-#endif
-
-#if os(iOS) || os(tvOS)
-// compiles for iOS or TV OS
-#endif
