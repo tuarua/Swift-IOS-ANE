@@ -24,7 +24,7 @@ import flash.utils.ByteArray;
 [SWF(width="1920", height="1080", frameRate="60", backgroundColor="#F1F1F1")]
 public class Main extends Sprite {
     private var ane:FreSwiftExampleANE = new FreSwiftExampleANE();
-
+    public static const isTvos:Boolean = Capabilities.os.toLowerCase().indexOf("tvos") > -1;
     public function Main() {
         super();
         stage.align = StageAlign.TOP_LEFT;
@@ -32,7 +32,7 @@ public class Main extends Sprite {
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
 
         trace(Capabilities.screenResolutionX + "x" + Capabilities.screenResolutionY );
-        trace("Capabilities.version:", Capabilities.version, Capabilities.os);
+        trace("isTvos:", isTvos);
 
 
         var textField:TextField = new TextField();
