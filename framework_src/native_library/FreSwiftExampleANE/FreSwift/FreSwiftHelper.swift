@@ -83,7 +83,7 @@ public class FreSwiftHelper {
             throw FreError(stackTrace: "", message: "cannot get FREObject as Bool", type: getErrorCode(status),
               line: #line, column: #column, file: #file)
         }
-        ret = val == 1 ? true : false
+        ret = val == 1
         return ret
     }
 
@@ -140,7 +140,6 @@ public class FreSwiftHelper {
 
     static func getAsId(_ rawValue: FREObject) throws -> Any? {
         let objectType: FreObjectTypeSwift = getType(rawValue)
-
         //Swift.debugPrint("getAsId is of type ", objectType)
         switch objectType {
         case .int:
@@ -156,22 +155,21 @@ public class FreSwiftHelper {
         case .number:
             return try getAsDouble(rawValue)
         case .bitmapdata: //TODO
-            break
+            return try FreBitmapDataSwift.init(freObject: rawValue).asCGImage()
         case .bytearray:
             let asByteArray = FreByteArraySwift.init(freByteArray: rawValue)
             let byteData = asByteArray.value
-            asByteArray.releaseBytes() //don't forget to release
+            asByteArray.releaseBytes()
             return byteData
         case .point:
-            return nil
+            return CGPoint(rawValue)
         case .rectangle:
-            return nil
+            return CGRect(rawValue)
         case .date:
             return try getAsDate(rawValue)
         case .null:
             return nil
         }
-        return nil
     }
 
 #if os(OSX)

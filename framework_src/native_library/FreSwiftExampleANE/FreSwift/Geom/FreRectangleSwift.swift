@@ -13,7 +13,7 @@
  limitations under the License.*/
 
 import Foundation
-#if os(OSX)
+#if canImport(Cocoa)
     import Cocoa
 #endif
 /// :nodoc:
@@ -26,10 +26,10 @@ public class FreRectangleSwift: FreObjectSwift {
         var freObject: FREObject? = nil
         do {
             freObject = try FREObject.init(className: "flash.geom.Rectangle",
-                                           args: CGFloat.init(value.origin.x),
-                                           CGFloat.init(value.origin.y),
-                                           CGFloat.init(value.width),
-                                           CGFloat.init(value.height))
+                                           args: CGFloat(value.origin.x),
+                                           CGFloat(value.origin.y),
+                                           CGFloat(value.width),
+                                           CGFloat(value.height))
             
         } catch {
         }
@@ -39,7 +39,7 @@ public class FreRectangleSwift: FreObjectSwift {
     
     override public var value: Any? {
         if let rv = rawValue {
-            let idRes = CGRect.init(rv) as Any?
+            let idRes = CGRect(rv) as Any?
             return idRes
         }
         return nil
@@ -51,7 +51,7 @@ public extension CGRect {
     /// init: Initialise a CGRect from a FREObject.
     ///
     /// ```swift
-    /// let rect = CGRect.init(argv[0])
+    /// let rect = CGRect(argv[0])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type flash.geom.Rectangle.
     /// - returns: CGRect?
@@ -59,31 +59,15 @@ public extension CGRect {
         guard let rv = freObject else {
             return nil
         }
-        var x: CGFloat = CGFloat.init(0)
-        var y: CGFloat = CGFloat.init(0)
-        var w: CGFloat = CGFloat.init(0)
-        var h: CGFloat = CGFloat.init(0)
-        do {
-            if let rvX = try FreSwiftHelper.getProperty(rawValue: rv, name: "x"), let xVal = CGFloat.init(rvX) {
-                x = xVal
-            }
-            if let rvY = try FreSwiftHelper.getProperty(rawValue: rv, name: "y"), let yVal = CGFloat.init(rvY) {
-                y = yVal
-            }
-            if let rvW = try FreSwiftHelper.getProperty(rawValue: rv, name: "width"), let wVal = CGFloat.init(rvW) {
-                w = wVal
-            }
-            if let rvH = try FreSwiftHelper.getProperty(rawValue: rv, name: "height"), let hVal = CGFloat.init(rvH) {
-                h = hVal
-            }
-        } catch {
-        }
-        self.init(x: x, y: y, width: w, height: h)
+        self.init(x: CGFloat(rv["x"]) ?? 0,
+                  y: CGFloat(rv["y"]) ?? 0,
+                  width: CGFloat(rv["width"]) ?? 0,
+                  height: CGFloat(rv["height"]) ?? 0)
     }
     /// toFREObject: Converts a CGRect into a FREObject of AS3 type flash.geom.Rectangle.
     ///
     /// ```swift
-    /// let fre = CGRect.init().toFREObject()
+    /// let fre = CGRect().toFREObject()
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {

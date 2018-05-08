@@ -74,6 +74,12 @@
 		CE6B22F1204B56E300964288 /* FreSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6B22AA204B330200964288 /* FreSwift.framework */; };
 		CE6B22F2204B56F200964288 /* FreSwiftExampleANE_FW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6B22E1204B527300964288 /* FreSwiftExampleANE_FW.framework */; };
 		CE6B22F8204B575700964288 /* FreMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = CE60CCCE1F63EB2D004B1BE7 /* FreMacros.h */; };
+		CEA1A9FF208556A70051A949 /* FREArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1A9FE208556A70051A949 /* FREArray.swift */; };
+		CEA1AA00208556A70051A949 /* FREArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1A9FE208556A70051A949 /* FREArray.swift */; };
+		CEA1AA01208556A70051A949 /* FREArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1A9FE208556A70051A949 /* FREArray.swift */; };
+		CEA1AA03208558360051A949 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1AA02208558360051A949 /* Logger.swift */; };
+		CEA1AA04208558360051A949 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1AA02208558360051A949 /* Logger.swift */; };
+		CEA1AA05208558360051A949 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA1AA02208558360051A949 /* Logger.swift */; };
 		CECEED2E2053F2390056A0D0 /* FreSwiftExampleANE_oc.h in Headers */ = {isa = PBXBuildFile; fileRef = 285FEBB3CADF8D704FAB5E4D /* FreSwiftExampleANE_oc.h */; };
 		CECEED2F2053F2C40056A0D0 /* FreSwiftExampleANE_oc.h in Headers */ = {isa = PBXBuildFile; fileRef = 285FEBB3CADF8D704FAB5E4D /* FreSwiftExampleANE_oc.h */; };
 		CECEED302053F3CB0056A0D0 /* FreSwiftExampleANE.m in Sources */ = {isa = PBXBuildFile; fileRef = 285FE6D7F3D6356FA03A26C0 /* FreSwiftExampleANE.m */; };
@@ -172,6 +178,8 @@
 		CE6B22AA204B330200964288 /* FreSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FreSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6B22D3204B50AB00964288 /* libFreSwiftExampleANE_LIB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFreSwiftExampleANE_LIB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6B22E1204B527300964288 /* FreSwiftExampleANE_FW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FreSwiftExampleANE_FW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA1A9FE208556A70051A949 /* FREArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FREArray.swift; sourceTree = "<group>"; };
+		CEA1AA02208558360051A949 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +275,8 @@
 				CE3551DF1E7F1C07009375A7 /* Headers */,
 				CE3551D31E7F1BF1009375A7 /* FlashRuntimeExtensions.swift */,
 				CE3551D71E7F1BF1009375A7 /* FreSwiftBridge.swift */,
+				CEA1A9FE208556A70051A949 /* FREArray.swift */,
+				CEA1AA02208558360051A949 /* Logger.swift */,
 			);
 			path = FreSwift;
 			sourceTree = "<group>";
@@ -719,14 +729,14 @@
 		};
 		CE6B22B2204B343E00964288 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
@@ -786,7 +796,9 @@
 				CE0C5E56204ADCBA00C9F987 /* FreSwiftHelper.swift in Sources */,
 				CE0C5E55204ADCA900C9F987 /* FlashRuntimeExtensions.swift in Sources */,
 				CE0C5E53204ADC9D00C9F987 /* FrePointSwift.swift in Sources */,
+				CEA1AA04208558360051A949 /* Logger.swift in Sources */,
 				CE0C5E54204ADC9D00C9F987 /* FreRectangleSwift.swift in Sources */,
+				CEA1AA00208556A70051A949 /* FREArray.swift in Sources */,
 				CE0C5E4B204ADC2300C9F987 /* FreSwift.swift in Sources */,
 				CE0C5E49204ADC0F00C9F987 /* FreSwift.m in Sources */,
 			);
@@ -806,6 +818,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA1A9FF208556A70051A949 /* FREArray.swift in Sources */,
 				CE164B1D1F6C501E00035B1E /* FreObjectTypeSwift.swift in Sources */,
 				CE164B1F1F6C501E00035B1E /* FreError.swift in Sources */,
 				CE164B191F6C501E00035B1E /* FreBitmapDataSwift.swift in Sources */,
@@ -816,6 +829,7 @@
 				CE164B201F6C501E00035B1E /* FreContextSwift.swift in Sources */,
 				CE164B1A1F6C501E00035B1E /* FreByteArraySwift.swift in Sources */,
 				CE164B1B1F6C501E00035B1E /* FreObjectSwift.swift in Sources */,
+				CEA1AA03208558360051A949 /* Logger.swift in Sources */,
 				CE2E1B391F159CF8001B36BA /* FrePointSwift.swift in Sources */,
 				CE3551D91E7F1BF1009375A7 /* FlashRuntimeExtensions.swift in Sources */,
 			);
@@ -842,6 +856,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA1AA01208556A70051A949 /* FREArray.swift in Sources */,
 				CE6B22C0204B35AB00964288 /* FlashRuntimeExtensions.swift in Sources */,
 				CE6B22C1204B35AB00964288 /* FreSwiftBridge.swift in Sources */,
 				CE6B22B6204B359A00964288 /* FreBitmapDataSwift.swift in Sources */,
@@ -852,6 +867,7 @@
 				CE6B22BB204B359A00964288 /* FreSwiftHelper.swift in Sources */,
 				CE6B22BC204B359A00964288 /* FreError.swift in Sources */,
 				CE6B22BD204B359A00964288 /* FreContextSwift.swift in Sources */,
+				CEA1AA05208558360051A949 /* Logger.swift in Sources */,
 				CE6B22BE204B359A00964288 /* FrePointSwift.swift in Sources */,
 				CE6B22BF204B359A00964288 /* FreRectangleSwift.swift in Sources */,
 			);

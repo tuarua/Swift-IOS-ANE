@@ -47,8 +47,12 @@ open class FreObjectSwift: NSObject {
         rawValue = try FreSwiftHelper.newObject(date)
     }
 
+    public init(float: Float) throws {
+        rawValue = try FreSwiftHelper.newObject(Double(float))
+    }
+    
     public init(cgFloat: CGFloat) throws {
-        rawValue = try FreSwiftHelper.newObject(Double(cgFloat))
+        rawValue = try FreSwiftHelper.newObject(cgFloat)
     }
 
     public init(int: Int) throws {
@@ -89,6 +93,8 @@ open class FreObjectSwift: NSObject {
             return try FreSwiftHelper.newObject(v)
         } else if any is CGFloat, let v = any as? CGFloat {
             return try FreSwiftHelper.newObject(v)
+        } else if any is Float, let v = any as? Float {
+            return try FreSwiftHelper.newObject(Double(v))
         } else if any is Bool, let v = any as? Bool {
             return try FreSwiftHelper.newObject(v)
         } else if any is Date, let v = any as? Date {
