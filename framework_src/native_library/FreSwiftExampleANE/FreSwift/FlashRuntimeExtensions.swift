@@ -321,10 +321,11 @@ public extension FREObject {
         return FreSwiftHelper.getType(self)
     }
     
-    /// accessor: returns the Property of a FREObject. Shorthand for `getProp`
+    /// accessor: sets/gets the Property of a FREObject. Shorthand for `setProp` and `getProp`
     ///
     /// ```swift
     /// let myName = argv[0]["name"]
+    /// argv[0]["name"] = "New Name".toFREOject()
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: FREObject?
@@ -334,6 +335,11 @@ public extension FREObject {
                 return ret
             }
             return nil
+        }
+        set {
+            do {
+                try self.setProp(name: name, value: newValue)
+            } catch { }
         }
     }
     

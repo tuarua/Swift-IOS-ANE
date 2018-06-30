@@ -1,6 +1,7 @@
 ### 2.5.0
 - Added subscript setter for FREArray i.e. myFreArray[0] = myFREObject
 - Added iterator for FREArray i.e. for freObject in myFreArray { }
+- Added subscript for setProp i.e. myFreObject["propName"] = myFREObject
 
 ### 2.4.0
 - Upgraded to Xcode 9.3

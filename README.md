@@ -43,7 +43,7 @@ The following table shows the primitive as3 types which can easily be converted 
 | Point | CGPoint | `let pnt = CGPoint(argv[0])` | `return pnt.toFREObject()` |
 | Vector int | [Int] | `let a = [Int](argv[0])` | `return a.toFREObject()`|
 | Vector Boolean | [Bool] | `let a = [Bool](argv[0])` | `return a.toFREObject()`|
-| Vector Number | [Double]> | `let a = [Double](argv[0])` | `return a.toFREObject()`|
+| Vector Number | [Double] | `let a = [Double](argv[0])` | `return a.toFREObject()`|
 | Vector String | [String] | `let a = [String](argv[0])` | `return a.toFREObject()`|
 | Object | [String, Any]? | `let dct = Dictionary.init(argv[0])` | N/A |
 
@@ -97,13 +97,10 @@ Example - Reading items in array
 
 ````swift
 let airArray: FREArray = FREArray(argv[0])
-do {
-    if let itemZero = Int(airArray[0]) {
-        trace("AIR Array elem at 0 type:", "value:", itemZero)
-        try airArray.set(index: 0, value: 56)
-        return airArray.rawValue
-    }
-} catch {}
+for fre in airArray {
+    trace("iterate over FREArray", Int(fre) ?? "unknown")
+}
+airArray[0] = 123.toFREObject()
 `````
 
 Example - Convert BitmapData to a UIImage and add to native view (iOS tvOS)

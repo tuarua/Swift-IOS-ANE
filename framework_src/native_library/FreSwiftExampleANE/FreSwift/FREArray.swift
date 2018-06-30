@@ -240,9 +240,9 @@ public extension FREArray {
     /// - returns: FREObject?
     subscript(index: UInt) -> FREObject? {
         get {
-            do {
-                return try self.at(index: index)
-            } catch { }
+            if let ret = try? self.at(index: index) {
+                return ret
+            }
             return nil
         }
         set {
