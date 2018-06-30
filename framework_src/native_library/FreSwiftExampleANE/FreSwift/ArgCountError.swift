@@ -14,6 +14,7 @@
 
 import Foundation
 /// ArgCountError: Extension for FreError.
+@available(*, unavailable, renamed: "FreArgError")
 public class ArgCountError: FreError {
     /// init: inits ArgCountError.
     /// - parameter message: String

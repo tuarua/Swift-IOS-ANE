@@ -188,7 +188,6 @@ public extension FreSwiftController {
             do {
                 try context.dispatchStatusEventAsync(code: value, level: name)
             } catch {
-                Logger.log(message: "sendEvent failed")
             }
         }
     }
@@ -208,7 +207,6 @@ public extension FREObject {
         if let ret = try FreSwiftHelper.getProperty(rawValue: self, name: name) {
             return ret
         }
-        Logger.log(message: "FREObject.getProp(className:) failed")
         return nil
     }
     
@@ -285,7 +283,6 @@ public extension FREObject {
         if let rv = try FreSwiftHelper.newObject(className: className, argsArray) {
             self.init(rv)
         } else {
-            Logger.log(message: "FREObject.init(className:) failed")
             return nil
         }
     }
@@ -302,7 +299,6 @@ public extension FREObject {
         if let rv = try FreSwiftHelper.newObject(className: className) {
             self.init(rv)
         } else {
-            Logger.log(message: "FREObject.init(className:) failed")
             return nil
         }
     }
@@ -366,7 +362,6 @@ public extension Double {
         } else if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
             self.init(d)
         } else {
-            Logger.log(message: "Double(freObject: FREObject?) failed")
             return nil
         }
     }
@@ -381,7 +376,6 @@ public extension Double {
         do {
             return try FreObjectSwift(double: self).rawValue
         } catch {
-            Logger.log(message: "Double.toFREObject() failed")
         }
         return nil
     }
@@ -402,7 +396,6 @@ public extension Float {
         if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
             self.init(Float(d))
         } else {
-            Logger.log(message: "Float(freObject: FREObject?) failed")
             return nil
         }
     }
@@ -417,7 +410,6 @@ public extension Float {
         do {
             return try FreObjectSwift(cgFloat: CGFloat(self)).rawValue
         } catch {
-            Logger.log(message: "Float.toFREObject() failed")
         }
         return nil
     }
@@ -434,13 +426,11 @@ public extension CGFloat {
     /// - returns: CGFloat?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
-            Logger.log(message: "CGFloat(freObject: FREObject?) failed: nil FREObject")
             return nil
         }
         if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
             self.init(d)
         } else {
-            Logger.log(message: "CGFloat(freObject: FREObject?) failed")
             return nil
         }
         
@@ -456,7 +446,6 @@ public extension CGFloat {
         do {
             return try FreObjectSwift(cgFloat: self).rawValue
         } catch {
-            Logger.log(message: "CGFloat.toFREObject() failed")
         }
         return nil
     }
@@ -477,7 +466,6 @@ public extension Bool {
         if let b = try? FreSwiftHelper.getAsBool(rv) as Bool {
             self.init(b)
         } else {
-            Logger.log(message: "Bool(freObject: FREObject?) failed")
             return nil
         }
     }
@@ -491,7 +479,6 @@ public extension Bool {
         do {
             return try FreObjectSwift(bool: self).rawValue
         } catch {
-            Logger.log(message: "Bool.toFREObject() failed")
         }
         return nil
     }
@@ -507,13 +494,11 @@ public extension Date {
     /// - returns: Date?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
-            Logger.log(message: "Date(freObject: FREObject?) failed: nil FREObject")
             return nil
         }
         if let d = try? FreSwiftHelper.getAsDate(rv) as Date {
             self.init(timeIntervalSince1970: d.timeIntervalSince1970)
         } else {
-            Logger.log(message: "Date(freObject: FREObject?) failed")
             return nil
         }
     }
@@ -527,7 +512,6 @@ public extension Date {
         do {
             return try FreObjectSwift(date: self).rawValue
         } catch {
-            Logger.log(message: "Date.toFREObject() failed")
         }
         return nil
     }
@@ -543,13 +527,11 @@ public extension Int {
     /// - returns: Int?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
-            Logger.log(message: "Int(freObject: FREObject?) failed: nil FREObject")
             return nil
         }
         if let i = try? FreSwiftHelper.getAsInt(rv) as Int {
             self.init(i)
         } else {
-            Logger.log(message: "Int(freObject: FREObject?) failed")
             return nil
         }
     }
@@ -564,7 +546,6 @@ public extension Int {
         do {
             return try FreObjectSwift(int: self).rawValue
         } catch {
-            Logger.log(message: "Int.toFREObject() failed")
         }
         return nil
     }
@@ -580,13 +561,11 @@ public extension UInt {
     /// - returns: UInt?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
-            Logger.log(message: "UInt(freObject: FREObject?) failed: nil FREObject")
             return nil
         }
         if let i = try? FreSwiftHelper.getAsInt(rv) as Int {
             self.init(i)
         } else {
-            Logger.log(message: "UInt(freObject: FREObject?) failed")
             return nil
         }
     }
@@ -602,7 +581,6 @@ public extension UInt {
         do {
             return try FreObjectSwift(uint: self).rawValue
         } catch {
-            Logger.log(message: "UInt.toFREObject() failed")
         }
         return nil
     }
@@ -624,7 +602,6 @@ public extension String {
         if let i = try? FreSwiftHelper.getAsString(rv) as String {
             self.init(i)
         } else {
-            Logger.log(message: "String(freObject: FREObject?) failed")
             return nil
         }
     }
@@ -639,7 +616,6 @@ public extension String {
         do {
             return try FreObjectSwift(string: self).rawValue
         } catch {
-            Logger.log(message: "String.toFREObject() failed")
         }
         return nil
     }
@@ -657,7 +633,6 @@ public extension String {
         /// - returns: NSColor?
         convenience init?(freObject: FREObject?, alpha: FREObject?) {
             guard let rv = freObject, let rv2 = alpha else {
-                Logger.log(message: "NSColor(freObject: FREObject?) failed: nil FREObject")
                 return nil
             }
             do {
@@ -679,7 +654,6 @@ public extension String {
                     self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
                 }
             } catch {
-                Logger.log(message: "NSColor conversion failed")
                 return nil
             }
         }
@@ -693,7 +667,6 @@ public extension String {
         /// - returns: NSColor?
         convenience init?(freObjectARGB: FREObject?) {
             guard let rv = freObjectARGB else {
-                Logger.log(message: "NSColor(freObjectARGB: FREObject?) failed: nil FREObject")
                 return nil
             }
             if let fli = CGFloat(rv) {
@@ -722,7 +695,6 @@ public extension String {
         /// - returns: NSColor?
         convenience init?(freObject: FREObject?) {
             guard let rv = freObject else {
-                Logger.log(message: "NSColor(freObject: FREObject?) failed: nil FREObject")
                 return nil
             }
             do {
@@ -736,7 +708,6 @@ public extension String {
                 let bFl: CGFloat = CGFloat(b) / 255
                 self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
             } catch {
-                Logger.log(message: "NSColor conversion failed")
                 return nil
             }
         }
@@ -755,7 +726,6 @@ public extension String {
         /// - returns: UIColor?
         convenience init?(freObject: FREObject?, alpha: FREObject?) {
             guard let rv = freObject, let rv2 = alpha else {
-                Logger.log(message: "UIColor(freObject: FREObject?, alpha: FREObject?) failed: nil FREObject")
                 return nil
             }
             do {
@@ -777,7 +747,6 @@ public extension String {
                     self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
                 }
             } catch {
-                Logger.log(message: "UIColor conversion failed")
                 return nil
             }
         }
@@ -791,7 +760,6 @@ public extension String {
         /// - returns: UIColor?
         convenience init?(freObjectARGB: FREObject?) {
             guard let rv = freObjectARGB else {
-                Logger.log(message: "UIColor(freObjectARGB: FREObject?) failed: nil FREObject")
                 return nil
             }
             if let fli = CGFloat(rv) {
@@ -820,7 +788,6 @@ public extension String {
         /// - returns: UIColor?
         convenience init?(freObject: FREObject?) {
             guard let rv = freObject else {
-                Logger.log(message: "UIColor(freObject: FREObject?) failed: nil FREObject")
                 return nil
             }
             do {
@@ -834,7 +801,6 @@ public extension String {
                 let bFl: CGFloat = CGFloat(b) / 255
                 self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
             } catch {
-                Logger.log(message: "UIColor conversion failed")
                 return nil
             }
         }
@@ -884,7 +850,6 @@ public extension Dictionary where Key == String, Value == Any {
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
-            Logger.log(message: "Dictionary(freObject: FREObject?) failed: nil FREObject")
             return
         }
         do {
@@ -892,7 +857,6 @@ public extension Dictionary where Key == String, Value == Any {
                 self = val
             }
         } catch {
-            Logger.log(message: "Dictionary[String, Any] conversion failed")
             return
         }
         
@@ -910,7 +874,6 @@ public extension Dictionary where Key == String, Value == AnyObject {
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
-            Logger.log(message: "Dictionary(freObject: FREObject?) failed: nil FREObject")
             return
         }
         do {
@@ -918,7 +881,6 @@ public extension Dictionary where Key == String, Value == AnyObject {
                 self = val
             }
         } catch {
-            Logger.log(message: "Dictionary[String, AnyObject] conversion failed")
             return
         }
         
@@ -936,7 +898,6 @@ public extension Dictionary where Key == String, Value == NSObject {
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
-            Logger.log(message: "Dictionary(freObject: FREObject?) failed: nil FREObject")
             return
         }
         do {
@@ -944,7 +905,6 @@ public extension Dictionary where Key == String, Value == NSObject {
                 self = val
             }
         } catch {
-            Logger.log(message: "Dictionary[String, NSObject] conversion failed")
             return
         }
         

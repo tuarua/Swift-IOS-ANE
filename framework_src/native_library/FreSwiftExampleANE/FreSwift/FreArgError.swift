@@ -13,12 +13,11 @@
  limitations under the License.*/
 
 import Foundation
-import os.log
-
-public class Logger {
-    public static func log(message: String) {
-        if #available(tvOS 10.0, iOS 10.0, OSX 10.12, *) {
-            os_log("[FreSwift] %{public}@", type: .error, message)
-        }
+/// FreArgError: Extension for FreError.
+public class FreArgError: FreError {
+    /// init: inits FreArgError.
+    /// - parameter message: String
+    public init(message: String) {
+        super.init(stackTrace: "", message: "\(message) - incorrect arguments", type: FreError.Code.invalidArgument)
     }
 }

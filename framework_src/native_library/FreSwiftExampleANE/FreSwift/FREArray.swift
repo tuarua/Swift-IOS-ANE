@@ -15,7 +15,18 @@
 import Foundation
 
 /// FREArray: Additional type which matches Java version of FRE
-public class FREArray: NSObject {
+public class FREArray: Sequence {
+    /// iterator for FREArray
+    public func makeIterator() -> Array<FREObject>.Iterator {
+        var items = [FREObject]()
+        for i in 0..<self.length {
+            if let item = try? self.at(index: i), let t = item {
+                items.append(t)
+            }
+        }
+        return items.makeIterator()
+    }
+    
     /// raw FREObject value
     public var rawValue: FREObject?
     
@@ -40,12 +51,11 @@ public class FREArray: NSObject {
         rawValue = try FreSwiftHelper.newObject(className: className, argsArray)
     }
     
-    /// init: Initialise a FREArray with a Array<Int>.
+    /// init: Initialise a FREArray with a [Int].
     ///
     /// - parameter intArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(intArray: [Int]) throws {
-        super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = intArray.count
         for i in 0..<count {
@@ -53,12 +63,11 @@ public class FREArray: NSObject {
         }
     }
     
-    /// init: Initialise a FREArray with a Array<UInt>.
+    /// init: Initialise a FREArray with a [UInt].
     ///
     /// - parameter intArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(uintArray: [UInt]) throws {
-        super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = uintArray.count
         for i in 0..<count {
@@ -66,12 +75,11 @@ public class FREArray: NSObject {
         }
     }
     
-    /// init: Initialise a FREArray with a Array<String>.
+    /// init: Initialise a FREArray with a [String].
     ///
     /// - parameter stringArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(stringArray: [String]) throws {
-        super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = stringArray.count
         for i in 0..<count {
@@ -79,12 +87,11 @@ public class FREArray: NSObject {
         }
     }
     
-    /// init: Initialise a FREArray with a Array<Double>.
+    /// init: Initialise a FREArray with a [Double].
     ///
     /// - parameter doubleArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(doubleArray: [Double]) throws {
-        super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = doubleArray.count
         for i in 0..<count {
@@ -92,12 +99,11 @@ public class FREArray: NSObject {
         }
     }
     
-    /// init: Initialise a FREArray with a Array<Bool>.
+    /// init: Initialise a FREArray with a [Bool].
     ///
     /// - parameter boolArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(boolArray: [Bool]) throws {
-        super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = boolArray.count
         for i in 0..<count {
@@ -105,12 +111,11 @@ public class FREArray: NSObject {
         }
     }
     
-    /// init: Initialise a FREArray with a Array<Any>.
+    /// init: Initialise a FREArray with a [Any].
     ///
     /// - parameter anyArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(anyArray: [Any]) throws {
-        super.init()
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = anyArray.count
         for i in 0..<count {
@@ -161,6 +166,24 @@ public class FREArray: NSObject {
         }
     }
     
+    fileprivate func set(index: UInt, freObject: FREObject) throws {
+        guard let rv = rawValue else {
+            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
+                           line: #line, column: #column, file: #file)
+        }
+        #if os(iOS) || os(tvOS)
+        let status: FREResult = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
+                                                                          value: freObject)
+        #else
+        let status: FREResult = FRESetArrayElementAt(rv, UInt32(index), freObject)
+        #endif
+        guard FRE_OK == status else {
+            throw FreError(stackTrace: "", message: "cannot set object at \(index) ",
+                type: FreSwiftHelper.getErrorCode(status),
+                line: #line, column: #column, file: #file)
+        }
+    }
+    
     /// set: Sets FREObject at position index
     ///
     /// - parameter index: index of item
@@ -196,7 +219,7 @@ public class FREArray: NSObject {
     }
     
     /// value: Converts FREArray to Swift array
-    /// - returns: Array<Any?>
+    /// - returns: [Any?]
     public var value: [Any?] {
         var ret: [Any?] = []
         do {
@@ -211,7 +234,7 @@ public class FREArray: NSObject {
 }
 
 public extension FREArray {
-    /// accessor: Returns FREObject at position index
+    /// accessor: gets/sets FREObject at position index
     ///
     /// - parameter index:
     /// - returns: FREObject?
@@ -219,26 +242,30 @@ public extension FREArray {
         get {
             do {
                 return try self.at(index: index)
-            } catch {
-                Logger.log(message: "FREArray[index] failed")
-            }
+            } catch { }
             return nil
+        }
+        set {
+            do {
+                if let rv = newValue {
+                    try self.set(index: index, freObject: rv)
+                }
+            } catch { }
         }
     }
 }
 
 public extension Array where Element == Any {
-    /// init: Initialise a Array<Any> from a FREObject.
+    /// init: Initialise a [Any] from a FREObject.
     ///
     /// ```swift
-    /// let array = Array<Any>.init(argv[0])
+    /// let array = [Any](argv[0])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type Array
-    /// - returns: Array<Any>?
+    /// - returns: [Any]?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
-            Logger.log(message: "Array(freObject: FREObject?) failed: nil FREObject")
             return
         }
         do {
@@ -254,26 +281,24 @@ public extension Array where Element == Any {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FREArray.init(anyArray: self).rawValue
+            return try FREArray(anyArray: self).rawValue
         } catch {
-            Logger.log(message: "Array<Any>.toFREObject() failed")
         }
         return nil
     }
 }
 
 public extension Array where Element == Double {
-    /// init: Initialise a Array<Double> from a FREObject.
+    /// init: Initialise a [Double] from a FREObject.
     ///
     /// ```swift
-    /// let array = Array<Double>.init(argv[0])
+    /// let array = [Double](argv[0])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type Vector.<Number>
-    /// - returns: Array<Double>?
+    /// - returns: [Double]?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
-            Logger.log(message: "Array(freObject: FREObject?) failed: nil FREObject")
             return
         }
         do {
@@ -289,26 +314,24 @@ public extension Array where Element == Double {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FREArray.init(doubleArray: self).rawValue
+            return try FREArray(doubleArray: self).rawValue
         } catch {
-            Logger.log(message: "Array<Double>.toFREObject() failed")
         }
         return nil
     }
 }
 
 public extension Array where Element == Bool {
-    /// init: Initialise a Array<Bool> from a FREObject.
+    /// init: Initialise a [Bool] from a FREObject.
     ///
     /// ```swift
-    /// let array = Array<Bool>.init(argv[0])
+    /// let array = [Bool](argv[0])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type Vector.<Boolean>
-    /// - returns: Array<Bool>?
+    /// - returns: [Bool]?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
-            Logger.log(message: "Array(freObject: FREObject?) failed: nil FREObject")
             return
         }
         do {
@@ -324,26 +347,24 @@ public extension Array where Element == Bool {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FREArray.init(boolArray: self).rawValue
+            return try FREArray(boolArray: self).rawValue
         } catch {
-            Logger.log(message: "Array<Bool>.toFREObject() failed")
         }
         return nil
     }
 }
 
 public extension Array where Element == UInt {
-    /// init: Initialise a Array<UInt> from a FREObject.
+    /// init: Initialise a [UInt] from a FREObject.
     ///
     /// ```swift
-    /// let array = Array<UInt>.init(argv[0])
+    /// let array = [UInt](argv[0])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type Vector.<UInt>
-    /// - returns: Array<UInt>?
+    /// - returns: [UInt]?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
-            Logger.log(message: "Array(freObject: FREObject?) failed: nil FREObject")
             return
         }
         do {
@@ -359,26 +380,24 @@ public extension Array where Element == UInt {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FREArray.init(uintArray: self).rawValue
+            return try FREArray(uintArray: self).rawValue
         } catch {
-            Logger.log(message: "Array<UInt>.toFREObject() failed")
         }
         return nil
     }
 }
 
 public extension Array where Element == Int {
-    /// init: Initialise a Array<Int> from a FREObject.
+    /// init: Initialise a [Int] from a FREObject.
     ///
     /// ```swift
-    /// let array = Array<Int>.init(argv[0])
+    /// let array = [Int](argv[0])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type Vector.<Int>
-    /// - returns: Array<Int>?
+    /// - returns: [Int]?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
-            Logger.log(message: "Array(freObject: FREObject?) failed: nil FREObject")
             return
         }
         do {
@@ -395,26 +414,24 @@ public extension Array where Element == Int {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FREArray.init(intArray: self).rawValue
+            return try FREArray(intArray: self).rawValue
         } catch {
-            Logger.log(message: "Array<Int>.toFREObject() failed")
         }
         return nil
     }
 }
 
 public extension Array where Element == String {
-    /// init: Initialise a Array<String> from a FREObject.
+    /// init: Initialise a [String] from a FREObject.
     ///
     /// ```swift
-    /// let array = Array<String>.init(argv[0])
+    /// let array = [String](argv[0])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type Vector.<String>
-    /// - returns: Array<String>?
+    /// - returns: [String]?
     init?(_ freObject: FREObject?) {
         self.init()
         guard let rv = freObject else {
-            Logger.log(message: "Array(freObject: FREObject?) failed: nil FREObject")
             return
         }
         do {
@@ -430,9 +447,8 @@ public extension Array where Element == String {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FREArray.init(stringArray: self).rawValue
+            return try FREArray(stringArray: self).rawValue
         } catch {
-            Logger.log(message: "Array<String>.toFREObject() failed")
         }
         return nil
     }

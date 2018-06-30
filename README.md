@@ -41,11 +41,11 @@ The following table shows the primitive as3 types which can easily be converted 
 | Date | Date | `let date = Date(argv[0])` | `return date.toFREObject()`|
 | Rectangle | CGRect | `let rect = CGRect(argv[0])` | `return rect.toFREObject()` |
 | Point | CGPoint | `let pnt = CGPoint(argv[0])` | `return pnt.toFREObject()` |
-| Vector int | Array<`Int`> | `let a = Array<Int>(argv[0])` | `return a.toFREObject()`|
-| Vector Boolean | Array<`Bool`> | `let a = Array<Bool>(argv[0])` | `return a.toFREObject()`|
-| Vector Number | Array<`Double`> | `let a = Array<Double>(argv[0])` | `return a.toFREObject()`|
-| Vector String | Array<`String`> | `let a = Array<String>(argv[0])` | `return a.toFREObject()`|
-| Object | Dictionary<String, Any>? | `let dct = Dictionary.init(argv[0])` | N/A |
+| Vector int | [Int] | `let a = [Int](argv[0])` | `return a.toFREObject()`|
+| Vector Boolean | [Bool] | `let a = [Bool](argv[0])` | `return a.toFREObject()`|
+| Vector Number | [Double]> | `let a = [Double](argv[0])` | `return a.toFREObject()`|
+| Vector String | [String] | `let a = [String](argv[0])` | `return a.toFREObject()`|
+| Object | [String, Any]? | `let dct = Dictionary.init(argv[0])` | N/A |
 
 Example
 
@@ -96,7 +96,7 @@ sendEvent(name: "MY_EVENT", value: "My message")
 Example - Reading items in array
 
 ````swift
-let airArray: FREArray = FREArray.init(argv[0])
+let airArray: FREArray = FREArray(argv[0])
 do {
     if let itemZero = Int(airArray[0]) {
         trace("AIR Array elem at 0 type:", "value:", itemZero)
@@ -109,10 +109,10 @@ do {
 Example - Convert BitmapData to a UIImage and add to native view (iOS tvOS)
 
 ````swift
-if let img = UIImage.init(freObject: argv[0]) {
+if let img = UIImage(freObject: argv[0]) {
     if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-        let imgView: UIImageView = UIImageView.init(image: img)
-        imgView.frame = CGRect.init(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        let imgView: UIImageView = UIImageView(image: img)
+        imgView.frame = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
         rootViewController.view.addSubview(imgView)
     }
 }

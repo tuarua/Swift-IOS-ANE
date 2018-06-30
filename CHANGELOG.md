@@ -1,3 +1,7 @@
+### 2.5.0
+- Added subscript setter for FREArray i.e. myFreArray[0] = myFREObject
+- Added iterator for FREArray i.e. for freObject in myFreArray { }
+
 ### 2.4.0
 - Upgraded to Xcode 9.3
 - Upgraded to Swift version 4.1 (swiftlang-902.0.48 clang-902.0.37.1)

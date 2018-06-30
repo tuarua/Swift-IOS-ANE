@@ -13,9 +13,6 @@
  limitations under the License.*/
 
 import Foundation
-#if canImport(Cocoa)
-    import Cocoa
-#endif
 /// :nodoc:
 public class FreRectangleSwift: FreObjectSwift {
     override public init(freObject: FREObject?) {

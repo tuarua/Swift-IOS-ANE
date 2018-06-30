@@ -104,10 +104,6 @@ open class FreObjectSwift: NSObject {
         } else if any is CGPoint, let v = any as? CGPoint {
             return FrePointSwift.init(value: v).rawValue
         }
-        //TODO add Dict and others
-
-        Swift.debugPrint("_newObject NO MATCH")
-
         return nil
 
     }
