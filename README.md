@@ -49,12 +49,12 @@ The following table shows the primitive as3 types which can easily be converted 
 
 Example
 
-````swift
+```swift
 let airString = String(argv[0])
 trace("String passed from AIR:", airString)
 let swiftString: String = "I am a string from Swift"
 return swiftString.toFREObject()
-`````
+```
 
 FreSwift is fully extensible. New conversion types can be added in your own project. For example, Rectangle and Point are built as Extensions.
 
@@ -62,50 +62,50 @@ FreSwift is fully extensible. New conversion types can be added in your own proj
 
 Example - Call a method on an FREObject
 
-````swift
+```swift
 let person = argv[0]
 if let addition = try person.call(method: "add", args: 100, 31) {
     if let result = Int(addition) {
         trace("addition result:", result)
     }
 }
-`````
+```
 
 Example - Get a property of a FREObject, convert to Int
 
-````swift
+```swift
 let person = argv[0]
 if let age = Int(person["age"]) {
     trace(age)
 }
-`````
+```
 
 Example - Create a new FREObject, set property of FREObject
 
-````swift
+```swift
 let person = try FREObject(className: "com.tuarua.Person")
 try person.setProp(name: "age", value: 30)
-`````
+```
 
 Example - Sending events back to AIR  (replaces dispatchStatusEventAsync)
 
-````swift
+```swift
 sendEvent(name: "MY_EVENT", value: "My message")
-`````
+```
 
 Example - Reading items in array
 
-````swift
+```swift
 let airArray: FREArray = FREArray(argv[0])
 for fre in airArray {
     trace("iterate over FREArray", Int(fre) ?? "unknown")
 }
 airArray[0] = 123.toFREObject()
-`````
+```
 
 Example - Convert BitmapData to a UIImage and add to native view (iOS tvOS)
 
-````swift
+```swift
 if let img = UIImage(freObject: argv[0]) {
     if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
         let imgView: UIImageView = UIImageView(image: img)
@@ -113,11 +113,11 @@ if let img = UIImage(freObject: argv[0]) {
         rootViewController.view.addSubview(imgView)
     }
 }
-`````
+```
   
 Example - Error handling
 
-````swift
+```swift
 do {
     _ = try person.getProp(name: "doNotExist") //calling a property that doesn't exist
 } catch let e as FreError {
@@ -125,7 +125,7 @@ do {
         return aneError //return the error as an actionscript error
     }
 } catch {}
-`````
+```
 ----------
 
 #### applicationDidFinishLaunching
@@ -134,7 +134,7 @@ It is also called once for each ANE and very early in the launch cycle. In here 
 This makes an ideal place to add observers for applicationDidFinishLaunching and any other calls which would normally be added as app delegates, thus removing the restriction of one ANE declaring itself as the "owner".   
 Note: We have no FREContext yet so calls such as trace, sendEvent will not work.
 
-````swift
+```swift
 @objc func applicationDidFinishLaunching(_ notification: Notification) {
    appDidFinishLaunchingNotif = notification //save the notification for later
 }
@@ -144,7 +144,7 @@ NotificationCenter.default.addObserver(self,
             name: NSNotification.Name.UIApplicationDidFinishLaunching, 
             object: nil)      
 }
-`````
+```
 ----------
 
 ### Required AS3 classes
