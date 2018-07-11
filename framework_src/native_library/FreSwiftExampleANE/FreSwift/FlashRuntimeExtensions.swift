@@ -262,6 +262,14 @@ public extension FREObject {
             if let v = value as? Date {
                 try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
             }
+        } else if value is CGRect {
+            if let v = value as? CGRect {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
+            }
+        } else if value is CGPoint {
+            if let v = value as? CGPoint {
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: v.toFREObject())
+            }
         }
     }
     
@@ -338,7 +346,7 @@ public extension FREObject {
         }
         set {
             do {
-                try self.setProp(name: name, value: newValue)
+                try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: newValue)
             } catch { }
         }
     }
@@ -380,7 +388,7 @@ public extension Double {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FreObjectSwift(double: self).rawValue
+            return try FreSwiftHelper.newObject(self)
         } catch {
         }
         return nil
