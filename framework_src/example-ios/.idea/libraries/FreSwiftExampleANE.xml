@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="FreSwiftExampleANE" type="flex">
     <CLASSES>
-      <root url="jar://$DOCUMENTS$/Swift-IOS-ANE/framework_src/native_extension/ane/FreSwiftExampleANE.ane!/" />
+      <root url="jar://$PROJECT_DIR$/../native_extension/ane/FreSwiftExampleANE.ane!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

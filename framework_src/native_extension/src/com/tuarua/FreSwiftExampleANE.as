@@ -5,6 +5,8 @@ import flash.display.BitmapData;
 import flash.events.EventDispatcher;
 import flash.external.ExtensionContext;
 import flash.events.StatusEvent;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 public class FreSwiftExampleANE extends EventDispatcher {
@@ -51,6 +53,10 @@ public class FreSwiftExampleANE extends EventDispatcher {
 
     public function runBitmapTests(bmd:BitmapData):void {
         ctx.call("runBitmapTests", bmd);
+    }
+
+    public function runRectTests(point:Point, rect:Rectangle):Point {
+        return ctx.call("runRectTests", point, rect) as Point;
     }
 
     public function runByteArrayTests(byteArray:ByteArray):void {

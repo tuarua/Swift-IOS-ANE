@@ -140,7 +140,6 @@ public class FreSwiftHelper {
 
     static func getAsId(_ rawValue: FREObject) throws -> Any? {
         let objectType: FreObjectTypeSwift = getType(rawValue)
-        //Swift.debugPrint("getAsId is of type ", objectType)
         switch objectType {
         case .int:
             return try getAsInt(rawValue)
@@ -228,7 +227,6 @@ public class FreSwiftHelper {
     }
 
     fileprivate static func getActionscriptType(_ rawValue: FREObject) -> FreObjectTypeSwift {
-        //Swift.debugPrint("GET ACTIONSCRIPT TYPE----------------")
         do {
             if let aneUtils = try FREObject.init(className: "com.tuarua.fre.ANEUtils") {
                 if let classType = try aneUtils.call(method: "getClassType", args: rawValue) {

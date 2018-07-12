@@ -100,9 +100,9 @@ open class FreObjectSwift: NSObject {
         } else if any is Date, let v = any as? Date {
             return try FreSwiftHelper.newObject(v)
         } else if any is CGRect, let v = any as? CGRect {
-            return FreRectangleSwift.init(value: v).rawValue
+            return v.toFREObject()
         } else if any is CGPoint, let v = any as? CGPoint {
-            return FrePointSwift.init(value: v).rawValue
+            return v.toFREObject()
         }
         return nil
 

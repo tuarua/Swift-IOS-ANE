@@ -13,36 +13,6 @@
  limitations under the License.*/
 
 import Foundation
-/// :nodoc:
-public class FreRectangleSwift: FreObjectSwift {
-    override public init(freObject: FREObject?) {
-        super.init(freObject: freObject)
-    }
-    
-    public init(value: CGRect) {
-        var freObject: FREObject? = nil
-        do {
-            freObject = try FREObject.init(className: "flash.geom.Rectangle",
-                                           args: CGFloat(value.origin.x),
-                                           CGFloat(value.origin.y),
-                                           CGFloat(value.width),
-                                           CGFloat(value.height))
-            
-        } catch {
-        }
-        
-        super.init(freObject: freObject)
-    }
-    
-    override public var value: Any? {
-        if let rv = rawValue {
-            let idRes = CGRect(rv) as Any?
-            return idRes
-        }
-        return nil
-    }
-    
-}
 
 public extension CGRect {
     /// init: Initialise a CGRect from a FREObject.
@@ -66,8 +36,19 @@ public extension CGRect {
     /// ```swift
     /// let fre = CGRect().toFREObject()
     /// ```
-    /// - returns: FREObject
+    /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        return FreRectangleSwift(value: self).rawValue
+        var freObject: FREObject? = nil
+        do {
+            freObject = try FREObject.init(className: "flash.geom.Rectangle",
+                                           args: CGFloat(self.origin.x),
+                                           CGFloat(self.origin.y),
+                                           CGFloat(self.width),
+                                           CGFloat(self.height))
+            
+        } catch {
+        }
+        
+        return freObject
     }
 }

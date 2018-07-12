@@ -8,8 +8,7 @@ echo $pathtome
 
 PROJECT_NAME=HelloWorldANE
 
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_29"
-echo $AIR_SDK
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_30"
 
 #Setup the directory.
 echo "Making directories."

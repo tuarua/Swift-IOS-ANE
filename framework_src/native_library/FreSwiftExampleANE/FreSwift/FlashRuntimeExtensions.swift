@@ -422,7 +422,7 @@ public extension Float {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FreObjectSwift(cgFloat: CGFloat(self)).rawValue
+            return try FreSwiftHelper.newObject(CGFloat(self))
         } catch {
         }
         return nil
@@ -458,7 +458,7 @@ public extension CGFloat {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FreObjectSwift(cgFloat: self).rawValue
+            return try FreSwiftHelper.newObject(self)
         } catch {
         }
         return nil
@@ -491,7 +491,7 @@ public extension Bool {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FreObjectSwift(bool: self).rawValue
+            return try FreSwiftHelper.newObject(self)
         } catch {
         }
         return nil
@@ -524,7 +524,7 @@ public extension Date {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FreObjectSwift(date: self).rawValue
+            return try FreSwiftHelper.newObject(self)
         } catch {
         }
         return nil
@@ -558,7 +558,7 @@ public extension Int {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FreObjectSwift(int: self).rawValue
+            return try FreSwiftHelper.newObject(self)
         } catch {
         }
         return nil
@@ -593,7 +593,7 @@ public extension UInt {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FreObjectSwift(uint: self).rawValue
+            return try FreSwiftHelper.newObject(self)
         } catch {
         }
         return nil
@@ -628,7 +628,7 @@ public extension String {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         do {
-            return try FreObjectSwift(string: self).rawValue
+            return try FreSwiftHelper.newObject(self)
         } catch {
         }
         return nil

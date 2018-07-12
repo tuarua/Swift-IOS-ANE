@@ -13,32 +13,6 @@
  limitations under the License.*/
 
 import Foundation
-/// :nodoc:
-public class FrePointSwift: FreObjectSwift {
-    override public init(freObject: FREObject?) {
-        super.init(freObject: freObject)
-    }
-    
-    public init(value: CGPoint) {
-        var freObject: FREObject? = nil
-        do {
-            freObject = try FREObject.init(className: "flash.geom.Point",
-                                           args: CGFloat(value.x), CGFloat(value.y))
-        } catch {
-        }
-        
-        super.init(freObject: freObject)
-    }
-    
-    override public var value: Any? {
-        if let rv = rawValue {
-            let idRes = CGPoint.init(rv) as Any?
-            return idRes
-        }
-        return nil
-    }
-    
-}
 
 public extension CGPoint {
     /// init: Initialise a CGPoint from a FREObject.
@@ -60,8 +34,14 @@ public extension CGPoint {
     /// ```swift
     /// let fre = CGPoint.init().toFREObject()
     /// ```
-    /// - returns: FREObject
+    /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        return FrePointSwift(value: self).rawValue
+        var freObject: FREObject? = nil
+        do {
+            freObject = try FREObject.init(className: "flash.geom.Point",
+                                           args: CGFloat(self.x), CGFloat(self.y))
+        } catch {
+        }
+        return freObject
     }
 }
