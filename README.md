@@ -3,7 +3,7 @@
 Example Xcode projects showing how to create AIR Native Extensions for iOS, tvOS & OSX using Swift.   
 It supports iOS 9.0+, tvOS 9.2+, OSX 10.10+
 
-#### Xcode 9.3 (9E145) must be used with Apple Swift version 4.1.2 (swiftlang-902.0.54 clang-902.0.39.2)
+#### Xcode 9.4.1 (9F2000) must be used with Apple Swift version 4.1.2 (swiftlang-902.0.54 clang-902.0.39.2)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 ABI stability is planned for Swift 5 in late 2018
 
@@ -155,7 +155,7 @@ com.tuarua.fre.ANEUtils.as and com.tuarua.fre.ANEError.as are required by FreSwi
 
 You will need
 
-- Xcode 9.3
+- Xcode 9.4
 - Xcode 9.1 for iOS Simulator
 - IntelliJ IDEA
 - AIR 29

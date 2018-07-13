@@ -188,7 +188,10 @@ public class FreBitmapDataSwift: NSObject {
 #if os(iOS) || os(tvOS)
 public extension UIImage {
     /// Converts a FREObject of AS3 type BitmapData into a UIImage
-    convenience init?(freObject: FREObject?) {
+    /// - parameter freObject: FREObject which is of AS3 type flash.display.BitmapData.
+    /// - parameter scale: You may wish to scale the UIImage to screen size.
+    /// - parameter orientation: 
+    convenience init?(freObject: FREObject?, scale: CGFloat = 1.0, orientation: UIImageOrientation = .up) {
         guard let rv = freObject else {
             return nil
         }
@@ -198,7 +201,7 @@ public extension UIImage {
         }
         do {
             if let cgimg = try asBitmapData.asCGImage() {
-                self.init(cgImage: cgimg, scale: UIScreen.main.scale, orientation: .up)
+                self.init(cgImage: cgimg, scale: scale, orientation: orientation)
             } else {
                 return nil
             }
