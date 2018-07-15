@@ -88,6 +88,10 @@ public class SwiftController: NSObject {
         let airArray: FREArray = FREArray(inFRE0)
         
         do {
+            
+            let myVector = try FREArray.init(className: "Object", length: 5, fixed: true)
+            trace("Vector of Objects should equal 5 ? ", myVector.length)
+            
             let airArrayLen = airArray.length
             
             trace("Array passed from AIR:", airArray.value)
@@ -102,7 +106,7 @@ public class SwiftController: NSObject {
                 airArray[1] = 123.toFREObject() //set using brackets with FREObject
                 return airArray.rawValue
             }
-            
+
         } catch let e as FreError {
             _ = e.getError(#file, #line, #column)
         } catch {

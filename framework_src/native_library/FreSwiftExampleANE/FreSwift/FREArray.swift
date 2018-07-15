@@ -42,6 +42,7 @@ public class FREArray: Sequence {
     /// - parameter className: name of AS3 class to create
     /// - parameter args: arguments to pass to the method
     /// - throws: Can throw a `FreError` on fail
+    @available(*, deprecated, renamed: "FREArray()", message: "Use the newer FREArray(className: String, length: Int, fixed: Bool)")
     public init(className: String, args: Any...) throws {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         for i in 0..<args.count {
@@ -49,6 +50,23 @@ public class FREArray: Sequence {
             argsArray.addPointer(arg)
         }
         rawValue = try FreSwiftHelper.newObject(className: className, argsArray)
+    }
+    
+    /// init: Initialise a FREArray containing a Vector of type specified by className.
+    ///
+    /// ```swift
+    /// let newPerson = try FREArray(className: "com.tuarua.Person", length: 5, fixed: true")
+    /// ```
+    ///
+    /// - parameter className: name of AS3 class to create
+    /// - parameter length: number of elements in the array
+    /// - parameter fixed: whether the array is fixed
+    /// - throws: Can throw a `FreError` on fail
+    public init(className: String, length: Int = 0, fixed: Bool = false) throws {
+        let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
+        argsArray.addPointer(length.toFREObject())
+        argsArray.addPointer(fixed.toFREObject())
+        rawValue = try FreSwiftHelper.newObject(className: "Vector.<\(className)>", argsArray)
     }
     
     /// init: Initialise a FREArray with a [Int].
