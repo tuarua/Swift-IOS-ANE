@@ -5,6 +5,7 @@
 - Added iterator for FREArray i.e. for freObject in myFreArray { }
 - Added subscript for setProp i.e. myFreObject["propName"] = myFREObject
 - Improve UIImage Extension
+- sendEvent is renamed to dispatchEvent
 
 ### 2.4.0
 - Upgraded to Xcode 9.3
