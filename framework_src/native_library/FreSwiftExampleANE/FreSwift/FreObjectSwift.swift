@@ -42,6 +42,10 @@ open class FreObjectSwift: NSObject {
     public init(double: Double) throws {
         rawValue = try FreSwiftHelper.newObject(double)
     }
+    
+    public init(nsNumber: NSNumber) throws {
+        rawValue = try FreSwiftHelper.newObject(Double(truncating: nsNumber))
+    }
 
     public init(date: Date) throws {
         rawValue = try FreSwiftHelper.newObject(date)
@@ -102,6 +106,8 @@ open class FreObjectSwift: NSObject {
         } else if any is CGRect, let v = any as? CGRect {
             return v.toFREObject()
         } else if any is CGPoint, let v = any as? CGPoint {
+            return v.toFREObject()
+        } else if any is NSNumber, let v = any as? NSNumber {
             return v.toFREObject()
         }
         return nil

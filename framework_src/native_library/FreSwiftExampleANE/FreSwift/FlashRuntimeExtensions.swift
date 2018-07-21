@@ -65,7 +65,7 @@ public extension FreSwiftMainController {
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
-        sendEvent(name: "TRACE", value: traceStr)
+        dispatchEvent(name: "TRACE", value: traceStr)
     }
     
     /// info: sends StatusEvent to our swc with a level of "TRACE"
@@ -81,7 +81,7 @@ public extension FreSwiftMainController {
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
-        sendEvent(name: "TRACE", value: "INFO: \(traceStr)")
+        dispatchEvent(name: "TRACE", value: "INFO: \(traceStr)")
     }
     /// warning: sends StatusEvent to our swc with a level of "TRACE"
     /// The output string is prefixed with [WARNING]
@@ -96,19 +96,29 @@ public extension FreSwiftMainController {
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
-        sendEvent(name: "TRACE", value: "WARNING: \(traceStr)")
+        dispatchEvent(name: "TRACE", value: "WARNING: \(traceStr)")
     }
     
-    /// sendEvent: sends StatusEvent to our swc with a level of name and code of value
+    @available(*, deprecated, renamed: "dispatchEvent()")
+    func sendEvent(name: String, value: String) {
+        autoreleasepool {
+            do {
+                try context.dispatchStatusEventAsync(code: value, level: name)
+            } catch {
+            }
+        }
+    }
+    
+    /// dispatchEvent: sends StatusEvent to our swc with a level of name and code of value
     /// replaces DispatchStatusEventAsync
     ///
     /// ```swift
-    /// sendEvent("MY_EVENT", "ok")
+    /// dispatchEvent("MY_EVENT", "ok")
     /// ```
     /// - parameter name: name of event
     /// - parameter value: value passed with event
     /// - returns: Void
-    func sendEvent(name: String, value: String) {
+    func dispatchEvent(name: String, value: String) {
         autoreleasepool {
             do {
                 try context.dispatchStatusEventAsync(code: value, level: name)
@@ -139,7 +149,7 @@ public extension FreSwiftController {
         for i in 0..<value.count {
             traceStr.append("\(value[i]) ")
         }
-        sendEvent(name: "TRACE", value: traceStr)
+        dispatchEvent(name: "TRACE", value: traceStr)
     }
     
     /// info: sends StatusEvent to our swc with a level of "TRACE"
@@ -155,7 +165,7 @@ public extension FreSwiftController {
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
-        sendEvent(name: "TRACE", value: "INFO: \(traceStr)")
+        dispatchEvent(name: "TRACE", value: "INFO: \(traceStr)")
     }
     
     /// warning: sends StatusEvent to our swc with a level of "TRACE"
@@ -171,19 +181,29 @@ public extension FreSwiftController {
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
-        sendEvent(name: "TRACE", value: "WARNING: \(traceStr)")
+        dispatchEvent(name: "TRACE", value: "WARNING: \(traceStr)")
     }
     
-    /// sendEvent: sends StatusEvent to our swc with a level of name and code of value
+    @available(*, deprecated, renamed: "dispatchEvent()")
+    func sendEvent(name: String, value: String) {
+        autoreleasepool {
+            do {
+                try context.dispatchStatusEventAsync(code: value, level: name)
+            } catch {
+            }
+        }
+    }
+    
+    /// dispatchEvent: sends StatusEvent to our swc with a level of name and code of value
     /// replaces DispatchStatusEventAsync
     ///
     /// ```swift
-    /// sendEvent("MY_EVENT", "ok")
+    /// dispatchEvent("MY_EVENT", "ok")
     /// ```
     /// - parameter name: name of event
     /// - parameter value: value passed with event
     /// - returns: Void
-    func sendEvent(name: String, value: String) {
+    func dispatchEvent(name: String, value: String) {
         autoreleasepool {
             do {
                 try context.dispatchStatusEventAsync(code: value, level: name)
@@ -356,6 +376,39 @@ public extension FREObject {
     /// - returns: Any?
     public var value: Any? {
         return FreObjectSwift(freObject: self).value
+    }
+}
+
+public extension NSNumber {
+    /// init: Initialise a NSNumber from a FREObject.
+    ///
+    /// ```swift
+    /// let myDouble = NSNumber(argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type Number
+    /// - returns: NSNumber?
+    convenience init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
+            self.init(value: d)
+        } else {
+            return nil
+        }
+    }
+    /// toFREObject: Converts a NSNumber into a FREObject of AS3 type Number.
+    ///
+    /// ```swift
+    /// let fre = myNSNumber.toFREObject()
+    /// ```
+    /// - returns: FREObject
+    func toFREObject() -> FREObject? {
+        do {
+            return try FreSwiftHelper.newObject(Double(truncating: self))
+        } catch {
+        }
+        return nil
     }
 }
 
