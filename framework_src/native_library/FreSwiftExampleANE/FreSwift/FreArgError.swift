@@ -13,10 +13,9 @@
  limitations under the License.*/
 
 import Foundation
-/// ArgCountError: Extension for FreError.
-@available(*, unavailable, renamed: "FreArgError")
-public class ArgCountError: FreError {
-    /// init: inits ArgCountError.
+/// FreArgError: Extension for FreError.
+public class FreArgError: FreError {
+    /// init: inits FreArgError.
     /// - parameter message: String
     public init(message: String) {
         super.init(stackTrace: "", message: "\(message) - incorrect arguments", type: FreError.Code.invalidArgument)

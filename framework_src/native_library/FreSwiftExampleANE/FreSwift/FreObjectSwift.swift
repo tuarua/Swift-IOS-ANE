@@ -42,13 +42,21 @@ open class FreObjectSwift: NSObject {
     public init(double: Double) throws {
         rawValue = try FreSwiftHelper.newObject(double)
     }
+    
+    public init(nsNumber: NSNumber) throws {
+        rawValue = try FreSwiftHelper.newObject(Double(truncating: nsNumber))
+    }
 
     public init(date: Date) throws {
         rawValue = try FreSwiftHelper.newObject(date)
     }
 
+    public init(float: Float) throws {
+        rawValue = try FreSwiftHelper.newObject(Double(float))
+    }
+    
     public init(cgFloat: CGFloat) throws {
-        rawValue = try FreSwiftHelper.newObject(Double(cgFloat))
+        rawValue = try FreSwiftHelper.newObject(cgFloat)
     }
 
     public init(int: Int) throws {
@@ -89,19 +97,19 @@ open class FreObjectSwift: NSObject {
             return try FreSwiftHelper.newObject(v)
         } else if any is CGFloat, let v = any as? CGFloat {
             return try FreSwiftHelper.newObject(v)
+        } else if any is Float, let v = any as? Float {
+            return try FreSwiftHelper.newObject(Double(v))
         } else if any is Bool, let v = any as? Bool {
             return try FreSwiftHelper.newObject(v)
         } else if any is Date, let v = any as? Date {
             return try FreSwiftHelper.newObject(v)
         } else if any is CGRect, let v = any as? CGRect {
-            return FreRectangleSwift.init(value: v).rawValue
+            return v.toFREObject()
         } else if any is CGPoint, let v = any as? CGPoint {
-            return FrePointSwift.init(value: v).rawValue
+            return v.toFREObject()
+        } else if any is NSNumber, let v = any as? NSNumber {
+            return v.toFREObject()
         }
-        //TODO add Dict and others
-
-        Swift.debugPrint("_newObject NO MATCH")
-
         return nil
 
     }

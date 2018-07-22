@@ -8,9 +8,7 @@ PROJECTNAME=HelloWorldANE
 fwSuffix="_FW"
 libSuffix="_LIB"
 
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_29"
-
-
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_30"
 
 ##############################################################################
 

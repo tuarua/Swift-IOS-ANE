@@ -83,7 +83,7 @@ public class FreSwiftHelper {
             throw FreError(stackTrace: "", message: "cannot get FREObject as Bool", type: getErrorCode(status),
               line: #line, column: #column, file: #file)
         }
-        ret = val == 1 ? true : false
+        ret = val == 1
         return ret
     }
 
@@ -140,8 +140,6 @@ public class FreSwiftHelper {
 
     static func getAsId(_ rawValue: FREObject) throws -> Any? {
         let objectType: FreObjectTypeSwift = getType(rawValue)
-
-        //Swift.debugPrint("getAsId is of type ", objectType)
         switch objectType {
         case .int:
             return try getAsInt(rawValue)
@@ -156,22 +154,21 @@ public class FreSwiftHelper {
         case .number:
             return try getAsDouble(rawValue)
         case .bitmapdata: //TODO
-            break
+            return try FreBitmapDataSwift.init(freObject: rawValue).asCGImage()
         case .bytearray:
             let asByteArray = FreByteArraySwift.init(freByteArray: rawValue)
             let byteData = asByteArray.value
-            asByteArray.releaseBytes() //don't forget to release
+            asByteArray.releaseBytes()
             return byteData
         case .point:
-            return nil
+            return CGPoint(rawValue)
         case .rectangle:
-            return nil
+            return CGRect(rawValue)
         case .date:
             return try getAsDate(rawValue)
         case .null:
             return nil
         }
-        return nil
     }
 
 #if os(OSX)
@@ -230,7 +227,6 @@ public class FreSwiftHelper {
     }
 
     fileprivate static func getActionscriptType(_ rawValue: FREObject) -> FreObjectTypeSwift {
-        //Swift.debugPrint("GET ACTIONSCRIPT TYPE----------------")
         do {
             if let aneUtils = try FREObject.init(className: "com.tuarua.fre.ANEUtils") {
                 if let classType = try aneUtils.call(method: "getClassType", args: rawValue) {
@@ -348,6 +344,20 @@ public class FreSwiftHelper {
         for i in 0..<arrayLength {
             if let elem: FREObject = try array.at(index: i) {
                 if let v: Int = Int(elem) {
+                    ret.append(v)
+                }
+            }
+        }
+        return ret
+    }
+    
+    static func getAsArray(_ rawValue: FREObject) throws -> [UInt]? {
+        var ret = [UInt]()
+        let array: FREArray = FREArray.init(rawValue)
+        let arrayLength = array.length
+        for i in 0..<arrayLength {
+            if let elem: FREObject = try array.at(index: i) {
+                if let v: UInt = UInt(elem) {
                     ret.append(v)
                 }
             }

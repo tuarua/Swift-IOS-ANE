@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/User/flash/Swift-IOS-ANE/framework_src/native_library/ios/SwiftIOSANE/FreSwiftExampleANE.xcodeproj">
+      location = "self:FreSwiftExampleANE.xcodeproj">
    </FileRef>
 </Workspace>

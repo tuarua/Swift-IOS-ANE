@@ -79,30 +79,39 @@ public class SwiftController: NSObject {
     }
     
     func runArrayTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-        trace("***********Start Array test NEW ***********")
+        trace("***********Start Array test ***********")
         
         guard argc > 0, let inFRE0 = argv[0] else {
             return nil
         }
         
         let airArray: FREArray = FREArray(inFRE0)
+        
         do {
+            
+            let myVector = try FREArray.init(className: "Object", length: 5, fixed: true)
+            trace("Vector of Objects should equal 5 ? ", myVector.length)
+            
             let airArrayLen = airArray.length
             
             trace("Array passed from AIR:", airArray.value)
             trace("AIR Array length:", airArrayLen)
-            
-            if let itemZero = try Int(airArray.at(index: 0)) {
-                trace("AIR Array elem at 0 type:", "value:", itemZero)
-                try airArray.set(index: 0, value: 56)
-                return airArray.rawValue
+            for fre in airArray {
+                trace("iterate over FREArray", Int(fre) ?? "unknown")
             }
             
+            if let itemZero = Int(airArray[0]) { //get using brackets with FREObject
+                trace("AIR Array elem at 0 type:", "value:", itemZero)
+                try airArray.set(index: 0, value: 56)
+                airArray[1] = 123.toFREObject() //set using brackets with FREObject
+                return airArray.rawValue
+            }
+
         } catch let e as FreError {
             _ = e.getError(#file, #line, #column)
         } catch {
         }
-        
+
         return nil
         
     }

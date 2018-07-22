@@ -3,7 +3,7 @@
 Example Xcode projects showing how to create AIR Native Extensions for iOS, tvOS & OSX using Swift.   
 It supports iOS 9.0+, tvOS 9.2+, OSX 10.10+
 
-#### Xcode 9.3 (9E145) must be used with Apple Swift version 4.1 (swiftlang-902.0.48 clang-902.0.37.1)
+#### Xcode 9.4.1 (9F2000) must be used with Apple Swift version 4.1.2 (swiftlang-902.0.54 clang-902.0.39.2)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 ABI stability is planned for Swift 5 in late 2018
 
@@ -41,20 +41,20 @@ The following table shows the primitive as3 types which can easily be converted 
 | Date | Date | `let date = Date(argv[0])` | `return date.toFREObject()`|
 | Rectangle | CGRect | `let rect = CGRect(argv[0])` | `return rect.toFREObject()` |
 | Point | CGPoint | `let pnt = CGPoint(argv[0])` | `return pnt.toFREObject()` |
-| Vector int | Array<`Int`> | `let a = Array<Int>(argv[0])` | `return a.toFREObject()`|
-| Vector Boolean | Array<`Bool`> | `let a = Array<Bool>(argv[0])` | `return a.toFREObject()`|
-| Vector Number | Array<`Double`> | `let a = Array<Double>(argv[0])` | `return a.toFREObject()`|
-| Vector String | Array<`String`> | `let a = Array<String>(argv[0])` | `return a.toFREObject()`|
-| Object | Dictionary<String, Any>? | `let dct = Dictionary.init(argv[0])` | N/A |
+| Vector int | [Int] | `let a = [Int](argv[0])` | `return a.toFREObject()`|
+| Vector Boolean | [Bool] | `let a = [Bool](argv[0])` | `return a.toFREObject()`|
+| Vector Number | [Double] | `let a = [Double](argv[0])` | `return a.toFREObject()`|
+| Vector String | [String] | `let a = [String](argv[0])` | `return a.toFREObject()`|
+| Object | [String, Any]? | `let dct = Dictionary.init(argv[0])` | N/A |
 
 Example
 
-````swift
+```swift
 let airString = String(argv[0])
 trace("String passed from AIR:", airString)
 let swiftString: String = "I am a string from Swift"
 return swiftString.toFREObject()
-`````
+```
 
 FreSwift is fully extensible. New conversion types can be added in your own project. For example, Rectangle and Point are built as Extensions.
 
@@ -62,65 +62,62 @@ FreSwift is fully extensible. New conversion types can be added in your own proj
 
 Example - Call a method on an FREObject
 
-````swift
+```swift
 let person = argv[0]
 if let addition = try person.call(method: "add", args: 100, 31) {
     if let result = Int(addition) {
         trace("addition result:", result)
     }
 }
-`````
+```
 
 Example - Get a property of a FREObject, convert to Int
 
-````swift
+```swift
 let person = argv[0]
 if let age = Int(person["age"]) {
     trace(age)
 }
-`````
+```
 
 Example - Create a new FREObject, set property of FREObject
 
-````swift
+```swift
 let person = try FREObject(className: "com.tuarua.Person")
 try person.setProp(name: "age", value: 30)
-`````
+```
 
 Example - Sending events back to AIR  (replaces dispatchStatusEventAsync)
 
-````swift
+```swift
 sendEvent(name: "MY_EVENT", value: "My message")
-`````
+```
 
 Example - Reading items in array
 
-````swift
-let airArray: FREArray = FREArray.init(argv[0])
-do {
-    if let itemZero = Int(airArray[0]) {
-        trace("AIR Array elem at 0 type:", "value:", itemZero)
-        try airArray.set(index: 0, value: 56)
-        return airArray.rawValue
-    }
-} catch {}
-`````
+```swift
+let airArray: FREArray = FREArray(argv[0])
+for fre in airArray {
+    trace("iterate over FREArray", Int(fre) ?? "unknown")
+}
+airArray[0] = 123.toFREObject()
+```
 
 Example - Convert BitmapData to a UIImage and add to native view (iOS tvOS)
 
-````swift
-if let img = UIImage.init(freObject: argv[0]) {
+```swift
+if let img = UIImage(freObject: argv[0]) {
     if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-        let imgView: UIImageView = UIImageView.init(image: img)
-        imgView.frame = CGRect.init(x: 0, y: 0, width: img.size.width, height: img.size.height)
+        let imgView: UIImageView = UIImageView(image: img)
+        imgView.frame = CGRect(x: 0, y: 0, width: img.size.width, height: img.size.height)
         rootViewController.view.addSubview(imgView)
     }
 }
-`````
+```
   
 Example - Error handling
 
-````swift
+```swift
 do {
     _ = try person.getProp(name: "doNotExist") //calling a property that doesn't exist
 } catch let e as FreError {
@@ -128,7 +125,7 @@ do {
         return aneError //return the error as an actionscript error
     }
 } catch {}
-`````
+```
 ----------
 
 #### applicationDidFinishLaunching
@@ -137,7 +134,7 @@ It is also called once for each ANE and very early in the launch cycle. In here 
 This makes an ideal place to add observers for applicationDidFinishLaunching and any other calls which would normally be added as app delegates, thus removing the restriction of one ANE declaring itself as the "owner".   
 Note: We have no FREContext yet so calls such as trace, sendEvent will not work.
 
-````swift
+```swift
 @objc func applicationDidFinishLaunching(_ notification: Notification) {
    appDidFinishLaunchingNotif = notification //save the notification for later
 }
@@ -147,7 +144,7 @@ NotificationCenter.default.addObserver(self,
             name: NSNotification.Name.UIApplicationDidFinishLaunching, 
             object: nil)      
 }
-`````
+```
 ----------
 
 ### Required AS3 classes
@@ -158,7 +155,7 @@ com.tuarua.fre.ANEUtils.as and com.tuarua.fre.ANEError.as are required by FreSwi
 
 You will need
 
-- Xcode 9.3
+- Xcode 9.4
 - Xcode 9.1 for iOS Simulator
 - IntelliJ IDEA
 - AIR 29

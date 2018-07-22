@@ -13,41 +13,12 @@
  limitations under the License.*/
 
 import Foundation
-#if os(OSX)
-    import Cocoa
-#endif
-/// :nodoc:
-public class FrePointSwift: FreObjectSwift {
-    override public init(freObject: FREObject?) {
-        super.init(freObject: freObject)
-    }
-    
-    public init(value: CGPoint) {
-        var freObject: FREObject? = nil
-        do {
-            freObject = try FREObject.init(className: "flash.geom.Point",
-                                           args: CGFloat.init(value.x), CGFloat.init(value.y))
-        } catch {
-        }
-        
-        super.init(freObject: freObject)
-    }
-    
-    override public var value: Any? {
-        if let rv = rawValue {
-            let idRes = CGPoint.init(rv) as Any?
-            return idRes
-        }
-        return nil
-    }
-    
-}
 
 public extension CGPoint {
     /// init: Initialise a CGPoint from a FREObject.
     ///
     /// ```swift
-    /// let rect = CGPoint.init(argv[0])
+    /// let rect = CGPoint(argv[0])
     /// ```
     /// - parameter freObject: FREObject which is of AS3 type flash.geom.Point
     /// - returns: CGPoint?
@@ -55,27 +26,22 @@ public extension CGPoint {
         guard let rv = freObject else {
             return nil
         }
-        var x: CGFloat = CGFloat.init(0)
-        var y: CGFloat = CGFloat.init(0)
-        do {
-            if let rvX = try FreSwiftHelper.getProperty(rawValue: rv, name: "x"), let xVal = CGFloat.init(rvX) {
-                x = xVal
-            }
-            if let rvY = try FreSwiftHelper.getProperty(rawValue: rv, name: "y"), let yVal = CGFloat.init(rvY) {
-                y = yVal
-            }
-            
-        } catch {
-        }
-        self.init(x: x, y: y)
+        self.init(x: CGFloat(rv["x"]) ?? 0,
+                  y: CGFloat(rv["y"]) ?? 0)
     }
     /// toFREObject: Converts a CGPoint into a FREObject of AS3 type flash.geom.Point.
     ///
     /// ```swift
     /// let fre = CGPoint.init().toFREObject()
     /// ```
-    /// - returns: FREObject
+    /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        return FrePointSwift(value: self).rawValue
+        var freObject: FREObject? = nil
+        do {
+            freObject = try FREObject.init(className: "flash.geom.Point",
+                                           args: CGFloat(self.x), CGFloat(self.y))
+        } catch {
+        }
+        return freObject
     }
 }

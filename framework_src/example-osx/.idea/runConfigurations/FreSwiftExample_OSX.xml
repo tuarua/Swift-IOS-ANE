@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="FreSwiftExample OSX" type="FlashRunConfigurationType" factoryName="Flash App">
+  <configuration default="false" name="FreSwiftExample OSX" type="FlashRunConfigurationType" factoryName="Flash App" singleton="true">
     <option name="BCName" value="FreSwiftExample OSX" />
     <option name="IOSSimulatorSdkPath" value="" />
     <option name="adlOptions" value="" />
