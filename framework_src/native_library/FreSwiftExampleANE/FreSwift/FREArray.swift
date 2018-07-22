@@ -55,7 +55,7 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray containing a Vector of type specified by className.
     ///
     /// ```swift
-    /// let newPerson = try FREArray(className: "com.tuarua.Person", length: 5, fixed: true")
+    /// let newPerson = try FREArray(className: "com.tuarua.Person", length: 5, fixed: true)
     /// ```
     ///
     /// - parameter className: name of AS3 class to create
