@@ -46,6 +46,7 @@ The following table shows the primitive as3 types which can easily be converted 
 | Vector Number | [Double] | `let a = [Double](argv[0])` | `return a.toFREObject()`|
 | Vector String | [String] | `let a = [String](argv[0])` | `return a.toFREObject()`|
 | Object | [String, Any]? | `let dct = Dictionary.init(argv[0])` | N/A |
+| null | nil | | |
 
 Example
 
