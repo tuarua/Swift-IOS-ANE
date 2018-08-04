@@ -88,10 +88,10 @@ let person = try FREObject(className: "com.tuarua.Person")
 try person.setProp(name: "age", value: 30)
 ```
 
-Example - Sending events back to AIR  (replaces dispatchStatusEventAsync)
+Example - Dispatch events back to AIR  (replaces dispatchStatusEventAsync)
 
 ```swift
-sendEvent(name: "MY_EVENT", value: "My message")
+dispatchEvent(name: "MY_EVENT", value: "My message")
 ```
 
 Example - Reading items in array
