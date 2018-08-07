@@ -46,65 +46,92 @@ The following table shows the primitive as3 types which can easily be converted 
 | Vector Number | [Double] | `let a = [Double](argv[0])` | `return a.toFREObject()`|
 | Vector String | [String] | `let a = [String](argv[0])` | `return a.toFREObject()`|
 | Object | [String, Any]? | `let dct = Dictionary.init(argv[0])` | N/A |
-| null | nil | | |
+| null | nil | | return nil |
 
-Example
+
+#### Basic Types
 
 ```swift
-let airString = String(argv[0])
-trace("String passed from AIR:", airString)
-let swiftString: String = "I am a string from Swift"
+let myString: String? = String(argv[0])
+let myInt = Int(argv[1])
+let myBool = Bool(argv[2])
+
+let swiftString = "I am a string from Swift"
 return swiftString.toFREObject()
 ```
 
-FreSwift is fully extensible. New conversion types can be added in your own project. For example, Rectangle and Point are built as Extensions.
-
-----------
-
-Example - Call a method on an FREObject
+#### Creating new FREObjects
 
 ```swift
-let person = argv[0]
-if let addition = try person.call(method: "add", args: 100, 31) {
-    if let result = Int(addition) {
-        trace("addition result:", result)
-    }
-}
+let newPerson = try FREObject(className: "com.tuarua.Person")
+
+// create a FREObject passing args
+// 
+// The following param types are allowed: 
+// String, Int, UInt, Double, Float, CGFloat, NSNumber, Bool, Date, CGRect, CGPoint, FREObject
+let frePerson = FREObject(className: "com.tuarua.Person", args: "Bob", "Doe", 28, myFREObject)
 ```
 
-Example - Get a property of a FREObject, convert to Int
+#### Calling Methods
 
 ```swift
-let person = argv[0]
-if let age = Int(person["age"]) {
-    trace(age)
-}
+// call a FREObject method passing args
+// 
+// The following param types are allowed: 
+// String, Int, UInt, Double, Float, CGFloat, NSNumber, Bool, Date, CGRect, CGPoint, FREObject
+let addition = try freCalculator.call(method: "add", args: 100, 31) {
 ```
 
-Example - Create a new FREObject, set property of FREObject
+#### Getting / Setting Properties
 
 ```swift
-let person = try FREObject(className: "com.tuarua.Person")
-try person.setProp(name: "age", value: 30)
+let oldAge = Int(person["age"])
+let newAge = oldAge + 10
+
+// Set property using braces access
+person["age"] = (oldAge + 10).toFREObject()
+
+// Set property using setProp
+try person.setProp(name: "age", value: oldAge + 10)
+
 ```
 
-Example - Dispatch events back to AIR  (replaces dispatchStatusEventAsync)
-
-```swift
-dispatchEvent(name: "MY_EVENT", value: "My message")
-```
-
-Example - Reading items in array
+#### Arrays
 
 ```swift
 let airArray: FREArray = FREArray(argv[0])
+// convert to a Swift [String]
+let airStringVector = [String](argv[0])
+
+// create a Vector.<com.tuarua.Person> with fixed length of 5
+let myVector = try FREArray(className: "com.tuarua.Person", length: 5, fixed: true)
+let airArrayLen = airArray.length
+
+// loop over FREArray
 for fre in airArray {
-    trace("iterate over FREArray", Int(fre) ?? "unknown")
+    trace(Int(fre))
 }
+
+// set element 0 to 123
 airArray[0] = 123.toFREObject()
+
+// return Int Array to AIR
+let swiftArr: [Int] = [99, 98, 92, 97, 95]
+return swiftArr.toFREObject()
 ```
 
-Example - Convert BitmapData to a UIImage and add to native view (iOS tvOS)
+#### Sending Events back to AIR
+
+```swift
+trace("Hi", "There")
+
+// with interpolation
+trace("My name is: \(name)")
+
+dispatchEvent("MY_EVENT", "this is a test")
+```
+
+#### Bitmapdata
 
 ```swift
 if let img = UIImage(freObject: argv[0]) {
@@ -115,8 +142,17 @@ if let img = UIImage(freObject: argv[0]) {
     }
 }
 ```
+
+#### ByteArrays
+
+```swift
+let asByteArray = FreByteArraySwift(freByteArray: argv[0])
+if let byteData = asByteArray.value { // NSData
+	let base64Encoded = byteData.base64EncodedString(options: .lineLength64Characters)
+}
+```
   
-Example - Error handling
+#### Error Handling
 
 ```swift
 do {
@@ -126,6 +162,29 @@ do {
         return aneError //return the error as an actionscript error
     }
 } catch {}
+```
+
+#### Advanced Example - Extending. Convert to/from SCNVector3
+```swift
+public extension SCNVector3 {
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        self.init(Float(rv["x"]) ?? 0,
+                  Float(rv["y"]) ?? 0,
+                  Float(rv["z"]) ?? 0)
+    }
+    func toFREObject() -> FREObject? {
+        do {
+            let ret = try FREObject(className: "flash.geom.Vector3D",
+                                    args: self.x, self.y, self.z)
+            return ret
+        } catch {
+        }
+        return nil
+    }
+}
 ```
 ----------
 
