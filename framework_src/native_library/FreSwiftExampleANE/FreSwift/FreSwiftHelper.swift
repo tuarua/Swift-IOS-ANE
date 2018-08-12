@@ -23,8 +23,7 @@ public class FreSwiftHelper {
         }
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         for i in 0..<args.count {
-            let arg: FREObject? = try FreObjectSwift.init(any: args[i]).rawValue
-            argsArray.addPointer(arg)
+            argsArray.addPointer(FreObjectSwift(args[i]).rawValue)
         }
         var ret: FREObject?
         var thrownException: FREObject?
@@ -153,7 +152,7 @@ public class FreSwiftHelper {
             return try getAsDictionary(rawValue) as [String: AnyObject]?
         case .number:
             return try getAsDouble(rawValue)
-        case .bitmapdata: //TODO
+        case .bitmapdata:
             return try FreBitmapDataSwift.init(freObject: rawValue).asCGImage()
         case .bytearray:
             let asByteArray = FreByteArraySwift.init(freByteArray: rawValue)
@@ -178,7 +177,7 @@ public class FreSwiftHelper {
         let g = (rgb >> 8) & 0xFF
         let b = rgb & 0xFF
         var a: CGFloat = CGFloat.init(1)
-        let aFre = FreObjectSwift.init(freObject: alpha)
+        let aFre = FreObjectSwift(alpha)
         if let alphaInt = aFre.value as? Int, alphaInt == 0 {
             return CGColor.clear
         }
@@ -191,15 +190,6 @@ public class FreSwiftHelper {
         return CGColor.init(red: rFl, green: gFl, blue: bFl, alpha: a)
     }
 #endif
-
-    public static func toPointerArray(args: Any...) throws -> NSPointerArray {
-        let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-        for i in 0..<args.count {
-            let arg: FreObjectSwift = try FreObjectSwift.init(any: args[i])
-            argsArray.addPointer(arg.rawValue)
-        }
-        return argsArray
-    }
 
     public static func arrayToFREArray(_ array: NSPointerArray?) -> UnsafeMutablePointer<FREObject?>? {
         if let array = array {
@@ -265,7 +255,7 @@ public class FreSwiftHelper {
             if let elem: FREObject = try array.at(index: i) {
                 if let propNameAs = try elem.getProp(name: "name") {
                     if let propName = String(propNameAs) {
-                        if let propval = try FreObjectSwift.init(freObject: rawValue.getProp(name: propName)).value {
+                        if let propval = try FreObjectSwift(rawValue.getProp(name: propName)).value {
                             ret.updateValue(propval as AnyObject, forKey: propName)
                         }
                     }
@@ -288,7 +278,7 @@ public class FreSwiftHelper {
             if let elem: FREObject = try array.at(index: i) {
                 if let propNameAs = try elem.getProp(name: "name") {
                     if let propName = String(propNameAs) {
-                        if let propval = try FreObjectSwift.init(freObject: rawValue.getProp(name: propName)).value {
+                        if let propval = try FreObjectSwift(rawValue.getProp(name: propName)).value {
                             ret.updateValue(propval as Any, forKey: propName)
                         }
                     }
@@ -311,7 +301,7 @@ public class FreSwiftHelper {
             if let elem: FREObject = try array.at(index: i) {
                 if let propNameAs = try elem.getProp(name: "name") {
                     if let propName = String(propNameAs) {
-                        if let propval = try FreObjectSwift.init(freObject: rawValue.getProp(name: propName)).value,
+                        if let propval = try FreObjectSwift(rawValue.getProp(name: propName)).value,
                             let pv = propval as? NSObject {
                             ret.updateValue(pv, forKey: propName)
                         }
@@ -399,7 +389,7 @@ public class FreSwiftHelper {
         let arrayLength = array.length
         for i in 0..<arrayLength {
             if let elem: FREObject = try array.at(index: i) {
-                if let v: Any = FreObjectSwift.init(freObject: elem).value {
+                if let v: Any = FreObjectSwift(elem).value {
                     ret.append(v)
                 }
             }
@@ -516,8 +506,7 @@ public class FreSwiftHelper {
         var ret: FREObject?
         let secs: Double = Double(date.timeIntervalSince1970) * 1000.0
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-        let arg: FREObject? = try FreObjectSwift.init(any: secs).rawValue
-        argsArray.addPointer(arg)
+        argsArray.addPointer(secs.toFREObject())
         ret = try newObject(className: "Date", argsArray)
         return ret
     }

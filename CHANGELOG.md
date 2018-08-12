@@ -1,3 +1,12 @@
+### 3.0.0
+- Upgraded to Xcode 10.0 beta
+- Upgraded to Swift version 4.2 (swiftlang-1000.0.32.1 clang-1000.10.39)
+- Added append method FREArray
+- Added @dynamicMemberLookup to FreObjectSwift. Adds cleaner way to extend FREObjects 
+- Remove ArgCountError class
+- Remove sendEvent method
+- Refactoring
+
 ### 2.5.0
 - Upgraded to Xcode 9.4
 - Upgraded to Swift version 4.1.2 (swiftlang-902.0.54 clang-902.0.39.2)

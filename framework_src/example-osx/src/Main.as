@@ -80,7 +80,7 @@ public class Main extends Sprite {
             ane.runBitmapTests(bmp.bitmapData); //pass in bitmap data and apply filter
         }
 
-        ane.runRectTests(new Point(0, 55.5), new Rectangle(9.1, 0.5, 20, 50));
+        ane.runRectTests(new Point(1, 55.5), new Rectangle(9.1, 0.5, 20, 50));
 
         var myByteArray:ByteArray = new ByteArray();
         myByteArray.writeUTFBytes("Swift in an ANE. Say whaaaat!");

@@ -99,16 +99,6 @@ public extension FreSwiftMainController {
         dispatchEvent(name: "TRACE", value: "WARNING: \(traceStr)")
     }
     
-    @available(*, deprecated, renamed: "dispatchEvent()")
-    func sendEvent(name: String, value: String) {
-        autoreleasepool {
-            do {
-                try context.dispatchStatusEventAsync(code: value, level: name)
-            } catch {
-            }
-        }
-    }
-    
     /// dispatchEvent: sends StatusEvent to our swc with a level of name and code of value
     /// replaces DispatchStatusEventAsync
     ///
@@ -182,16 +172,6 @@ public extension FreSwiftController {
             traceStr = "\(traceStr) \(value[i]) "
         }
         dispatchEvent(name: "TRACE", value: "WARNING: \(traceStr)")
-    }
-    
-    @available(*, deprecated, renamed: "dispatchEvent()")
-    func sendEvent(name: String, value: String) {
-        autoreleasepool {
-            do {
-                try context.dispatchStatusEventAsync(code: value, level: name)
-            } catch {
-            }
-        }
     }
     
     /// dispatchEvent: sends StatusEvent to our swc with a level of name and code of value
@@ -305,8 +285,7 @@ public extension FREObject {
     init?(className: String, args: Any?...) throws {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         for i in 0..<args.count {
-            let arg: FREObject? = try FreObjectSwift(any: args[i]).rawValue
-            argsArray.addPointer(arg)
+            argsArray.addPointer(FreObjectSwift(args[i]).rawValue)
         }
         if let rv = try FreSwiftHelper.newObject(className: className, argsArray) {
             self.init(rv)
@@ -375,7 +354,7 @@ public extension FREObject {
     ///
     /// - returns: Any?
     public var value: Any? {
-        return FreObjectSwift(freObject: self).value
+        return FreObjectSwift(self).value
     }
 }
 
@@ -698,6 +677,7 @@ public extension String {
         /// - parameter freObject: FREObject which is of AS3 type uint
         /// - parameter alpha: FREObject which is of AS3 type Number
         /// - returns: NSColor?
+        @available(*, deprecated, renamed: "init()")
         convenience init?(freObject: FREObject?, alpha: FREObject?) {
             guard let rv = freObject, let rv2 = alpha else {
                 return nil
@@ -708,7 +688,7 @@ public extension String {
                 let g = (rgb >> 8) & 0xFF
                 let b = rgb & 0xFF
                 var a: CGFloat = CGFloat(1)
-                let aFre = FreObjectSwift(freObject: rv2)
+                let aFre = FreObjectSwift(rv2)
                 if let alphaInt = aFre.value as? Int, alphaInt == 0 {
                     self.init(white: 1.0, alpha: 0.0)
                 } else {
@@ -791,6 +771,7 @@ public extension String {
         /// - parameter freObject: FREObject which is of AS3 type uint
         /// - parameter alpha: FREObject which is of AS3 type Number
         /// - returns: UIColor?
+        @available(*, deprecated, renamed: "init()")
         convenience init?(freObject: FREObject?, alpha: FREObject?) {
             guard let rv = freObject, let rv2 = alpha else {
                 return nil
@@ -801,7 +782,7 @@ public extension String {
                 let g = (rgb >> 8) & 0xFF
                 let b = rgb & 0xFF
                 var a: CGFloat = CGFloat(1)
-                let aFre = FreObjectSwift(freObject: rv2)
+                let aFre = FreObjectSwift(rv2)
                 if let alphaInt = aFre.value as? Int, alphaInt == 0 {
                     self.init(white: 1.0, alpha: 0.0)
                 } else {

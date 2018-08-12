@@ -37,21 +37,6 @@ public class FREArray: Sequence {
         rawValue = freObject
     }
     
-    /// init: Initialise a FREArray of type specified by className.
-    ///
-    /// - parameter className: name of AS3 class to create
-    /// - parameter args: arguments to pass to the method
-    /// - throws: Can throw a `FreError` on fail
-    @available(*, deprecated, renamed: "FREArray()", message: "Use the newer FREArray(className: String, length: Int, fixed: Bool)")
-    public init(className: String, args: Any...) throws {
-        let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-        for i in 0..<args.count {
-            let arg: FREObject? = try FreObjectSwift.init(any: args[i]).rawValue
-            argsArray.addPointer(arg)
-        }
-        rawValue = try FreSwiftHelper.newObject(className: className, argsArray)
-    }
-    
     /// init: Initialise a FREArray containing a Vector of type specified by className.
     ///
     /// ```swift
@@ -75,9 +60,8 @@ public class FREArray: Sequence {
     /// - throws: Can throw a `FreError` on fail
     public init(intArray: [Int]) throws {
         rawValue = try FreSwiftHelper.newObject(className: "Array")
-        let count = intArray.count
-        for i in 0..<count {
-            try set(index: UInt(i), object: FreObjectSwift.init(int: intArray[i]))
+        for v in intArray {
+            append(value: v.toFREObject())
         }
     }
     
@@ -87,9 +71,8 @@ public class FREArray: Sequence {
     /// - throws: Can throw a `FreError` on fail
     public init(uintArray: [UInt]) throws {
         rawValue = try FreSwiftHelper.newObject(className: "Array")
-        let count = uintArray.count
-        for i in 0..<count {
-            try set(index: UInt(i), object: FreObjectSwift.init(uint: uintArray[i]))
+        for v in uintArray {
+            append(value: v.toFREObject())
         }
     }
     
@@ -99,9 +82,8 @@ public class FREArray: Sequence {
     /// - throws: Can throw a `FreError` on fail
     public init(stringArray: [String]) throws {
         rawValue = try FreSwiftHelper.newObject(className: "Array")
-        let count = stringArray.count
-        for i in 0..<count {
-            try set(index: UInt(i), object: FreObjectSwift.init(string: stringArray[i]))
+        for v in stringArray {
+            append(value: v.toFREObject())
         }
     }
     
@@ -111,9 +93,8 @@ public class FREArray: Sequence {
     /// - throws: Can throw a `FreError` on fail
     public init(doubleArray: [Double]) throws {
         rawValue = try FreSwiftHelper.newObject(className: "Array")
-        let count = doubleArray.count
-        for i in 0..<count {
-            try set(index: UInt(i), object: FreObjectSwift.init(double: doubleArray[i]))
+        for v in doubleArray {
+            append(value: v.toFREObject())
         }
     }
     
@@ -123,9 +104,8 @@ public class FREArray: Sequence {
     /// - throws: Can throw a `FreError` on fail
     public init(boolArray: [Bool]) throws {
         rawValue = try FreSwiftHelper.newObject(className: "Array")
-        let count = boolArray.count
-        for i in 0..<count {
-            try set(index: UInt(i), object: FreObjectSwift.init(bool: boolArray[i]))
+        for v in boolArray {
+            append(value: v.toFREObject())
         }
     }
     
@@ -137,7 +117,7 @@ public class FREArray: Sequence {
         rawValue = try FreSwiftHelper.newObject(className: "Array")
         let count = anyArray.count
         for i in 0..<count {
-            try set(index: UInt(i), object: FreObjectSwift.init(any: anyArray[i]))
+            try set(index: UInt(i), object: FreObjectSwift(anyArray[i]))
         }
     }
     
@@ -184,7 +164,7 @@ public class FREArray: Sequence {
         }
     }
     
-    fileprivate func set(index: UInt, freObject: FREObject) throws {
+    fileprivate func set(index: UInt, freObject: FREObject?) throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
                            line: #line, column: #column, file: #file)
@@ -209,7 +189,21 @@ public class FREArray: Sequence {
     /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
     public func set(index: UInt, value: Any) throws {
-        try set(index: index, object: FreObjectSwift.init(any: value))
+        try set(index: index, object: FreObjectSwift(value))
+    }
+    
+    public func append(value: Any) {
+        do {
+            try set(index: length, value: value)
+        } catch {
+        }
+    }
+    
+    public func append(value: FREObject?) {
+        do {
+            try set(index: length, freObject: value)
+        } catch {
+        }
     }
     
     /// length: length of FREArray
@@ -242,7 +236,7 @@ public class FREArray: Sequence {
         var ret: [Any?] = []
         do {
             for i in 0..<length {
-                let elem: FreObjectSwift = try FreObjectSwift.init(freObject: at(index: i))
+                let elem: FreObjectSwift = try FreObjectSwift(at(index: i))
                 ret.append(elem.value)
             }
         } catch {

@@ -26,8 +26,8 @@ public extension CGPoint {
         guard let rv = freObject else {
             return nil
         }
-        self.init(x: CGFloat(rv["x"]) ?? 0,
-                  y: CGFloat(rv["y"]) ?? 0)
+        let fre = FreObjectSwift(rv)
+        self.init(x: fre.x as CGFloat, y: fre.y)
     }
     /// toFREObject: Converts a CGPoint into a FREObject of AS3 type flash.geom.Point.
     ///
@@ -36,12 +36,11 @@ public extension CGPoint {
     /// ```
     /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        var freObject: FREObject? = nil
-        do {
-            freObject = try FREObject.init(className: "flash.geom.Point",
-                                           args: CGFloat(self.x), CGFloat(self.y))
-        } catch {
+        guard let cls = try? FreObjectSwift(className: "flash.geom.Point"), let fre = cls else {
+            return nil
         }
-        return freObject
+        fre.x = x
+        fre.y = y
+        return fre.rawValue
     }
 }

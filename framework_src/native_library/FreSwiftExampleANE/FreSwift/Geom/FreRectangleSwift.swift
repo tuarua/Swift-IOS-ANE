@@ -26,10 +26,8 @@ public extension CGRect {
         guard let rv = freObject else {
             return nil
         }
-        self.init(x: CGFloat(rv["x"]) ?? 0,
-                  y: CGFloat(rv["y"]) ?? 0,
-                  width: CGFloat(rv["width"]) ?? 0,
-                  height: CGFloat(rv["height"]) ?? 0)
+        let fre = FreObjectSwift(rv)
+        self.init(x: fre.x as CGFloat, y: fre.y, width: fre.width, height: fre.height)
     }
     /// toFREObject: Converts a CGRect into a FREObject of AS3 type flash.geom.Rectangle.
     ///
@@ -38,17 +36,13 @@ public extension CGRect {
     /// ```
     /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        var freObject: FREObject? = nil
-        do {
-            freObject = try FREObject.init(className: "flash.geom.Rectangle",
-                                           args: CGFloat(self.origin.x),
-                                           CGFloat(self.origin.y),
-                                           CGFloat(self.width),
-                                           CGFloat(self.height))
-            
-        } catch {
+        guard let cls = try? FreObjectSwift(className: "flash.geom.Rectangle"), let fre = cls else {
+            return nil
         }
-        
-        return freObject
+        fre.x = origin.x
+        fre.y = origin.y
+        fre.width = width
+        fre.height = height
+        return fre.rawValue
     }
 }

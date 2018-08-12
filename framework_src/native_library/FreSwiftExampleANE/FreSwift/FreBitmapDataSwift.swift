@@ -191,7 +191,7 @@ public extension UIImage {
     /// - parameter freObject: FREObject which is of AS3 type flash.display.BitmapData.
     /// - parameter scale: You may wish to scale the UIImage to screen size.
     /// - parameter orientation: 
-    convenience init?(freObject: FREObject?, scale: CGFloat = 1.0, orientation: UIImageOrientation = .up) {
+    convenience init?(freObject: FREObject?, scale: CGFloat = 1.0, orientation: UIImage.Orientation = .up) {
         guard let rv = freObject else {
             return nil
         }

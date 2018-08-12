@@ -28,6 +28,7 @@ public class SwiftController: NSObject {
     public var functionsToSet: FREFunctionMap = [:]
     
     func runStringTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+        trace("XCODE 10 Swift 4.2")
         trace("***********Start String test***********")
         
         guard argc > 0,
@@ -89,7 +90,7 @@ public class SwiftController: NSObject {
         
         do {
             
-            let myVector = try FREArray.init(className: "Object", length: 5, fixed: true)
+            let myVector = try FREArray(className: "Object", length: 5, fixed: true)
             trace("Vector of Objects should equal 5 ? ", myVector.length)
             
             let airArrayLen = airArray.length
@@ -103,6 +104,7 @@ public class SwiftController: NSObject {
             if let itemZero = Int(airArray[0]) { //get using brackets with FREObject
                 trace("AIR Array elem at 0 type:", "value:", itemZero)
                 try airArray.set(index: 0, value: 56)
+                airArray.append(value: 222)
                 airArray[1] = 123.toFREObject() //set using brackets with FREObject
                 return airArray.rawValue
             }
@@ -127,9 +129,17 @@ public class SwiftController: NSObject {
             let newPerson = try FREObject(className: "com.tuarua.Person")
             trace("We created a new person. type =", newPerson?.type ?? "unknown")
             
+            if let swiftPerson = try FreObjectSwift(className: "com.tuarua.Person") {
+                trace("FreObjectSwift age 1", Int(swiftPerson.age) ?? "unknown")
+                swiftPerson.age = 999
+                trace("FreObjectSwift age 2", Int(swiftPerson.age) ?? "unknown")
+                swiftPerson.age = 111.toFREObject()
+                trace("FreObjectSwift age 3", Int(swiftPerson.age) ?? "unknown")
+            }
+            
             if let oldAge = Int(person["age"]) {
                 trace("current person age is", oldAge)
-                try person.setProp(name: "age", value: oldAge + 10)
+                // try person.setProp(name: "age", value: oldAge + 10)
                 if let addition = try person.call(method: "add", args: 100, 31) {
                     if let result = Int(addition) {
                         trace("addition result:", result)
@@ -182,7 +192,7 @@ public class SwiftController: NSObject {
                         }
                     }
 #else
-                    if let newImage = context.createCGImage(result, from: result.extent, format: kCIFormatBGRA8, colorSpace: cgimg.colorSpace) {
+                    if let newImage = context.createCGImage(result, from: result.extent, format: CIFormat.BGRA8, colorSpace: cgimg.colorSpace) {
                         try asBitmapData.setPixels(cgImage: newImage)
                     }
 #endif
