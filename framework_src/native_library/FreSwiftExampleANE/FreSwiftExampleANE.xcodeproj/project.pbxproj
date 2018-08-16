@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		900A1CA7212600A700D8EB16 /* FreSwiftLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */; };
+		900A1CA8212600A700D8EB16 /* FreSwiftLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */; };
+		900A1CA9212600A700D8EB16 /* FreSwiftLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */; };
 		90E26D5B210394DF003E0B9B /* FreSwiftExampleANE_oc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90E26D59210394DF003E0B9B /* FreSwiftExampleANE_oc.h */; };
 		90E26D6321039542003E0B9B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E26D6221039542003E0B9B /* Cocoa.framework */; };
 		90E26D8A210399F6003E0B9B /* FreSwiftHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D81210399F6003E0B9B /* FreSwiftHelper.swift */; };
@@ -138,6 +141,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreSwiftLogger.swift; sourceTree = "<group>"; };
 		90E26D56210394DF003E0B9B /* FreSwiftExampleANE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FreSwiftExampleANE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E26D59210394DF003E0B9B /* FreSwiftExampleANE_oc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreSwiftExampleANE_oc.h; sourceTree = "<group>"; };
 		90E26D5A210394DF003E0B9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -309,6 +313,7 @@
 				90E26D86210399F6003E0B9B /* FreSwift.m */,
 				90E26D85210399F6003E0B9B /* FreSwift.swift */,
 				90E26D81210399F6003E0B9B /* FreSwiftHelper.swift */,
+				900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */,
 				90E26D7F2103993A003E0B9B /* Misc */,
 				90E26D7E2103991E003E0B9B /* Geom */,
 				90E26D78210398BA003E0B9B /* Headers */,
@@ -728,7 +733,7 @@
 		};
 		90E26E4D2103AAA2003E0B9B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -791,6 +796,7 @@
 				90E26D9F21039A2C003E0B9B /* FreObjectSwift.swift in Sources */,
 				90E26D8B210399F6003E0B9B /* FreObjectTypeSwift.swift in Sources */,
 				90E26D8A210399F6003E0B9B /* FreSwiftHelper.swift in Sources */,
+				900A1CA7212600A700D8EB16 /* FreSwiftLogger.swift in Sources */,
 				90E26D8D210399F6003E0B9B /* FreError.swift in Sources */,
 				90E26D92210399F6003E0B9B /* FreContextSwift.swift in Sources */,
 				90E26D9621039A00003E0B9B /* FreRectangleSwift.swift in Sources */,
@@ -811,6 +817,7 @@
 				90E26DBB21039CFA003E0B9B /* FreByteArraySwift.swift in Sources */,
 				90E26DBC21039CFA003E0B9B /* FreContextSwift.swift in Sources */,
 				90E26DBD21039CFA003E0B9B /* FreError.swift in Sources */,
+				900A1CA8212600A700D8EB16 /* FreSwiftLogger.swift in Sources */,
 				90E26DBE21039CFA003E0B9B /* FreObjectTypeSwift.swift in Sources */,
 				90E26DBF21039CFA003E0B9B /* FreSwiftHelper.swift in Sources */,
 				90E26DC021039CFA003E0B9B /* FrePointSwift.swift in Sources */,
@@ -824,6 +831,7 @@
 			files = (
 				90E26DDB21039F03003E0B9B /* FlashRuntimeExtensions.swift in Sources */,
 				90E26DDC21039F03003E0B9B /* FreArgError.swift in Sources */,
+				900A1CA9212600A700D8EB16 /* FreSwiftLogger.swift in Sources */,
 				90E26DDD21039F03003E0B9B /* FREArray.swift in Sources */,
 				90E26DDE21039F03003E0B9B /* FreObjectSwift.swift in Sources */,
 				90E26DE021039F03003E0B9B /* FreBitmapDataSwift.swift in Sources */,
@@ -920,8 +928,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -983,8 +991,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1036,6 +1044,8 @@
 		90E26D5F210394DF003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
@@ -1073,6 +1083,8 @@
 		90E26D60210394DF003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
@@ -1109,6 +1121,8 @@
 		90E26D722103963C003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
@@ -1141,6 +1155,8 @@
 		90E26D732103963C003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
@@ -1173,6 +1189,8 @@
 		90E26DB021039BA3003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1204,6 +1222,8 @@
 		90E26DB121039BA3003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1237,7 +1257,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1276,7 +1297,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1314,6 +1336,8 @@
 		90E26E012103A399003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1343,6 +1367,8 @@
 		90E26E022103A399003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1373,6 +1399,9 @@
 		90E26E142103A4D9003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1403,6 +1432,9 @@
 		90E26E152103A4D9003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
@@ -1434,6 +1466,8 @@
 		90E26E272103A82A003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -1450,6 +1484,8 @@
 		90E26E282103A82A003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -1467,6 +1503,8 @@
 		90E26E3F2103A995003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -1482,6 +1520,8 @@
 		90E26E402103A995003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";

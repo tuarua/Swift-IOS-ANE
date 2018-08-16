@@ -10,7 +10,8 @@
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
- limitations under the License.*/
+ limitations under the License.
+ */
 
 import Foundation
 /// FREObject arguments
@@ -195,6 +196,15 @@ public extension FreSwiftController {
 
 /// FREObject: Extends FREObject with Swift syntax.
 public extension FREObject {
+    func hasOwnProperty(name: String) -> Bool {
+        do {
+            if let hasOwnProperty = try self.call(method: "hasOwnProperty", args: name) {
+                return Bool(hasOwnProperty) ?? false
+            }
+        } catch { }
+        return false
+    }
+    
     /// getProp: returns the Property of a FREObject.
     ///
     /// ```swift
@@ -203,18 +213,20 @@ public extension FREObject {
     /// - parameter name: name of the property to return
     /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
+    @available(*, deprecated, message: "use accessor or FreSwiftObject wrapper instead")
     func getProp(name: String) throws -> FREObject? {
-        if let ret = try FreSwiftHelper.getProperty(rawValue: self, name: name) {
+        if let ret = FreSwiftHelper.getProperty(rawValue: self, name: name) {
             return ret
         }
         return nil
     }
-    
+
     /// setProp: sets the Property of a FREObject.
     /// - parameter name: name of the property to set
     /// - parameter value: value to set to
     /// - throws: Can throw a `FreError` on fail
     /// - returns: Void
+    @available(*, deprecated, message: "use accessor or FreSwiftObject wrapper instead")
     func setProp(name: String, value: Any?) throws {
         if value is FREObject {
             try FreSwiftHelper.setProperty(rawValue: self, name: name, prop: value as? FREObject)
@@ -287,7 +299,7 @@ public extension FREObject {
         for i in 0..<args.count {
             argsArray.addPointer(FreObjectSwift(args[i]).rawValue)
         }
-        if let rv = try FreSwiftHelper.newObject(className: className, argsArray) {
+        if let rv = FreSwiftHelper.newObject(className: className, argsArray) {
             self.init(rv)
         } else {
             return nil
@@ -302,8 +314,8 @@ public extension FREObject {
     /// - parameter className: name of AS3 class to create
     /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
-    init?(className: String) throws {
-        if let rv = try FreSwiftHelper.newObject(className: className) {
+    init?(className: String) {
+        if let rv = FreSwiftHelper.newObject(className: className) {
             self.init(rv)
         } else {
             return nil
@@ -328,7 +340,7 @@ public extension FREObject {
         return FreSwiftHelper.getType(self)
     }
     
-    /// accessor: sets/gets the Property of a FREObject. Shorthand for `setProp` and `getProp`
+    /// accessor: sets/gets the Property of a FREObject.
     ///
     /// ```swift
     /// let myName = argv[0]["name"]
@@ -338,10 +350,7 @@ public extension FREObject {
     /// - returns: FREObject?
     subscript(_ name: String) -> FREObject? {
         get {
-            if let ret = try? self.getProp(name: name) {
-                return ret
-            }
-            return nil
+            return FreSwiftHelper.getProperty(rawValue: self, name: name)
         }
         set {
             do {
@@ -370,7 +379,7 @@ public extension NSNumber {
         guard let rv = freObject else {
             return nil
         }
-        if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
+        if let d = FreSwiftHelper.getAsDouble(rv) {
             self.init(value: d)
         } else {
             return nil
@@ -383,11 +392,7 @@ public extension NSNumber {
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FreSwiftHelper.newObject(Double(truncating: self))
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.newObject(Double(truncating: self))
     }
 }
 
@@ -402,10 +407,10 @@ public extension Double {
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
-        }
-        if let i = try? FreSwiftHelper.getAsInt(rv) as Int {
+        } // TODO need to change
+        if let i = FreSwiftHelper.getAsInt(rv) {
             self.init(i)
-        } else if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
+        } else if let d = FreSwiftHelper.getAsDouble(rv) {
             self.init(d)
         } else {
             return nil
@@ -419,11 +424,7 @@ public extension Double {
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FreSwiftHelper.newObject(self)
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.newObject(self)
     }
 }
 
@@ -439,7 +440,7 @@ public extension Float {
         guard let rv = freObject else {
             return nil
         }
-        if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
+        if let d = FreSwiftHelper.getAsDouble(rv) {
             self.init(Float(d))
         } else {
             return nil
@@ -453,11 +454,7 @@ public extension Float {
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FreSwiftHelper.newObject(CGFloat(self))
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.newObject(CGFloat(self))
     }
     
 }
@@ -474,7 +471,7 @@ public extension CGFloat {
         guard let rv = freObject else {
             return nil
         }
-        if let d = try? FreSwiftHelper.getAsDouble(rv) as Double {
+        if let d =  FreSwiftHelper.getAsDouble(rv) {
             self.init(d)
         } else {
             return nil
@@ -489,11 +486,7 @@ public extension CGFloat {
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FreSwiftHelper.newObject(self)
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.newObject(self)
     }
 }
 
@@ -509,7 +502,7 @@ public extension Bool {
         guard let rv = freObject else {
             return nil
         }
-        if let b = try? FreSwiftHelper.getAsBool(rv) as Bool {
+        if let b = FreSwiftHelper.getAsBool(rv) {
             self.init(b)
         } else {
             return nil
@@ -522,11 +515,7 @@ public extension Bool {
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FreSwiftHelper.newObject(self)
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.newObject(self)
     }
 }
 
@@ -542,7 +531,7 @@ public extension Date {
         guard let rv = freObject else {
             return nil
         }
-        if let d = try? FreSwiftHelper.getAsDate(rv) as Date {
+        if let d = FreSwiftHelper.getAsDate(rv) {
             self.init(timeIntervalSince1970: d.timeIntervalSince1970)
         } else {
             return nil
@@ -555,11 +544,7 @@ public extension Date {
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FreSwiftHelper.newObject(self)
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.newObject(self)
     }
 }
 
@@ -575,7 +560,7 @@ public extension Int {
         guard let rv = freObject else {
             return nil
         }
-        if let i = try? FreSwiftHelper.getAsInt(rv) as Int {
+        if let i = FreSwiftHelper.getAsInt(rv) {
             self.init(i)
         } else {
             return nil
@@ -589,11 +574,7 @@ public extension Int {
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FreSwiftHelper.newObject(self)
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.newObject(self)
     }
 }
 
@@ -609,7 +590,7 @@ public extension UInt {
         guard let rv = freObject else {
             return nil
         }
-        if let i = try? FreSwiftHelper.getAsInt(rv) as Int {
+        if let i = FreSwiftHelper.getAsInt(rv) {
             self.init(i)
         } else {
             return nil
@@ -624,11 +605,7 @@ public extension UInt {
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FreSwiftHelper.newObject(self)
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.newObject(self)
     }
 }
 
@@ -645,8 +622,8 @@ public extension String {
         guard let rv = freObject, FreSwiftHelper.getType(rv) == FreObjectTypeSwift.string else {
             return nil
         }
-        if let i = try? FreSwiftHelper.getAsString(rv) as String {
-            self.init(i)
+        if let s = FreSwiftHelper.getAsString(rv) {
+            self.init(s)
         } else {
             return nil
         }
@@ -659,11 +636,7 @@ public extension String {
     /// ```
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FreSwiftHelper.newObject(self)
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.newObject(self)
     }
 }
 
@@ -682,8 +655,7 @@ public extension String {
             guard let rv = freObject, let rv2 = alpha else {
                 return nil
             }
-            do {
-                let rgb = try FreSwiftHelper.getAsUInt(rv)
+            if let rgb = FreSwiftHelper.getAsUInt(rv) {
                 let r = (rgb >> 16) & 0xFF
                 let g = (rgb >> 8) & 0xFF
                 let b = rgb & 0xFF
@@ -700,7 +672,7 @@ public extension String {
                     let bFl: CGFloat = CGFloat(b) / 255
                     self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
                 }
-            } catch {
+            } else {
                 return nil
             }
         }
@@ -744,8 +716,7 @@ public extension String {
             guard let rv = freObject else {
                 return nil
             }
-            do {
-                let rgb = try FreSwiftHelper.getAsUInt(rv)
+            if let rgb = FreSwiftHelper.getAsUInt(rv) {
                 let r = (rgb >> 16) & 0xFF
                 let g = (rgb >> 8) & 0xFF
                 let b = rgb & 0xFF
@@ -754,7 +725,7 @@ public extension String {
                 let gFl: CGFloat = CGFloat(g) / 255
                 let bFl: CGFloat = CGFloat(b) / 255
                 self.init(red: rFl, green: gFl, blue: bFl, alpha: a)
-            } catch {
+            } else {
                 return nil
             }
         }

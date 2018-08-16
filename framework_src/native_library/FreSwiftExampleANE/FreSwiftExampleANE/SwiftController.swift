@@ -28,17 +28,18 @@ public class SwiftController: NSObject {
     public var functionsToSet: FREFunctionMap = [:]
     
     func runStringTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-        trace("XCODE 10 Swift 4.2")
-        trace("***********Start String test***********")
-        
-        guard argc > 0,
-            let inFRE0 = argv[0],
-            let airString = String(inFRE0) else {
-                return nil
+        guard argc > 0 else {
+            return FreArgError(message: "not enough arguments passed").getError(#file, #line, #column)
+        }
+        FreSwiftLogger.shared().context = context
+        trace("*********** Start String test ***********")
+        guard let airString = String(argv[0]) else {
+            return FreArgError(message: "String not converted").getError(#file, #line, #column)
         }
         
         trace("String passed from AIR:", airString)
         let swiftString: String = "I am a string from Swift"
+        trace("-------------------------------------------")
         return swiftString.toFREObject()
     }
     
@@ -49,11 +50,12 @@ public class SwiftController: NSObject {
             let airDouble = Double(inFRE0),
             let airCGFloat = CGFloat(inFRE0),
             let airFloat = Float(inFRE0)
-            else {return nil}
+            else { return nil }
         
         trace("Number passed from AIR as Double:", airDouble.debugDescription)
         trace("Number passed from AIR as CGFloat:", airCGFloat.description)
         trace("Number passed from AIR as Float:", airFloat.description)
+        trace("-------------------------------------------")
         
         let swiftDouble: Double = 34343.31
         return swiftDouble.toFREObject()
@@ -126,7 +128,7 @@ public class SwiftController: NSObject {
         }
         
         do {
-            let newPerson = try FREObject(className: "com.tuarua.Person")
+            let newPerson = FREObject(className: "com.tuarua.Person")
             trace("We created a new person. type =", newPerson?.type ?? "unknown")
             
             if let swiftPerson = try FreObjectSwift(className: "com.tuarua.Person") {
@@ -139,7 +141,6 @@ public class SwiftController: NSObject {
             
             if let oldAge = Int(person["age"]) {
                 trace("current person age is", oldAge)
-                // try person.setProp(name: "age", value: oldAge + 10)
                 if let addition = try person.call(method: "add", args: 100, 31) {
                     if let result = Int(addition) {
                         trace("addition result:", result)
@@ -245,22 +246,16 @@ public class SwiftController: NSObject {
                 return nil
         }
         
-        do {
-            _ = try person.call(method: "add", args: 2) //not passing enough args
-        } catch let e as FreError {
-            trace(e.message) //just catch in Swift, do not bubble to actionscript
-        } catch {
-        }
+        _ = person["doNotExist"]
         
         do {
-            _ = try person.getProp(name: "doNotExist") //calling a property that doesn't exist
+            _ = try person.call(method: "add", args: 2) //not passing enough args
         } catch let e as FreError {
             if let aneError = e.getError(#file, #line, #column) {
                 return aneError //return the error as an actionscript error
             }
         } catch {
         }
-        
         return nil
     }
     

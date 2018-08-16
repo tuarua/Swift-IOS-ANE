@@ -3,7 +3,8 @@
     <sdkVersion>11.4</sdkVersion>
     <linkerOptions>
         <option>-ios_version_min 9.0</option>
-        <option>-lstdc++</option>
+<!--        <option>-lstdc++</option>-->
+        <option>-lc++</option>
         <option>-w</option>
         <option>-ObjC</option>
         <option>-rpath @executable_path/Frameworks</option>

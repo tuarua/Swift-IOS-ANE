@@ -10,7 +10,8 @@
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
- limitations under the License.*/
+ limitations under the License.
+ */
 
 import Foundation
 
@@ -51,7 +52,7 @@ public class FREArray: Sequence {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         argsArray.addPointer(length.toFREObject())
         argsArray.addPointer(fixed.toFREObject())
-        rawValue = try FreSwiftHelper.newObject(className: "Vector.<\(className)>", argsArray)
+        rawValue = FreSwiftHelper.newObject(className: "Vector.<\(className)>", argsArray)
     }
     
     /// init: Initialise a FREArray with a [Int].
@@ -59,7 +60,7 @@ public class FREArray: Sequence {
     /// - parameter intArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(intArray: [Int]) throws {
-        rawValue = try FreSwiftHelper.newObject(className: "Array")
+        rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in intArray {
             append(value: v.toFREObject())
         }
@@ -70,7 +71,7 @@ public class FREArray: Sequence {
     /// - parameter intArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(uintArray: [UInt]) throws {
-        rawValue = try FreSwiftHelper.newObject(className: "Array")
+        rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in uintArray {
             append(value: v.toFREObject())
         }
@@ -81,7 +82,7 @@ public class FREArray: Sequence {
     /// - parameter stringArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(stringArray: [String]) throws {
-        rawValue = try FreSwiftHelper.newObject(className: "Array")
+        rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in stringArray {
             append(value: v.toFREObject())
         }
@@ -92,7 +93,7 @@ public class FREArray: Sequence {
     /// - parameter doubleArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(doubleArray: [Double]) throws {
-        rawValue = try FreSwiftHelper.newObject(className: "Array")
+        rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in doubleArray {
             append(value: v.toFREObject())
         }
@@ -103,7 +104,7 @@ public class FREArray: Sequence {
     /// - parameter boolArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(boolArray: [Bool]) throws {
-        rawValue = try FreSwiftHelper.newObject(className: "Array")
+        rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in boolArray {
             append(value: v.toFREObject())
         }
@@ -114,7 +115,7 @@ public class FREArray: Sequence {
     /// - parameter anyArray: array to be converted
     /// - throws: Can throw a `FreError` on fail
     public init(anyArray: [Any]) throws {
-        rawValue = try FreSwiftHelper.newObject(className: "Array")
+        rawValue = FreSwiftHelper.newObject(className: "Array")
         let count = anyArray.count
         for i in 0..<count {
             try set(index: UInt(i), object: FreObjectSwift(anyArray[i]))
@@ -126,7 +127,7 @@ public class FREArray: Sequence {
     /// - parameter index:
     /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
-    public func at(index: UInt) throws -> FREObject? {
+    fileprivate func at(index: UInt) throws -> FREObject? {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
                            line: #line, column: #column, file: #file)
@@ -146,7 +147,7 @@ public class FREArray: Sequence {
         return object
     }
     
-    fileprivate func set(index: UInt, object: FreObjectSwift) throws {
+    func set(index: UInt, object: FreObjectSwift) throws {
         guard let rv = rawValue else {
             throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
                            line: #line, column: #column, file: #file)
@@ -280,12 +281,8 @@ public extension Array where Element == Any {
         guard let rv = freObject else {
             return
         }
-        do {
-            if let val: [Any] = try FreSwiftHelper.getAsArray(rv) {
-                self = val
-            }
-        } catch {
-            return
+        if let val: [Any] = FreSwiftHelper.getAsArray(rv) {
+            self = val
         }
     }
     /// toFREObject: Converts an Any Array into a FREObject of AS3 type Array.
@@ -313,12 +310,8 @@ public extension Array where Element == Double {
         guard let rv = freObject else {
             return
         }
-        do {
-            if let val: [Double] = try FreSwiftHelper.getAsArray(rv) {
-                self = val
-            }
-        } catch {
-            return
+        if let val: [Double] = FreSwiftHelper.getAsArray(rv) {
+            self = val
         }
     }
     /// toFREObject: Converts a Double Array into a FREObject of AS3 type Vector.<Number>.
@@ -346,12 +339,8 @@ public extension Array where Element == Bool {
         guard let rv = freObject else {
             return
         }
-        do {
-            if let val: [Bool] = try FreSwiftHelper.getAsArray(rv) {
-                self = val
-            }
-        } catch {
-            return
+        if let val: [Bool] = FreSwiftHelper.getAsArray(rv) {
+            self = val
         }
     }
     /// toFREObject: Converts a Bool Array into a FREObject of AS3 type Vector.<Boolean>.
@@ -379,12 +368,8 @@ public extension Array where Element == UInt {
         guard let rv = freObject else {
             return
         }
-        do {
-            if let val: [UInt] = try FreSwiftHelper.getAsArray(rv) {
-                self = val
-            }
-        } catch {
-            return
+        if let val: [UInt] = FreSwiftHelper.getAsArray(rv) {
+            self = val
         }
     }
     /// toFREObject: Converts an Int Array into a FREObject of AS3 type Vector.<int>.
@@ -412,13 +397,8 @@ public extension Array where Element == Int {
         guard let rv = freObject else {
             return
         }
-        do {
-            if let val: [Int] = try FreSwiftHelper.getAsArray(rv) {
-                self = val
-            }
-        } catch {
-            
-            return
+        if let val: [Int] = FreSwiftHelper.getAsArray(rv) {
+            self = val
         }
     }
     /// toFREObject: Converts an Int Array into a FREObject of AS3 type Vector.<int>.
@@ -446,12 +426,8 @@ public extension Array where Element == String {
         guard let rv = freObject else {
             return
         }
-        do {
-            if let val: [String] = try FreSwiftHelper.getAsArray(rv) {
-                self = val
-            }
-        } catch {
-            return
+        if let val: [String] = FreSwiftHelper.getAsArray(rv) {
+            self = val
         }
     }
     /// toFREObject: Converts an String Array into a FREObject of AS3 type Vector.<String>.

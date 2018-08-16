@@ -1,16 +1,17 @@
 /* Copyright 2018 Tua Rua Ltd.
-
+ 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
- limitations under the License.*/
+ limitations under the License.
+ */
 
 import Foundation
 /// FreByteArraySwift: wrapper for FREByteArray.
@@ -45,9 +46,9 @@ public class FreByteArraySwift: NSObject {
 
         do {
             //https://forums.adobe.com/thread/1037977
-            if let targetBA = try FREObject.init(className: "flash.utils.ByteArray") {
+            if let targetBA = FREObject(className: "flash.utils.ByteArray") {
                 rawValue = targetBA
-                try targetBA.setProp(name: "length", value: data.length)
+                try FreSwiftHelper.setProperty(rawValue: targetBA, name: "name", prop: data.length.toFREObject())
 #if os(iOS) || os(tvOS)
                 let status: FREResult = FreSwiftBridge.bridge.FREAcquireByteArray(object: targetBA,
                                                                                   byteArrayToSet: &_byteArray)
