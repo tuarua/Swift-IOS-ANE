@@ -21,8 +21,8 @@ public class FREArray: Sequence {
     public func makeIterator() -> Array<FREObject>.Iterator {
         var items = [FREObject]()
         for i in 0..<self.length {
-            if let item = try? self.at(index: i), let t = item {
-                items.append(t)
+            if let item = self.at(index: i) {
+                items.append(item)
             }
         }
         return items.makeIterator()
@@ -47,8 +47,7 @@ public class FREArray: Sequence {
     /// - parameter className: name of AS3 class to create
     /// - parameter length: number of elements in the array
     /// - parameter fixed: whether the array is fixed
-    /// - throws: Can throw a `FreError` on fail
-    public init(className: String, length: Int = 0, fixed: Bool = false) throws {
+    public init(className: String, length: Int = 0, fixed: Bool = false) {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         argsArray.addPointer(length.toFREObject())
         argsArray.addPointer(fixed.toFREObject())
@@ -58,8 +57,7 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [Int].
     ///
     /// - parameter intArray: array to be converted
-    /// - throws: Can throw a `FreError` on fail
-    public init(intArray: [Int]) throws {
+    public init(intArray: [Int]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in intArray {
             append(value: v.toFREObject())
@@ -69,8 +67,7 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [UInt].
     ///
     /// - parameter intArray: array to be converted
-    /// - throws: Can throw a `FreError` on fail
-    public init(uintArray: [UInt]) throws {
+    public init(uintArray: [UInt]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in uintArray {
             append(value: v.toFREObject())
@@ -80,8 +77,7 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [String].
     ///
     /// - parameter stringArray: array to be converted
-    /// - throws: Can throw a `FreError` on fail
-    public init(stringArray: [String]) throws {
+    public init(stringArray: [String]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in stringArray {
             append(value: v.toFREObject())
@@ -91,8 +87,7 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [Double].
     ///
     /// - parameter doubleArray: array to be converted
-    /// - throws: Can throw a `FreError` on fail
-    public init(doubleArray: [Double]) throws {
+    public init(doubleArray: [Double]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in doubleArray {
             append(value: v.toFREObject())
@@ -102,8 +97,7 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [Bool].
     ///
     /// - parameter boolArray: array to be converted
-    /// - throws: Can throw a `FreError` on fail
-    public init(boolArray: [Bool]) throws {
+    public init(boolArray: [Bool]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in boolArray {
             append(value: v.toFREObject())
@@ -113,121 +107,94 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [Any].
     ///
     /// - parameter anyArray: array to be converted
-    /// - throws: Can throw a `FreError` on fail
-    public init(anyArray: [Any]) throws {
+    public init(anyArray: [Any]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         let count = anyArray.count
         for i in 0..<count {
-            try set(index: UInt(i), object: FreObjectSwift(anyArray[i]))
+            set(index: UInt(i), object: FreObjectSwift(anyArray[i]))
         }
     }
     
     /// at: Returns FREObject at position index
     ///
     /// - parameter index:
-    /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
-    fileprivate func at(index: UInt) throws -> FREObject? {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-                           line: #line, column: #column, file: #file)
-        }
-        var object: FREObject?
+    fileprivate func at(index: UInt) -> FREObject? {
+        guard let rv = rawValue else { return nil }
+        var ret: FREObject?
 #if os(iOS) || os(tvOS)
         let status: FREResult = FreSwiftBridge.bridge.FREGetArrayElementA(arrayOrVector: rv, index: UInt32(index),
-                                                                          value: &object)
+                                                                          value: &ret)
 #else
-        let status: FREResult = FREGetArrayElementAt(rv, UInt32(index), &object)
+        let status: FREResult = FREGetArrayElementAt(rv, UInt32(index), &ret)
 #endif
-        guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot get object at \(index) ",
-                type: FreSwiftHelper.getErrorCode(status),
-                line: #line, column: #column, file: #file)
-        }
-        return object
+        
+        if FRE_OK == status { return ret }
+        FreSwiftLogger.shared().log(message: "cannot get item at \(index)",
+            type: FreSwiftHelper.getErrorCode(status),
+            line: #line, column: #column, file: #file)
+        return nil
     }
     
-    func set(index: UInt, object: FreObjectSwift) throws {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-                           line: #line, column: #column, file: #file)
-        }
+    func set(index: UInt, object: FreObjectSwift) {
+        guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
         let status: FREResult = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
                                                                           value: object.rawValue)
 #else
         let status: FREResult = FRESetArrayElementAt(rv, UInt32(index), object.rawValue)
 #endif
-        guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot set object at \(index) ",
-                type: FreSwiftHelper.getErrorCode(status),
-                line: #line, column: #column, file: #file)
-        }
+        if FRE_OK == status { return }
+        FreSwiftLogger.shared().log(message: "cannot set item at \(index)",
+            type: FreSwiftHelper.getErrorCode(status),
+            line: #line, column: #column, file: #file)
     }
     
-    fileprivate func set(index: UInt, freObject: FREObject?) throws {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-                           line: #line, column: #column, file: #file)
-        }
+    fileprivate func set(index: UInt, freObject: FREObject?) {
+        guard let rv = rawValue else { return }
         #if os(iOS) || os(tvOS)
         let status: FREResult = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
                                                                           value: freObject)
         #else
         let status: FREResult = FRESetArrayElementAt(rv, UInt32(index), freObject)
         #endif
-        guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot set object at \(index) ",
-                type: FreSwiftHelper.getErrorCode(status),
-                line: #line, column: #column, file: #file)
-        }
+        
+        if FRE_OK == status { return }
+        FreSwiftLogger.shared().log(message: "cannot set item at \(index)",
+            type: FreSwiftHelper.getErrorCode(status),
+            line: #line, column: #column, file: #file)
     }
     
     /// set: Sets FREObject at position index
     ///
     /// - parameter index: index of item
     /// - parameter value: value to set
-    /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
-    public func set(index: UInt, value: Any) throws {
-        try set(index: index, object: FreObjectSwift(value))
+    public func set(index: UInt, value: Any) {
+        set(index: index, object: FreObjectSwift(value))
     }
     
     public func append(value: Any) {
-        do {
-            try set(index: length, value: value)
-        } catch {
-        }
+        set(index: length, value: value)
     }
     
     public func append(value: FREObject?) {
-        do {
-            try set(index: length, freObject: value)
-        } catch {
-        }
+        set(index: length, freObject: value)
     }
     
     /// length: length of FREArray
     public var length: UInt {
-        guard let rv = rawValue else {
-            return 0
-        }
-        do {
-            var ret: UInt32 = 0
+        guard let rv = rawValue else { return 0 }
+        var ret: UInt32 = 0
 #if os(iOS) || os(tvOS)
-            let status: FREResult = FreSwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
+        let status: FREResult = FreSwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
 #else
-            let status: FREResult = FREGetArrayLength(rv, &ret)
+        let status: FREResult = FREGetArrayLength(rv, &ret)
 #endif
-            guard FRE_OK == status else {
-                throw FreError(stackTrace: "", message: "cannot get length of array",
-                               type: FreSwiftHelper.getErrorCode(status),
-                               line: #line, column: #column, file: #file)
-            }
-            return UInt(ret)
-            
-        } catch {
-        }
+        if FRE_OK == status { return UInt(ret) }
+        FreSwiftLogger.shared().log(message: "cannot get length of array",
+            type: FreSwiftHelper.getErrorCode(status),
+            line: #line, column: #column, file: #file)
         return 0
     }
     
@@ -235,12 +202,9 @@ public class FREArray: Sequence {
     /// - returns: [Any?]
     public var value: [Any?] {
         var ret: [Any?] = []
-        do {
-            for i in 0..<length {
-                let elem: FreObjectSwift = try FreObjectSwift(at(index: i))
-                ret.append(elem.value)
-            }
-        } catch {
+        for i in 0..<length {
+            let elem: FreObjectSwift = FreObjectSwift(at(index: i))
+            ret.append(elem.value)
         }
         return ret
     }
@@ -253,17 +217,12 @@ public extension FREArray {
     /// - returns: FREObject?
     subscript(index: UInt) -> FREObject? {
         get {
-            if let ret = try? self.at(index: index) {
-                return ret
-            }
-            return nil
+            return self.at(index: index)
         }
         set {
-            do {
-                if let rv = newValue {
-                    try self.set(index: index, freObject: rv)
-                }
-            } catch { }
+            if let rv = newValue {
+                self.set(index: index, freObject: rv)
+            }
         }
     }
 }
@@ -289,11 +248,7 @@ public extension Array where Element == Any {
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FREArray(anyArray: self).rawValue
-        } catch {
-        }
-        return nil
+        return FREArray(anyArray: self).rawValue
     }
 }
 
@@ -318,11 +273,7 @@ public extension Array where Element == Double {
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FREArray(doubleArray: self).rawValue
-        } catch {
-        }
-        return nil
+        return FREArray(doubleArray: self).rawValue
     }
 }
 
@@ -347,11 +298,7 @@ public extension Array where Element == Bool {
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FREArray(boolArray: self).rawValue
-        } catch {
-        }
-        return nil
+        return FREArray(boolArray: self).rawValue
     }
 }
 
@@ -376,11 +323,7 @@ public extension Array where Element == UInt {
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FREArray(uintArray: self).rawValue
-        } catch {
-        }
-        return nil
+        return FREArray(uintArray: self).rawValue
     }
 }
 
@@ -405,11 +348,7 @@ public extension Array where Element == Int {
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FREArray(intArray: self).rawValue
-        } catch {
-        }
-        return nil
+        return FREArray(intArray: self).rawValue
     }
 }
 
@@ -434,10 +373,6 @@ public extension Array where Element == String {
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        do {
-            return try FREArray(stringArray: self).rawValue
-        } catch {
-        }
-        return nil
+        return FREArray(stringArray: self).rawValue
     }
 }

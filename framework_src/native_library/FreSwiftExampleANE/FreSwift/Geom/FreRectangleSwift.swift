@@ -36,7 +36,7 @@ public extension CGRect {
     /// ```
     /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        guard let cls = try? FreObjectSwift(className: "flash.geom.Rectangle"), let fre = cls else {
+        guard let fre = FreObjectSwift(className: "flash.geom.Rectangle") else {
             return nil
         }
         fre.x = origin.x

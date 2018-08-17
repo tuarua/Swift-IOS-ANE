@@ -31,11 +31,15 @@ public class SwiftController: NSObject {
         guard argc > 0 else {
             return FreArgError(message: "not enough arguments passed").getError(#file, #line, #column)
         }
+        // Turn on FreSwift logging
         FreSwiftLogger.shared().context = context
         trace("*********** Start String test ***********")
         guard let airString = String(argv[0]) else {
             return FreArgError(message: "String not converted").getError(#file, #line, #column)
         }
+        
+        // this will trace an error, can't convert String to Int
+        _ = Int(argv[0])
         
         trace("String passed from AIR:", airString)
         let swiftString: String = "I am a string from Swift"
@@ -49,12 +53,21 @@ public class SwiftController: NSObject {
             let inFRE0 = argv[0],
             let airDouble = Double(inFRE0),
             let airCGFloat = CGFloat(inFRE0),
-            let airFloat = Float(inFRE0)
-            else { return nil }
+            let airFloat = Float(inFRE0),
+            let airNSNumber = NSNumber(inFRE0)
+            else {
+                return FreArgError(message: "Number not converted").getError(#file, #line, #column)   
+        }
         
-        trace("Number passed from AIR as Double:", airDouble.debugDescription)
-        trace("Number passed from AIR as CGFloat:", airCGFloat.description)
-        trace("Number passed from AIR as Float:", airFloat.description)
+        let testDouble: Double = 31.99
+        let testCGFlot: CGFloat = 31.99
+        let testFloat: Float = 31.99
+        let testNSNumber: NSNumber = 31.99
+        
+        trace("Number passed from AIR as Double:", testDouble.isEqual(to: airDouble) ? "PASS" : "FAIL", airDouble)
+        trace("Number passed from AIR as CGFloat:", testCGFlot.isEqual(to: airCGFloat) ? "PASS" : "FAIL", airCGFloat)
+        trace("Number passed from AIR as Float:", testFloat.isEqual(to: airFloat) ? "PASS" : "FAIL", airFloat)
+        trace("Number passed from AIR as NSNumber:", testNSNumber.isEqual(to: airNSNumber) ? "PASS" : "FAIL", airNSNumber)
         trace("-------------------------------------------")
         
         let swiftDouble: Double = 34343.31
@@ -89,31 +102,24 @@ public class SwiftController: NSObject {
         }
         
         let airArray: FREArray = FREArray(inFRE0)
+            
+        let myVector = FREArray(className: "Object", length: 5, fixed: true)
+        trace("Vector of Objects should equal 5 ? ", myVector.length)
         
-        do {
-            
-            let myVector = try FREArray(className: "Object", length: 5, fixed: true)
-            trace("Vector of Objects should equal 5 ? ", myVector.length)
-            
-            let airArrayLen = airArray.length
-            
-            trace("Array passed from AIR:", airArray.value)
-            trace("AIR Array length:", airArrayLen)
-            for fre in airArray {
-                trace("iterate over FREArray", Int(fre) ?? "unknown")
-            }
-            
-            if let itemZero = Int(airArray[0]) { //get using brackets with FREObject
-                trace("AIR Array elem at 0 type:", "value:", itemZero)
-                try airArray.set(index: 0, value: 56)
-                airArray.append(value: 222)
-                airArray[1] = 123.toFREObject() //set using brackets with FREObject
-                return airArray.rawValue
-            }
-
-        } catch let e as FreError {
-            _ = e.getError(#file, #line, #column)
-        } catch {
+        let airArrayLen = airArray.length
+        
+        trace("Array passed from AIR:", airArray.value)
+        trace("AIR Array length:", airArrayLen)
+        for fre in airArray {
+            trace("iterate over FREArray", Int(fre) ?? "unknown")
+        }
+        
+        if let itemZero = Int(airArray[0]) { //get using brackets with FREObject
+            trace("AIR Array elem at 0 type:", "value:", itemZero)
+            airArray.set(index: 0, value: 56)
+            airArray.append(value: 222)
+            airArray[1] = 123.toFREObject() //set using brackets with FREObject
+            return airArray.rawValue
         }
 
         return nil
@@ -127,41 +133,32 @@ public class SwiftController: NSObject {
             return nil
         }
         
-        do {
-            let newPerson = FREObject(className: "com.tuarua.Person")
-            trace("We created a new person. type =", newPerson?.type ?? "unknown")
-            
-            if let swiftPerson = try FreObjectSwift(className: "com.tuarua.Person") {
-                trace("FreObjectSwift age 1", Int(swiftPerson.age) ?? "unknown")
-                swiftPerson.age = 999
-                trace("FreObjectSwift age 2", Int(swiftPerson.age) ?? "unknown")
-                swiftPerson.age = 111.toFREObject()
-                trace("FreObjectSwift age 3", Int(swiftPerson.age) ?? "unknown")
-            }
-            
-            if let oldAge = Int(person["age"]) {
-                trace("current person age is", oldAge)
-                if let addition = try person.call(method: "add", args: 100, 31) {
-                    if let result = Int(addition) {
-                        trace("addition result:", result)
-                    }
-                }
-                
-                if let dictionary = Dictionary(person) {
-                    trace("AIR Object converted to Dictionary using getAsDictionary:", dictionary.description)
-                }
-                
-            }
-            
-            return person
-            
-        } catch let e as FreError {
-            _ = e.getError(#file, #line, #column)
-        } catch {
+        let newPerson = FREObject(className: "com.tuarua.Person")
+        trace("We created a new person. type =", newPerson?.type ?? "unknown")
+        
+        if let swiftPerson = FreObjectSwift(className: "com.tuarua.Person") {
+            trace("FreObjectSwift age 1", Int(swiftPerson.age) ?? "unknown")
+            swiftPerson.age = 999
+            trace("FreObjectSwift age 2", Int(swiftPerson.age) ?? "unknown")
+            swiftPerson.age = 111.toFREObject()
+            trace("FreObjectSwift age 3", Int(swiftPerson.age) ?? "unknown")
+            // swiftPerson.myMethod("", [1, 2, 3])
         }
         
-        return nil
-        
+        if let oldAge = Int(person["age"]) {
+            trace("current person age is", oldAge)
+            if let addition = person.call(method: "add", args: 100, 31) {
+                if let result = Int(addition) {
+                    trace("addition result:", result)
+                }
+            }
+            
+            if let dictionary = Dictionary(person) {
+                trace("AIR Object converted to Dictionary using getAsDictionary:", dictionary.description)
+            }
+            
+        }
+        return person
     }
     
     func runBitmapTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
@@ -176,7 +173,7 @@ public class SwiftController: NSObject {
             asBitmapData.releaseData()
         }
         do {
-            if let cgimg = try asBitmapData.asCGImage() {
+            if let cgimg = asBitmapData.asCGImage() {
                 let context = CIContext()
                 if let filter = CIFilter(name: "CISepiaTone") {
                     filter.setValue(0.8, forKey: kCIInputIntensityKey)
@@ -247,15 +244,8 @@ public class SwiftController: NSObject {
         }
         
         _ = person["doNotExist"]
+        _ = person.call(method: "add", args: 2) //not passing enough args
         
-        do {
-            _ = try person.call(method: "add", args: 2) //not passing enough args
-        } catch let e as FreError {
-            if let aneError = e.getError(#file, #line, #column) {
-                return aneError //return the error as an actionscript error
-            }
-        } catch {
-        }
         return nil
     }
     

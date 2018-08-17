@@ -48,7 +48,7 @@ public class FreByteArraySwift: NSObject {
             //https://forums.adobe.com/thread/1037977
             if let targetBA = FREObject(className: "flash.utils.ByteArray") {
                 rawValue = targetBA
-                try FreSwiftHelper.setProperty(rawValue: targetBA, name: "name", prop: data.length.toFREObject())
+                FreSwiftHelper.setProperty(rawValue: targetBA, name: "name", prop: data.length.toFREObject())
 #if os(iOS) || os(tvOS)
                 let status: FREResult = FreSwiftBridge.bridge.FREAcquireByteArray(object: targetBA,
                                                                                   byteArrayToSet: &_byteArray)

@@ -58,7 +58,7 @@ public class FreBitmapDataSwift: NSObject {
     public init(cgImage: CGImage) {
         super.init()
         do {
-            if let freObject = try FREObject.init(className: "flash.display.BitmapData",
+            if let freObject = FREObject(className: "flash.display.BitmapData",
                                                  args: UInt32(cgImage.width),
                                                  UInt32(cgImage.height), false, 0) {
                 rawValue = freObject
@@ -116,16 +116,18 @@ public class FreBitmapDataSwift: NSObject {
             if let data: NSData = dp.data {
                 memcpy(bits32, data.bytes, data.length)
             }
-            try invalidateRect(x: 0, y: 0, width: UInt(cgImage.width), height: UInt(cgImage.height))
+            invalidateRect(x: 0, y: 0, width: UInt(cgImage.width), height: UInt(cgImage.height))
         }
     }
 
     /// Handles conversion to a CGImage
-    /// - throws: Can throw a `FreError` on fail
     /// returns: CGImage?
-    public func asCGImage() throws -> CGImage? {
-        try self.acquire()
-
+    public func asCGImage() -> CGImage? {
+        do {
+            try self.acquire()
+        } catch {
+           return nil
+        }
         let releaseProvider: CGDataProviderReleaseDataCallback = { (info: UnsafeMutableRawPointer?,
                                                                     data: UnsafeRawPointer, size: Int) -> Void in
             // https://developer.apple.com/reference/coregraphics/cgdataproviderreleasedatacallback
@@ -167,12 +169,8 @@ public class FreBitmapDataSwift: NSObject {
     }
 
     /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSb464b1207c184b14-62b8e11f12937b86be4-7fed.html)
-    /// - throws: Can throw a `FreError` on fail
-    public func invalidateRect(x: UInt, y: UInt, width: UInt, height: UInt) throws {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
-        }
+    public func invalidateRect(x: UInt, y: UInt, width: UInt, height: UInt) {
+        guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
         let status: FREResult = FreSwiftBridge.bridge.FREInvalidateBitmapDataRect(object: rv, x: UInt32(x),
           y: UInt32(y), width: UInt32(width), height: UInt32(height))
@@ -180,10 +178,10 @@ public class FreBitmapDataSwift: NSObject {
         let status: FREResult = FREInvalidateBitmapDataRect(rv, UInt32(x), UInt32(y), UInt32(width), UInt32(height))
 #endif
 
-        guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot invalidateRect", type: FreSwiftHelper.getErrorCode(status),
-              line: #line, column: #column, file: #file)
-        }
+        if FRE_OK == status { return }
+        FreSwiftLogger.shared().log(message: "cannot invalidateRect",
+            type: FreSwiftHelper.getErrorCode(status),
+            line: #line, column: #column, file: #file)
     }
 }
 #if os(iOS) || os(tvOS)
@@ -196,17 +194,13 @@ public extension UIImage {
         guard let rv = freObject else {
             return nil
         }
-        let asBitmapData = FreBitmapDataSwift.init(freObject: rv)
+        let asBitmapData = FreBitmapDataSwift(freObject: rv)
         defer {
             asBitmapData.releaseData()
         }
-        do {
-            if let cgimg = try asBitmapData.asCGImage() {
-                self.init(cgImage: cgimg, scale: scale, orientation: orientation)
-            } else {
-                return nil
-            }
-        } catch {
+        if let cgimg = asBitmapData.asCGImage() {
+            self.init(cgImage: cgimg, scale: scale, orientation: orientation)
+        } else {
             return nil
         }
     }

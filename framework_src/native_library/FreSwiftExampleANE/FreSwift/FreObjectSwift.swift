@@ -20,13 +20,7 @@ import Foundation
 open class FreObjectSwift: NSObject {
     public var rawValue: FREObject?
     open var value: Any? {
-        do {
-            if let raw = rawValue {
-                return try FreSwiftHelper.getAsId(raw)
-            }
-        } catch {
-        }
-        return nil
+        return FreSwiftHelper.getAsId(rawValue)
     }
 
     public subscript(dynamicMember name: String) -> FREObject? {
@@ -123,13 +117,13 @@ open class FreObjectSwift: NSObject {
         get { return Date(rawValue?[name]) }
         set { rawValue?[name] = newValue?.toFREObject() }
     }
-    
+
     public init(_ any: Any?) {
         super.init()
         rawValue = _newObject(any: any)
     }
     
-    public convenience init?(className: String, args: Any?...) throws {
+    public convenience init?(className: String, args: Any?...) {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         for i in 0..<args.count {
             argsArray.addPointer(FreObjectSwift(args[i]).rawValue)
@@ -141,7 +135,7 @@ open class FreObjectSwift: NSObject {
         }
     }
     
-    public convenience init?(className: String) throws {
+    public convenience init?(className: String) {
         if let rv = FreSwiftHelper.newObject(className: className) {
             self.init(rv)
         } else {

@@ -36,7 +36,7 @@ public extension CGPoint {
     /// ```
     /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        guard let cls = try? FreObjectSwift(className: "flash.geom.Point"), let fre = cls else {
+        guard let fre = FreObjectSwift(className: "flash.geom.Point") else {
             return nil
         }
         fre.x = x
