@@ -24,6 +24,8 @@ import flash.utils.ByteArray;
 
 public class Main extends Sprite {
     private var ane:FreSwiftExampleANE = new FreSwiftExampleANE();
+    public static const GREEN:uint = 0xFF00FF00;
+    public static const HALF_GREEN:uint = 0x8000FF00;
 
     public function Main() {
         super();
@@ -75,7 +77,7 @@ public class Main extends Sprite {
             ane.runBitmapTests(bmp.bitmapData);
         }
 
-        ane.runRectTests(new Point(0, 55.5), new Rectangle(9.1, 0.5, 20, 50));
+        ane.runExtensibleTests(new Point(0, 55.5), new Rectangle(9.1, 0.5, 20, 50));
 
         var myByteArray:ByteArray = new ByteArray();
         myByteArray.writeUTFBytes("Swift in an ANE. Say whaaaat!");
@@ -94,9 +96,15 @@ public class Main extends Sprite {
         }
         ane.runErrorTests2("Test String");
 
+        var returnedDate:Date = ane.runDateTests(new Date());
+        trace("returnedDate:", returnedDate);
+
         var inData:String = "Saved and returned";
         var outData:String = ane.runDataTests(inData) as String;
         textField.text += outData + "\n";
+
+        trace("GREEN", GREEN, GREEN == ane.runColorTests(GREEN));
+        trace("HALF_GREEN", HALF_GREEN, HALF_GREEN == ane.runColorTests(HALF_GREEN));
 
         addChild(textField);
     }

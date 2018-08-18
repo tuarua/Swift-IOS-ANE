@@ -117,6 +117,10 @@ open class FreObjectSwift: NSObject {
         get { return Date(rawValue?[name]) }
         set { rawValue?[name] = newValue?.toFREObject() }
     }
+    
+    public subscript(_ name: String) -> FREObject? {
+        return self.rawValue?[name]
+    }
 
     public init(_ any: Any?) {
         super.init()

@@ -29,7 +29,7 @@ public class FreSwiftLogger {
         return sharedLogger
     }
     
-    func log(stackTrace: String? = nil, message: String, type: FreError.Code, line: Int, column: Int, file: String) {
+    func log(message: String, stackTrace: String? = nil, type: FreError.Code, line: Int, column: Int, file: String) {
         guard let ctx = context else { return }
         do {
             try ctx.dispatchStatusEventAsync(code: "[FreSwift] \(String(describing: type)) \(message)", level: "TRACE")

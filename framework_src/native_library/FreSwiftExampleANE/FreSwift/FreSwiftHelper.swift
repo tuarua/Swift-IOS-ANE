@@ -47,8 +47,8 @@ public class FreSwiftHelper {
 #endif
         
         if FRE_OK == status { return ret }
-        logger.log(stackTrace: getActionscriptException(thrownException),
-            message: "cannot call method \(name) on \(rv.toString())",
+        logger.log(message: "cannot call method \(name) on \(rv.toString())",
+            stackTrace: getActionscriptException(thrownException),
             type: getErrorCode(status),
             line: #line, column: #column, file: #file)
         return nil
@@ -67,7 +67,7 @@ public class FreSwiftHelper {
             return NSString(bytes: valuePtr!, length: Int(len), encoding: String.Encoding.utf8.rawValue) as String?
         }
         
-        logger.log(message: "cannot get FREObject(\(rawValue.toString()) as String",
+        logger.log(message: "cannot get FREObject \(rawValue.toString(true)) as String",
                                     type: getErrorCode(status),
                                     line: #line, column: #column, file: #file)
         return nil
@@ -82,7 +82,7 @@ public class FreSwiftHelper {
 #endif
         
         if FRE_OK == status  { return val == 1 }
-        logger.log(message: "cannot get FREObject(\(rawValue.toString()) as Bool",
+        logger.log(message: "cannot get FREObject \(rawValue.toString()) as Bool",
                                     type: getErrorCode(status),
                                     line: #line, column: #column, file: #file)
         return nil
@@ -96,7 +96,7 @@ public class FreSwiftHelper {
         let status: FREResult = FREGetObjectAsDouble(rawValue, &ret)
 #endif
         if FRE_OK == status  { return ret }
-        logger.log(message: "cannot get FREObject(\(rawValue.toString()) as Double",
+        logger.log(message: "cannot get FREObject \(rawValue.toString()) as Double",
                                     type: getErrorCode(status),
                                     line: #line, column: #column, file: #file)
         return nil
@@ -120,7 +120,7 @@ public class FreSwiftHelper {
         
         if FRE_OK == status { return Int(ret) }
         
-        logger.log(message: "cannot get FREObject(\(rawValue.toString()) as Int",
+        logger.log(message: "cannot get FREObject \(rawValue.toString()) as Int",
                                     type: getErrorCode(status),
                                     line: #line, column: #column, file: #file)
         return nil
@@ -134,7 +134,7 @@ public class FreSwiftHelper {
         let status: FREResult = FREGetObjectAsUint32(rawValue, &ret)
 #endif
         if FRE_OK == status { return UInt(ret) }
-        logger.log(message: "cannot get FREObject(\(rawValue.toString()) as UInt",
+        logger.log(message: "cannot get FREObject \(rawValue.toString()) as UInt",
                                     type: getErrorCode(status),
                                     line: #line, column: #column, file: #file)
         return nil
@@ -376,10 +376,10 @@ public class FreSwiftHelper {
         let status: FREResult = FREGetObjectProperty(rawValue, name, &ret, &thrownException)
 #endif
         if FRE_OK == status { return ret }
-        logger.log(stackTrace: getActionscriptException(thrownException),
-                                    message: "cannot get property \(name) of \(rawValue.toString())",
-                                    type: getErrorCode(status),
-                                    line: #line, column: #column, file: #file)
+        logger.log(message: "cannot get property \(name) of \(rawValue.toString())",
+            stackTrace: getActionscriptException(thrownException),
+            type: getErrorCode(status),
+            line: #line, column: #column, file: #file)
         return nil
     }
 
@@ -394,8 +394,8 @@ public class FreSwiftHelper {
         let status: FREResult = FRESetObjectProperty(rawValue, name, prop, &thrownException)
 #endif
         if FRE_OK == status { return }
-        logger.log(stackTrace: getActionscriptException(thrownException),
-                                    message: "cannot set property \(name) of \(rawValue.toString()) to \(FreObjectSwift(prop).value ?? "unknown")",
+        logger.log(message: "cannot set property \(name) of \(rawValue.toString()) to \(FreObjectSwift(prop).value ?? "unknown")",
+            stackTrace: getActionscriptException(thrownException),
             type: getErrorCode(status),
             line: #line, column: #column, file: #file)
     }
@@ -527,10 +527,10 @@ public class FreSwiftHelper {
         let status: FREResult = FRENewObject(className, numArgs, arrayToFREArray(args), &ret, &thrownException)
 #endif
         if FRE_OK == status { return ret }
-        logger.log(stackTrace: getActionscriptException(thrownException),
-                                    message: "cannot create new  object \(className)",
-                                    type: getErrorCode(status),
-                                    line: #line, column: #column, file: #file)
+        logger.log(message: "cannot create new class \(className)",
+            stackTrace: getActionscriptException(thrownException),
+            type: getErrorCode(status),
+            line: #line, column: #column, file: #file)
         return nil
     }
 
@@ -545,10 +545,10 @@ public class FreSwiftHelper {
 #endif
         
         if FRE_OK == status { return ret }
-        logger.log(stackTrace: getActionscriptException(thrownException),
-                                    message: "cannot create new  object \(className)",
-                                    type: getErrorCode(status),
-                                    line: #line, column: #column, file: #file)
+        logger.log(message: "cannot create new class \(className)",
+            stackTrace: getActionscriptException(thrownException),
+            type: getErrorCode(status),
+            line: #line, column: #column, file: #file)
         return nil
     }
 

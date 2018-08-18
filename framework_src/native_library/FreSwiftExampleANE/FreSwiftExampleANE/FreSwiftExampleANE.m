@@ -50,8 +50,9 @@ CONTEXT_INIT(TRFSA) {
         ,MAP_FUNCTION(TRFSA, runErrorTests)
         ,MAP_FUNCTION(TRFSA, runErrorTests2)
         ,MAP_FUNCTION(TRFSA, runDataTests)
-        ,MAP_FUNCTION(TRFSA, runRectTests)
+        ,MAP_FUNCTION(TRFSA, runExtensibleTests)
         ,MAP_FUNCTION(TRFSA, runDateTests)
+        ,MAP_FUNCTION(TRFSA, runColorTests)
     };
     
     /**************************************************************************/

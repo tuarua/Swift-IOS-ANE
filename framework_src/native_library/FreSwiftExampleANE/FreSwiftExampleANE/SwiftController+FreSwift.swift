@@ -31,8 +31,9 @@ extension SwiftController: FreSwiftMainController {
         functionsToSet["\(prefix)runErrorTests"] = runErrorTests
         functionsToSet["\(prefix)runErrorTests2"] = runErrorTests2
         functionsToSet["\(prefix)runDataTests"] = runDataTests
-        functionsToSet["\(prefix)runRectTests"] = runRectTests
+        functionsToSet["\(prefix)runExtensibleTests"] = runExtensibleTests
         functionsToSet["\(prefix)runDateTests"] = runDateTests
+        functionsToSet["\(prefix)runColorTests"] = runColorTests
         
         var arr: [String] = []
         for key in functionsToSet.keys {

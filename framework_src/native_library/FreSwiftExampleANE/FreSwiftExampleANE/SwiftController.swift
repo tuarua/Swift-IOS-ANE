@@ -264,12 +264,12 @@ public class SwiftController: NSObject {
         
     }
     
-    func runRectTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+    func runExtensibleTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Rectangle Point test***********")
         guard argc > 1,
-            let inFRE0: FREObject = argv[0], //point, rectangle
+            let inFRE0 = argv[0], //point, rectangle
             let inFRE1 = argv[1] else {
-                trace("runRectTests returning early")
+                trace("runExtensibleTests returning early")
                 return nil
         }
         
@@ -285,16 +285,34 @@ public class SwiftController: NSObject {
     
     func runDateTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Date test ***********")
-        
+        guard argc > 0,
+            let date = Date(argv[0]) else {
+                return nil
+        }
+        trace("timeIntervalSince1970 :", date.timeIntervalSince1970)
+        return date.toFREObject()
+    }
+    
+    func runColorTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+        trace("***********Start Color test ***********")
         guard argc > 0,
             let inFRE0 = argv[0] else {
                 return nil
         }
-        if let date = Date(inFRE0) {
-            trace("timeIntervalSince1970 :", date.timeIntervalSince1970)
-            return date.toFREObject()
-        }
-        return nil
+        var ret: FREObject? = nil
+#if os(iOS) || os(tvOS)
+        let airColor = UIColor(inFRE0)
+        trace(airColor.debugDescription)
+        ret = airColor?.toFREObject()
+#else
+        let airColor = NSColor(inFRE0, hasAlpha: true)
+        trace("A", airColor?.alphaComponent ?? "unknown",
+              "R", airColor?.redComponent ?? "unknown",
+              "G", airColor?.greenComponent ?? "unknown",
+              "B", airColor?.blueComponent ?? "unknown")
+        ret = airColor?.toFREObject()
+#endif
+        return ret
     }
     
 }

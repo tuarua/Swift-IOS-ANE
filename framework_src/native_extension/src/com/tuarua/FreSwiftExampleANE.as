@@ -55,8 +55,8 @@ public class FreSwiftExampleANE extends EventDispatcher {
         ctx.call("runBitmapTests", bmd);
     }
 
-    public function runRectTests(point:Point, rect:Rectangle):Point {
-        return ctx.call("runRectTests", point, rect) as Point;
+    public function runExtensibleTests(point:Point, rect:Rectangle):Point {
+        return ctx.call("runExtensibleTests", point, rect) as Point;
     }
 
     public function runByteArrayTests(byteArray:ByteArray):void {
@@ -65,6 +65,14 @@ public class FreSwiftExampleANE extends EventDispatcher {
 
     public function runDataTests(value:String):String {
         return ctx.call("runDataTests", value) as String;
+    }
+
+    public function runDateTests(value:Date):Date {
+        return ctx.call("runDateTests", value) as Date;
+    }
+
+    public function runColorTests(value:uint):uint {
+        return ctx.call("runColorTests", value) as uint;
     }
 
     public function runErrorTests(value:Person):void {
