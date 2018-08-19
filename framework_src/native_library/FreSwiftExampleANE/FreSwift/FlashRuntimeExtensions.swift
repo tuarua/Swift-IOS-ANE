@@ -196,6 +196,16 @@ public extension FreSwiftController {
 
 /// FREObject: Extends FREObject with Swift syntax.
 public extension FREObject {
+    
+    /// hasOwnProperty: Indicates whether an object has a specified property defined.
+    ///
+    /// ```swift
+    /// if argv[0].hasOwnProperty("name") {
+    ///
+    /// }
+    /// ```
+    /// - parameter name: The property of the FREObject.
+    /// - returns: Bool
     func hasOwnProperty(name: String) -> Bool {
         if let hasOwnProperty = self.call(method: "hasOwnProperty", args: name) {
             return Bool(hasOwnProperty) ?? false
@@ -203,6 +213,8 @@ public extension FREObject {
         return false
     }
     
+    /// hasOwnProperty: Calls toString() on a FREObjectCalls toString() on a FREObject
+    /// - returns: String
     func toString(_ suppressStrings: Bool = false) -> String {
         if (suppressStrings && self.type == FreObjectTypeSwift.string) || (self.type == FreObjectTypeSwift.null) {
             return ""
@@ -296,7 +308,7 @@ public extension FREObject {
     /// init: Creates a new FREObject.
     ///
     /// ```swift
-    /// let newPerson = try FREObject(className: "com.tuarua.Person", args: 1, true, "Free")
+    /// let newPerson = FREObject(className: "com.tuarua.Person", args: 1, true, "Free")
     /// ```
     /// - parameter className: name of AS3 class to create
     /// - parameter args: arguments to use. These are automatically converted to FREObjects
@@ -304,7 +316,7 @@ public extension FREObject {
     init?(className: String, args: Any?...) {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         for i in 0..<args.count {
-            argsArray.addPointer(FreObjectSwift(args[i]).rawValue)
+            argsArray.addPointer(FreSwiftHelper.newObject(any: args[i]))
         }
         if let rv = FreSwiftHelper.newObject(className: className, argsArray) {
             self.init(rv)
@@ -316,7 +328,7 @@ public extension FREObject {
     /// init: Creates a new FREObject.
     ///
     /// ```swift
-    /// let newPerson = try FREObject(className: "com.tuarua.Person")
+    /// let newPerson = FREObject(className: "com.tuarua.Person")
     /// ```
     /// - parameter className: name of AS3 class to create
     /// - returns: FREObject?

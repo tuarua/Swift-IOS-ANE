@@ -14,33 +14,29 @@
 
 import Foundation
 
-public extension CGPoint {
-    /// init: Initialise a CGPoint from a FREObject.
+public extension CGRect {
+    /// init: Initialise a CGRect from a FREObject.
     ///
     /// ```swift
-    /// let rect = CGPoint(argv[0])
+    /// let rect = CGRect(argv[0])
     /// ```
-    /// - parameter freObject: FREObject which is of AS3 type flash.geom.Point
-    /// - returns: CGPoint?
+    /// - parameter freObject: FREObject which is of AS3 type flash.geom.Rectangle.
+    /// - returns: CGRect?
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
         }
         let fre = FreObjectSwift(rv)
-        self.init(x: fre.x as CGFloat, y: fre.y)
+        self.init(x: fre.x as CGFloat, y: fre.y, width: fre.width, height: fre.height)
     }
-    /// toFREObject: Converts a CGPoint into a FREObject of AS3 type flash.geom.Point.
+    /// toFREObject: Converts a CGRect into a FREObject of AS3 type flash.geom.Rectangle.
     ///
     /// ```swift
-    /// let fre = CGPoint.init().toFREObject()
+    /// let fre = CGRect().toFREObject()
     /// ```
     /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        guard let fre = FreObjectSwift(className: "flash.geom.Point") else {
-            return nil
-        }
-        fre.x = x
-        fre.y = y
-        return fre.rawValue
+        return FREObject(className: "flash.geom.Rectangle",
+                         args: origin.x, origin.y, width, height)
     }
 }

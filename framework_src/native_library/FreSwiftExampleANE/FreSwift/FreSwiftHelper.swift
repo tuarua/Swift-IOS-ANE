@@ -27,7 +27,7 @@ public class FreSwiftHelper {
         }
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         for i in 0..<args.count {
-            argsArray.addPointer(FreObjectSwift(args[i]).rawValue)
+            argsArray.addPointer(newObject(any: args[i]))
         }
         var ret: FREObject?
         var thrownException: FREObject?
@@ -42,7 +42,7 @@ public class FreSwiftHelper {
         let status: FREResult = FRECallObjectMethod(rv,
                                                     name,
                                                     numArgs,
-                                                    FreSwiftHelper.arrayToFREArray(argsArray),
+                                                    arrayToFREArray(argsArray),
                                                     &ret, &thrownException)
 #endif
         
@@ -173,10 +173,48 @@ public class FreSwiftHelper {
             return nil
         }
     }
+    
+    public static func newObject(any: Any?) -> FREObject? {
+        if any == nil {
+            return nil
+        } else if any is FREObject, let v = any as? FREObject {
+            return (v)
+        } else if any is FreObjectSwift, let v = any as? FreObjectSwift {
+            return v.rawValue
+        } else if any is String, let v = any as? String {
+            return newObject(v)
+        } else if any is Int, let v = any as? Int {
+            return newObject(v)
+        } else if any is Int32, let v = any as? Int32 {
+            return newObject(Int(v))
+        } else if any is UInt, let v = any as? UInt {
+            return newObject(v)
+        } else if any is UInt32, let v = any as? UInt32 {
+            return newObject(UInt(v))
+        } else if any is Double, let v = any as? Double {
+            return newObject(v)
+        } else if any is CGFloat, let v = any as? CGFloat {
+            return newObject(v)
+        } else if any is Float, let v = any as? Float {
+            return newObject(Double(v))
+        } else if any is Bool, let v = any as? Bool {
+            return newObject(v)
+        } else if any is Date, let v = any as? Date {
+            return newObject(v)
+        } else if any is CGRect, let v = any as? CGRect {
+            return v.toFREObject()
+        } else if any is CGPoint, let v = any as? CGPoint {
+            return v.toFREObject()
+        } else if any is NSNumber, let v = any as? NSNumber {
+            return v.toFREObject()
+        }
+        return nil
+
+    }
 
 #if os(OSX)
     public static func toCGColor(freObject: FREObject, alpha: FREObject) -> CGColor? {
-        guard let rgb = FreSwiftHelper.getAsUInt(freObject) else { return nil }
+        guard let rgb = getAsUInt(freObject) else { return nil }
         let r = (rgb >> 16) & 0xFF
         let g = (rgb >> 8) & 0xFF
         let b = rgb & 0xFF
@@ -223,7 +261,7 @@ public class FreSwiftHelper {
     fileprivate static func getActionscriptType(_ rawValue: FREObject) -> FreObjectTypeSwift {
         if let aneUtils = FREObject(className: "com.tuarua.fre.ANEUtils"),
             let classType = aneUtils.call(method: "getClassType", args: rawValue),
-            let type = FreSwiftHelper.getAsString(classType)?.lowercased() {
+            let type = getAsString(classType)?.lowercased() {
             if type == "int" {
                 return FreObjectTypeSwift.int
             } else if type == "date" {

@@ -111,7 +111,7 @@ public class FREArray: Sequence {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         let count = anyArray.count
         for i in 0..<count {
-            set(index: UInt(i), object: FreObjectSwift(anyArray[i]))
+            set(index: UInt(i), freObject: FreSwiftHelper.newObject(any: anyArray[i]))
         }
     }
     
@@ -136,20 +136,6 @@ public class FREArray: Sequence {
         return nil
     }
     
-    func set(index: UInt, object: FreObjectSwift) {
-        guard let rv = rawValue else { return }
-#if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
-                                                                          value: object.rawValue)
-#else
-        let status: FREResult = FRESetArrayElementAt(rv, UInt32(index), object.rawValue)
-#endif
-        if FRE_OK == status { return }
-        FreSwiftLogger.shared().log(message: "cannot set item at \(index)",
-            type: FreSwiftHelper.getErrorCode(status),
-            line: #line, column: #column, file: #file)
-    }
-    
     fileprivate func set(index: UInt, freObject: FREObject?) {
         guard let rv = rawValue else { return }
         #if os(iOS) || os(tvOS)
@@ -171,13 +157,19 @@ public class FREArray: Sequence {
     /// - parameter value: value to set
     /// - returns: FREObject?
     public func set(index: UInt, value: Any) {
-        set(index: index, object: FreObjectSwift(value))
+        set(index: index, freObject: FreSwiftHelper.newObject(any: value))
     }
     
+    /// append: Appends value at position index
+    ///
+    /// - parameter value: value to set
     public func append(value: Any) {
         set(index: length, value: value)
     }
     
+    /// append: Appends value at position index
+    ///
+    /// - parameter value: value to set
     public func append(value: FREObject?) {
         set(index: length, freObject: value)
     }

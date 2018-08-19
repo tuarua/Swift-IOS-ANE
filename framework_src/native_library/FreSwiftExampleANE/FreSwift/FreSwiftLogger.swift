@@ -14,9 +14,11 @@
  */
 
 import Foundation
-
+/// FreSwiftLogger: Logger utility for logging any FRE errors which occur
 public class FreSwiftLogger {
+    /// context: sets/gets the FreContextSwift
     open var context: FreContextSwift?
+    
     private static var sharedLogger: FreSwiftLogger = {
         let logger = FreSwiftLogger()
         return logger
@@ -25,11 +27,19 @@ public class FreSwiftLogger {
     private init() {
     }
     
+    /// shared: returns the shared instance
     open class func shared() -> FreSwiftLogger {
         return sharedLogger
     }
     
-    func log(message: String, stackTrace: String? = nil, type: FreError.Code, line: Int, column: Int, file: String) {
+    /// log: traces the message to the console
+    /// - parameter message: message to log
+    /// - parameter stackTrace: stack trace to log
+    /// - parameter type: type of error
+    /// - parameter line: line where error occurred
+    /// - parameter column: column where error occurred
+    /// - parameter file: file name where error occurred
+    public func log(message: String, stackTrace: String? = nil, type: FreError.Code, line: Int, column: Int, file: String) {
         guard let ctx = context else { return }
         do {
             try ctx.dispatchStatusEventAsync(code: "[FreSwift] \(String(describing: type)) \(message)", level: "TRACE")

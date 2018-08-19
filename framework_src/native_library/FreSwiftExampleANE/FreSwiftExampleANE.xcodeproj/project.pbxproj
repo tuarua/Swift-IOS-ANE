@@ -18,8 +18,8 @@
 		90E26D8D210399F6003E0B9B /* FreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D84210399F6003E0B9B /* FreError.swift */; };
 		90E26D90210399F6003E0B9B /* FreBitmapDataSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D87210399F6003E0B9B /* FreBitmapDataSwift.swift */; };
 		90E26D92210399F6003E0B9B /* FreContextSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D89210399F6003E0B9B /* FreContextSwift.swift */; };
-		90E26D9521039A00003E0B9B /* FrePointSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9321039A00003E0B9B /* FrePointSwift.swift */; };
-		90E26D9621039A00003E0B9B /* FreRectangleSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9421039A00003E0B9B /* FreRectangleSwift.swift */; };
+		90E26D9521039A00003E0B9B /* FreCGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9321039A00003E0B9B /* FreCGPoint.swift */; };
+		90E26D9621039A00003E0B9B /* FreCGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9421039A00003E0B9B /* FreCGRect.swift */; };
 		90E26D9C21039A2C003E0B9B /* FlashRuntimeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9721039A2C003E0B9B /* FlashRuntimeExtensions.swift */; };
 		90E26D9D21039A2C003E0B9B /* FreArgError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9821039A2C003E0B9B /* FreArgError.swift */; };
 		90E26D9E21039A2C003E0B9B /* FreSwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9921039A2C003E0B9B /* FreSwiftBridge.swift */; };
@@ -40,8 +40,8 @@
 		90E26DBD21039CFA003E0B9B /* FreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D84210399F6003E0B9B /* FreError.swift */; };
 		90E26DBE21039CFA003E0B9B /* FreObjectTypeSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D82210399F6003E0B9B /* FreObjectTypeSwift.swift */; };
 		90E26DBF21039CFA003E0B9B /* FreSwiftHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D81210399F6003E0B9B /* FreSwiftHelper.swift */; };
-		90E26DC021039CFA003E0B9B /* FrePointSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9321039A00003E0B9B /* FrePointSwift.swift */; };
-		90E26DC121039CFA003E0B9B /* FreRectangleSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9421039A00003E0B9B /* FreRectangleSwift.swift */; };
+		90E26DC021039CFA003E0B9B /* FreCGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9321039A00003E0B9B /* FreCGPoint.swift */; };
+		90E26DC121039CFA003E0B9B /* FreCGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9421039A00003E0B9B /* FreCGRect.swift */; };
 		90E26DD021039E2D003E0B9B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E26D6221039542003E0B9B /* Cocoa.framework */; };
 		90E26DD321039E79003E0B9B /* Adobe AIR in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E26DD121039E63003E0B9B /* Adobe AIR */; };
 		90E26DD421039E7B003E0B9B /* Adobe AIR_64 in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E26DD221039E69003E0B9B /* Adobe AIR_64 */; };
@@ -63,8 +63,8 @@
 		90E26DE521039F03003E0B9B /* FreSwift.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D86210399F6003E0B9B /* FreSwift.m */; };
 		90E26DE621039F03003E0B9B /* FreSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D85210399F6003E0B9B /* FreSwift.swift */; };
 		90E26DE721039F03003E0B9B /* FreSwiftHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D81210399F6003E0B9B /* FreSwiftHelper.swift */; };
-		90E26DE821039F03003E0B9B /* FrePointSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9321039A00003E0B9B /* FrePointSwift.swift */; };
-		90E26DE921039F03003E0B9B /* FreRectangleSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9421039A00003E0B9B /* FreRectangleSwift.swift */; };
+		90E26DE821039F03003E0B9B /* FreCGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9321039A00003E0B9B /* FreCGPoint.swift */; };
+		90E26DE921039F03003E0B9B /* FreCGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D9421039A00003E0B9B /* FreCGRect.swift */; };
 		90E26DEE2103A210003E0B9B /* FreSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E26DC821039DE8003E0B9B /* FreSwift.framework */; };
 		90E26DEF2103A225003E0B9B /* FreMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 90E26D7A210398D2003E0B9B /* FreMacros.h */; };
 		90E26DF32103A257003E0B9B /* FreSwiftExampleANE.m in Sources */ = {isa = PBXBuildFile; fileRef = 90E26DF02103A257003E0B9B /* FreSwiftExampleANE.m */; };
@@ -159,8 +159,8 @@
 		90E26D86210399F6003E0B9B /* FreSwift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreSwift.m; sourceTree = "<group>"; };
 		90E26D87210399F6003E0B9B /* FreBitmapDataSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreBitmapDataSwift.swift; sourceTree = "<group>"; };
 		90E26D89210399F6003E0B9B /* FreContextSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreContextSwift.swift; sourceTree = "<group>"; };
-		90E26D9321039A00003E0B9B /* FrePointSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrePointSwift.swift; sourceTree = "<group>"; };
-		90E26D9421039A00003E0B9B /* FreRectangleSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreRectangleSwift.swift; sourceTree = "<group>"; };
+		90E26D9321039A00003E0B9B /* FreCGPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreCGPoint.swift; sourceTree = "<group>"; };
+		90E26D9421039A00003E0B9B /* FreCGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreCGRect.swift; sourceTree = "<group>"; };
 		90E26D9721039A2C003E0B9B /* FlashRuntimeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashRuntimeExtensions.swift; sourceTree = "<group>"; };
 		90E26D9821039A2C003E0B9B /* FreArgError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreArgError.swift; sourceTree = "<group>"; };
 		90E26D9921039A2C003E0B9B /* FreSwiftBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreSwiftBridge.swift; sourceTree = "<group>"; };
@@ -335,8 +335,8 @@
 		90E26D7E2103991E003E0B9B /* Geom */ = {
 			isa = PBXGroup;
 			children = (
-				90E26D9321039A00003E0B9B /* FrePointSwift.swift */,
-				90E26D9421039A00003E0B9B /* FreRectangleSwift.swift */,
+				90E26D9321039A00003E0B9B /* FreCGPoint.swift */,
+				90E26D9421039A00003E0B9B /* FreCGRect.swift */,
 			);
 			path = Geom;
 			sourceTree = "<group>";
@@ -707,14 +707,14 @@
 		};
 		90E26E312103A8CD003E0B9B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "../../native_extension/ane/build.sh\n";
 		};
@@ -799,8 +799,8 @@
 				900A1CA7212600A700D8EB16 /* FreSwiftLogger.swift in Sources */,
 				90E26D8D210399F6003E0B9B /* FreError.swift in Sources */,
 				90E26D92210399F6003E0B9B /* FreContextSwift.swift in Sources */,
-				90E26D9621039A00003E0B9B /* FreRectangleSwift.swift in Sources */,
-				90E26D9521039A00003E0B9B /* FrePointSwift.swift in Sources */,
+				90E26D9621039A00003E0B9B /* FreCGRect.swift in Sources */,
+				90E26D9521039A00003E0B9B /* FreCGPoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -820,8 +820,8 @@
 				900A1CA8212600A700D8EB16 /* FreSwiftLogger.swift in Sources */,
 				90E26DBE21039CFA003E0B9B /* FreObjectTypeSwift.swift in Sources */,
 				90E26DBF21039CFA003E0B9B /* FreSwiftHelper.swift in Sources */,
-				90E26DC021039CFA003E0B9B /* FrePointSwift.swift in Sources */,
-				90E26DC121039CFA003E0B9B /* FreRectangleSwift.swift in Sources */,
+				90E26DC021039CFA003E0B9B /* FreCGPoint.swift in Sources */,
+				90E26DC121039CFA003E0B9B /* FreCGRect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -842,8 +842,8 @@
 				90E26DE521039F03003E0B9B /* FreSwift.m in Sources */,
 				90E26DE621039F03003E0B9B /* FreSwift.swift in Sources */,
 				90E26DE721039F03003E0B9B /* FreSwiftHelper.swift in Sources */,
-				90E26DE821039F03003E0B9B /* FrePointSwift.swift in Sources */,
-				90E26DE921039F03003E0B9B /* FreRectangleSwift.swift in Sources */,
+				90E26DE821039F03003E0B9B /* FreCGPoint.swift in Sources */,
+				90E26DE921039F03003E0B9B /* FreCGRect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
