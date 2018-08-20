@@ -142,7 +142,9 @@ public class SwiftController: NSObject {
             trace("FreObjectSwift age 2", Int(swiftPerson.age) ?? "unknown")
             swiftPerson.age = 111.toFREObject()
             trace("FreObjectSwift age 3", Int(swiftPerson.age) ?? "unknown")
-            // swiftPerson.myMethod("", [1, 2, 3])
+            let swiftPersonType = swiftPerson.type
+            trace("We created a new person using FreObjectSwift. type =", swiftPersonType)
+            
         }
         
         if let oldAge = Int(person["age"]) {

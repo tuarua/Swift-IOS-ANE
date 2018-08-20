@@ -23,7 +23,7 @@ open class FreObjectSwift: NSObject {
     public var rawValue: FREObject?
     
     /// value:
-    open var value: Any? {
+    public var value: Any? {
         return FreSwiftHelper.getAsId(rawValue)
     }
     
@@ -383,12 +383,12 @@ open class FreObjectSwift: NSObject {
     /// - parameter method: name of AS3 method to call
     /// - parameter args: arguments to pass to the method
     /// - returns: FREObject?
-    func call(method: String, args: Any...) -> FREObject? {
+    public func call(method: String, args: Any...) -> FREObject? {
         return FreSwiftHelper.callMethod(self.rawValue, name: method, args: args)
     }
     
     /// returns the type of the FREOject
-    var type: FreObjectTypeSwift {
+    public var type: FreObjectTypeSwift {
         return FreSwiftHelper.getType(self.rawValue)
     }
 
