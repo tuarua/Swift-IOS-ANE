@@ -287,6 +287,37 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
+#if os(iOS) || os(tvOS)
+    /// subscript: sets/gets the Property of a FREObject.
+    ///
+    /// ```swift
+    /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
+    /// let jumperColor: UIColor? = newPerson.eyeColor
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - returns: UIColor?
+    public subscript(dynamicMember name: String) -> UIColor? {
+        get { return UIColor(rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+#endif
+    
+#if os(OSX)
+    /// subscript: sets/gets the Property of a FREObject.
+    ///
+    /// ```swift
+    /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
+    /// let jumperColor: UIColor? = newPerson.eyeColor
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - returns: NSColor?
+    public subscript(dynamicMember name: String) -> NSColor? {
+        get { return NSColor(rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+#endif
+    
     /// subscript: sets/gets the Property of a FREObject.
     ///
     /// ```swift
@@ -342,6 +373,23 @@ open class FreObjectSwift: NSObject {
         } else {
             return nil
         }
+    }
+    
+    /// call: Calls a method on a FREObject.
+    ///
+    /// ```swift
+    /// try person.call(method: "add", args: 100, 31)
+    /// ```
+    /// - parameter method: name of AS3 method to call
+    /// - parameter args: arguments to pass to the method
+    /// - returns: FREObject?
+    func call(method: String, args: Any...) -> FREObject? {
+        return FreSwiftHelper.callMethod(self.rawValue, name: method, args: args)
+    }
+    
+    /// returns the type of the FREOject
+    var type: FreObjectTypeSwift {
+        return FreSwiftHelper.getType(self.rawValue)
     }
 
 }

@@ -244,14 +244,15 @@ public class FreSwiftHelper {
         return nil
     }
 
-    public static func getType(_ rawValue: FREObject) -> FreObjectTypeSwift {
+    public static func getType(_ rawValue: FREObject?) -> FreObjectTypeSwift {
+        guard let rawValue = rawValue else { return FreObjectTypeSwift.null }
         var objectType: FREObjectType = FRE_TYPE_NULL
 #if os(iOS) || os(tvOS)
         _ = FreSwiftBridge.bridge.FREGetObjectType(object: rawValue, objectType: &objectType)
 #else
         FREGetObjectType(rawValue, &objectType)
 #endif
-        let type: FreObjectTypeSwift = FreObjectTypeSwift(rawValue: objectType.rawValue)! // TODO
+        let type = FreObjectTypeSwift(rawValue: objectType.rawValue) ?? FreObjectTypeSwift.null
 
         return FreObjectTypeSwift.number == type || FreObjectTypeSwift.object == type
           ? getActionscriptType(rawValue)
