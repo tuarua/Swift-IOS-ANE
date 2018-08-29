@@ -60,7 +60,7 @@ public class FREArray: Sequence {
     public init(intArray: [Int]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in intArray {
-            append(value: v.toFREObject())
+            append(v.toFREObject())
         }
     }
     
@@ -70,7 +70,7 @@ public class FREArray: Sequence {
     public init(uintArray: [UInt]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in uintArray {
-            append(value: v.toFREObject())
+            append(v.toFREObject())
         }
     }
     
@@ -80,7 +80,7 @@ public class FREArray: Sequence {
     public init(stringArray: [String]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in stringArray {
-            append(value: v.toFREObject())
+            append(v.toFREObject())
         }
     }
     
@@ -90,7 +90,7 @@ public class FREArray: Sequence {
     public init(doubleArray: [Double]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in doubleArray {
-            append(value: v.toFREObject())
+            append(v.toFREObject())
         }
     }
     
@@ -100,7 +100,7 @@ public class FREArray: Sequence {
     public init(boolArray: [Bool]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in boolArray {
-            append(value: v.toFREObject())
+            append(v.toFREObject())
         }
     }
     
@@ -163,14 +163,14 @@ public class FREArray: Sequence {
     /// append: Appends value at position index
     ///
     /// - parameter value: value to set
-    public func append(value: Any) {
+    public func append(_ value: Any) {
         set(index: length, value: value)
     }
     
     /// append: Appends value at position index
     ///
     /// - parameter value: value to set
-    public func append(value: FREObject?) {
+    public func append(_ value: FREObject?) {
         set(index: length, freObject: value)
     }
     
@@ -261,6 +261,18 @@ public extension Array where Element == Double {
             self = val
         }
     }
+    
+    /// init: Initialise a [Double] from a FREArray.
+    ///
+    /// ```swift
+    /// let array = [Double](FREArray(argv[0]))
+    /// ```
+    /// - parameter freArray: FREArray which is of AS3 type Vector.<Number>
+    /// - returns: [Double]?
+    init?(_ freArray: FREArray) {
+        self.init(freArray.rawValue)
+    }
+    
     /// toFREObject: Converts a Double Array into a FREObject of AS3 type Vector.<Number>.
     ///
     /// - returns: FREObject
@@ -286,6 +298,18 @@ public extension Array where Element == Bool {
             self = val
         }
     }
+    
+    /// init: Initialise a [Bool] from a FREArray.
+    ///
+    /// ```swift
+    /// let array = [Bool](FREArray(argv[0]))
+    /// ```
+    /// - parameter freArray: FREArray which is of AS3 type Vector.<Boolean>
+    /// - returns: [Bool]?
+    init?(_ freArray: FREArray) {
+        self.init(freArray.rawValue)
+    }
+    
     /// toFREObject: Converts a Bool Array into a FREObject of AS3 type Vector.<Boolean>.
     ///
     /// - returns: FREObject
@@ -311,6 +335,18 @@ public extension Array where Element == UInt {
             self = val
         }
     }
+    
+    /// init: Initialise a [UInt] from a FREArray.
+    ///
+    /// ```swift
+    /// let array = [UInt](FREArray(argv[0]))
+    /// ```
+    /// - parameter freArray: FREArray which is of AS3 type Vector.<UInt>
+    /// - returns: [UInt]?
+    init?(_ freArray: FREArray) {
+        self.init(freArray.rawValue)
+    }
+    
     /// toFREObject: Converts an Int Array into a FREObject of AS3 type Vector.<int>.
     ///
     /// - returns: FREObject
@@ -336,6 +372,18 @@ public extension Array where Element == Int {
             self = val
         }
     }
+    
+    /// init: Initialise a [Int] from a FREArray.
+    ///
+    /// ```swift
+    /// let array = [Int](FREArray(argv[0]))
+    /// ```
+    /// - parameter freArray: FREArray which is of AS3 type Vector.<Int>
+    /// - returns: [Int]?
+    init?(_ freArray: FREArray) {
+        self.init(freArray.rawValue)
+    }
+    
     /// toFREObject: Converts an Int Array into a FREObject of AS3 type Vector.<int>.
     ///
     /// - returns: FREObject
@@ -361,6 +409,17 @@ public extension Array where Element == String {
             self = val
         }
     }
+    /// init: Initialise a [String] from a FREArray.
+    ///
+    /// ```swift
+    /// let array = [String](FREArray(argv[0]))
+    /// ```
+    /// - parameter freArray: FREArray which is of AS3 type Vector.<String>
+    /// - returns: [String]?
+    init?(_ freArray: FREArray) {
+        self.init(freArray.rawValue)
+    }
+    
     /// toFREObject: Converts an String Array into a FREObject of AS3 type Vector.<String>.
     ///
     /// - returns: FREObject

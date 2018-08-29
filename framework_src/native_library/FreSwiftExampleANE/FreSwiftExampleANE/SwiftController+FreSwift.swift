@@ -29,7 +29,6 @@ extension SwiftController: FreSwiftMainController {
         functionsToSet["\(prefix)runBitmapTests"] = runBitmapTests
         functionsToSet["\(prefix)runByteArrayTests"] = runByteArrayTests
         functionsToSet["\(prefix)runErrorTests"] = runErrorTests
-        functionsToSet["\(prefix)runErrorTests2"] = runErrorTests2
         functionsToSet["\(prefix)runDataTests"] = runDataTests
         functionsToSet["\(prefix)runExtensibleTests"] = runExtensibleTests
         functionsToSet["\(prefix)runDateTests"] = runDateTests

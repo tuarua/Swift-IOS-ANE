@@ -71,19 +71,13 @@ public class FreSwiftExampleANE extends EventDispatcher {
         return ctx.call("runDateTests", value) as Date;
     }
 
-    public function runColorTests(value:uint):uint {
-        return ctx.call("runColorTests", value) as uint;
+    public function runColorTests(value:uint, value2:uint):uint {
+        return ctx.call("runColorTests", value, value2) as uint;
     }
 
-    public function runErrorTests(value:Person):void {
+    public function runErrorTests(value:Person, string:String):void {
         var theRet:* = ctx.call("runErrorTests", value);
-        if (theRet is ANEError) {
-            throw theRet as ANEError;
-        }
-    }
-
-    public function runErrorTests2(string:String):void {
-        ctx.call("runErrorTests2", string);
+        if (theRet is ANEError) throw theRet as ANEError;
     }
 
     public function dispose():void {

@@ -24,61 +24,45 @@ open class FreContextSwift: NSObject {
         rawValue = freContext
     }
     /// :nodoc:
-    public func dispatchStatusEventAsync(code: String, level: String) throws {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
-        }
+    public func dispatchStatusEventAsync(code: String, level: String) {
+        guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREDispatchStatusEventAsync(ctx: rv, code: code, level: level)
+        _ = FreSwiftBridge.bridge.FREDispatchStatusEventAsync(ctx: rv, code: code, level: level)
 #else
-        let status: FREResult = FREDispatchStatusEventAsync(rv, code, level)
+        FREDispatchStatusEventAsync(rv, code, level)
 #endif
-        guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot dispatch event \(code):\(level)",
-              type: FreSwiftHelper.getErrorCode(status), line: #line, column: #column, file: #file)
-        }
     }
 
     /// getActionScriptData: Call this function to get an extension context’s ActionScript data.
-    /// - throws: Can throw a `FreError` on fail
-    public func getActionScriptData() throws -> FREObject? {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
-        }
+    public func getActionScriptData() -> FREObject? {
+        guard let rv = rawValue else { return nil }
         var ret: FREObject?
 #if os(iOS) || os(tvOS)
         let status: FREResult = FreSwiftBridge.bridge.FREGetContextActionScriptData(ctx: rv, actionScriptData: &ret)
 #else
         let status: FREResult = FREGetContextActionScriptData(rv, &ret)
 #endif
-        guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot get actionscript data",
-                           type: FreSwiftHelper.getErrorCode(status),
-              line: #line, column: #column, file: #file)
-        }
-        return ret
+        if FRE_OK == status { return ret}
+        FreSwiftLogger.shared().log(message: "cannot get actionscript data",
+                                    type: FreSwiftHelper.getErrorCode(status),
+                                    line: #line, column: #column, file: #file)
+        return nil
     }
 
     /// setActionScriptData: Call this function to set an extension context’s ActionScript data.
     /// - parameter object: FREObject to set
-    /// - throws: Can throw a `FreError` on fail
-    public func setActionScriptData(object: FREObject) throws {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
-        }
+    public func setActionScriptData(object: FREObject) {
+        guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
         let status: FREResult = FreSwiftBridge.bridge.FRESetContextActionScriptData(ctx: rv, actionScriptData: object)
 #else
         let status: FREResult = FRESetContextActionScriptData(rv, object)
 #endif
-        guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot set actionscript data", type: FreSwiftHelper.getErrorCode(status),
-              line: #line, column: #column, file: #file)
-        }
-
+        
+        if FRE_OK == status { return }
+        FreSwiftLogger.shared().log(message: "cannot set actionscript data",
+            type: FreSwiftHelper.getErrorCode(status),
+            line: #line, column: #column, file: #file)
     }
 
 }

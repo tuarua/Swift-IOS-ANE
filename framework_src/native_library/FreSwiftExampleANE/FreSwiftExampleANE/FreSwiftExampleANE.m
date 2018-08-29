@@ -48,7 +48,6 @@ CONTEXT_INIT(TRFSA) {
         ,MAP_FUNCTION(TRFSA, runBitmapTests)
         ,MAP_FUNCTION(TRFSA, runByteArrayTests)
         ,MAP_FUNCTION(TRFSA, runErrorTests)
-        ,MAP_FUNCTION(TRFSA, runErrorTests2)
         ,MAP_FUNCTION(TRFSA, runDataTests)
         ,MAP_FUNCTION(TRFSA, runExtensibleTests)
         ,MAP_FUNCTION(TRFSA, runDateTests)

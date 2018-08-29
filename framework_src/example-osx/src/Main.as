@@ -49,6 +49,7 @@ public class Main extends Sprite {
         var person:Person = new Person();
         person.age = 21;
         person.name = "Tom";
+        person.city.name = "Boston";
 
         var myArray:Array = [];
         myArray.push(3, 1, 4, 2, 6, 5);
@@ -62,6 +63,9 @@ public class Main extends Sprite {
 
         var resultInt:int = ane.runIntTests(-54, 66);
         textField.text += "Int: " + resultInt + "\n";
+
+        trace("HALF_GREEN", HALF_GREEN, HALF_GREEN == ane.runColorTests(GREEN, HALF_GREEN) ? "✅" : "❌");
+
         var resultArray:Array = ane.runArrayTests(myArray);
         textField.text += "Array: " + resultArray.toString() + "\n";
 
@@ -88,7 +92,7 @@ public class Main extends Sprite {
         ane.runByteArrayTests(myByteArray);
 
         try {
-            ane.runErrorTests(person);
+            ane.runErrorTests(person,"Test String");
         } catch (e:ANEError) {
             trace("Error captured in AS");
             trace("e.message:", e.message);
@@ -97,17 +101,13 @@ public class Main extends Sprite {
             trace("e.source:", e.source);
             trace("e.getStackTrace():", e.getStackTrace());
         }
-        ane.runErrorTests2("Test String");
 
-        var returnedDate:Date = ane.runDateTests(new Date());
-        trace("returnedDate:", returnedDate);
+        var testDate:Date = new Date(1990, 5, 13, 8, 59, 3);
+        trace("Date returned is same", testDate.time == ane.runDateTests(testDate).time ? "✅" : "❌");
 
         var inData:String = "Saved and returned";
         var outData:String = ane.runDataTests(inData) as String;
         textField.text += outData + "\n";
-
-        trace("GREEN", GREEN, GREEN == ane.runColorTests(GREEN));
-        trace("HALF_GREEN", HALF_GREEN, HALF_GREEN == ane.runColorTests(HALF_GREEN));
 
         addChild(textField);
     }

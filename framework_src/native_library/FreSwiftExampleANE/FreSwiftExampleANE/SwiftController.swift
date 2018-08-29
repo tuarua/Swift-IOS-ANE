@@ -33,13 +33,13 @@ public class SwiftController: NSObject {
         }
         // Turn on FreSwift logging
         FreSwiftLogger.shared().context = context
+        
+        warning("I am a test warning")
+        info("I am a test info")
         trace("*********** Start String test ***********")
         guard let airString = String(argv[0]) else {
             return FreArgError(message: "String not converted").getError(#file, #line, #column)
         }
-        
-        // this will trace an error, can't convert String to Int
-        _ = Int(argv[0])
         
         trace("String passed from AIR:", airString)
         let swiftString: String = "I am a string from Swift"
@@ -64,10 +64,10 @@ public class SwiftController: NSObject {
         let testFloat: Float = 31.99
         let testNSNumber: NSNumber = 31.99
         
-        trace("Number passed from AIR as Double:", testDouble.isEqual(to: airDouble) ? "PASS" : "FAIL", airDouble)
-        trace("Number passed from AIR as CGFloat:", testCGFlot.isEqual(to: airCGFloat) ? "PASS" : "FAIL", airCGFloat)
-        trace("Number passed from AIR as Float:", testFloat.isEqual(to: airFloat) ? "PASS" : "FAIL", airFloat)
-        trace("Number passed from AIR as NSNumber:", testNSNumber.isEqual(to: airNSNumber) ? "PASS" : "FAIL", airNSNumber)
+        trace("Number passed from AIR as Double:", airDouble, testDouble.isEqual(to: airDouble) ? "✅" : "❌")
+        trace("Number passed from AIR as CGFloat:", airCGFloat, testCGFlot.isEqual(to: airCGFloat) ? "✅" : "❌")
+        trace("Number passed from AIR as Float:", airFloat, testFloat.isEqual(to: airFloat) ? "✅" : "❌")
+        trace("Number passed from AIR as NSNumber:", airNSNumber, testNSNumber.isEqual(to: airNSNumber) ? "✅" : "❌")
         trace("-------------------------------------------")
         
         let swiftDouble: Double = 34343.31
@@ -77,19 +77,20 @@ public class SwiftController: NSObject {
     func runIntTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Int Uint test***********")
         guard argc > 1,
-            let inFRE0 = argv[0],
-            let inFRE1 = argv[1],
-            let airInt = Int(inFRE0),
-            let airUInt = UInt(inFRE1) else {
+            let airInt = Int(argv[0]),
+            let airUInt = UInt(argv[1]),
+            let airIntAsDouble = Double(argv[0]) else {
                 return nil
         }
         
-        let optionalInt: Int? = Int(inFRE0)
+        let testInt = -54
+        let testDouble = -54.0
+        let testUint = 66
         
-        trace("Int passed from AIR:", airInt)
-        trace("Int passed from AIR (optional):", optionalInt.debugDescription)
-        trace("UInt passed from AIR:", airUInt)
-        
+        trace("Number passed from AIR as Int:", airInt, testInt == airInt ? "✅" : "❌")
+        trace("Number passed from AIR as Int to Double:", airIntAsDouble, testDouble == airIntAsDouble ? "✅" : "❌")
+        trace("Number passed from AIR as UInt:", airUInt, testUint == airUInt ? "✅" : "❌")
+        trace("-------------------------------------------")
         let swiftInt: Int = -666
         return swiftInt.toFREObject()
     }
@@ -101,28 +102,25 @@ public class SwiftController: NSObject {
             return nil
         }
         
-        let airArray: FREArray = FREArray(inFRE0)
-            
-        let myVector = FREArray(className: "Object", length: 5, fixed: true)
-        trace("Vector of Objects should equal 5 ? ", myVector.length)
-        
-        let airArrayLen = airArray.length
-        
-        trace("Array passed from AIR:", airArray.value)
-        trace("AIR Array length:", airArrayLen)
+        let airArray = FREArray(inFRE0)
+        airArray.append(77.toFREObject())
+        airArray.append(88)
+        trace("Get FREArray length :", airArray.length, 8 == airArray.length ? "✅" : "❌")
         for fre in airArray {
             trace("iterate over FREArray", Int(fre) ?? "unknown")
         }
         
-        if let itemZero = Int(airArray[0]) { //get using brackets with FREObject
-            trace("AIR Array elem at 0 type:", "value:", itemZero)
-            airArray.set(index: 0, value: 56)
-            airArray.append(value: 222)
-            airArray[1] = 123.toFREObject() //set using brackets with FREObject
-            return airArray.rawValue
-        }
-
-        return nil
+        let myVector = FREArray(className: "Object", length: 5, fixed: true)
+        trace("New FREArray of fixed length:", myVector.length, 5 == myVector.length ? "✅" : "❌")
+        airArray[0] = 123.toFREObject()
+        trace("Set element of FREArray:", Int(airArray[0]) ?? 0, 123 == Int(airArray[0]) ? "✅" : "❌")
+        
+        let swiftArr: [Int] = [1, 2, 3]
+        let swiftArrayFre = FREArray(intArray: swiftArr)
+        let swiftArrBack = [Int](swiftArrayFre)
+        trace("Swift IntArray:", 3 == swiftArrBack?[2] ? "✅" : "❌")
+        trace("-------------------------------------------")
+        return airArray.rawValue
         
     }
     
@@ -160,6 +158,7 @@ public class SwiftController: NSObject {
             }
             
         }
+        trace("-------------------------------------------")
         return person
     }
     
@@ -192,7 +191,8 @@ public class SwiftController: NSObject {
                         }
                     }
 #else
-                    if let newImage = context.createCGImage(result, from: result.extent, format: CIFormat.BGRA8, colorSpace: cgimg.colorSpace) {
+                    if let newImage = context.createCGImage(result, from: result.extent, format: CIFormat.BGRA8,
+                                                            colorSpace: cgimg.colorSpace) {
                         try asBitmapData.setPixels(cgImage: newImage)
                     }
 #endif
@@ -201,26 +201,23 @@ public class SwiftController: NSObject {
         } catch {
         }
         
-        trace("bitmap test finish")
-        
         return nil
     }
     
     func runByteArrayTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start ByteArray test***********")
-        
-        guard argc == 1, let inFRE0 = argv[0] else {
+        guard argc > 0, let inFRE0 = argv[0] else {
             return nil
         }
         
         let asByteArray = FreByteArraySwift(freByteArray: inFRE0)
-        
         if let byteData = asByteArray.value {
             let base64Encoded = byteData.base64EncodedString(options: .init(rawValue: 0))
-            
-            trace("Encoded to Base64:", base64Encoded)
+            trace("ByteArray passed from AIR to base64:", base64Encoded,
+                  base64Encoded == "U3dpZnQgaW4gYW4gQU5FLiBTYXkgd2hhYWFhdCE=" ? "✅" : "❌")
         }
         asByteArray.releaseBytes() //don't forget to release
+        trace("-------------------------------------------")
         return nil
         
     }
@@ -228,11 +225,8 @@ public class SwiftController: NSObject {
     func runDataTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start ActionScriptData test***********")
         if let objectAs = argv[0] {
-            do {
-                try context.setActionScriptData(object: objectAs)
-                return try context.getActionScriptData()
-            } catch {
-            }
+            context.setActionScriptData(object: objectAs)
+            return context.getActionScriptData()
         }
         return nil
     }
@@ -241,79 +235,85 @@ public class SwiftController: NSObject {
         trace("***********Start Error Handling test***********")
         
         guard argc > 0,
-            let person = argv[0] else {
+            let person = argv[0],
+            let expectInt = argv[1] else {
                 return nil
         }
         
         _ = person["doNotExist"]
         _ = person.call(method: "add", args: 2) //not passing enough args
         
-        return nil
-    }
-    
-    func runErrorTests2(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-        guard argc > 0,
-            let expectInt = argv[0] else {
-                return nil
-        }
-        
         guard FreObjectTypeSwift.int == expectInt.type else {
-            trace("Oops, we expected the FREObject to be passed as an int but it's not")
-            return nil
+            return FreError(stackTrace: "",
+                                 message: "Oops, we expected the FREObject to be passed as an int but it's not",
+                                 type: .typeMismatch).getError(#file, #line, #column)
         }
         
+        trace("-------------------------------------------")
         return nil
-        
     }
     
     func runExtensibleTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Rectangle Point test***********")
         guard argc > 1,
-            let inFRE0 = argv[0], //point, rectangle
-            let inFRE1 = argv[1] else {
-                trace("runExtensibleTests returning early")
+            let frePoint = CGPoint(argv[0]), //point, rectangle
+            let freRect = CGRect(argv[1]) else {
                 return nil
         }
-        
-        if let frePoint = CGPoint(inFRE0) {
-            trace(frePoint.debugDescription)
-        }
-        
-        if let freRect = CGRect(inFRE1) {
-            trace(freRect.debugDescription)
-        }
+        let testPoint = CGPoint(x: 1, y: 55.5)
+        let testRect = CGRect(x: 9.1, y: 0.5, width: 20, height: 50)
+        trace("Point passed from AIR as CGPoint:", frePoint.debugDescription, frePoint.equalTo(testPoint) ? "✅" : "❌")
+        trace("Rectangle passed from AIR as CGRect:", freRect.debugDescription, freRect.equalTo(testRect) ? "✅" : "❌")
+        trace("-------------------------------------------")
         return CGPoint(x: 10.2, y: 99.9).toFREObject()
     }
     
     func runDateTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
-        trace("***********Start Date test ***********")
-        guard argc > 0,
-            let date = Date(argv[0]) else {
-                return nil
-        }
-        trace("timeIntervalSince1970 :", date.timeIntervalSince1970)
-        return date.toFREObject()
+        let date = Date(argv[0])
+        return date?.toFREObject()
     }
     
     func runColorTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Color test ***********")
         guard argc > 0,
-            let inFRE0 = argv[0] else {
+            let inFRE0 = argv[0],
+            let inFRE1 = argv[1] else {
                 return nil
         }
         var ret: FREObject? = nil
 #if os(iOS) || os(tvOS)
-        let airColor = UIColor(inFRE0)
-        trace(airColor.debugDescription)
+        let airColor = UIColor(inFRE0, hasAlpha: false)
+        let airColorWithAlpha = UIColor(inFRE0)
+        
+        let testColor = UIColor.init(red: 0, green: 1, blue: 0, alpha: 1)
+        let testColorAlpha = UIColor.init(red: 0, green: 1, blue: 0, alpha: 0.5)
+        
+        trace("Point passed from AIR as CGPoint:", airColor.debugDescription, airColor?.isEqual(testColor) ?? false ? "✅" : "❌")
+        trace("Point passed from AIR as CGPoint:", airColorWithAlpha.debugDescription, airColorWithAlpha?.isEqual(testColorAlpha) ?? false ? "✅" : "❌")
+        
         ret = airColor?.toFREObject()
 #else
-        let airColor = NSColor(inFRE0, hasAlpha: true)
-        trace("A", airColor?.alphaComponent ?? "unknown",
-              "R", airColor?.redComponent ?? "unknown",
-              "G", airColor?.greenComponent ?? "unknown",
-              "B", airColor?.blueComponent ?? "unknown")
-        ret = airColor?.toFREObject()
+        
+        let airColor = NSColor(inFRE0, hasAlpha: false)
+        let airColorWithAlpha = NSColor(inFRE1)
+        
+        trace("Colour passed from AIR as Color (RGB):", airColor.debugDescription,
+              airColor?.alphaComponent.isEqual(to: 1.0) ?? false
+                && airColor?.redComponent.isEqual(to: 0) ?? false
+                && airColor?.greenComponent.isEqual(to: 1.0) ?? false
+                && airColor?.blueComponent.isEqual(to: 0) ?? false
+                ? "✅" : "❌")
+        
+        trace("Colour passed from AIR as Color (ARGB):", airColorWithAlpha.debugDescription,
+              String(format: "%.1f", airColorWithAlpha?.alphaComponent ?? 0) == "0.5"
+                && airColorWithAlpha?.redComponent.isEqual(to: 0) ?? false
+                && airColorWithAlpha?.greenComponent.isEqual(to: 1.0) ?? false
+                && airColorWithAlpha?.blueComponent.isEqual(to: 0) ?? false
+                ? "✅" : "❌")
+        
+        ret = airColorWithAlpha?.toFREObject()
 #endif
+        trace("-------------------------------------------")
         return ret
     }
     
