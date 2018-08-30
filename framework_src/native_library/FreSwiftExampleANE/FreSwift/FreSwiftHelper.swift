@@ -21,7 +21,7 @@ public class FreSwiftHelper {
         return FreSwiftLogger.shared()
     }
 
-    static func callMethod(_ rawValue: FREObject?, name: String, args: [Any]) -> FREObject? {
+    static func callMethod(_ rawValue: FREObject?, name: String, args: [Any?]) -> FREObject? {
         guard let rv = rawValue else {
             return nil
         }

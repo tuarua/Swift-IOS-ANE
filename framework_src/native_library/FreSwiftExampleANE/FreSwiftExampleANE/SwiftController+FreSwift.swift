@@ -56,6 +56,8 @@ extension SwiftController: FreSwiftMainController {
     //Here we set our FREContext
     @objc public func setFREContext(ctx: FREContext) {
         self.context = FreContextSwift.init(freContext: ctx)
+        // Turn on FreSwift logging
+        FreSwiftLogger.shared().context = context
     }
     
     // Here we add observers for any app delegate stuff

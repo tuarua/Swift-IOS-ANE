@@ -60,7 +60,7 @@ public class FREArray: Sequence {
     public init(intArray: [Int]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in intArray {
-            append(v.toFREObject())
+            self.push(v)
         }
     }
     
@@ -70,7 +70,7 @@ public class FREArray: Sequence {
     public init(uintArray: [UInt]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in uintArray {
-            append(v.toFREObject())
+            self.push(v)
         }
     }
     
@@ -80,7 +80,7 @@ public class FREArray: Sequence {
     public init(stringArray: [String]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in stringArray {
-            append(v.toFREObject())
+            self.push(v)
         }
     }
     
@@ -90,7 +90,7 @@ public class FREArray: Sequence {
     public init(doubleArray: [Double]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in doubleArray {
-            append(v.toFREObject())
+            self.push(v)
         }
     }
     
@@ -100,7 +100,7 @@ public class FREArray: Sequence {
     public init(boolArray: [Bool]) {
         rawValue = FreSwiftHelper.newObject(className: "Array")
         for v in boolArray {
-            append(v.toFREObject())
+            self.push(v)
         }
     }
     
@@ -160,18 +160,11 @@ public class FREArray: Sequence {
         set(index: index, freObject: FreSwiftHelper.newObject(any: value))
     }
     
-    /// append: Appends value at position index
+    /// push: Adds one or more elements to the end of an array and returns the new length of the array.
     ///
-    /// - parameter value: value to set
-    public func append(_ value: Any) {
-        set(index: length, value: value)
-    }
-    
-    /// append: Appends value at position index
-    ///
-    /// - parameter value: value to set
-    public func append(_ value: FREObject?) {
-        set(index: length, freObject: value)
+    /// - parameter args: One or more values to append to the array.
+    public func push(_ args: Any?...) {
+        _ = FreSwiftHelper.callMethod(self.rawValue, name: "push", args: args)
     }
     
     /// length: length of FREArray

@@ -70,7 +70,7 @@ public extension FreSwiftMainController {
     }
     
     /// info: sends StatusEvent to our swc with a level of "TRACE"
-    /// The output string is prefixed with [INFO]
+    /// The output string is prefixed with ℹ️ INFO:
     ///
     /// ```swift
     /// info("Hello")
@@ -85,7 +85,7 @@ public extension FreSwiftMainController {
         dispatchEvent(name: "TRACE", value: "ℹ️ INFO: \(traceStr)")
     }
     /// warning: sends StatusEvent to our swc with a level of "TRACE"
-    /// The output string is prefixed with [WARNING]
+    /// The output string is prefixed with ⚠️ WARNING:
     ///
     /// ```swift
     /// warning("Hello")
@@ -141,7 +141,7 @@ public extension FreSwiftController {
     }
     
     /// info: sends StatusEvent to our swc with a level of "TRACE"
-    /// The output string is prefixed with [INFO]
+    /// The output string is prefixed with ℹ️ INFO:
     ///
     /// ```swift
     /// info("Hello")
@@ -157,7 +157,7 @@ public extension FreSwiftController {
     }
     
     /// warning: sends StatusEvent to our swc with a level of "TRACE"
-    /// The output string is prefixed with [WARNING]
+    /// The output string is prefixed with ⚠️ WARNING:
     ///
     /// ```swift
     /// warning("Hello")
@@ -342,7 +342,7 @@ public extension FREObject {
     /// - parameter method: name of AS3 method to call
     /// - parameter args: arguments to pass to the method
     /// - returns: FREObject?
-    func call(method: String, args: Any...) -> FREObject? {
+    func call(method: String, args: Any?...) -> FREObject? {
         return FreSwiftHelper.callMethod(self, name: method, args: args)
     }
     

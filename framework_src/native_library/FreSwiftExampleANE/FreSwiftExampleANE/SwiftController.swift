@@ -31,8 +31,6 @@ public class SwiftController: NSObject {
         guard argc > 0 else {
             return FreArgError(message: "not enough arguments passed").getError(#file, #line, #column)
         }
-        // Turn on FreSwift logging
-        FreSwiftLogger.shared().context = context
         
         warning("I am a test warning")
         info("I am a test info")
@@ -103,8 +101,7 @@ public class SwiftController: NSObject {
         }
         
         let airArray = FREArray(inFRE0)
-        airArray.append(77.toFREObject())
-        airArray.append(88)
+        airArray.push(77, 88.toFREObject())
         trace("Get FREArray length :", airArray.length, 8 == airArray.length ? "✅" : "❌")
         for fre in airArray {
             trace("iterate over FREArray", Int(fre) ?? "unknown")
@@ -127,37 +124,37 @@ public class SwiftController: NSObject {
     func runObjectTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Object test***********")
         
-        guard argc > 0, let person = argv[0] else {
+        guard argc > 0, var person = argv[0] else {
             return nil
         }
         
         let newPerson = FREObject(className: "com.tuarua.Person")
-        trace("We created a new person. type =", newPerson?.type ?? "unknown")
-        
-        if let swiftPerson = FreObjectSwift(className: "com.tuarua.Person") {
-            trace("FreObjectSwift age 1", Int(swiftPerson.age) ?? "unknown")
-            swiftPerson.age = 999
-            trace("FreObjectSwift age 2", Int(swiftPerson.age) ?? "unknown")
-            swiftPerson.age = 111.toFREObject()
-            trace("FreObjectSwift age 3", Int(swiftPerson.age) ?? "unknown")
-            let swiftPersonType = swiftPerson.type
-            trace("We created a new person using FreObjectSwift. type =", swiftPersonType)
-            
-        }
+        trace("New Person is of type CLASS:", newPerson?.type ?? "unknown",
+              newPerson?.type == FreObjectTypeSwift.cls ? "✅" : "❌")
         
         if let oldAge = Int(person["age"]) {
-            trace("current person age is", oldAge)
-            if let addition = person.call(method: "add", args: 100, 31) {
-                if let result = Int(addition) {
-                    trace("addition result:", result)
-                }
-            }
-            
+            trace("Get property as Int:", oldAge, 21 == oldAge ? "✅" : "❌")
+            person["age"] = (oldAge + 10).toFREObject()
+            trace("Set property to Int:", Int(person["age"]) ?? "unknown", 31 == Int(person["age"]) ? "✅" : "❌")
             if let dictionary = Dictionary(person) {
                 trace("AIR Object converted to Dictionary using getAsDictionary:", dictionary.description)
             }
-            
         }
+        
+        if let addition = person.call(method: "add", args: 100, 31) {
+            trace("Call add:", 131, 131 == Int(addition) ? "✅" : "❌")
+        }
+        
+        let cityName = String(person["city"]?["name"])
+        trace("Get property as String:", cityName ?? "", "Boston" == cityName ? "✅" : "❌")
+        
+        if let swiftPerson = FreObjectSwift(className: "com.tuarua.Person") {
+            swiftPerson.age = 77
+            trace("Set property on DynamicMemberLookup to Int:", swiftPerson.age ?? 0, 77 == swiftPerson.age ? "✅" : "❌")
+            swiftPerson.age = 66.toFREObject()
+            trace("Set property on DynamicMemberLookup to Int:", swiftPerson.age ?? 0, 66 == swiftPerson.age ? "✅" : "❌")
+        }
+        
         trace("-------------------------------------------")
         return person
     }
@@ -296,13 +293,10 @@ public class SwiftController: NSObject {
         
         let airColor = NSColor(inFRE0, hasAlpha: false)
         let airColorWithAlpha = NSColor(inFRE1)
+        let testColor = NSColor.init(red: 0, green: 1, blue: 0, alpha: 1)
         
         trace("Colour passed from AIR as Color (RGB):", airColor.debugDescription,
-              airColor?.alphaComponent.isEqual(to: 1.0) ?? false
-                && airColor?.redComponent.isEqual(to: 0) ?? false
-                && airColor?.greenComponent.isEqual(to: 1.0) ?? false
-                && airColor?.blueComponent.isEqual(to: 0) ?? false
-                ? "✅" : "❌")
+              airColor?.isEqual(to: testColor) ?? false ? "✅" : "❌")
         
         trace("Colour passed from AIR as Color (ARGB):", airColorWithAlpha.debugDescription,
               String(format: "%.1f", airColorWithAlpha?.alphaComponent ?? 0) == "0.5"
