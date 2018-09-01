@@ -32,7 +32,7 @@ public extension CGPoint {
     /// toFREObject: Converts a CGPoint into a FREObject of AS3 type flash.geom.Point.
     ///
     /// ```swift
-    /// let fre = CGPoint.init().toFREObject()
+    /// let fre = CGPoint().toFREObject()
     /// ```
     /// - returns: FREObject?
     func toFREObject() -> FREObject? {

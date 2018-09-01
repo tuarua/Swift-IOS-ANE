@@ -21,7 +21,7 @@ public class FreBitmapDataSwift: NSObject {
 
     /// raw FREObject value.
     public var rawValue: FREObject?
-    private var _bitmapData: FREBitmapData = FREBitmapData.init()
+    private var _bitmapData: FREBitmapData = FREBitmapData()
     /// A Int that specifies the width, in pixels, of the bitmap. This value corresponds to the width property of
     /// the ActionScript BitmapData class object. This field is read-only.
     public var width: Int = 0
@@ -57,36 +57,30 @@ public class FreBitmapDataSwift: NSObject {
     /// - parameter cgImage: CGImage which will be converted into FREBitmapData2
     public init(cgImage: CGImage) {
         super.init()
-        do {
-            if let freObject = FREObject(className: "flash.display.BitmapData",
-                                                 args: UInt32(cgImage.width),
-                                                 UInt32(cgImage.height), false, 0) {
-                rawValue = freObject
-                try acquire()
-                try setPixels(cgImage: cgImage)
-                releaseData()
-            }
-        } catch {
+        if let freObject = FREObject(className: "flash.display.BitmapData",
+                                             args: UInt32(cgImage.width),
+                                             UInt32(cgImage.height), false, 0) {
+            rawValue = freObject
+            acquire()
+            setPixels(cgImage: cgImage)
             releaseData()
         }
     }
 
     /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSdb11516da818ea8d-755819ea133426056e1-8000.html)
-    /// - throws: Can throw a `FreError` on fail
-    public func acquire() throws {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
-        }
+    public func acquire() {
+        guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
         let status: FREResult = FreSwiftBridge.bridge.FREAcquireBitmapData2(object: rv, descriptorToSet: &_bitmapData)
 #else
         let status: FREResult = FREAcquireBitmapData2(rv, &_bitmapData)
 #endif
+        
         guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot acquire BitmapData",
-                           type: FreSwiftHelper.getErrorCode(status),
-                           line: #line, column: #column, file: #file)
+            FreSwiftLogger.shared().log(message: "cannot acquire BitmapData",
+                                        type: FreSwiftHelper.getErrorCode(status),
+                                        line: #line, column: #column, file: #file)
+            return
         }
         width = Int(_bitmapData.width)
         height = Int(_bitmapData.height)
@@ -110,8 +104,7 @@ public class FreBitmapDataSwift: NSObject {
     }
 
     /// Handles conversion from a CGImage
-    /// - throws: Can throw a `FreError` on fail
-    public func setPixels(cgImage: CGImage) throws {
+    public func setPixels(cgImage: CGImage) {
         if let dp = cgImage.dataProvider {
             if let data: NSData = dp.data {
                 memcpy(bits32, data.bytes, data.length)
@@ -123,11 +116,7 @@ public class FreBitmapDataSwift: NSObject {
     /// Handles conversion to a CGImage
     /// returns: CGImage?
     public func asCGImage() -> CGImage? {
-        do {
-            try self.acquire()
-        } catch {
-           return nil
-        }
+        self.acquire()
         let releaseProvider: CGDataProviderReleaseDataCallback = { (info: UnsafeMutableRawPointer?,
                                                                     data: UnsafeRawPointer, size: Int) -> Void in
             // https://developer.apple.com/reference/coregraphics/cgdataproviderreleasedatacallback
@@ -147,14 +136,14 @@ public class FreBitmapDataSwift: NSObject {
 
         if hasAlpha {
             if isPremultiplied {
-                bitmapInfo = CGBitmapInfo.init(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
+                bitmapInfo = CGBitmapInfo(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
                   CGImageAlphaInfo.premultipliedFirst.rawValue)
             } else {
-                bitmapInfo = CGBitmapInfo.init(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
+                bitmapInfo = CGBitmapInfo(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
                   CGImageAlphaInfo.first.rawValue)
             }
         } else {
-            bitmapInfo = CGBitmapInfo.init(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
+            bitmapInfo = CGBitmapInfo(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
               CGImageAlphaInfo.noneSkipFirst.rawValue)
         }
 

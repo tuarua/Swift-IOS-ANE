@@ -28,7 +28,7 @@ public protocol FreSwiftMainController {
     /// FREContext
     var context: FreContextSwift! { get set }
     /// Tag used when tracing logs
-    var TAG: String? { get set }
+    static var TAG: String { get set }
     /// Returns functions which connect Objective C to Swift
     func getFunctions(prefix: String) -> [String]
     /// Allows Objective C to call our Swift Controller
@@ -62,7 +62,7 @@ public extension FreSwiftMainController {
     /// - parameter value: value to trace to console
     /// - returns: Void
     func trace(_ value: Any...) {
-        var traceStr: String = "\(self.TAG ?? ""):"
+        var traceStr: String = "\(Self.TAG):"
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
@@ -78,7 +78,7 @@ public extension FreSwiftMainController {
     /// - parameter value: value to trace to console
     /// - returns: Void
     func info(_ value: Any...) {
-        var traceStr: String = "\(self.TAG ?? ""):"
+        var traceStr: String = "\(Self.TAG):"
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
@@ -93,7 +93,7 @@ public extension FreSwiftMainController {
     /// - parameter value: value to trace to console
     /// - returns: Void
     func warning(_ value: Any...) {
-        var traceStr: String = "\(self.TAG ?? ""):"
+        var traceStr: String = "\(Self.TAG):"
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
@@ -121,7 +121,7 @@ public protocol FreSwiftController {
     /// FREContext
     var context: FreContextSwift! { get set }
     /// Tag used when tracing logs
-    var TAG: String? { get set }
+    static var TAG: String { get set }
 }
 
 public extension FreSwiftController {
@@ -149,7 +149,7 @@ public extension FreSwiftController {
     /// - parameter value: value to trace to console
     /// - returns: Void
     func info(_ value: Any...) {
-        var traceStr: String = "\(self.TAG ?? ""):"
+        var traceStr: String = "\(Self.TAG):"
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
@@ -165,7 +165,7 @@ public extension FreSwiftController {
     /// - parameter value: value to trace to console
     /// - returns: Void
     func warning(_ value: Any...) {
-        var traceStr: String = "\(self.TAG ?? ""):"
+        var traceStr: String = "\(Self.TAG):"
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
@@ -207,7 +207,9 @@ public extension FREObject {
         return false
     }
     
-    /// hasOwnProperty: Calls toString() on a FREObjectCalls toString() on a FREObject
+    /// toString: Calls toString() on a FREObject
+    ///
+    /// - parameter suppressStrings: If calling toString on a String pass true to prevent infinite conversion loop.
     /// - returns: String
     func toString(_ suppressStrings: Bool = false) -> String {
         if (suppressStrings && self.type == FreObjectTypeSwift.string) || (self.type == FreObjectTypeSwift.null) {
@@ -652,12 +654,12 @@ public extension String {
 #if os(OSX)
     public extension NSColor {
         /// init: Initialise a NSColor from a FREObject.
-        /// alpha is set as 1.0
         ///
         /// ```swift
         /// let clr = NSColor(freObject: argv[0])
         /// ```
         /// - parameter freObject: FREObject which is of AS3 type uint
+        /// - parameter hasAlpha: Whether the uint is in 32bit ARGB hex format ef 0xFF00FF00
         /// - returns: NSColor?
         convenience init?(_ freObject: FREObject?, hasAlpha: Bool = true) {
             guard let rv = freObject else {
@@ -691,12 +693,12 @@ public extension String {
 #if os(iOS) || os(tvOS)
     public extension UIColor {
         /// init: Initialise a UIColor from a FREObject.
-        /// alpha is set as 1.0
         ///
         /// ```swift
         /// let clr = UIColor(freObject: argv[0])
         /// ```
         /// - parameter freObject: FREObject which is of AS3 type uint
+        /// - parameter hasAlpha: Whether the uint is in 32bit ARGB hex format ef 0xFF00FF00
         /// - returns: UIColor?
         convenience init?(_ freObject: FREObject?, hasAlpha: Bool = true) {
             guard let rv = freObject else {

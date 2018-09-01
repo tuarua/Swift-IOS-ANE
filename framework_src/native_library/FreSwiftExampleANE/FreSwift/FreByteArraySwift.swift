@@ -22,7 +22,7 @@ public class FreByteArraySwift: NSObject {
     public var bytes: UnsafeMutablePointer<UInt8>!
     /// A UInt that is the number of bytes in the bytes array.
     public var length: UInt = 0
-    private var _byteArray: FREByteArray = FREByteArray.init()
+    private var _byteArray: FREByteArray = FREByteArray()
 
     /// init: inits with a FREObject
     /// - parameter freByteArray: FREObject of AS3 type ByteArray
@@ -44,43 +44,31 @@ public class FreByteArraySwift: NSObject {
             }
         }
 
-        do {
-            //https://forums.adobe.com/thread/1037977
-            if let targetBA = FREObject(className: "flash.utils.ByteArray") {
-                rawValue = targetBA
-                FreSwiftHelper.setProperty(rawValue: targetBA, name: "name", prop: data.length.toFREObject())
+        //https://forums.adobe.com/thread/1037977
+        if let targetBA = FREObject(className: "flash.utils.ByteArray") {
+            rawValue = targetBA
+            FreSwiftHelper.setProperty(rawValue: targetBA, name: "name", prop: data.length.toFREObject())
 #if os(iOS) || os(tvOS)
-                let status: FREResult = FreSwiftBridge.bridge.FREAcquireByteArray(object: targetBA,
-                                                                                  byteArrayToSet: &_byteArray)
+            let status: FREResult = FreSwiftBridge.bridge.FREAcquireByteArray(object: targetBA,
+                                                                              byteArrayToSet: &_byteArray)
 #else
-                let status: FREResult = FREAcquireByteArray(targetBA, &_byteArray)
+            let status: FREResult = FREAcquireByteArray(targetBA, &_byteArray)
 #endif
-                guard FRE_OK == status else {
-                    throw FreError(stackTrace: "", message: "cannot acquire ByteArray",
-                                   type: FreSwiftHelper.getErrorCode(status),
-                      line: #line, column: #column, file: #file)
-                }
-                memcpy(_byteArray.bytes, data.bytes, data.length)
-                length = UInt(_byteArray.length)
-                bytes = _byteArray.bytes
+            guard FRE_OK == status else {
+                FreSwiftLogger.shared().log(message: "cannot acquire ByteArray",
+                                            type: FreSwiftHelper.getErrorCode(status),
+                                            line: #line, column: #column, file: #file)
+                return
             }
-
-        } catch let e as FreError {
-            Swift.debugPrint(e.message)
-            Swift.debugPrint(e.stackTrace)
-            Swift.debugPrint(e.type)
-        } catch {
+            memcpy(_byteArray.bytes, data.bytes, data.length)
+            length = UInt(_byteArray.length)
+            bytes = _byteArray.bytes
         }
-
     }
 
     /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSb464b1207c184b14342e2bac129470ccccb-8000.html)
-    /// - throws: Can throw a `FreError` on fail
-    public func acquire() throws {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
-        }
+    public func acquire() {
+        guard let rv = rawValue else { return }
 
 #if os(iOS) || os(tvOS)
         let status: FREResult = FreSwiftBridge.bridge.FREAcquireByteArray(object: rv, byteArrayToSet: &_byteArray)
@@ -88,11 +76,12 @@ public class FreByteArraySwift: NSObject {
         let status: FREResult = FREAcquireByteArray(rv, &_byteArray)
 #endif
         guard FRE_OK == status else {
-            throw FreError(stackTrace: "",
-                           message: "cannot acquire ByteArray",
-                           type: FreSwiftHelper.getErrorCode(status),
-                           line: #line, column: #column, file: #file)
+            FreSwiftLogger.shared().log(message: "cannot acquire ByteArray",
+                                        type: FreSwiftHelper.getErrorCode(status),
+                                        line: #line, column: #column, file: #file)
+            return
         }
+        
         length = UInt(_byteArray.length)
         bytes = _byteArray.bytes
     }
@@ -110,30 +99,16 @@ public class FreByteArraySwift: NSObject {
     }
 
     /// Handles conversion to a NSData
-    /// - throws: Can throw a `FreError` on fail
     /// returns: NSData
-    func getAsData() throws -> NSData {
-        try self.acquire()
-        return NSData.init(bytes: bytes, length: Int(length))
+    func getAsData() -> NSData {
+        self.acquire()
+        return NSData(bytes: bytes, length: Int(length))
     }
 
     /// Handles conversion to a NSData
-    /// - throws: Can throw a `FreError` on fail
     /// returns: NSData?
     public var value: NSData? {
-        do {
-            try self.acquire()
-            guard let b = bytes else {
-                return nil
-            }
-            return NSData.init(bytes: b, length: Int(length))
-        } catch {
-        }
-
-        defer {
-            releaseBytes()
-        }
-        return nil
+        return getAsData()
     }
 
 }

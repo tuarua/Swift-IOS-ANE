@@ -23,7 +23,7 @@ import CoreImage
 import FreSwift
 
 public class SwiftController: NSObject {
-    public var TAG: String? = "SwiftController"
+    public static var TAG = "SwiftController"
     public var context: FreContextSwift!
     public var functionsToSet: FREFunctionMap = [:]
     
@@ -170,32 +170,29 @@ public class SwiftController: NSObject {
         defer {
             asBitmapData.releaseData()
         }
-        do {
-            if let cgimg = asBitmapData.asCGImage() {
-                let context = CIContext()
-                if let filter = CIFilter(name: "CISepiaTone") {
-                    filter.setValue(0.8, forKey: kCIInputIntensityKey)
-                    let image = CIImage(cgImage: cgimg)
-                    filter.setValue(image, forKey: kCIInputImageKey)
-                    let result = filter.outputImage!
+        if let cgimg = asBitmapData.asCGImage() {
+            let context = CIContext()
+            if let filter = CIFilter(name: "CISepiaTone") {
+                filter.setValue(0.8, forKey: kCIInputIntensityKey)
+                let image = CIImage(cgImage: cgimg)
+                filter.setValue(image, forKey: kCIInputImageKey)
+                let result = filter.outputImage!
 #if os(iOS) || os(tvOS)
-                    if let cgImage = context.createCGImage(result, from: result.extent) {
-                        let img: UIImage = UIImage.init(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
-                        if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-                            let imgView: UIImageView = UIImageView.init(image: img)
-                            imgView.frame = CGRect.init(x: 10, y: 120, width: img.size.width, height: img.size.height)
-                            rootViewController.view.addSubview(imgView)
-                        }
+                if let cgImage = context.createCGImage(result, from: result.extent) {
+                    let img: UIImage = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
+                    if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+                        let imgView: UIImageView = UIImageView(image: img)
+                        imgView.frame = CGRect(x: 10, y: 120, width: img.size.width, height: img.size.height)
+                        rootViewController.view.addSubview(imgView)
                     }
-#else
-                    if let newImage = context.createCGImage(result, from: result.extent, format: CIFormat.BGRA8,
-                                                            colorSpace: cgimg.colorSpace) {
-                        try asBitmapData.setPixels(cgImage: newImage)
-                    }
-#endif
                 }
+#else
+                if let newImage = context.createCGImage(result, from: result.extent, format: CIFormat.BGRA8,
+                                                        colorSpace: cgimg.colorSpace) {
+                    asBitmapData.setPixels(cgImage: newImage)
+                }
+#endif
             }
-        } catch {
         }
         
         return nil
@@ -280,20 +277,29 @@ public class SwiftController: NSObject {
         var ret: FREObject? = nil
 #if os(iOS) || os(tvOS)
         let airColor = UIColor(inFRE0, hasAlpha: false)
-        let airColorWithAlpha = UIColor(inFRE0)
+        let airColorWithAlpha = UIColor(inFRE1)
         
-        let testColor = UIColor.init(red: 0, green: 1, blue: 0, alpha: 1)
-        let testColorAlpha = UIColor.init(red: 0, green: 1, blue: 0, alpha: 0.5)
+        let testColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
         
-        trace("Point passed from AIR as CGPoint:", airColor.debugDescription, airColor?.isEqual(testColor) ?? false ? "✅" : "❌")
-        trace("Point passed from AIR as CGPoint:", airColorWithAlpha.debugDescription, airColorWithAlpha?.isEqual(testColorAlpha) ?? false ? "✅" : "❌")
+        trace("Colour passed from AIR as Color (RGB):", airColor.debugDescription,
+              airColor?.isEqual(testColor) ?? false ? "✅" : "❌")
         
-        ret = airColor?.toFREObject()
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        airColorWithAlpha?.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        trace("Colour passed from AIR as Color (ARGB):", airColorWithAlpha.debugDescription,
+              String(format: "%.1f", alpha) == "0.5"
+                && red.isEqual(to: 0)
+                && green.isEqual(to: 1.0)
+                && blue.isEqual(to: 0)
+                ? "✅" : "❌")
+        
+        ret = airColorWithAlpha?.toFREObject()
 #else
         
         let airColor = NSColor(inFRE0, hasAlpha: false)
         let airColorWithAlpha = NSColor(inFRE1)
-        let testColor = NSColor.init(red: 0, green: 1, blue: 0, alpha: 1)
+        let testColor = NSColor(red: 0, green: 1, blue: 0, alpha: 1)
         
         trace("Colour passed from AIR as Color (RGB):", airColor.debugDescription,
               airColor?.isEqual(to: testColor) ?? false ? "✅" : "❌")
