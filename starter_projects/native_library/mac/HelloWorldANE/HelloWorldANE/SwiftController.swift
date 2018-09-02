@@ -11,8 +11,7 @@ import Cocoa
 import FreSwift
 
 public class SwiftController: NSObject, FreSwiftMainController {
-    public var TAG: String? = "HelloWorldANE"
-    
+    public static var TAG: String = "HelloWorldANE"
     public var context: FreContextSwift!
     public var functionsToSet: FREFunctionMap = [:]
 
@@ -34,10 +33,10 @@ public class SwiftController: NSObject, FreSwiftMainController {
             let uppercase = Bool(argv[1]),
             let numRepeats = Int(argv[2])
             else {
-                return ArgCountError(message: "sayHello").getError(#file, #line, #column)
+                return FreArgError(message: "sayHello").getError(#file, #line, #column)
         }
         
-        sendEvent(name: "MY_EVENT", value: "ok") //async event
+        dispatchEvent(name: "MY_EVENT", value: "ok") //async event
         
         for i in 0..<numRepeats {
             trace("Hello \(i)")
@@ -71,6 +70,7 @@ public class SwiftController: NSObject, FreSwiftMainController {
     
     @objc public func setFREContext(ctx: FREContext) {
         self.context = FreContextSwift.init(freContext: ctx)
+        FreSwiftLogger.shared().context = context
     }
     
     @objc public func onLoad() {

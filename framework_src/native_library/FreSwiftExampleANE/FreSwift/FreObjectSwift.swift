@@ -44,7 +44,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let firstName: String = freCoord.firstName
+    /// let firstName: String = frePerson.firstName
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: String?
@@ -57,7 +57,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let middleName: String? = freCoord.middleName
+    /// let middleName: String? = frePerson.middleName
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: String?
@@ -70,7 +70,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let isRightHanded: Bool? = freCoord.isRightHanded
+    /// let isRightHanded: Bool? = frePerson.isRightHanded
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: Bool?
@@ -96,7 +96,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let children: Int? = freCoord.children
+    /// let children: Int? = frePerson.children
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: Int?
@@ -109,7 +109,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let children: Int = freCoord.children
+    /// let children: Int = frePerson.children
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: Int
@@ -122,7 +122,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let children: UInt? = freCoord.children
+    /// let children: UInt? = frePerson.children
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: UInt?
@@ -135,7 +135,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let children: UInt = freCoord.children
+    /// let children: UInt = frePerson.children
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: UInt
@@ -148,7 +148,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let children: NSNumber? = freCoord.children
+    /// let children: NSNumber? = frePerson.children
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: NSNumber?
@@ -161,7 +161,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let children: NSNumber = freCoord.children
+    /// let children: NSNumber = frePerson.children
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: NSNumber
@@ -252,7 +252,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let freRoom = FreObjectSwift(className: "com.tuarua.Room")
-    /// let dimensions: CGRect? = newPerson.dimensions
+    /// let dimensions: CGRect? = freRoom.dimensions
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: CGRect?
@@ -378,7 +378,7 @@ open class FreObjectSwift: NSObject {
     /// call: Calls a method on a FREObject.
     ///
     /// ```swift
-    /// try person.call(method: "add", args: 100, 31)
+    /// person.call(method: "add", args: 100, 31)
     /// ```
     /// - parameter method: name of AS3 method to call
     /// - parameter args: arguments to pass to the method

@@ -91,8 +91,13 @@ let newAge = oldAge + 10
 // Set property using braces access
 person["age"] = (oldAge + 10).toFREObject()
 
-// Set property using setProp
-try person.setProp(name: "age", value: oldAge + 10)
+// Create using FreObjectSwift allowing us to get/set properties using inferred types
+// The following param types are allowed: 
+// String, Int, UInt, Double, Float, CGFloat, NSNumber, Bool, Date, CGRect, CGPoint, FREObject
+if let swiftPerson = FreObjectSwift(className: "com.tuarua.Person") {
+	let oldAge:Int = swiftPerson.age
+    swiftPerson.age = oldAge + 5
+}
 
 ```
 
@@ -114,6 +119,9 @@ for fre in airArray {
 
 // set element 0 to 123
 airArray[0] = 123.toFREObject()
+
+// push 2 elements to a FREArray
+airArray.push(66. 77)
 
 // return Int Array to AIR
 let swiftArr: [Int] = [99, 98, 92, 97, 95]
@@ -155,34 +163,32 @@ if let byteData = asByteArray.value { // NSData
 #### Error Handling
 
 ```swift
-do {
-    _ = try person.getProp(name: "doNotExist") //calling a property that doesn't exist
-} catch let e as FreError {
-    if let aneError = e.getError(#file, #line, #column) {
-        return aneError //return the error as an actionscript error
-    }
-} catch {}
+FreSwiftLogger.shared().context = context
+
+guard FreObjectTypeSwift.int == expectInt.type else {
+    return FreError(stackTrace: "",
+        message: "Oops, we expected the FREObject to be passed as an int but it's not",
+        type: .typeMismatch).getError(#file, #line, #column)
+}
 ```
 
 #### Advanced Example - Extending. Convert to/from SCNVector3
 ```swift
 public extension SCNVector3 {
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
-        self.init(Float(rv["x"]) ?? 0,
-                  Float(rv["y"]) ?? 0,
-                  Float(rv["z"]) ?? 0)
+        guard let rv = freObject else { return nil }
+        let fre = FreObjectSwift(rv)
+        self.init(fre.x as CGFloat, fre.y, fre.z)
     }
     func toFREObject() -> FREObject? {
-        do {
-            let ret = try FREObject(className: "flash.geom.Vector3D",
-                                    args: self.x, self.y, self.z)
-            return ret
-        } catch {
-        }
-        return nil
+        return FREObject(className: "flash.geom.Vector3D", args: x, y, z)
+    }
+}
+
+public extension FreObjectSwift {
+    public subscript(dynamicMember name: String) -> SCNVector3? {
+        get { return SCNVector3(rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
     }
 }
 ```
@@ -199,16 +205,14 @@ Note: We have no FREContext yet so calls such as trace, sendEvent will not work.
    appDidFinishLaunchingNotif = notification //save the notification for later
 }
 func onLoad() {
-NotificationCenter.default.addObserver(self, 
-            selector: #selector(applicationDidFinishLaunching),
-            name: NSNotification.Name.UIApplicationDidFinishLaunching, 
-            object: nil)      
+    NotificationCenter.default.addObserver(self, selector: #selector(applicationDidFinishLaunching),
+    name: UIApplication.didFinishLaunchingNotification, object: nil)    
 }
 ```
 ----------
 
 ### Required AS3 classes
-com.tuarua.fre.ANEUtils.as and com.tuarua.fre.ANEError.as are required by FreSwift and should be included in the AS3 library of your ANE
+**com.tuarua.fre.ANEUtils.as** and **com.tuarua.fre.ANEError.as** are required by FreSwift and should be included in the AS3 library of your ANE
 
 
 ### Prerequisites
@@ -220,3 +224,4 @@ You will need
 - IntelliJ IDEA
 - AIR 30
 - wget
+- Carthage

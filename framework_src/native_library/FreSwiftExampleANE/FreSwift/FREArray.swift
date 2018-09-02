@@ -18,6 +18,12 @@ import Foundation
 /// FREArray: Additional type which matches Java version of FRE
 public class FREArray: Sequence {
     /// iterator for FREArray
+    ///
+    /// ```swift
+    /// for fre in airArray {
+    /// 
+    /// }
+    /// ```
     public func makeIterator() -> Array<FREObject>.Iterator {
         var items = [FREObject]()
         for i in 0..<self.length {

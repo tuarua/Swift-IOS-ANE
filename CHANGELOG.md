@@ -1,14 +1,19 @@
 ### 3.0.0
-- Upgraded to Xcode 10.0 beta
-- Upgraded to Swift version 4.2 (swiftlang-1000.0.32.1 clang-1000.10.39)
-- Added `FREArray.push()`
-- Added `@dynamicMemberLookup` to `FreObjectSwift`. Adds cleaner way to extend FREObjects 
+- Upgrade to Xcode 10.0 beta
+- Upgrade to Swift version 4.2 (swiftlang-1000.0.32.1 clang-1000.10.39)
+- Add `FREArray.push()`
+- Add `FREObject.hasOwnProperty()`
+- Add `FREObject.toString()`
+- Add `@dynamicMemberLookup` to `FreObjectSwift`. Adds cleaner way to extend FREObjects 
+- Remove try catches and make better use of optionals
 - Remove `ArgCountError` class
-- Remove `sendEvent()` method
+- Obsoleted `sendEvent()` method
 - Deprecate `FREObject.setProp()` - use accessor or `FreSwiftObject` wrapper instead
 - Deprecate `FREObject.getProp()` - use accessor or `FreSwiftObject` wrapper instead
 - FreSwiftMainController.TAG is now `public static var String`
-- UIColor / NSColor changed to single `convenience init`
+- UIColor / NSColor changed to single `convenience init()`
+- Add `FreSwiftLogger` to trace any FREExceptions
+- `FREObject.init()` to return optional and not require try
 - Refactoring
 
 ### 2.5.0

@@ -114,6 +114,9 @@ public extension FreSwiftMainController {
             context.dispatchStatusEventAsync(code: value, level: name)
         }
     }
+    
+    @available(*, obsoleted: 3.0.0, renamed: "dispatchEvent()")
+    func sendEvent(name: String, value: String) { }
 }
 
 /// FreSwiftController: Protocol for Swift classes to conform to
@@ -186,6 +189,9 @@ public extension FreSwiftController {
             context.dispatchStatusEventAsync(code: value, level: name)
         }
     }
+    
+    @available(*, obsoleted: 3.0.0, renamed: "dispatchEvent()")
+    func sendEvent(name: String, value: String) { }
 }
 
 /// FREObject: Extends FREObject with Swift syntax.
@@ -339,7 +345,7 @@ public extension FREObject {
     /// call: Calls a method on a FREObject.
     ///
     /// ```swift
-    /// try person.call(method: "add", args: 100, 31)
+    /// person.call(method: "add", args: 100, 31)
     /// ```
     /// - parameter method: name of AS3 method to call
     /// - parameter args: arguments to pass to the method
@@ -678,6 +684,19 @@ public extension String {
             self.init(red: rFl, green: gFl, blue: bFl, alpha: aFl)
         }
         
+        @available(*, obsoleted: 3.0.0, message: "Removed use init(_ freObject: FREObject?, hasAlpha: Bool = true) instead")
+        convenience init?(freObject: FREObject?, alpha: FREObject?) {
+            self.init()
+        }
+        
+        @available(*, obsoleted: 3.0.0, message: "Removed use init(_ freObject: FREObject?, hasAlpha: Bool = true) instead")
+        convenience init?(freObjectARGB: FREObject?) {
+            self.init()
+        }
+        
+        /// toFREObject: Converts a NSColor into a FREObject of AS3 type uint (ARGB).
+        ///
+        /// - returns: FREObject
         func toFREObject() -> FREObject? {
             var colorAsUInt: UInt32 = 0
             colorAsUInt += UInt32(self.alphaComponent * 255.0) << 24
@@ -715,6 +734,16 @@ public extension String {
             let gFl = CGFloat(g) / 255
             let bFl = CGFloat(b) / 255
             self.init(red: rFl, green: gFl, blue: bFl, alpha: aFl)
+        }
+        
+        @available(*, obsoleted: 3.0.0, message: "Removed use init(_ freObject: FREObject?, hasAlpha: Bool = true) instead")
+        convenience init?(freObject: FREObject?, alpha: FREObject?) {
+            self.init()
+        }
+        
+        @available(*, obsoleted: 3.0.0, message: "Removed use init(_ freObject: FREObject?, hasAlpha: Bool = true) instead")
+        convenience init?(freObjectARGB: FREObject?) {
+            self.init()
         }
         
         /// toFREObject: Converts a UIColor into a FREObject of AS3 type uint (ARGB).
