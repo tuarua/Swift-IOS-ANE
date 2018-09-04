@@ -10,6 +10,12 @@
 		900A1CA7212600A700D8EB16 /* FreSwiftLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */; };
 		900A1CA8212600A700D8EB16 /* FreSwiftLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */; };
 		900A1CA9212600A700D8EB16 /* FreSwiftLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */; };
+		90BA2C5D213DFD08002F1EB9 /* FreSwiftMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA2C5B213DFCA9002F1EB9 /* FreSwiftMainController.swift */; };
+		90BA2C5E213DFD08002F1EB9 /* FreSwiftMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA2C5B213DFCA9002F1EB9 /* FreSwiftMainController.swift */; };
+		90BA2C5F213DFD08002F1EB9 /* FreSwiftMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA2C5B213DFCA9002F1EB9 /* FreSwiftMainController.swift */; };
+		90BA2C61213DFD28002F1EB9 /* FreSwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA2C60213DFD28002F1EB9 /* FreSwiftController.swift */; };
+		90BA2C62213DFD28002F1EB9 /* FreSwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA2C60213DFD28002F1EB9 /* FreSwiftController.swift */; };
+		90BA2C63213DFD28002F1EB9 /* FreSwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA2C60213DFD28002F1EB9 /* FreSwiftController.swift */; };
 		90E26D5B210394DF003E0B9B /* FreSwiftExampleANE_oc.h in Headers */ = {isa = PBXBuildFile; fileRef = 90E26D59210394DF003E0B9B /* FreSwiftExampleANE_oc.h */; };
 		90E26D6321039542003E0B9B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90E26D6221039542003E0B9B /* Cocoa.framework */; };
 		90E26D8A210399F6003E0B9B /* FreSwiftHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90E26D81210399F6003E0B9B /* FreSwiftHelper.swift */; };
@@ -142,6 +148,8 @@
 
 /* Begin PBXFileReference section */
 		900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreSwiftLogger.swift; sourceTree = "<group>"; };
+		90BA2C5B213DFCA9002F1EB9 /* FreSwiftMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreSwiftMainController.swift; sourceTree = "<group>"; };
+		90BA2C60213DFD28002F1EB9 /* FreSwiftController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreSwiftController.swift; sourceTree = "<group>"; };
 		90E26D56210394DF003E0B9B /* FreSwiftExampleANE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FreSwiftExampleANE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E26D59210394DF003E0B9B /* FreSwiftExampleANE_oc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreSwiftExampleANE_oc.h; sourceTree = "<group>"; };
 		90E26D5A210394DF003E0B9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -301,6 +309,8 @@
 			isa = PBXGroup;
 			children = (
 				90E26D9721039A2C003E0B9B /* FlashRuntimeExtensions.swift */,
+				90BA2C5B213DFCA9002F1EB9 /* FreSwiftMainController.swift */,
+				90BA2C60213DFD28002F1EB9 /* FreSwiftController.swift */,
 				90E26D9821039A2C003E0B9B /* FreArgError.swift */,
 				90E26D9B21039A2C003E0B9B /* FREArray.swift */,
 				90E26D9A21039A2C003E0B9B /* FreObjectSwift.swift */,
@@ -787,6 +797,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90BA2C5D213DFD08002F1EB9 /* FreSwiftMainController.swift in Sources */,
+				90BA2C61213DFD28002F1EB9 /* FreSwiftController.swift in Sources */,
 				90E26D9D21039A2C003E0B9B /* FreArgError.swift in Sources */,
 				90E26DA021039A2C003E0B9B /* FREArray.swift in Sources */,
 				90E26D9C21039A2C003E0B9B /* FlashRuntimeExtensions.swift in Sources */,
@@ -808,6 +820,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90BA2C5E213DFD08002F1EB9 /* FreSwiftMainController.swift in Sources */,
+				90BA2C62213DFD28002F1EB9 /* FreSwiftController.swift in Sources */,
 				90E26DB421039CFA003E0B9B /* FlashRuntimeExtensions.swift in Sources */,
 				90E26DB521039CFA003E0B9B /* FreArgError.swift in Sources */,
 				90E26DB621039CFA003E0B9B /* FREArray.swift in Sources */,
@@ -839,9 +853,11 @@
 				90E26DE221039F03003E0B9B /* FreContextSwift.swift in Sources */,
 				90E26DE321039F03003E0B9B /* FreError.swift in Sources */,
 				90E26DE421039F03003E0B9B /* FreObjectTypeSwift.swift in Sources */,
+				90BA2C5F213DFD08002F1EB9 /* FreSwiftMainController.swift in Sources */,
 				90E26DE521039F03003E0B9B /* FreSwift.m in Sources */,
 				90E26DE621039F03003E0B9B /* FreSwift.swift in Sources */,
 				90E26DE721039F03003E0B9B /* FreSwiftHelper.swift in Sources */,
+				90BA2C63213DFD28002F1EB9 /* FreSwiftController.swift in Sources */,
 				90E26DE821039F03003E0B9B /* FrePoint.swift in Sources */,
 				90E26DE921039F03003E0B9B /* FreRect.swift in Sources */,
 			);

@@ -53,20 +53,24 @@ public class FREArray: Sequence {
     /// - parameter className: name of AS3 class to create
     /// - parameter length: number of elements in the array
     /// - parameter fixed: whether the array is fixed
-    public init(className: String, length: Int = 0, fixed: Bool = false) {
+    public init?(className: String, length: Int = 0, fixed: Bool = false) {
         let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
         argsArray.addPointer(length.toFREObject())
         argsArray.addPointer(fixed.toFREObject())
-        rawValue = FreSwiftHelper.newObject(className: "Vector.<\(className)>", argsArray)
+        if let fre = FreSwiftHelper.newObject(className: "Vector.<\(className)>", argsArray) {
+            rawValue = fre
+        }
     }
     
     /// init: Initialise a FREArray with a [Int].
     ///
     /// - parameter intArray: array to be converted
-    public init(intArray: [Int]) {
-        rawValue = FreSwiftHelper.newObject(className: "Array")
-        for v in intArray {
-            self.push(v)
+    public init?(intArray: [Int]) {
+        if let fre = FreSwiftHelper.newObject(className: "Array") {
+            rawValue = fre
+            for v in intArray {
+                self.push(v)
+            }
         }
     }
     
@@ -74,9 +78,11 @@ public class FREArray: Sequence {
     ///
     /// - parameter intArray: array to be converted
     public init(uintArray: [UInt]) {
-        rawValue = FreSwiftHelper.newObject(className: "Array")
-        for v in uintArray {
-            self.push(v)
+        if let fre = FreSwiftHelper.newObject(className: "Array") {
+            rawValue = fre
+            for v in uintArray {
+                self.push(v)
+            }
         }
     }
     
@@ -84,9 +90,11 @@ public class FREArray: Sequence {
     ///
     /// - parameter stringArray: array to be converted
     public init(stringArray: [String]) {
-        rawValue = FreSwiftHelper.newObject(className: "Array")
-        for v in stringArray {
-            self.push(v)
+        if let fre = FreSwiftHelper.newObject(className: "Array") {
+            rawValue = fre
+            for v in stringArray {
+                self.push(v)
+            }
         }
     }
     
@@ -94,9 +102,11 @@ public class FREArray: Sequence {
     ///
     /// - parameter doubleArray: array to be converted
     public init(doubleArray: [Double]) {
-        rawValue = FreSwiftHelper.newObject(className: "Array")
-        for v in doubleArray {
-            self.push(v)
+        if let fre = FreSwiftHelper.newObject(className: "Array") {
+            rawValue = fre
+            for v in doubleArray {
+                self.push(v)
+            }
         }
     }
     
@@ -104,9 +114,11 @@ public class FREArray: Sequence {
     ///
     /// - parameter boolArray: array to be converted
     public init(boolArray: [Bool]) {
-        rawValue = FreSwiftHelper.newObject(className: "Array")
-        for v in boolArray {
-            self.push(v)
+        if let fre = FreSwiftHelper.newObject(className: "Array") {
+            rawValue = fre
+            for v in boolArray {
+                self.push(v)
+            }
         }
     }
     
@@ -114,10 +126,11 @@ public class FREArray: Sequence {
     ///
     /// - parameter anyArray: array to be converted
     public init(anyArray: [Any]) {
-        rawValue = FreSwiftHelper.newObject(className: "Array")
-        let count = anyArray.count
-        for i in 0..<count {
-            set(index: UInt(i), freObject: FreSwiftHelper.newObject(any: anyArray[i]))
+        if let fre = FreSwiftHelper.newObject(className: "Array") {
+            rawValue = fre
+            for any in anyArray {
+                push(FreSwiftHelper.newObject(any: any))
+            }
         }
     }
     
@@ -387,7 +400,7 @@ public extension Array where Element == Int {
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
-        return FREArray(intArray: self).rawValue
+        return FREArray(intArray: self)?.rawValue
     }
 }
 

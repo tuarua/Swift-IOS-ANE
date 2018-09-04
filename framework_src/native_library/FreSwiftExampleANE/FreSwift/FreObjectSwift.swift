@@ -248,32 +248,6 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue.toFREObject() }
     }
     
-    /// subscript: gets the Property of a FREObject.
-    ///
-    /// ```swift
-    /// let freRoom = FreObjectSwift(className: "com.tuarua.Room")
-    /// let dimensions: CGRect? = freRoom.dimensions
-    /// ```
-    /// - parameter name: name of the property to return
-    /// - returns: CGRect?
-    public subscript(dynamicMember name: String) -> CGRect? {
-        get { return CGRect(rawValue?[name]) }
-        set { rawValue?[name] = newValue?.toFREObject() }
-    }
-    
-    /// subscript: sets/gets the Property of a FREObject.
-    ///
-    /// ```swift
-    /// let freCoord = FreObjectSwift(className: "com.tuarua.Coordinate")
-    /// let coord: CGPoint = freCoord.coordinates
-    /// ```
-    /// - parameter name: name of the property to return
-    /// - returns: CGPoint?
-    public subscript(dynamicMember name: String) -> CGPoint? {
-        get { return CGPoint(rawValue?[name]) }
-        set { rawValue?[name] = newValue?.toFREObject() }
-    }
-    
     /// subscript: sets/gets the Property of a FREObject.
     ///
     /// ```swift

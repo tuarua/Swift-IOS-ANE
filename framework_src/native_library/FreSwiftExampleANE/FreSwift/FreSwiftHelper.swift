@@ -212,27 +212,6 @@ public class FreSwiftHelper {
 
     }
 
-#if os(OSX)
-    public static func toCGColor(freObject: FREObject, alpha: FREObject) -> CGColor? {
-        guard let rgb = getAsUInt(freObject) else { return nil }
-        let r = (rgb >> 16) & 0xFF
-        let g = (rgb >> 8) & 0xFF
-        let b = rgb & 0xFF
-        var a: CGFloat = CGFloat(1)
-        let aFre = FreObjectSwift(alpha)
-        if let alphaInt = aFre.value as? Int, alphaInt == 0 {
-            return CGColor.clear
-        }
-        if let alphaD = aFre.value as? Double {
-            a = CGFloat(alphaD)
-        }
-        let rFl: CGFloat = CGFloat(r) / 255
-        let gFl: CGFloat = CGFloat(g) / 255
-        let bFl: CGFloat = CGFloat(b) / 255
-        return CGColor(red: rFl, green: gFl, blue: bFl, alpha: a)
-    }
-#endif
-
     public static func arrayToFREArray(_ array: NSPointerArray?) -> UnsafeMutablePointer<FREObject?>? {
         if let array = array {
             let ret = UnsafeMutablePointer<FREObject?>.allocate(capacity: array.count)

@@ -23,9 +23,7 @@ public extension CGRect {
     /// - parameter freObject: FREObject which is of AS3 type flash.geom.Rectangle.
     /// - returns: CGRect?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         let fre = FreObjectSwift(rv)
         self.init(x: fre.x as CGFloat, y: fre.y, width: fre.width, height: fre.height)
     }
@@ -38,5 +36,20 @@ public extension CGRect {
     func toFREObject() -> FREObject? {
         return FREObject(className: "flash.geom.Rectangle",
                          args: origin.x, origin.y, width, height)
+    }
+}
+
+public extension FreObjectSwift {
+    /// subscript: gets the Property of a FREObject.
+    ///
+    /// ```swift
+    /// let freRoom = FreObjectSwift(className: "com.tuarua.Room")
+    /// let dimensions: CGRect? = freRoom.dimensions
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - returns: CGRect?
+    public subscript(dynamicMember name: String) -> CGRect? {
+        get { return CGRect(rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
     }
 }

@@ -107,15 +107,18 @@ public class SwiftController: NSObject {
             trace("iterate over FREArray", Int(fre) ?? "unknown")
         }
         
-        let myVector = FREArray(className: "Object", length: 5, fixed: true)
-        trace("New FREArray of fixed length:", myVector.length, 5 == myVector.length ? "✅" : "❌")
+        if let myVector = FREArray(className: "Object", length: 5, fixed: true) {
+            trace("New FREArray of fixed length:", myVector.length, 5 == myVector.length ? "✅" : "❌")
+        }
+        
         airArray[0] = 123.toFREObject()
         trace("Set element of FREArray:", Int(airArray[0]) ?? 0, 123 == Int(airArray[0]) ? "✅" : "❌")
         
         let swiftArr: [Int] = [1, 2, 3]
-        let swiftArrayFre = FREArray(intArray: swiftArr)
-        let swiftArrBack = [Int](swiftArrayFre)
-        trace("Swift IntArray:", 3 == swiftArrBack?[2] ? "✅" : "❌")
+        if let swiftArrayFre = FREArray(intArray: swiftArr) {
+            let swiftArrBack = [Int](swiftArrayFre)
+            trace("Swift IntArray:", 3 == swiftArrBack?[2] ? "✅" : "❌")
+        }
         trace("-------------------------------------------")
         return airArray.rawValue
         

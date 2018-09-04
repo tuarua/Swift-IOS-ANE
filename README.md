@@ -63,7 +63,7 @@ return swiftString.toFREObject()
 #### Creating new FREObjects
 
 ```swift
-let newPerson = try FREObject(className: "com.tuarua.Person")
+let newPerson = FREObject(className: "com.tuarua.Person")
 
 // create a FREObject passing args
 // 
@@ -79,7 +79,7 @@ let frePerson = FREObject(className: "com.tuarua.Person", args: "Bob", "Doe", 28
 // 
 // The following param types are allowed: 
 // String, Int, UInt, Double, Float, CGFloat, NSNumber, Bool, Date, CGRect, CGPoint, FREObject
-let addition = try freCalculator.call(method: "add", args: 100, 31) {
+let addition = freCalculator.call(method: "add", args: 100, 31) {
 ```
 
 #### Getting / Setting Properties
@@ -95,7 +95,7 @@ person["age"] = (oldAge + 10).toFREObject()
 // The following param types are allowed: 
 // String, Int, UInt, Double, Float, CGFloat, NSNumber, Bool, Date, CGRect, CGPoint, FREObject
 if let swiftPerson = FreObjectSwift(className: "com.tuarua.Person") {
-	let oldAge:Int = swiftPerson.age
+    let oldAge:Int = swiftPerson.age
     swiftPerson.age = oldAge + 5
 }
 
@@ -109,7 +109,7 @@ let airArray: FREArray = FREArray(argv[0])
 let airStringVector = [String](argv[0])
 
 // create a Vector.<com.tuarua.Person> with fixed length of 5
-let myVector = try FREArray(className: "com.tuarua.Person", length: 5, fixed: true)
+let myVector = FREArray(className: "com.tuarua.Person", length: 5, fixed: true)
 let airArrayLen = airArray.length
 
 // loop over FREArray
@@ -121,7 +121,7 @@ for fre in airArray {
 airArray[0] = 123.toFREObject()
 
 // push 2 elements to a FREArray
-airArray.push(66. 77)
+airArray.push(66, 77)
 
 // return Int Array to AIR
 let swiftArr: [Int] = [99, 98, 92, 97, 95]
