@@ -178,8 +178,8 @@
 		90E26DA421039B74003E0B9B /* FreSwift_oc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreSwift_oc.h; sourceTree = "<group>"; };
 		90E26DAA21039BA3003E0B9B /* FreSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FreSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E26DC821039DE8003E0B9B /* FreSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FreSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		90E26DD121039E63003E0B9B /* Adobe AIR */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR"; path = "../../../../../SDKs/AIRSDK_30/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR"; sourceTree = "<group>"; };
-		90E26DD221039E69003E0B9B /* Adobe AIR_64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR_64"; path = "../../../../../SDKs/AIRSDK_30/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR_64"; sourceTree = "<group>"; };
+		90E26DD121039E63003E0B9B /* Adobe AIR */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR"; path = "../../../../../SDKs/AIRSDK_31/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR"; sourceTree = "<group>"; };
+		90E26DD221039E69003E0B9B /* Adobe AIR_64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR_64"; path = "../../../../../SDKs/AIRSDK_31/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR_64"; sourceTree = "<group>"; };
 		90E26DEB2103A1D9003E0B9B /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		90E26DF02103A257003E0B9B /* FreSwiftExampleANE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreSwiftExampleANE.m; sourceTree = "<group>"; };
 		90E26DF12103A257003E0B9B /* SwiftController+FreSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftController+FreSwift.swift"; sourceTree = "<group>"; };
@@ -1060,6 +1060,7 @@
 		90E26D5F210394DF003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
@@ -1099,6 +1100,7 @@
 		90E26D60210394DF003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
@@ -1205,6 +1207,7 @@
 		90E26DB021039BA3003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
@@ -1238,6 +1241,7 @@
 		90E26DB121039BA3003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";

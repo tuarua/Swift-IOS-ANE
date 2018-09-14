@@ -262,7 +262,7 @@ public extension Array where Element == Double {
     /// ```swift
     /// let array = [Double](argv[0])
     /// ```
-    /// - parameter freObject: FREObject which is of AS3 type Vector.<Number>
+    /// - parameter freObject: FREObject which is of AS3 type `Vector.<Number>`.
     /// - returns: [Double]?
     init?(_ freObject: FREObject?) {
         self.init()
@@ -279,13 +279,13 @@ public extension Array where Element == Double {
     /// ```swift
     /// let array = [Double](FREArray(argv[0]))
     /// ```
-    /// - parameter freArray: FREArray which is of AS3 type Vector.<Number>
+    /// - parameter freArray: FREArray which is of AS3 type `Vector.<Number>`.
     /// - returns: [Double]?
     init?(_ freArray: FREArray) {
         self.init(freArray.rawValue)
     }
     
-    /// toFREObject: Converts a Double Array into a FREObject of AS3 type Vector.<Number>.
+    /// toFREObject: Converts a Double Array into a FREObject of AS3 type `Vector.<Number>`.
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
@@ -299,7 +299,7 @@ public extension Array where Element == Bool {
     /// ```swift
     /// let array = [Bool](argv[0])
     /// ```
-    /// - parameter freObject: FREObject which is of AS3 type Vector.<Boolean>
+    /// - parameter freObject: FREObject which is of AS3 type `Vector.<Boolean>`.
     /// - returns: [Bool]?
     init?(_ freObject: FREObject?) {
         self.init()
@@ -322,7 +322,7 @@ public extension Array where Element == Bool {
         self.init(freArray.rawValue)
     }
     
-    /// toFREObject: Converts a Bool Array into a FREObject of AS3 type Vector.<Boolean>.
+    /// toFREObject: Converts a Bool Array into a FREObject of AS3 type `Vector.<Boolean>`.
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
@@ -336,7 +336,7 @@ public extension Array where Element == UInt {
     /// ```swift
     /// let array = [UInt](argv[0])
     /// ```
-    /// - parameter freObject: FREObject which is of AS3 type Vector.<UInt>
+    /// - parameter freObject: FREObject which is of AS3 type `Vector.<uint>`.
     /// - returns: [UInt]?
     init?(_ freObject: FREObject?) {
         self.init()
@@ -353,13 +353,13 @@ public extension Array where Element == UInt {
     /// ```swift
     /// let array = [UInt](FREArray(argv[0]))
     /// ```
-    /// - parameter freArray: FREArray which is of AS3 type Vector.<UInt>
+    /// - parameter freArray: FREArray which is of AS3 type `Vector.<uint>`.
     /// - returns: [UInt]?
     init?(_ freArray: FREArray) {
         self.init(freArray.rawValue)
     }
     
-    /// toFREObject: Converts an Int Array into a FREObject of AS3 type Vector.<int>.
+    /// toFREObject: Converts an Int Array into a FREObject of AS3 type `Vector.<int>`.
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
@@ -373,7 +373,7 @@ public extension Array where Element == Int {
     /// ```swift
     /// let array = [Int](argv[0])
     /// ```
-    /// - parameter freObject: FREObject which is of AS3 type Vector.<Int>
+    /// - parameter freObject: FREObject which is of AS3 type `Vector.<int>`.
     /// - returns: [Int]?
     init?(_ freObject: FREObject?) {
         self.init()
@@ -390,13 +390,13 @@ public extension Array where Element == Int {
     /// ```swift
     /// let array = [Int](FREArray(argv[0]))
     /// ```
-    /// - parameter freArray: FREArray which is of AS3 type Vector.<Int>
+    /// - parameter freArray: FREArray which is of AS3 type `Vector.<int>`.
     /// - returns: [Int]?
     init?(_ freArray: FREArray) {
         self.init(freArray.rawValue)
     }
     
-    /// toFREObject: Converts an Int Array into a FREObject of AS3 type Vector.<int>.
+    /// toFREObject: Converts an Int Array into a FREObject of AS3 type `Vector.<int>`.
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
@@ -410,7 +410,7 @@ public extension Array where Element == String {
     /// ```swift
     /// let array = [String](argv[0])
     /// ```
-    /// - parameter freObject: FREObject which is of AS3 type Vector.<String>
+    /// - parameter freObject: FREObject which is of AS3 type `Vector.<String>`.
     /// - returns: [String]?
     init?(_ freObject: FREObject?) {
         self.init()
@@ -426,13 +426,13 @@ public extension Array where Element == String {
     /// ```swift
     /// let array = [String](FREArray(argv[0]))
     /// ```
-    /// - parameter freArray: FREArray which is of AS3 type Vector.<String>
+    /// - parameter freArray: FREArray which is of AS3 type `Vector.<String>`.
     /// - returns: [String]?
     init?(_ freArray: FREArray) {
         self.init(freArray.rawValue)
     }
     
-    /// toFREObject: Converts an String Array into a FREObject of AS3 type Vector.<String>.
+    /// toFREObject: Converts an String Array into a FREObject of AS3 type `Vector.<String>`.
     ///
     /// - returns: FREObject
     func toFREObject() -> FREObject? {

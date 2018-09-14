@@ -9,7 +9,7 @@ echo $pathtome
 PROJECT_NAME=FreSwiftExampleANE
 FRESWIFT_NAME=FreSwift
 
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_30"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_31"
 
 #Setup the directory.
 echo "Making directories."
