@@ -1,6 +1,6 @@
 ### 3.0.0
-- Upgrade to Xcode 10.0 beta
-- Upgrade to Swift version 4.2 (swiftlang-1000.0.32.1 clang-1000.10.39)
+- Upgrade to Xcode 10.0
+- Upgrade to Swift version 4.2 (swiftlang-1000.11.37.1 clang-1000.11.45.1)
 - Add `FREArray.push()`
 - Add `FREObject.hasOwnProperty()`
 - Add `FREObject.toString()`

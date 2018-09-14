@@ -3,7 +3,7 @@
 Example Xcode projects showing how to create AIR Native Extensions for iOS, tvOS & OSX using Swift.   
 It supports iOS 9.0+, tvOS 9.2+, OSX 10.10+
 
-#### Xcode 10.0.0 (10L221o) must be used with Apple Swift version 4.2 (swiftlang-1000.0.32.1 clang-1000.10.39)
+#### Xcode 10.0 (10A254a) must be used with Apple Swift version 4.2 (swiftlang-1000.11.37.1 clang-1000.11.45.1)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 ABI stability is planned for Swift 5 in early 2019
 
@@ -219,9 +219,9 @@ func onLoad() {
 
 You will need
 
-- Xcode 10.0.0
+- Xcode 10.0
 - Xcode 9.1 for iOS Simulator
 - IntelliJ IDEA
-- AIR 30
+- AIR 31
 - wget
 - Carthage
