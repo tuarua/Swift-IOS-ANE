@@ -32,6 +32,8 @@
     <option name="screenWidth" value="0" />
     <option name="url" value="http://" />
     <option name="usbDebugPort" value="7936" />
-    <method />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
   </configuration>
 </component>

@@ -28,11 +28,11 @@ fi
 
 #Copy SWC into place.
 echo "Copying SWC into place."
-cp "$pathtome/../bin/CommonDependencies.swc" "$pathtome/"
+cp "$pathtome/../bin/FreSwift.swc" "$pathtome/"
 
 #Extract contents of SWC.
 echo "Extracting files form SWC."
-unzip "$pathtome/CommonDependencies.swc" "library.swf" -d "$pathtome"
+unzip "$pathtome/FreSwift.swc" "library.swf" -d "$pathtome"
 
 #Copy library.swf to folders.
 echo "Copying library.swf into place."
@@ -49,14 +49,14 @@ rm -r "$pathtome/platforms/mac/release/$FRESWIFT_NAME.framework/Versions"
 #Run the build command.
 echo "Building Release."
 "$AIR_SDK"/bin/adt -package \
--target ane "$pathtome/CommonDependencies.ane" "$pathtome/extension_osx.xml" \
--swc "$pathtome/CommonDependencies.swc" \
+-target ane "$pathtome/FreSwift.ane" "$pathtome/extension_osx.xml" \
+-swc "$pathtome/FreSwift.swc" \
 -platform MacOS-x86-64 -C "$pathtome/platforms/mac/release" "$FRESWIFT_NAME.framework" "library.swf" \
 -platform default -C "$pathtome/platforms/default" "library.swf"
 
 
 rm -r "$pathtome/platforms/mac"
 rm -r "$pathtome/platforms/default"
-rm "$pathtome/CommonDependencies.swc"
+rm "$pathtome/FreSwift.swc"
 rm "$pathtome/library.swf"
 

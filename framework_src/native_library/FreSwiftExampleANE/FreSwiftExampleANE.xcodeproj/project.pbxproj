@@ -1289,7 +1289,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_30/runtimes/air/mac;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1329,7 +1329,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_30/runtimes/air/mac;
 				FRAMEWORK_VERSION = A;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (

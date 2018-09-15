@@ -8,7 +8,7 @@
             <entry library-name="FreSwiftExampleANE" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="CommonDependencies" library-level="project">
+            <entry library-name="FreSwift" library-level="project">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -35,5 +35,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="FreSwiftExampleANE" level="project" />
     <orderEntry type="library" exported="" name="CommonDependencies" level="project" />
+    <orderEntry type="library" exported="" name="FreSwift" level="project" />
   </component>
 </module>

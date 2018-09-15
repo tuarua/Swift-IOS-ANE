@@ -1,6 +1,6 @@
 package {
 
-import com.tuarua.CommonDependencies;
+import com.tuarua.FreSwift;
 import com.tuarua.FreSwiftExampleANE;
 import com.tuarua.Person;
 import com.tuarua.fre.ANEError;
@@ -25,7 +25,7 @@ import flash.utils.ByteArray;
 
 [SWF(width="640", height="640", frameRate="60", backgroundColor="#F1F1F1")]
 public class Main extends Sprite {
-    private var commonDependenciesANE:CommonDependencies = new CommonDependencies();
+    private var commonDependenciesANE:FreSwift = new FreSwift();
     private var ane:FreSwiftExampleANE = new FreSwiftExampleANE();
     public static const GREEN:uint = 0xFF00FF00;
     public static const HALF_GREEN:uint = 0x8000FF00;

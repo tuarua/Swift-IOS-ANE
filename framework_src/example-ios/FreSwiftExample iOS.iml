@@ -9,7 +9,7 @@
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="AIRSDK_31B" />
+          <sdk name="AIRSDK_30" />
         </dependencies>
         <compiler-options>
           <map>
@@ -34,11 +34,9 @@
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="AIRSDK_31B" />
+          <sdk name="AIRSDK_30" />
         </dependencies>
-        <compiler-options>
-          <option name="additionalOptions" value="-swf-version=42" />
-        </compiler-options>
+        <compiler-options />
         <packaging-air-desktop />
         <packaging-android package-file-name="example_Device" />
         <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app.xml" package-file-name="FreSwiftExample">
@@ -58,7 +56,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="AIRSDK_31B" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="AIRSDK_30" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="SwiftIOSANE-ios" level="project" />
     <orderEntry type="library" exported="" name="TesseractANE" level="project" />

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Tua Rua Ltd.
+ * Copyright 2018 Tua Rua Ltd.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,9 +20,8 @@ import flash.utils.describeType;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 
-//noinspection JSUnusedGlobalSymbols
+/** @private */
 public class ANEUtils {
-    //noinspection JSUnusedGlobalSymbols
     public function ANEUtils() {
     }
 
@@ -30,13 +29,26 @@ public class ANEUtils {
         return Class(getDefinitionByName(getQualifiedClassName(obj)));
     }
 
-    //noinspection JSMethodCanBeStatic
     public function getClass(obj:Object):Class {
         return Class(getDefinitionByName(getQualifiedClassName(obj)));
     }
 
     public static function getClassProps(clz:*):Vector.<Object> {
         var ret:Vector.<Object> = new <Object>[];
+        var isObject:Boolean = false;
+        for (var id:String in clz) {
+            var objc:Object = {};
+            objc.name = id;
+            if (clz.hasOwnProperty(id)) {
+                objc.type = getClassType(clz[id]);
+                objc.cls = objc.type == "*" ? null : getClass(Class(getDefinitionByName(objc.type)));
+                ret.push(objc);
+                isObject = true;
+            }
+        }
+        if (isObject) {
+            return ret;
+        }
         var xml:XML = describeType(clz);
         if (xml.variable && xml.variable.length() > 0) {
             for each (var prop:XML in xml.variable) {
@@ -53,17 +65,6 @@ public class ANEUtils {
                 objb.type = propb.@type.toString();
                 objb.cls = objb.type == "*" ? null : getClass(Class(getDefinitionByName(objb.type)));
                 ret.push(objb);
-            }
-        } else {
-            for (var id:String in clz) {
-                var objc:Object = {};
-                objc.name = id;
-                if (clz.hasOwnProperty(id)) {
-                    objc.type = getClassType(clz[id]);
-                    objc.cls = objc.type == "*" ? null : getClass(Class(getDefinitionByName(objc.type)));
-                    ret.push(objc);
-                }
-
             }
         }
         return ret;
@@ -72,6 +73,20 @@ public class ANEUtils {
     //noinspection JSUnusedGlobalSymbols
     public function getClassProps(clz:*):Vector.<Object> {
         var ret:Vector.<Object> = new <Object>[];
+        var isObject:Boolean = false;
+        for (var id:String in clz) {
+            var objc:Object = {};
+            objc.name = id;
+            if (clz.hasOwnProperty(id)) {
+                objc.type = getClassType(clz[id]);
+                objc.cls = objc.type == "*" ? null : getClass(Class(getDefinitionByName(objc.type)));
+                ret.push(objc);
+                isObject = true;
+            }
+        }
+        if (isObject) {
+            return ret;
+        }
         var xml:XML = describeType(clz);
         if (xml.variable && xml.variable.length() > 0) {
             for each (var prop:XML in xml.variable) {
@@ -88,17 +103,6 @@ public class ANEUtils {
                 objb.type = propb.@type.toString();
                 objb.cls = objb.type == "*" ? null : getClass(Class(getDefinitionByName(objb.type)));
                 ret.push(objb);
-            }
-        } else {
-            for (var id:String in clz) {
-                var objc:Object = {};
-                objc.name = id;
-                if (clz.hasOwnProperty(id)) {
-                    objc.type = getClassType(clz[id]);
-                    objc.cls = objc.type == "*" ? null : getClass(Class(getDefinitionByName(objc.type)));
-                    ret.push(objc);
-                }
-
             }
         }
         return ret;
@@ -114,13 +118,23 @@ public class ANEUtils {
         return null;
     }
 
-    //noinspection ReservedWordAsName,JSUnusedGlobalSymbols
     public static function map(from:Object, to:Class):Object {
         var classInstance:Object;
         classInstance = new to();
         for (var id:String in from) {
             var name:String = id;
-            var propCls:Class = getPropClass(name, to);
+            var propCls:Class;
+            if (from[name] is String) {
+                propCls = String;
+            } else if (from[name] is Boolean) {
+                propCls = Boolean;
+            } else if (from[name] is int) {
+                propCls = int;
+            } else if (from[name] is Number) {
+                propCls = Number;
+            } else {
+                propCls = getPropClass(name, to);
+            }
 
             switch (propCls) {
                 case String:
@@ -150,7 +164,6 @@ public class ANEUtils {
         return getQualifiedClassName(clz);
     }
 
-    //noinspection JSMethodCanBeStatic
     public function getClassType(clz:*):String {
         return getQualifiedClassName(clz);
     }

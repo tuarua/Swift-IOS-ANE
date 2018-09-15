@@ -6,7 +6,7 @@
     <versionNumber>3.0.0</versionNumber>
     <extensions>
         <extensionID>com.tuarua.FreSwiftExampleANE</extensionID>
-        <extensionID>com.tuarua.CommonDependencies</extensionID>
+        <extensionID>com.tuarua.FreSwift</extensionID>
     </extensions>
     <initialWindow>
         <content>SWF file name is set automatically at compile time</content>
