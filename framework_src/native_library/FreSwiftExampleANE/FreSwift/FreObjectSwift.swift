@@ -44,7 +44,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let firstName: String = frePerson.firstName
+    /// let freFirstName: FREObject? = frePerson.firstName
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: String?
