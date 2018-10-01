@@ -3,7 +3,7 @@
 Example Xcode project showing how to create Air Native Extensions for OSX using Swift.    
 It supports OSX 10.10+
 
-#### Xcode 9.4.1 (9F2000) must be used with Apple Swift version 4.1.2 (swiftlang-902.0.54 clang-902.0.39.2)
+#### Xcode 10.0 (10A255) must be used with Apple Swift version 4.2 (swiftlang-1000.11.37.1 clang-1000.11.45.1)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 ABI stability is planned for Swift 5 in late 2018
 
@@ -70,7 +70,7 @@ bash get_ios_dependencies.sh
 
 You will need
 
-- Xcode 9.4.1
+- Xcode 10.0
 - Xcode 9.1 for iOS Simulator
 - IntelliJ IDEA
 - AIR 30
