@@ -142,10 +142,10 @@ public class FREArray: Sequence {
         guard let rv = rawValue else { return nil }
         var ret: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetArrayElementA(arrayOrVector: rv, index: UInt32(index),
+        let status = FreSwiftBridge.bridge.FREGetArrayElementA(arrayOrVector: rv, index: UInt32(index),
                                                                           value: &ret)
 #else
-        let status: FREResult = FREGetArrayElementAt(rv, UInt32(index), &ret)
+        let status = FREGetArrayElementAt(rv, UInt32(index), &ret)
 #endif
         
         if FRE_OK == status { return ret }
@@ -158,10 +158,10 @@ public class FREArray: Sequence {
     fileprivate func set(index: UInt, freObject: FREObject?) {
         guard let rv = rawValue else { return }
         #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
+        let status = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
                                                                           value: freObject)
         #else
-        let status: FREResult = FRESetArrayElementAt(rv, UInt32(index), freObject)
+        let status = FRESetArrayElementAt(rv, UInt32(index), freObject)
         #endif
         
         if FRE_OK == status { return }
@@ -175,7 +175,7 @@ public class FREArray: Sequence {
     /// - parameter index: index of item
     /// - parameter value: value to set
     /// - returns: FREObject?
-    public func set(index: UInt, value: Any) {
+    fileprivate func set(index: UInt, value: Any) {
         set(index: index, freObject: FreSwiftHelper.newObject(any: value))
     }
     
@@ -183,7 +183,7 @@ public class FREArray: Sequence {
     ///
     /// - parameter args: One or more values to append to the array.
     public func push(_ args: Any?...) {
-        _ = FreSwiftHelper.callMethod(self.rawValue, name: "push", args: args)
+        FreSwiftHelper.callMethod(self.rawValue, name: "push", args: args)
     }
     
     /// length: length of FREArray
@@ -191,9 +191,9 @@ public class FREArray: Sequence {
         guard let rv = rawValue else { return 0 }
         var ret: UInt32 = 0
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
+        let status = FreSwiftBridge.bridge.FREGetArrayLength(arrayOrVector: rv, length: &ret)
 #else
-        let status: FREResult = FREGetArrayLength(rv, &ret)
+        let status = FREGetArrayLength(rv, &ret)
 #endif
         if FRE_OK == status { return UInt(ret) }
         FreSwiftLogger.shared().log(message: "cannot get length of array",

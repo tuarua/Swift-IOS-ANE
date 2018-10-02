@@ -17,17 +17,17 @@ import Foundation
 /// FreError:
 public class FreError: Error {
     /// The stack trace
-    public var stackTrace: String = ""
+    public var stackTrace = ""
     /// Message to include
-    public var message: String = ""
+    public var message = ""
     /// The error code
     public var type: Code
     /// The line at which the error occurred.
-    public var line: Int = 0
+    public var line = 0
     /// The column at which the error occurred.
-    public var column: Int = 0
+    public var column = 0
     /// The file in which the error occurred.
-    public var file: String = ""
+    public var file = ""
 
     /// Error code. Matches values of FREResult
     public enum Code {
@@ -64,6 +64,12 @@ public class FreError: Error {
     }
 
     /// init:
+    /// - parameter stackTrace: The stack trace
+    /// - parameter message: Message to include
+    /// - parameter type: The error code
+    /// - parameter line: The line at which the error occurred.
+    /// - parameter column: The column at which the error occurred.
+    /// - parameter file: The file in which the error occurred.
     public init(stackTrace: String, message: String, type: Code, line: Int, column: Int, file: String) {
         self.stackTrace = stackTrace
         self.message = message
@@ -74,6 +80,9 @@ public class FreError: Error {
     }
 
     /// init:
+    /// - parameter stackTrace: The stack trace
+    /// - parameter message: Message to include
+    /// - parameter type: The error code
     public init(stackTrace: String, message: String, type: Code) {
         self.stackTrace = stackTrace
         self.message = message
@@ -83,7 +92,8 @@ public class FreError: Error {
     /// getError: returns a FREObject representation of the FreError. This can be returned to AS3
     public func getError(_ oFile: String, _ oLine: Int, _ oColumn: Int) -> FREObject? {
         let _aneError = FREObject(className: "com.tuarua.fre.ANEError",
-                                  args: message, 0, String(describing: type), "[\(oFile):\(oLine):\(oColumn)]", stackTrace)
+                                  args: message, 0, String(describing: type),
+                                  "[\(oFile):\(oLine):\(oColumn)]", stackTrace)
         return _aneError
     }
 }

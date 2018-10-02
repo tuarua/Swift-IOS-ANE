@@ -27,7 +27,7 @@ open class FreContextSwift: NSObject {
     public func dispatchStatusEventAsync(code: String, level: String) {
         guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
-        _ = FreSwiftBridge.bridge.FREDispatchStatusEventAsync(ctx: rv, code: code, level: level)
+        FreSwiftBridge.bridge.FREDispatchStatusEventAsync(ctx: rv, code: code, level: level)
 #else
         FREDispatchStatusEventAsync(rv, code, level)
 #endif
@@ -38,9 +38,9 @@ open class FreContextSwift: NSObject {
         guard let rv = rawValue else { return nil }
         var ret: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetContextActionScriptData(ctx: rv, actionScriptData: &ret)
+        let status = FreSwiftBridge.bridge.FREGetContextActionScriptData(ctx: rv, actionScriptData: &ret)
 #else
-        let status: FREResult = FREGetContextActionScriptData(rv, &ret)
+        let status = FREGetContextActionScriptData(rv, &ret)
 #endif
         if FRE_OK == status { return ret}
         FreSwiftLogger.shared().log(message: "cannot get actionscript data",
@@ -54,9 +54,9 @@ open class FreContextSwift: NSObject {
     public func setActionScriptData(object: FREObject) {
         guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRESetContextActionScriptData(ctx: rv, actionScriptData: object)
+        let status = FreSwiftBridge.bridge.FRESetContextActionScriptData(ctx: rv, actionScriptData: object)
 #else
-        let status: FREResult = FRESetContextActionScriptData(rv, object)
+        let status = FRESetContextActionScriptData(rv, object)
 #endif
         
         if FRE_OK == status { return }

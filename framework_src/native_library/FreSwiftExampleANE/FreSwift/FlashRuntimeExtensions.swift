@@ -177,6 +177,7 @@ public extension FREObject {
     /// - parameter method: name of AS3 method to call
     /// - parameter args: arguments to pass to the method
     /// - returns: FREObject?
+    @discardableResult
     func call(method: String, args: Any?...) -> FREObject? {
         return FreSwiftHelper.callMethod(self, name: method, args: args)
     }

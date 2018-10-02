@@ -252,7 +252,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let myName: String = newPerson.birthday
+    /// let myName: Date? = newPerson.birthday
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: Date?
@@ -266,13 +266,26 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let jumperColor: UIColor? = newPerson.eyeColor
+    /// let eyeColor: UIColor? = newPerson.eyeColor
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: UIColor?
     public subscript(dynamicMember name: String) -> UIColor? {
         get { return UIColor(rawValue?[name]) }
         set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FREObject.
+    ///
+    /// ```swift
+    /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
+    /// let eyeColor: UIColor = newPerson.eyeColor
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - returns: UIColor
+    public subscript(dynamicMember name: String) -> UIColor {
+        get { return UIColor(rawValue?[name]) ?? UIColor.black }
+        set { rawValue?[name] = newValue.toFREObject() }
     }
     
 #endif
@@ -282,13 +295,26 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let jumperColor: UIColor? = newPerson.eyeColor
+    /// let jumperColor: NSColor? = newPerson.eyeColor
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: NSColor?
     public subscript(dynamicMember name: String) -> NSColor? {
         get { return NSColor(rawValue?[name]) }
         set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FREObject.
+    ///
+    /// ```swift
+    /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
+    /// let eyeColor: NSColor = newPerson.eyeColor
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - returns: NSColor
+    public subscript(dynamicMember name: String) -> NSColor {
+        get { return NSColor(rawValue?[name]) ?? NSColor.black }
+        set { rawValue?[name] = newValue.toFREObject() }
     }
 #endif
     
@@ -357,6 +383,7 @@ open class FreObjectSwift: NSObject {
     /// - parameter method: name of AS3 method to call
     /// - parameter args: arguments to pass to the method
     /// - returns: FREObject?
+    @discardableResult
     public func call(method: String, args: Any...) -> FREObject? {
         return FreSwiftHelper.callMethod(self.rawValue, name: method, args: args)
     }

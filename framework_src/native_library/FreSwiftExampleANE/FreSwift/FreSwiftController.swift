@@ -32,7 +32,7 @@ public extension FreSwiftController {
     /// - parameter value: value to trace to console
     /// - returns: Void
     func trace(_ value: Any...) {
-        var traceStr: String = ""
+        var traceStr = ""
         for i in 0..<value.count {
             traceStr.append("\(value[i]) ")
         }
@@ -48,7 +48,7 @@ public extension FreSwiftController {
     /// - parameter value: value to trace to console
     /// - returns: Void
     func info(_ value: Any...) {
-        var traceStr: String = "\(Self.TAG):"
+        var traceStr = "\(Self.TAG):"
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }
@@ -64,7 +64,7 @@ public extension FreSwiftController {
     /// - parameter value: value to trace to console
     /// - returns: Void
     func warning(_ value: Any...) {
-        var traceStr: String = "\(Self.TAG):"
+        var traceStr = "\(Self.TAG):"
         for i in 0..<value.count {
             traceStr = "\(traceStr) \(value[i]) "
         }

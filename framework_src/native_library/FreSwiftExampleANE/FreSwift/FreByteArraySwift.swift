@@ -49,10 +49,10 @@ public class FreByteArraySwift: NSObject {
             rawValue = targetBA
             FreSwiftHelper.setProperty(rawValue: targetBA, name: "name", prop: data.length.toFREObject())
 #if os(iOS) || os(tvOS)
-            let status: FREResult = FreSwiftBridge.bridge.FREAcquireByteArray(object: targetBA,
+            let status = FreSwiftBridge.bridge.FREAcquireByteArray(object: targetBA,
                                                                               byteArrayToSet: &_byteArray)
 #else
-            let status: FREResult = FREAcquireByteArray(targetBA, &_byteArray)
+            let status = FREAcquireByteArray(targetBA, &_byteArray)
 #endif
             guard FRE_OK == status else {
                 FreSwiftLogger.shared().log(message: "cannot acquire ByteArray",
@@ -71,9 +71,9 @@ public class FreByteArraySwift: NSObject {
         guard let rv = rawValue else { return }
 
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREAcquireByteArray(object: rv, byteArrayToSet: &_byteArray)
+        let status = FreSwiftBridge.bridge.FREAcquireByteArray(object: rv, byteArrayToSet: &_byteArray)
 #else
-        let status: FREResult = FREAcquireByteArray(rv, &_byteArray)
+        let status = FREAcquireByteArray(rv, &_byteArray)
 #endif
         guard FRE_OK == status else {
             FreSwiftLogger.shared().log(message: "cannot acquire ByteArray",
@@ -92,10 +92,14 @@ public class FreByteArraySwift: NSObject {
             return
         }
 #if os(iOS) || os(tvOS)
-        _ = FreSwiftBridge.bridge.FREReleaseByteArray(object: rv)
+        let status = FreSwiftBridge.bridge.FREReleaseByteArray(object: rv)
 #else
-        FREReleaseByteArray(rv)
+        let status = FREReleaseByteArray(rv)
 #endif
+        if FRE_OK == status { return }
+        FreSwiftLogger.shared().log(message: "cannot release ByteArray",
+                                    type: FreSwiftHelper.getErrorCode(status),
+                                    line: #line, column: #column, file: #file)
     }
 
     /// Handles conversion to a NSData

@@ -5,6 +5,7 @@
 - Add `FREObject.hasOwnProperty()`
 - Add `FREObject.toString()`
 - Add `@dynamicMemberLookup` to `FreObjectSwift`. Adds cleaner way to extend FREObjects 
+- Mark `FREObject.call()` as  `@discardableResult`
 - Remove try catches and make better use of optionals
 - Remove `ArgCountError` class
 - Obsoleted `sendEvent()` method

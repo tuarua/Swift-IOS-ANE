@@ -21,6 +21,7 @@ public class FreSwiftHelper {
         return FreSwiftLogger.shared()
     }
 
+    @discardableResult
     static func callMethod(_ rawValue: FREObject?, name: String, args: [Any?]) -> FREObject? {
         guard let rv = rawValue else {
             return nil
@@ -34,12 +35,12 @@ public class FreSwiftHelper {
         var numArgs: UInt32 = 0
         numArgs = UInt32((argsArray.count))
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRECallObjectMethod(object: rv, methodName: name,
+        let status = FreSwiftBridge.bridge.FRECallObjectMethod(object: rv, methodName: name,
           argc: numArgs, argv: argsArray,
           result: &ret, thrownException: &thrownException)
 
 #else
-        let status: FREResult = FRECallObjectMethod(rv,
+        let status = FRECallObjectMethod(rv,
                                                     name,
                                                     numArgs,
                                                     arrayToFREArray(argsArray),
@@ -58,10 +59,10 @@ public class FreSwiftHelper {
         var len: UInt32 = 0
         var valuePtr: UnsafePointer<UInt8>?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsUTF8(object: rawValue,
+        let status = FreSwiftBridge.bridge.FREGetObjectAsUTF8(object: rawValue,
                                                                          length: &len, value: &valuePtr)
 #else
-        let status: FREResult = FREGetObjectAsUTF8(rawValue, &len, &valuePtr)
+        let status = FREGetObjectAsUTF8(rawValue, &len, &valuePtr)
 #endif
         if FRE_OK == status {
             return NSString(bytes: valuePtr!, length: Int(len), encoding: String.Encoding.utf8.rawValue) as String?
@@ -76,11 +77,10 @@ public class FreSwiftHelper {
     static func getAsBool(_ rawValue: FREObject) -> Bool? {
         var val: UInt32 = 0
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsBool(object: rawValue, value: &val)
+        let status = FreSwiftBridge.bridge.FREGetObjectAsBool(object: rawValue, value: &val)
 #else
-        let status: FREResult = FREGetObjectAsBool(rawValue, &val)
+        let status = FREGetObjectAsBool(rawValue, &val)
 #endif
-        
         if FRE_OK == status  { return val == 1 }
         logger.log(message: "cannot get FREObject \(rawValue.toString()) as Bool",
                                     type: getErrorCode(status),
@@ -91,9 +91,9 @@ public class FreSwiftHelper {
     static func getAsDouble(_ rawValue: FREObject) -> Double? {
         var ret: Double = 0.0
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsDouble(object: rawValue, value: &ret)
+        let status = FreSwiftBridge.bridge.FREGetObjectAsDouble(object: rawValue, value: &ret)
 #else
-        let status: FREResult = FREGetObjectAsDouble(rawValue, &ret)
+        let status = FREGetObjectAsDouble(rawValue, &ret)
 #endif
         if FRE_OK == status  { return ret }
         logger.log(message: "cannot get FREObject \(rawValue.toString()) as Double",
@@ -113,13 +113,12 @@ public class FreSwiftHelper {
     static func getAsInt(_ rawValue: FREObject) -> Int? {
         var ret: Int32 = 0
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsInt32(object: rawValue, value: &ret)
+        let status = FreSwiftBridge.bridge.FREGetObjectAsInt32(object: rawValue, value: &ret)
 #else
-        let status: FREResult = FREGetObjectAsInt32(rawValue, &ret)
+        let status = FREGetObjectAsInt32(rawValue, &ret)
 #endif
         
         if FRE_OK == status { return Int(ret) }
-        
         logger.log(message: "cannot get FREObject \(rawValue.toString()) as Int",
                                     type: getErrorCode(status),
                                     line: #line, column: #column, file: #file)
@@ -129,9 +128,9 @@ public class FreSwiftHelper {
     static func getAsUInt(_ rawValue: FREObject) -> UInt? {
         var ret: UInt32 = 0
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectAsUint32(object: rawValue, value: &ret)
+        let status = FreSwiftBridge.bridge.FREGetObjectAsUint32(object: rawValue, value: &ret)
 #else
-        let status: FREResult = FREGetObjectAsUint32(rawValue, &ret)
+        let status = FREGetObjectAsUint32(rawValue, &ret)
 #endif
         if FRE_OK == status { return UInt(ret) }
         logger.log(message: "cannot get FREObject \(rawValue.toString()) as UInt",
@@ -225,17 +224,23 @@ public class FreSwiftHelper {
 
     public static func getType(_ rawValue: FREObject?) -> FreObjectTypeSwift {
         guard let rawValue = rawValue else { return FreObjectTypeSwift.null }
-        var objectType: FREObjectType = FRE_TYPE_NULL
+        var objectType = FRE_TYPE_NULL
 #if os(iOS) || os(tvOS)
-        _ = FreSwiftBridge.bridge.FREGetObjectType(object: rawValue, objectType: &objectType)
+        let status = FreSwiftBridge.bridge.FREGetObjectType(object: rawValue, objectType: &objectType)
 #else
-        FREGetObjectType(rawValue, &objectType)
+        let status = FREGetObjectType(rawValue, &objectType)
 #endif
-        let type = FreObjectTypeSwift(rawValue: objectType.rawValue) ?? FreObjectTypeSwift.null
-
-        return FreObjectTypeSwift.number == type || FreObjectTypeSwift.object == type
-          ? getActionscriptType(rawValue)
-          : type
+        if FRE_OK == status {
+            let type = FreObjectTypeSwift(rawValue: objectType.rawValue) ?? FreObjectTypeSwift.null
+            return FreObjectTypeSwift.number == type || FreObjectTypeSwift.object == type
+                ? getActionscriptType(rawValue)
+                : type
+        
+        }
+        logger.log(message: "cannot get type",
+            type: getErrorCode(status),
+            line: #line, column: #column, file: #file)
+        return FreObjectTypeSwift.null
     }
 
     fileprivate static func getActionscriptType(_ rawValue: FREObject) -> FreObjectTypeSwift {
@@ -265,7 +270,7 @@ public class FreSwiftHelper {
               let classProps = aneUtils.call(method: "getClassProps", args: rawValue) else {
             return nil
         }
-        let array: FREArray = FREArray(classProps)
+        let array = FREArray(classProps)
         for fre in array {
             if let propNameAs = fre["name"],
                 let propName = String(propNameAs),
@@ -283,7 +288,7 @@ public class FreSwiftHelper {
             let classProps = aneUtils.call(method: "getClassProps", args: rawValue) else {
                 return nil
         }
-        let array: FREArray = FREArray(classProps)
+        let array = FREArray(classProps)
         for fre in array {
             if let propNameAs = fre["name"],
                 let propName = String(propNameAs),
@@ -301,7 +306,7 @@ public class FreSwiftHelper {
             let classProps = aneUtils.call(method: "getClassProps", args: rawValue) else {
                 return nil
         }
-        let array: FREArray = FREArray(classProps)
+        let array = FREArray(classProps)
         for fre in array {
             if let propNameAs = fre["name"],
                 let propName = String(propNameAs),
@@ -316,7 +321,7 @@ public class FreSwiftHelper {
     
     static func getAsArray(_ rawValue: FREObject) -> [String]? {
         var ret = [String]()
-        let array: FREArray = FREArray(rawValue)
+        let array = FREArray(rawValue)
         for fre in array {
             if let v = String(fre) {
                 ret.append(v)
@@ -327,7 +332,7 @@ public class FreSwiftHelper {
     
     static func getAsArray(_ rawValue: FREObject) -> [Int]? {
         var ret = [Int]()
-        let array: FREArray = FREArray(rawValue)
+        let array = FREArray(rawValue)
         for fre in array {
             if let v = Int(fre) {
                 ret.append(v)
@@ -338,7 +343,7 @@ public class FreSwiftHelper {
     
     static func getAsArray(_ rawValue: FREObject) -> [UInt]? {
         var ret = [UInt]()
-        let array: FREArray = FREArray(rawValue)
+        let array = FREArray(rawValue)
         for fre in array {
             if let v = UInt(fre) {
                 ret.append(v)
@@ -349,7 +354,7 @@ public class FreSwiftHelper {
 
     static func getAsArray(_ rawValue: FREObject) -> [Bool]? {
         var ret = [Bool]()
-        let array: FREArray = FREArray(rawValue)
+        let array = FREArray(rawValue)
         for fre in array {
             if let v = Bool(fre) {
                 ret.append(v)
@@ -360,7 +365,7 @@ public class FreSwiftHelper {
     
     static func getAsArray(_ rawValue: FREObject) -> [Double]? {
         var ret = [Double]()
-        let array: FREArray = FREArray(rawValue)
+        let array = FREArray(rawValue)
         for fre in array {
             if let v = Double(fre) {
                 ret.append(v)
@@ -371,7 +376,7 @@ public class FreSwiftHelper {
     
     static func getAsArray(_ rawValue: FREObject) -> [Any]? {
         var ret: [Any] = [Any]()
-        let array: FREArray = FREArray(rawValue)
+        let array = FREArray(rawValue)
         
         for fre in array {
             if let v = FreObjectSwift(fre).value {
@@ -386,12 +391,12 @@ public class FreSwiftHelper {
         var thrownException: FREObject?
 
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREGetObjectProperty(object: rawValue,
+        let status = FreSwiftBridge.bridge.FREGetObjectProperty(object: rawValue,
           propertyName: name,
           propertyValue: &ret,
           thrownException: &thrownException)
 #else
-        let status: FREResult = FREGetObjectProperty(rawValue, name, &ret, &thrownException)
+        let status = FREGetObjectProperty(rawValue, name, &ret, &thrownException)
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot get property \(name) of \(rawValue.toString())",
@@ -404,12 +409,12 @@ public class FreSwiftHelper {
     public static func setProperty(rawValue: FREObject, name: String, prop: FREObject?) {
         var thrownException: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRESetObjectProperty(object: rawValue,
+        let status = FreSwiftBridge.bridge.FRESetObjectProperty(object: rawValue,
           propertyName: name,
           propertyValue: prop,
           thrownException: &thrownException)
 #else
-        let status: FREResult = FRESetObjectProperty(rawValue, name, prop, &thrownException)
+        let status = FRESetObjectProperty(rawValue, name, prop, &thrownException)
 #endif
         if FRE_OK == status { return }
         logger.log(message: "cannot set property \(name) of \(rawValue.toString()) to \(FreObjectSwift(prop).value ?? "unknown")",
@@ -438,10 +443,10 @@ public class FreSwiftHelper {
     public static func newObject(_ string: String) -> FREObject? {
         var ret: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromUTF8(length: UInt32(string.utf8.count),
+        let status = FreSwiftBridge.bridge.FRENewObjectFromUTF8(length: UInt32(string.utf8.count),
           value: string, object: &ret)
 #else
-        let status: FREResult = FRENewObjectFromUTF8(UInt32(string.utf8.count), string, &ret)
+        let status = FRENewObjectFromUTF8(UInt32(string.utf8.count), string, &ret)
 #endif
         
         if FRE_OK == status { return ret }
@@ -454,9 +459,9 @@ public class FreSwiftHelper {
     public static func newObject(_ double: Double) -> FREObject? {
         var ret: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromDouble(value: double, object: &ret)
+        let status = FreSwiftBridge.bridge.FRENewObjectFromDouble(value: double, object: &ret)
 #else
-        let status: FREResult = FRENewObjectFromDouble(double, &ret)
+        let status = FRENewObjectFromDouble(double, &ret)
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(double)",
@@ -468,9 +473,9 @@ public class FreSwiftHelper {
     public static func newObject(_ cgFloat: CGFloat) -> FREObject? {
         var ret: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromDouble(value: Double(cgFloat), object: &ret)
+        let status = FreSwiftBridge.bridge.FRENewObjectFromDouble(value: Double(cgFloat), object: &ret)
 #else
-        let status: FREResult = FRENewObjectFromDouble(Double(cgFloat), &ret)
+        let status = FRENewObjectFromDouble(Double(cgFloat), &ret)
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(cgFloat)",
@@ -491,9 +496,9 @@ public class FreSwiftHelper {
     public static func newObject(_ int: Int) -> FREObject? {
         var ret: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromInt32(value: Int32(int), object: &ret)
+        let status = FreSwiftBridge.bridge.FRENewObjectFromInt32(value: Int32(int), object: &ret)
 #else
-        let status: FREResult = FRENewObjectFromInt32(Int32(int), &ret)
+        let status = FRENewObjectFromInt32(Int32(int), &ret)
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(int)",
@@ -505,9 +510,9 @@ public class FreSwiftHelper {
     public static func newObject(_ uint: UInt) -> FREObject? {
         var ret: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromUint32(value: UInt32(uint), object: &ret)
+        let status = FreSwiftBridge.bridge.FRENewObjectFromUint32(value: UInt32(uint), object: &ret)
 #else
-        let status: FREResult = FRENewObjectFromUint32(UInt32(uint), &ret)
+        let status = FRENewObjectFromUint32(UInt32(uint), &ret)
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(uint)",
@@ -519,10 +524,10 @@ public class FreSwiftHelper {
     public static func newObject(_ bool: Bool) -> FREObject? {
         var ret: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRENewObjectFromBool(value: bool, object: &ret)
+        let status = FreSwiftBridge.bridge.FRENewObjectFromBool(value: bool, object: &ret)
 #else
         let b: UInt32 = (bool == true) ? 1 : 0
-        let status: FREResult = FRENewObjectFromBool(b, &ret)
+        let status = FRENewObjectFromBool(b, &ret)
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(bool)",
@@ -539,10 +544,10 @@ public class FreSwiftHelper {
             numArgs = UInt32((args?.count)!)
         }
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRENewObject(className: className, argc: numArgs, argv: args,
+        let status = FreSwiftBridge.bridge.FRENewObject(className: className, argc: numArgs, argv: args,
           object: &ret, thrownException: &thrownException)
 #else
-        let status: FREResult = FRENewObject(className, numArgs, arrayToFREArray(args), &ret, &thrownException)
+        let status = FRENewObject(className, numArgs, arrayToFREArray(args), &ret, &thrownException)
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create new class \(className)",
@@ -556,10 +561,10 @@ public class FreSwiftHelper {
         var ret: FREObject?
         var thrownException: FREObject?
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FRENewObject(className: className, argc: 0, argv: nil,
+        let status = FreSwiftBridge.bridge.FRENewObject(className: className, argc: 0, argv: nil,
           object: &ret, thrownException: &thrownException)
 #else
-        let status: FREResult = FRENewObject(className, 0, nil, &ret, &thrownException)
+        let status = FRENewObject(className, 0, nil, &ret, &thrownException)
 #endif
         
         if FRE_OK == status { return ret }

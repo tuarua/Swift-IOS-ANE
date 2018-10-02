@@ -40,7 +40,7 @@ public class SwiftController: NSObject {
         }
         
         trace("String passed from AIR:", airString)
-        let swiftString: String = "I am a string from Swift"
+        let swiftString = "I am a string from Swift"
         trace("-------------------------------------------")
         return swiftString.toFREObject()
     }
@@ -238,7 +238,7 @@ public class SwiftController: NSObject {
         }
         
         _ = person["doNotExist"]
-        _ = person.call(method: "add", args: 2) //not passing enough args
+        person.call(method: "add", args: 2) //not passing enough args
         
         guard FreObjectTypeSwift.int == expectInt.type else {
             return FreError(stackTrace: "",

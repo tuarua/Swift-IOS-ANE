@@ -24,23 +24,23 @@ public class FreBitmapDataSwift: NSObject {
     private var _bitmapData: FREBitmapData = FREBitmapData()
     /// A Int that specifies the width, in pixels, of the bitmap. This value corresponds to the width property of
     /// the ActionScript BitmapData class object. This field is read-only.
-    public var width: Int = 0
+    public var width = 0
     /// A Int that specifies the height, in pixels, of the bitmap. This value corresponds to the height
     /// property of the ActionScript BitmapData class object. This field is read-only.
-    public var height: Int = 0
+    public var height = 0
     /// A Bool that indicates whether the bitmap supports per-pixel transparency. This value corresponds to the
     /// transparent property of the ActionScript BitmapData class object. If the value is non-zero, then the
     /// pixel format is ARGB32. If the value is zero, the pixel format is _RGB32. Whether the value is big endian
     /// or little endian depends on the host device. This field is read-only.
-    public var hasAlpha: Bool = false
+    public var hasAlpha = false
     /// A uint32_t that indicates whether the bitmap pixels are stored as premultiplied color values. A true
     /// value means the values are premultipled. This field is read-only.
-    public var isPremultiplied: Bool = false
+    public var isPremultiplied = false
     ///  A Bool that indicates the order in which the rows of bitmap data in the image are stored. A non-zero
     /// value means that the bottom row of the image appears first in the image data (in other words, the first
     /// value in the bits32 array is the first pixel of the last row in the image). A zero value means that the
     /// top row of the image appears first in the image data. This field is read-only.
-    public var isInvertedY: Bool = false
+    public var isInvertedY = false
     /// A UInt that specifies the number of UInt values per scanline. This value is typically
     /// the same as the width parameter. This field is read-only.
     public var lineStride32: UInt = 0
@@ -71,9 +71,9 @@ public class FreBitmapDataSwift: NSObject {
     public func acquire() {
         guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREAcquireBitmapData2(object: rv, descriptorToSet: &_bitmapData)
+        let status = FreSwiftBridge.bridge.FREAcquireBitmapData2(object: rv, descriptorToSet: &_bitmapData)
 #else
-        let status: FREResult = FREAcquireBitmapData2(rv, &_bitmapData)
+        let status = FREAcquireBitmapData2(rv, &_bitmapData)
 #endif
         
         guard FRE_OK == status else {
@@ -97,10 +97,14 @@ public class FreBitmapDataSwift: NSObject {
             return
         }
 #if os(iOS) || os(tvOS)
-        _ = FreSwiftBridge.bridge.FREReleaseBitmapData(object: rv)
+        let status = FreSwiftBridge.bridge.FREReleaseBitmapData(object: rv)
 #else
-        FREReleaseBitmapData(rv)
+        let status = FREReleaseBitmapData(rv)
 #endif
+        if FRE_OK == status { return }
+        FreSwiftLogger.shared().log(message: "cannot releaseData",
+                                    type: FreSwiftHelper.getErrorCode(status),
+                                    line: #line, column: #column, file: #file)
     }
 
     /// Handles conversion from a CGImage
@@ -161,10 +165,10 @@ public class FreBitmapDataSwift: NSObject {
     public func invalidateRect(x: UInt, y: UInt, width: UInt, height: UInt) {
         guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREInvalidateBitmapDataRect(object: rv, x: UInt32(x),
+        let status = FreSwiftBridge.bridge.FREInvalidateBitmapDataRect(object: rv, x: UInt32(x),
           y: UInt32(y), width: UInt32(width), height: UInt32(height))
 #else
-        let status: FREResult = FREInvalidateBitmapDataRect(rv, UInt32(x), UInt32(y), UInt32(width), UInt32(height))
+        let status = FREInvalidateBitmapDataRect(rv, UInt32(x), UInt32(y), UInt32(width), UInt32(height))
 #endif
 
         if FRE_OK == status { return }

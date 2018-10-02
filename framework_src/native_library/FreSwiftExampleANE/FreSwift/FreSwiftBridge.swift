@@ -15,7 +15,7 @@
 import Foundation
 /// :nodoc:
 @objc public protocol FreSwiftBridgeProtocol {
-    @objc func FREDispatchStatusEventAsync(ctx: FREContext, code: String, level: String) -> FREResult
+    @objc @discardableResult func FREDispatchStatusEventAsync(ctx: FREContext, code: String, level: String) -> FREResult
 
     @objc func FRENewObjectFromBool(value: Bool, object: FREObject?) -> FREResult
 
