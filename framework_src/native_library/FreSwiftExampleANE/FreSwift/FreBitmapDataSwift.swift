@@ -62,7 +62,7 @@ public class FreBitmapDataSwift: NSObject {
                                              UInt32(cgImage.height), false, 0) {
             rawValue = freObject
             acquire()
-            setPixels(cgImage: cgImage)
+            setPixels(cgImage)
             releaseData()
         }
     }
@@ -77,7 +77,7 @@ public class FreBitmapDataSwift: NSObject {
 #endif
         
         guard FRE_OK == status else {
-            FreSwiftLogger.shared().log(message: "cannot acquire BitmapData",
+            FreSwiftLogger.shared.log(message: "cannot acquire BitmapData",
                                         type: FreSwiftHelper.getErrorCode(status),
                                         line: #line, column: #column, file: #file)
             return
@@ -102,18 +102,18 @@ public class FreBitmapDataSwift: NSObject {
         let status = FREReleaseBitmapData(rv)
 #endif
         if FRE_OK == status { return }
-        FreSwiftLogger.shared().log(message: "cannot releaseData",
+        FreSwiftLogger.shared.log(message: "cannot releaseData",
                                     type: FreSwiftHelper.getErrorCode(status),
                                     line: #line, column: #column, file: #file)
     }
 
     /// Handles conversion from a CGImage
-    public func setPixels(cgImage: CGImage) {
-        if let dp = cgImage.dataProvider {
+    public func setPixels(_ image: CGImage) {
+        if let dp = image.dataProvider {
             if let data: NSData = dp.data {
                 memcpy(bits32, data.bytes, data.length)
             }
-            invalidateRect(x: 0, y: 0, width: UInt(cgImage.width), height: UInt(cgImage.height))
+            invalidateRect(x: 0, y: 0, width: UInt(image.width), height: UInt(image.height))
         }
     }
 
@@ -172,7 +172,7 @@ public class FreBitmapDataSwift: NSObject {
 #endif
 
         if FRE_OK == status { return }
-        FreSwiftLogger.shared().log(message: "cannot invalidateRect",
+        FreSwiftLogger.shared.log(message: "cannot invalidateRect",
             type: FreSwiftHelper.getErrorCode(status),
             line: #line, column: #column, file: #file)
     }

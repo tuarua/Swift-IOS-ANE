@@ -65,10 +65,10 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [Int].
     ///
     /// - parameter intArray: array to be converted
-    public init?(intArray: [Int]) {
+    public init?(intArray array: [Int]) {
         if let fre = FreSwiftHelper.newObject(className: "Array") {
             rawValue = fre
-            for v in intArray {
+            for v in array {
                 self.push(v)
             }
         }
@@ -77,10 +77,10 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [UInt].
     ///
     /// - parameter intArray: array to be converted
-    public init(uintArray: [UInt]) {
+    public init(uintArray array: [UInt]) {
         if let fre = FreSwiftHelper.newObject(className: "Array") {
             rawValue = fre
-            for v in uintArray {
+            for v in array {
                 self.push(v)
             }
         }
@@ -89,10 +89,10 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [String].
     ///
     /// - parameter stringArray: array to be converted
-    public init(stringArray: [String]) {
+    public init(stringArray array: [String]) {
         if let fre = FreSwiftHelper.newObject(className: "Array") {
             rawValue = fre
-            for v in stringArray {
+            for v in array {
                 self.push(v)
             }
         }
@@ -101,10 +101,10 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [Double].
     ///
     /// - parameter doubleArray: array to be converted
-    public init(doubleArray: [Double]) {
+    public init(doubleArray array: [Double]) {
         if let fre = FreSwiftHelper.newObject(className: "Array") {
             rawValue = fre
-            for v in doubleArray {
+            for v in array {
                 self.push(v)
             }
         }
@@ -113,10 +113,10 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [Bool].
     ///
     /// - parameter boolArray: array to be converted
-    public init(boolArray: [Bool]) {
+    public init(boolArray array: [Bool]) {
         if let fre = FreSwiftHelper.newObject(className: "Array") {
             rawValue = fre
-            for v in boolArray {
+            for v in array {
                 self.push(v)
             }
         }
@@ -125,10 +125,10 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray with a [Any].
     ///
     /// - parameter anyArray: array to be converted
-    public init(anyArray: [Any]) {
+    public init(anyArray array: [Any]) {
         if let fre = FreSwiftHelper.newObject(className: "Array") {
             rawValue = fre
-            for any in anyArray {
+            for any in array {
                 push(FreSwiftHelper.newObject(any: any))
             }
         }
@@ -149,7 +149,7 @@ public class FREArray: Sequence {
 #endif
         
         if FRE_OK == status { return ret }
-        FreSwiftLogger.shared().log(message: "cannot get item at \(index)",
+        FreSwiftLogger.shared.log(message: "cannot get item at \(index)",
             type: FreSwiftHelper.getErrorCode(status),
             line: #line, column: #column, file: #file)
         return nil
@@ -165,7 +165,7 @@ public class FREArray: Sequence {
         #endif
         
         if FRE_OK == status { return }
-        FreSwiftLogger.shared().log(message: "cannot set item at \(index)",
+        FreSwiftLogger.shared.log(message: "cannot set item at \(index)",
             type: FreSwiftHelper.getErrorCode(status),
             line: #line, column: #column, file: #file)
     }
@@ -196,7 +196,7 @@ public class FREArray: Sequence {
         let status = FREGetArrayLength(rv, &ret)
 #endif
         if FRE_OK == status { return UInt(ret) }
-        FreSwiftLogger.shared().log(message: "cannot get length of array",
+        FreSwiftLogger.shared.log(message: "cannot get length of array",
             type: FreSwiftHelper.getErrorCode(status),
             line: #line, column: #column, file: #file)
         return 0

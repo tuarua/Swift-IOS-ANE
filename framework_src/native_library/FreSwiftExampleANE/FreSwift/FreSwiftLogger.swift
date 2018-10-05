@@ -19,17 +19,10 @@ public class FreSwiftLogger {
     /// context: sets/gets the FreContextSwift
     open var context: FreContextSwift?
     
-    private static var sharedLogger: FreSwiftLogger = {
-        let logger = FreSwiftLogger()
-        return logger
-    }()
+    /// shared: returns the shared instance
+    public static let shared = FreSwiftLogger()
     
     private init() {
-    }
-    
-    /// shared: returns the shared instance
-    open class func shared() -> FreSwiftLogger {
-        return sharedLogger
     }
     
     /// log: traces the message to the console

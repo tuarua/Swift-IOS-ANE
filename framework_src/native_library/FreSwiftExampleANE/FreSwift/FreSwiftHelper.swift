@@ -18,7 +18,7 @@ import Foundation
 public class FreSwiftHelper {
 
     private static var logger: FreSwiftLogger {
-        return FreSwiftLogger.shared()
+        return FreSwiftLogger.shared
     }
 
     @discardableResult

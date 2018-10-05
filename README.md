@@ -163,7 +163,7 @@ if let byteData = asByteArray.value { // NSData
 #### Error Handling
 
 ```swift
-FreSwiftLogger.shared().context = context
+FreSwiftLogger.shared.context = context
 
 guard FreObjectTypeSwift.int == expectInt.type else {
     return FreError(stackTrace: "",

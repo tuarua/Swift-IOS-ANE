@@ -43,7 +43,7 @@ open class FreContextSwift: NSObject {
         let status = FREGetContextActionScriptData(rv, &ret)
 #endif
         if FRE_OK == status { return ret}
-        FreSwiftLogger.shared().log(message: "cannot get actionscript data",
+        FreSwiftLogger.shared.log(message: "cannot get actionscript data",
                                     type: FreSwiftHelper.getErrorCode(status),
                                     line: #line, column: #column, file: #file)
         return nil
@@ -51,16 +51,16 @@ open class FreContextSwift: NSObject {
 
     /// setActionScriptData: Call this function to set an extension context’s ActionScript data.
     /// - parameter object: FREObject to set
-    public func setActionScriptData(object: FREObject) {
+    public func setActionScriptData(freObject: FREObject) {
         guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
-        let status = FreSwiftBridge.bridge.FRESetContextActionScriptData(ctx: rv, actionScriptData: object)
+        let status = FreSwiftBridge.bridge.FRESetContextActionScriptData(ctx: rv, actionScriptData: freObject)
 #else
-        let status = FRESetContextActionScriptData(rv, object)
+        let status = FRESetContextActionScriptData(rv, freObject)
 #endif
         
         if FRE_OK == status { return }
-        FreSwiftLogger.shared().log(message: "cannot set actionscript data",
+        FreSwiftLogger.shared.log(message: "cannot set actionscript data",
             type: FreSwiftHelper.getErrorCode(status),
             line: #line, column: #column, file: #file)
     }

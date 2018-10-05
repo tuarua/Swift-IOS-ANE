@@ -192,7 +192,7 @@ public class SwiftController: NSObject {
 #else
                 if let newImage = context.createCGImage(result, from: result.extent, format: CIFormat.BGRA8,
                                                         colorSpace: cgimg.colorSpace) {
-                    asBitmapData.setPixels(cgImage: newImage)
+                    asBitmapData.setPixels(newImage)
                 }
 #endif
             }
@@ -222,7 +222,7 @@ public class SwiftController: NSObject {
     func runDataTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start ActionScriptData test***********")
         if let objectAs = argv[0] {
-            context.setActionScriptData(object: objectAs)
+            context.setActionScriptData(freObject: objectAs)
             return context.getActionScriptData()
         }
         return nil
