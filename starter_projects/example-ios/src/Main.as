@@ -16,8 +16,7 @@ public class Main extends Sprite {
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
         var textField:TextField = new TextField();
 
-        ane = new HelloWorldANE();
-        ane.init();
+        ane = HelloWorldANE.helloWorld;
         ane.addEventListener("MY_EVENT", onEvent);
         var returnedString:String = ane.sayHello("Hey hello", true, 5);
 
@@ -30,7 +29,7 @@ public class Main extends Sprite {
     }
 
     private function onExiting(event:Event):void {
-        ane.dispose();
+        HelloWorldANE.dispose();
     }
 }
 }

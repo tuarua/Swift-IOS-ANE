@@ -1,94 +1,112 @@
+/*
+ *  Copyright 2017 Tua Rua Ltd.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.tuarua {
 import com.tuarua.fre.ANEError;
 
 import flash.display.BitmapData;
 import flash.events.EventDispatcher;
-import flash.external.ExtensionContext;
-import flash.events.StatusEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 public class FreSwiftExampleANE extends EventDispatcher {
-    private static const name:String = "FreSwiftExampleANE";
-    private var ctx:ExtensionContext;
+    private static var _example:FreSwiftExampleANE;
 
     public function FreSwiftExampleANE() {
-        trace("[" + name + "] Initalizing ANE...");
-        try {
-            ctx = ExtensionContext.createExtensionContext("com.tuarua." + name, null);
-            ctx.addEventListener(StatusEvent.STATUS, gotEvent);
-        } catch (e:Error) {
-            trace("[" + name + "] ANE Not loaded properly.  Future calls will fail.");
+        if (FreSwiftExampleANEContext.context) {
+            var theRet:* = FreSwiftExampleANEContext.context.call("init");
+            if (theRet is ANEError) throw theRet as ANEError;
         }
+        _example = this;
     }
 
-    private function gotEvent(event:StatusEvent):void {
-        switch (event.level) {
-            case "TRACE":
-                trace("[" + name + "]", event.code);
-                break;
+    public static function get example():FreSwiftExampleANE {
+        if (!_example) {
+            new FreSwiftExampleANE();
         }
+        return _example;
     }
 
     public function runStringTests(value:String):String {
-        return ctx.call("runStringTests", value) as String;
+        FreSwiftExampleANEContext.validate();
+        return FreSwiftExampleANEContext.context.call("runStringTests", value) as String;
     }
 
     public function runNumberTests(value:Number):Number {
-        return ctx.call("runNumberTests", value) as Number;
+        FreSwiftExampleANEContext.validate();
+        return FreSwiftExampleANEContext.context.call("runNumberTests", value) as Number;
     }
 
     public function runIntTests(value:int, value2:uint):int {
-        return ctx.call("runIntTests", value, value2) as int;
+        FreSwiftExampleANEContext.validate();
+        return FreSwiftExampleANEContext.context.call("runIntTests", value, value2) as int;
     }
 
     public function runArrayTests(value:Array):Array {
-        return ctx.call("runArrayTests", value) as Array;
+        FreSwiftExampleANEContext.validate();
+        return FreSwiftExampleANEContext.context.call("runArrayTests", value) as Array;
     }
 
     public function runObjectTests(value:Person):Person {
-        return ctx.call("runObjectTests", value) as Person;
+        FreSwiftExampleANEContext.validate();
+        return FreSwiftExampleANEContext.context.call("runObjectTests", value) as Person;
     }
 
     public function runBitmapTests(bmd:BitmapData):void {
-        ctx.call("runBitmapTests", bmd);
+        FreSwiftExampleANEContext.validate();
+        FreSwiftExampleANEContext.context.call("runBitmapTests", bmd);
     }
 
     public function runExtensibleTests(point:Point, rect:Rectangle):Point {
-        return ctx.call("runExtensibleTests", point, rect) as Point;
+        FreSwiftExampleANEContext.validate();
+        return FreSwiftExampleANEContext.context.call("runExtensibleTests", point, rect) as Point;
     }
 
     public function runByteArrayTests(byteArray:ByteArray):void {
-        ctx.call("runByteArrayTests", byteArray);
+        FreSwiftExampleANEContext.validate();
+        FreSwiftExampleANEContext.context.call("runByteArrayTests", byteArray);
     }
 
     public function runDataTests(value:String):String {
-        return ctx.call("runDataTests", value) as String;
+        FreSwiftExampleANEContext.validate();
+        return FreSwiftExampleANEContext.context.call("runDataTests", value) as String;
     }
 
     public function runDateTests(value:Date):Date {
-        return ctx.call("runDateTests", value) as Date;
+        FreSwiftExampleANEContext.validate();
+        return FreSwiftExampleANEContext.context.call("runDateTests", value) as Date;
     }
 
     public function runColorTests(value:uint, value2:uint):uint {
-        return ctx.call("runColorTests", value, value2) as uint;
+        FreSwiftExampleANEContext.validate();
+        return FreSwiftExampleANEContext.context.call("runColorTests", value, value2) as uint;
     }
 
-    public function runErrorTests(value:Person, string:String):void {
-        var theRet:* = ctx.call("runErrorTests", value);
+    public function runErrorTests(value:Person):void {
+        FreSwiftExampleANEContext.validate();
+        var theRet:* = FreSwiftExampleANEContext.context.call("runErrorTests", value);
         if (theRet is ANEError) throw theRet as ANEError;
     }
 
-    public function dispose():void {
-        if (!ctx) {
-            trace("[" + name + "] Error. ANE Already in a disposed or failed state...");
-            return;
+    public static function dispose():void {
+        if (FreSwiftExampleANEContext.context) {
+            FreSwiftExampleANEContext.dispose();
         }
-        trace("[" + name + "] Unloading ANE...");
-        ctx.removeEventListener(StatusEvent.STATUS, gotEvent);
-        ctx.dispose();
-        ctx = null;
     }
+
 }
 }

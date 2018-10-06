@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90A5FB0821690D7D00E3A226 /* SwiftController+FreSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A5FB0721690D7D00E3A226 /* SwiftController+FreSwift.swift */; };
 		CE4477B8204C4A7200124E91 /* HelloWorldANE_LIB.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4477B7204C4A7200124E91 /* HelloWorldANE_LIB.m */; };
 		CE4477C7204C4B0400124E91 /* HelloWorldANE_FW.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4477C5204C4B0400124E91 /* HelloWorldANE_FW.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE4477CD204C4B7400124E91 /* FreSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4477CC204C4B7400124E91 /* FreSwift.framework */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		90A5FB0721690D7D00E3A226 /* SwiftController+FreSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftController+FreSwift.swift"; sourceTree = "<group>"; };
 		CE4477B4204C4A7200124E91 /* libHelloWorldANE_LIB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHelloWorldANE_LIB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4477B6204C4A7200124E91 /* HelloWorldANE_LIB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldANE_LIB.h; sourceTree = "<group>"; };
 		CE4477B7204C4A7200124E91 /* HelloWorldANE_LIB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldANE_LIB.m; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				CE4477CF204C4B9900124E91 /* SwiftController.swift */,
 				CE4477C5204C4B0400124E91 /* HelloWorldANE_FW.h */,
 				CE4477C6204C4B0400124E91 /* Info.plist */,
+				90A5FB0721690D7D00E3A226 /* SwiftController+FreSwift.swift */,
 			);
 			path = HelloWorldANE_FW;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 				CE4477BE204C4B0400124E91 /* Sources */,
 				CE4477BF204C4B0400124E91 /* Frameworks */,
 				CE4477C0204C4B0400124E91 /* Headers */,
+				90A5FB0921690DD900E3A226 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -195,6 +199,23 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		90A5FB0921690DD900E3A226 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		CE6331C7206E412700C76925 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -206,7 +227,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = ../../../native_extension/ane/build_tvos.sh;
+			shellScript = "../../../native_extension/ane/build_tvos.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -224,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE4477D0204C4B9900124E91 /* SwiftController.swift in Sources */,
+				90A5FB0821690D7D00E3A226 /* SwiftController+FreSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

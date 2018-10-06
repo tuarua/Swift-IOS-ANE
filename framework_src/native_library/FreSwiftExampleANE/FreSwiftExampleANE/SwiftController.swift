@@ -27,13 +27,18 @@ public class SwiftController: NSObject {
     public var context: FreContextSwift!
     public var functionsToSet: FREFunctionMap = [:]
     
+    func initController(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
+        trace("I am a test trace")
+        warning("I am a test warning")
+        info("I am a test info")
+        return nil
+    }
+    
     func runStringTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         guard argc > 0 else {
             return FreArgError(message: "not enough arguments passed").getError(#file, #line, #column)
         }
-        
-        warning("I am a test warning")
-        info("I am a test info")
+    
         trace("*********** Start String test ***********")
         guard let airString = String(argv[0]) else {
             return FreArgError(message: "String not converted").getError(#file, #line, #column)

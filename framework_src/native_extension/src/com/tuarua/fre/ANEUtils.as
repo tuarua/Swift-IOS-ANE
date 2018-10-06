@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Tua Rua Ltd.
+ * Copyright 2017 Tua Rua Ltd.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package com.tuarua.fre {
 import flash.utils.describeType;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
+
 /** @private */
 public class ANEUtils {
     public function ANEUtils() {
@@ -71,6 +72,20 @@ public class ANEUtils {
 
     public function getClassProps(clz:*):Vector.<Object> {
         var ret:Vector.<Object> = new <Object>[];
+        var isObject:Boolean = false;
+        for (var id:String in clz) {
+            var objc:Object = {};
+            objc.name = id;
+            if (clz.hasOwnProperty(id)) {
+                objc.type = getClassType(clz[id]);
+                objc.cls = objc.type == "*" ? null : getClass(Class(getDefinitionByName(objc.type)));
+                ret.push(objc);
+                isObject = true;
+            }
+        }
+        if (isObject) {
+            return ret;
+        }
         var xml:XML = describeType(clz);
         if (xml.variable && xml.variable.length() > 0) {
             for each (var prop:XML in xml.variable) {
@@ -87,17 +102,6 @@ public class ANEUtils {
                 objb.type = propb.@type.toString();
                 objb.cls = objb.type == "*" ? null : getClass(Class(getDefinitionByName(objb.type)));
                 ret.push(objb);
-            }
-        } else {
-            for (var id:String in clz) {
-                var objc:Object = {};
-                objc.name = id;
-                if (clz.hasOwnProperty(id)) {
-                    objc.type = getClassType(clz[id]);
-                    objc.cls = objc.type == "*" ? null : getClass(Class(getDefinitionByName(objc.type)));
-                    ret.push(objc);
-                }
-
             }
         }
         return ret;
@@ -118,7 +122,18 @@ public class ANEUtils {
         classInstance = new to();
         for (var id:String in from) {
             var name:String = id;
-            var propCls:Class = getPropClass(name, to);
+            var propCls:Class;
+            if (from[name] is String) {
+                propCls = String;
+            } else if (from[name] is Boolean) {
+                propCls = Boolean;
+            } else if (from[name] is int) {
+                propCls = int;
+            } else if (from[name] is Number) {
+                propCls = Number;
+            } else {
+                propCls = getPropClass(name, to);
+            }
 
             switch (propCls) {
                 case String:

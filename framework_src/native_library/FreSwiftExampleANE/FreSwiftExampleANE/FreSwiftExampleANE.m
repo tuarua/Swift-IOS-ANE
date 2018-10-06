@@ -40,7 +40,8 @@ CONTEXT_INIT(TRFSA) {
 
     static FRENamedFunction extensionFunctions[] =
     {
-         MAP_FUNCTION(TRFSA, runStringTests)
+         MAP_FUNCTION(TRFSA, init)
+        ,MAP_FUNCTION(TRFSA, runStringTests)
         ,MAP_FUNCTION(TRFSA, runNumberTests)
         ,MAP_FUNCTION(TRFSA, runIntTests)
         ,MAP_FUNCTION(TRFSA, runArrayTests)

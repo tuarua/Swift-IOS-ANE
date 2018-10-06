@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90A5FB032168EE7C00E3A226 /* SwiftController+FreSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A5FB022168EE7C00E3A226 /* SwiftController+FreSwift.swift */; };
 		CE3A2E6A1FBA700F0058F730 /* HelloWorldANE_oc.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3A2E681FBA700F0058F730 /* HelloWorldANE_oc.h */; };
 		CE3A2E711FBA705A0058F730 /* SwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3A2E701FBA705A0058F730 /* SwiftController.swift */; };
 		CE3A2E741FBA70CF0058F730 /* FreMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = CE3A2E731FBA70CF0058F730 /* FreMacros.h */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		90A5FB022168EE7C00E3A226 /* SwiftController+FreSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftController+FreSwift.swift"; sourceTree = "<group>"; };
 		CE3A2E651FBA700F0058F730 /* HelloWorldANE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HelloWorldANE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3A2E681FBA700F0058F730 /* HelloWorldANE_oc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldANE_oc.h; sourceTree = "<group>"; };
 		CE3A2E691FBA700F0058F730 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				CE3A2E691FBA700F0058F730 /* Info.plist */,
 				CE3A2E701FBA705A0058F730 /* SwiftController.swift */,
 				CE3A2E761FBA70E60058F730 /* HelloWorldANE.m */,
+				90A5FB022168EE7C00E3A226 /* SwiftController+FreSwift.swift */,
 			);
 			path = HelloWorldANE;
 			sourceTree = "<group>";
@@ -115,6 +118,7 @@
 				CE3A2E601FBA700F0058F730 /* Sources */,
 				CE3A2E611FBA700F0058F730 /* Frameworks */,
 				CE3A2E621FBA700F0058F730 /* Headers */,
+				90A5FB062169066900E3A226 /* ShellScript */,
 				CE74E9841FC0DC650017E7BA /* ShellScript */,
 			);
 			buildRules = (
@@ -160,6 +164,23 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		90A5FB062169066900E3A226 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		CE74E9841FC0DC650017E7BA /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -182,6 +203,7 @@
 			files = (
 				CE3A2E781FBA70E60058F730 /* HelloWorldANE.m in Sources */,
 				CE3A2E711FBA705A0058F730 /* SwiftController.swift in Sources */,
+				90A5FB032168EE7C00E3A226 /* SwiftController+FreSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,7 +361,11 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = HelloWorldANE/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_30/runtimes/air/mac;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mycompany.HelloWorldANE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -369,7 +395,11 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = HelloWorldANE/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_30/runtimes/air/mac;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mycompany.HelloWorldANE;
 				PRODUCT_NAME = "$(TARGET_NAME)";

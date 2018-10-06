@@ -20,7 +20,7 @@ extension SwiftController: FreSwiftMainController {
     
     // Must have this function. It exposes the methods to our entry ObjC.
     @objc public func getFunctions(prefix: String) -> [String] {
-        
+        functionsToSet["\(prefix)init"] = initController
         functionsToSet["\(prefix)runStringTests"] = runStringTests
         functionsToSet["\(prefix)runNumberTests"] = runNumberTests
         functionsToSet["\(prefix)runIntTests"] = runIntTests

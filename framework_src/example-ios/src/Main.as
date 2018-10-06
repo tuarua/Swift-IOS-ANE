@@ -23,15 +23,17 @@ import flash.text.TextFormatAlign;
 import flash.utils.ByteArray;
 
 public class Main extends Sprite {
-    private var ane:FreSwiftExampleANE = new FreSwiftExampleANE();
-    public static const GREEN:uint = 0xFF00FF00;
-    public static const HALF_GREEN:uint = 0x8000FF00;
+    private var ane:FreSwiftExampleANE;
+    private static const GREEN:uint = 0xFF00FF00;
+    private static const HALF_GREEN:uint = 0x8000FF00;
 
     public function Main() {
         super();
         stage.align = StageAlign.TOP_LEFT;
         stage.scaleMode = StageScaleMode.NO_SCALE;
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
+
+        ane = FreSwiftExampleANE.example;
 
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();
@@ -88,7 +90,7 @@ public class Main extends Sprite {
         ane.runByteArrayTests(myByteArray);
 
         try {
-            ane.runErrorTests(person,"Test String");
+            ane.runErrorTests(person);
         } catch (e:ANEError) {
             trace("Error captured in AS");
             trace("e.message:", e.message);
@@ -108,8 +110,8 @@ public class Main extends Sprite {
         addChild(textField);
     }
 
-    private function onExiting(event:Event):void {
-        ane.dispose();
+    private static function onExiting(event:Event):void {
+        FreSwiftExampleANE.dispose();
     }
 }
 }
