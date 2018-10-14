@@ -152,13 +152,10 @@ public class FreBitmapDataSwift: NSObject {
         }
 
         let renderingIntent: CGColorRenderingIntent = CGColorRenderingIntent.defaultIntent
-        let imageRef: CGImage = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent,
+        return CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent,
           bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow, space: colorSpaceRef,
           bitmapInfo: bitmapInfo, provider: provider, decode: nil, shouldInterpolate: false,
-          intent: renderingIntent)!
-
-        return imageRef
-
+          intent: renderingIntent)
     }
 
     /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSb464b1207c184b14-62b8e11f12937b86be4-7fed.html)

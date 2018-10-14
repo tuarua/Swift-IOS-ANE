@@ -43,7 +43,7 @@ public extension FreObjectSwift {
     ///
     /// ```swift
     /// let freCoord = FreObjectSwift(className: "com.tuarua.Coordinate")
-    /// let coord: CGPoint = freCoord.coordinates
+    /// let coord: CGPoint = freCoord.latitude
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: CGPoint?

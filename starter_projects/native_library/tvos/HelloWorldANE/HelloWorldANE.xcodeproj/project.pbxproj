@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		905D9F50216EBE7000D7FA9D /* SwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905D9F4F216EBE7000D7FA9D /* SwiftController.swift */; };
 		90A5FB0821690D7D00E3A226 /* SwiftController+FreSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90A5FB0721690D7D00E3A226 /* SwiftController+FreSwift.swift */; };
 		CE4477B8204C4A7200124E91 /* HelloWorldANE_LIB.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4477B7204C4A7200124E91 /* HelloWorldANE_LIB.m */; };
 		CE4477C7204C4B0400124E91 /* HelloWorldANE_FW.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4477C5204C4B0400124E91 /* HelloWorldANE_FW.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE4477CD204C4B7400124E91 /* FreSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4477CC204C4B7400124E91 /* FreSwift.framework */; };
 		CE4477CE204C4B7400124E91 /* FreSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4477CC204C4B7400124E91 /* FreSwift.framework */; };
-		CE4477D0204C4B9900124E91 /* SwiftController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4477CF204C4B9900124E91 /* SwiftController.swift */; };
 		CE4477D3204C4BCC00124E91 /* HelloWorldANE_FW.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE4477C3204C4B0400124E91 /* HelloWorldANE_FW.framework */; };
 		CE4477D4204C4BE400124E91 /* FreMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4477BD204C4AB800124E91 /* FreMacros.h */; };
 /* End PBXBuildFile section */
@@ -28,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		905D9F4F216EBE7000D7FA9D /* SwiftController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftController.swift; sourceTree = "<group>"; };
 		90A5FB0721690D7D00E3A226 /* SwiftController+FreSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftController+FreSwift.swift"; sourceTree = "<group>"; };
 		CE4477B4204C4A7200124E91 /* libHelloWorldANE_LIB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHelloWorldANE_LIB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4477B6204C4A7200124E91 /* HelloWorldANE_LIB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldANE_LIB.h; sourceTree = "<group>"; };
@@ -37,7 +38,6 @@
 		CE4477C5204C4B0400124E91 /* HelloWorldANE_FW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldANE_FW.h; sourceTree = "<group>"; };
 		CE4477C6204C4B0400124E91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE4477CC204C4B7400124E91 /* FreSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FreSwift.framework; path = Carthage/Build/tvOS/FreSwift.framework; sourceTree = SOURCE_ROOT; };
-		CE4477CF204C4B9900124E91 /* SwiftController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftController.swift; path = ../../../ios/HelloWorldANE/HelloWorldANE_FW/SwiftController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,7 @@
 		CE4477C4204C4B0400124E91 /* HelloWorldANE_FW */ = {
 			isa = PBXGroup;
 			children = (
-				CE4477CF204C4B9900124E91 /* SwiftController.swift */,
+				905D9F4F216EBE7000D7FA9D /* SwiftController.swift */,
 				CE4477C5204C4B0400124E91 /* HelloWorldANE_FW.h */,
 				CE4477C6204C4B0400124E91 /* Info.plist */,
 				90A5FB0721690D7D00E3A226 /* SwiftController+FreSwift.swift */,
@@ -244,8 +244,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE4477D0204C4B9900124E91 /* SwiftController.swift in Sources */,
 				90A5FB0821690D7D00E3A226 /* SwiftController+FreSwift.swift in Sources */,
+				905D9F50216EBE7000D7FA9D /* SwiftController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

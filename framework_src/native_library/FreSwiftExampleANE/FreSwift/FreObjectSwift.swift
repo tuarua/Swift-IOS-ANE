@@ -83,7 +83,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let isRightHanded: Bool = freCoord.isRightHanded
+    /// let isRightHanded: Bool = frePerson.isRightHanded
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: Bool
@@ -252,7 +252,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let myName: Date? = newPerson.birthday
+    /// let date: Date? = newPerson.birthday
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: Date?
@@ -295,7 +295,7 @@ open class FreObjectSwift: NSObject {
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
-    /// let jumperColor: NSColor? = newPerson.eyeColor
+    /// let eyeColor: NSColor? = newPerson.eyeColor
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: NSColor?

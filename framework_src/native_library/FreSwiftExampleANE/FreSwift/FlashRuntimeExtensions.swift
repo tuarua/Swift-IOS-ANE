@@ -62,7 +62,7 @@ public extension FREObject {
     /// - parameter name: name of the property to return
     /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
-    @available(*, deprecated, message: "use accessor or FreSwiftObject wrapper instead")
+    @available(*, deprecated, message: "use accessor or FreObjectSwift wrapper instead")
     func getProp(name: String) throws -> FREObject? {
         if let ret = FreSwiftHelper.getProperty(rawValue: self, name: name) {
             return ret
@@ -75,7 +75,7 @@ public extension FREObject {
     /// - parameter value: value to set to
     /// - throws: Can throw a `FreError` on fail
     /// - returns: Void
-    @available(*, deprecated, message: "use accessor or FreSwiftObject wrapper instead")
+    @available(*, deprecated, message: "use accessor or FreObjectSwift wrapper instead")
     func setProp(name: String, value: Any?) throws {
         if value is FREObject {
             FreSwiftHelper.setProperty(rawValue: self, name: name, prop: value as? FREObject)
@@ -252,10 +252,8 @@ public extension Double {
     init?(_ freObject: FREObject?) {
         guard let rv = freObject else {
             return nil
-        } // TODO need to change
-        /*if let i = FreSwiftHelper.getAsInt(rv) {
-            self.init(i)
-        } else */if let d = FreSwiftHelper.getAsDouble(rv) {
+        }
+        if let d = FreSwiftHelper.getAsDouble(rv) {
             self.init(d)
         } else {
             return nil

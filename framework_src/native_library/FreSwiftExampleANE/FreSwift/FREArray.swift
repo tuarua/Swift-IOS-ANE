@@ -47,7 +47,7 @@ public class FREArray: Sequence {
     /// init: Initialise a FREArray containing a Vector of type specified by className.
     ///
     /// ```swift
-    /// let newPerson = try FREArray(className: "com.tuarua.Person", length: 5, fixed: true)
+    /// let newPerson = FREArray(className: "com.tuarua.Person", length: 5, fixed: true)
     /// ```
     ///
     /// - parameter className: name of AS3 class to create
@@ -157,12 +157,12 @@ public class FREArray: Sequence {
     
     fileprivate func set(index: UInt, freObject: FREObject?) {
         guard let rv = rawValue else { return }
-        #if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS)
         let status = FreSwiftBridge.bridge.FRESetArrayElementA(arrayOrVector: rv, index: UInt32(index),
                                                                           value: freObject)
-        #else
+#else
         let status = FRESetArrayElementAt(rv, UInt32(index), freObject)
-        #endif
+#endif
         
         if FRE_OK == status { return }
         FreSwiftLogger.shared.log(message: "cannot set item at \(index)",
@@ -172,8 +172,8 @@ public class FREArray: Sequence {
     
     /// set: Sets FREObject at position index
     ///
-    /// - parameter index: index of item
-    /// - parameter value: value to set
+    /// - parameter index: Index of item
+    /// - parameter value: Value to set
     /// - returns: FREObject?
     fileprivate func set(index: UInt, value: Any) {
         set(index: index, freObject: FreSwiftHelper.newObject(any: value))
@@ -182,11 +182,33 @@ public class FREArray: Sequence {
     /// push: Adds one or more elements to the end of an array and returns the new length of the array.
     ///
     /// - parameter args: One or more values to append to the array.
-    public func push(_ args: Any?...) {
-        FreSwiftHelper.callMethod(self.rawValue, name: "push", args: args)
+    @discardableResult
+    public func push(_ args: Any?...) -> UInt {
+        return UInt(FreSwiftHelper.callMethod(self.rawValue, name: "push", args: args)) ?? 0
     }
     
-    /// length: length of FREArray
+    /// insert: Insert a single element into the FREArray.
+    ///
+    /// - parameter freObject: FREObject
+    /// - parameter at: An Int that specifies the position in the Vector where the element is to be inserted.
+    /// You can use a negative Int to specify a position relative to the end of the FREArray
+    /// (for example, -1 for the last element of the FREArray)
+    public func insert(_ freObject: FREObject?, at index: Int) {
+        self.rawValue?.call(method: "insertAt", args: index, freObject)
+    }
+    
+    /// remove: Remove a single element from the Vector. This method modifies the FREArray without making a copy.
+    ///
+    /// - parameter at: An Int that specifies the index of the element in the FREArray that is to be deleted.
+    //// You can use a negative Int to specify a position relative to the end of the FREArray
+    //// (for example, -1 for the last element of the Vector).
+    /// - returns: FREObject? The element that was removed from the original FREArray
+    @discardableResult
+    public func remove(at index: Int) -> FREObject? {
+        return self.rawValue?.call(method: "removeAt", args: index)
+    }
+    
+    /// length: Length of FREArray
     public var length: UInt {
         guard let rv = rawValue else { return 0 }
         var ret: UInt32 = 0
@@ -200,6 +222,11 @@ public class FREArray: Sequence {
             type: FreSwiftHelper.getErrorCode(status),
             line: #line, column: #column, file: #file)
         return 0
+    }
+    
+    /// isEmpty: A Boolean value indicating whether the FREArray is empty.
+    public var isEmpty: Bool {
+        return length == 0
     }
     
     /// value: Converts FREArray to Swift array

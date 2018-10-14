@@ -2,6 +2,9 @@
 - Upgrade to Xcode 10.0
 - Upgrade to Swift version 4.2 (swiftlang-1000.11.37.1 clang-1000.11.45.1)
 - Add `FREArray.push()`
+- Add `FREArray.insert()`
+- Add `FREArray.remove()`
+- Add `FREArray.isEmpty`
 - Add `FREObject.hasOwnProperty()`
 - Add `FREObject.toString()`
 - Add `@dynamicMemberLookup` to `FreObjectSwift`. Adds cleaner way to extend FREObjects 
