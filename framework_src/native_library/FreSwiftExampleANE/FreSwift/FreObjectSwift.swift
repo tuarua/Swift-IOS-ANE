@@ -47,10 +47,28 @@ open class FreObjectSwift: NSObject {
     /// let freFirstName: FREObject? = frePerson.firstName
     /// ```
     /// - parameter name: name of the property to return
-    /// - returns: String?
+    /// - returns: FREObject?
     public subscript(dynamicMember name: String) -> FREObject? {
         get { return rawValue?[name]}
         set { rawValue?[name] = newValue }
+    }
+    
+    /// subscript: sets/gets the Property of a FREObject.
+    ///
+    /// ```swift
+    /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
+    /// let freChildren: FREArray? = frePerson.children
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - returns: FREArray?
+    public subscript(dynamicMember name: String) -> FREArray? {
+        get {
+            if let v = rawValue?[name] {
+                return FREArray(v)
+            }
+            return nil
+        }
+        set { rawValue?[name] = newValue?.rawValue }
     }
     
     /// subscript: sets/gets the Property of a FREObject.

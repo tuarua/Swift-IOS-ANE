@@ -3,7 +3,7 @@
 Example Xcode projects showing how to create AIR Native Extensions for iOS, tvOS & OSX using Swift.   
 It supports iOS 9.0+, tvOS 9.2+, OSX 10.10+
 
-#### Xcode 10.0 (10A255) must be used with Apple Swift version 4.2 (swiftlang-1000.11.37.1 clang-1000.11.45.1)
+#### Xcode 10.1 (10B61) must be used with Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 ABI stability is planned for Swift 5 in early 2019
 
@@ -22,8 +22,6 @@ This project is used as the basis for the following ANEs
 ### Getting Started
 
 A basic Hello World [starter project](/starter_projects) is included for each target
-
-An iOS based walkthrough video is available on [Youtube](https://www.youtube.com/watch?v=pjZPzo1A6Ro)
 
 ### How to use
 
@@ -198,7 +196,7 @@ public extension FreObjectSwift {
 The static library contains a predefined `+(void)load` method in FreMacros.h. This method can safely be declared in different ANEs.
 It is also called once for each ANE and very early in the launch cycle. In here the SwiftController is inited and `onLoad()` called.
 This makes an ideal place to add observers for applicationDidFinishLaunching and any other calls which would normally be added as app delegates, thus removing the restriction of one ANE declaring itself as the "owner".   
-Note: We have no FREContext yet so calls such as trace, sendEvent will not work.
+Note: We have no FREContext yet so calls such as trace, dispatchEvent will not work.
 
 ```swift
 @objc func applicationDidFinishLaunching(_ notification: Notification) {
@@ -219,9 +217,9 @@ func onLoad() {
 
 You will need
 
-- Xcode 10.0
+- Xcode 10.1
 - Xcode 9.1 for iOS Simulator
 - IntelliJ IDEA
-- AIR 31
+- AIR 32
 - wget
 - Carthage

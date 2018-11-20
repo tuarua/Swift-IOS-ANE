@@ -1,6 +1,6 @@
 ### 3.0.0
-- Upgrade to Xcode 10.0
-- Upgrade to Swift version 4.2 (swiftlang-1000.11.37.1 clang-1000.11.45.1)
+- Upgrade to Xcode 10.1
+- Upgrade to Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
 - Add `FREArray.push()`
 - Add `FREArray.insert()`
 - Add `FREArray.remove()`
@@ -18,6 +18,7 @@
 - UIColor / NSColor changed to single `convenience init()`
 - Add `FreSwiftLogger` to trace any FREExceptions
 - `FREObject.init()` to return optional and not require try
+- CommonDependancies.ane renamed to FreSwift.ane
 - Refactoring
 
 ### 2.5.0
