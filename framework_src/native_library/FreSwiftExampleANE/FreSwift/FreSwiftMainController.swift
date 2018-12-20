@@ -55,8 +55,8 @@ public extension FreSwiftMainController {
     /// - returns: Void
     func trace(_ value: Any...) {
         var traceStr = "\(Self.TAG):"
-        for i in 0..<value.count {
-            traceStr = "\(traceStr) \(value[i]) "
+        for v in value {
+            traceStr = "\(traceStr) \(v) "
         }
         dispatchEvent(name: "TRACE", value: traceStr)
     }
@@ -71,8 +71,8 @@ public extension FreSwiftMainController {
     /// - returns: Void
     func info(_ value: Any...) {
         var traceStr = "\(Self.TAG):"
-        for i in 0..<value.count {
-            traceStr = "\(traceStr) \(value[i]) "
+        for v in value {
+            traceStr = "\(traceStr) \(v) "
         }
         dispatchEvent(name: "TRACE", value: "ℹ️ INFO: \(traceStr)")
     }
@@ -86,8 +86,8 @@ public extension FreSwiftMainController {
     /// - returns: Void
     func warning(_ value: Any...) {
         var traceStr = "\(Self.TAG):"
-        for i in 0..<value.count {
-            traceStr = "\(traceStr) \(value[i]) "
+        for v in value {
+            traceStr = "\(traceStr) \(v) "
         }
         dispatchEvent(name: "TRACE", value: "⚠️ WARNING: \(traceStr)")
     }

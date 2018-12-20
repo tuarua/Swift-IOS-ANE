@@ -1,6 +1,8 @@
 ### 3.0.0
 - Upgrade to Xcode 10.1
+- Upgrade to iOS SDK 12.1
 - Upgrade to Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
+- Upgraded to AIR SDK 32
 - Add `FREArray.push()`
 - Add `FREArray.insert()`
 - Add `FREArray.remove()`
