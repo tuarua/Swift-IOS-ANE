@@ -218,7 +218,6 @@ func onLoad() {
 You will need
 
 - Xcode 10.1
-- Xcode 9.1 for iOS Simulator
 - IntelliJ IDEA
 - AIR 32
 - wget
