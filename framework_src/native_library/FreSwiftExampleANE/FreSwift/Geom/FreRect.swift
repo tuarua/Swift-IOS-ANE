@@ -1,4 +1,4 @@
-/* Copyright 2018 Tua Rua Ltd.
+/* Copyright 2017 Tua Rua Ltd.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -23,13 +23,9 @@ public extension CGRect {
     /// - parameter freObject: FREObject which is of AS3 type flash.geom.Rectangle.
     /// - returns: CGRect?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
-        self.init(x: CGFloat(rv["x"]) ?? 0,
-                  y: CGFloat(rv["y"]) ?? 0,
-                  width: CGFloat(rv["width"]) ?? 0,
-                  height: CGFloat(rv["height"]) ?? 0)
+        guard let rv = freObject else { return nil }
+        let fre = FreObjectSwift(rv)
+        self.init(x: fre.x as CGFloat, y: fre.y, width: fre.width, height: fre.height)
     }
     /// toFREObject: Converts a CGRect into a FREObject of AS3 type flash.geom.Rectangle.
     ///
@@ -38,17 +34,22 @@ public extension CGRect {
     /// ```
     /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        var freObject: FREObject? = nil
-        do {
-            freObject = try FREObject.init(className: "flash.geom.Rectangle",
-                                           args: CGFloat(self.origin.x),
-                                           CGFloat(self.origin.y),
-                                           CGFloat(self.width),
-                                           CGFloat(self.height))
-            
-        } catch {
-        }
-        
-        return freObject
+        return FREObject(className: "flash.geom.Rectangle",
+                         args: origin.x, origin.y, width, height)
+    }
+}
+
+public extension FreObjectSwift {
+    /// subscript: gets the Property of a FREObject.
+    ///
+    /// ```swift
+    /// let freRoom = FreObjectSwift(className: "com.tuarua.Room")
+    /// let dimensions: CGRect? = freRoom.dimensions
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - returns: CGRect?
+    public subscript(dynamicMember name: String) -> CGRect? {
+        get { return CGRect(rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
     }
 }

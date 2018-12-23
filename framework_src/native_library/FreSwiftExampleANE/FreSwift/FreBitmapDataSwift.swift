@@ -1,16 +1,17 @@
-/* Copyright 2018 Tua Rua Ltd.
-
+/* Copyright 2017 Tua Rua Ltd.
+ 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
-
+ 
  http://www.apache.org/licenses/LICENSE-2.0
-
+ 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
- limitations under the License.*/
+ limitations under the License.
+ */
 
 import Foundation
 
@@ -20,26 +21,26 @@ public class FreBitmapDataSwift: NSObject {
 
     /// raw FREObject value.
     public var rawValue: FREObject?
-    private var _bitmapData: FREBitmapData = FREBitmapData.init()
+    private var _bitmapData: FREBitmapData = FREBitmapData()
     /// A Int that specifies the width, in pixels, of the bitmap. This value corresponds to the width property of
     /// the ActionScript BitmapData class object. This field is read-only.
-    public var width: Int = 0
+    public var width = 0
     /// A Int that specifies the height, in pixels, of the bitmap. This value corresponds to the height
     /// property of the ActionScript BitmapData class object. This field is read-only.
-    public var height: Int = 0
+    public var height = 0
     /// A Bool that indicates whether the bitmap supports per-pixel transparency. This value corresponds to the
     /// transparent property of the ActionScript BitmapData class object. If the value is non-zero, then the
     /// pixel format is ARGB32. If the value is zero, the pixel format is _RGB32. Whether the value is big endian
     /// or little endian depends on the host device. This field is read-only.
-    public var hasAlpha: Bool = false
+    public var hasAlpha = false
     /// A uint32_t that indicates whether the bitmap pixels are stored as premultiplied color values. A true
     /// value means the values are premultipled. This field is read-only.
-    public var isPremultiplied: Bool = false
+    public var isPremultiplied = false
     ///  A Bool that indicates the order in which the rows of bitmap data in the image are stored. A non-zero
     /// value means that the bottom row of the image appears first in the image data (in other words, the first
     /// value in the bits32 array is the first pixel of the last row in the image). A zero value means that the
     /// top row of the image appears first in the image data. This field is read-only.
-    public var isInvertedY: Bool = false
+    public var isInvertedY = false
     /// A UInt that specifies the number of UInt values per scanline. This value is typically
     /// the same as the width parameter. This field is read-only.
     public var lineStride32: UInt = 0
@@ -56,36 +57,30 @@ public class FreBitmapDataSwift: NSObject {
     /// - parameter cgImage: CGImage which will be converted into FREBitmapData2
     public init(cgImage: CGImage) {
         super.init()
-        do {
-            if let freObject = try FREObject.init(className: "flash.display.BitmapData",
-                                                 args: UInt32(cgImage.width),
-                                                 UInt32(cgImage.height), false, 0) {
-                rawValue = freObject
-                try acquire()
-                try setPixels(cgImage: cgImage)
-                releaseData()
-            }
-        } catch {
+        if let freObject = FREObject(className: "flash.display.BitmapData",
+                                             args: UInt32(cgImage.width),
+                                             UInt32(cgImage.height), false, 0) {
+            rawValue = freObject
+            acquire()
+            setPixels(cgImage)
             releaseData()
         }
     }
 
     /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSdb11516da818ea8d-755819ea133426056e1-8000.html)
-    /// - throws: Can throw a `FreError` on fail
-    public func acquire() throws {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
-        }
+    public func acquire() {
+        guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREAcquireBitmapData2(object: rv, descriptorToSet: &_bitmapData)
+        let status = FreSwiftBridge.bridge.FREAcquireBitmapData2(object: rv, descriptorToSet: &_bitmapData)
 #else
-        let status: FREResult = FREAcquireBitmapData2(rv, &_bitmapData)
+        let status = FREAcquireBitmapData2(rv, &_bitmapData)
 #endif
+        
         guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot acquire BitmapData",
-                           type: FreSwiftHelper.getErrorCode(status),
-                           line: #line, column: #column, file: #file)
+            FreSwiftLogger.shared.log(message: "cannot acquire BitmapData",
+                                        type: FreSwiftHelper.getErrorCode(status),
+                                        line: #line, column: #column, file: #file)
+            return
         }
         width = Int(_bitmapData.width)
         height = Int(_bitmapData.height)
@@ -102,29 +97,30 @@ public class FreBitmapDataSwift: NSObject {
             return
         }
 #if os(iOS) || os(tvOS)
-        _ = FreSwiftBridge.bridge.FREReleaseBitmapData(object: rv)
+        let status = FreSwiftBridge.bridge.FREReleaseBitmapData(object: rv)
 #else
-        FREReleaseBitmapData(rv)
+        let status = FREReleaseBitmapData(rv)
 #endif
+        if FRE_OK == status { return }
+        FreSwiftLogger.shared.log(message: "cannot releaseData",
+                                    type: FreSwiftHelper.getErrorCode(status),
+                                    line: #line, column: #column, file: #file)
     }
 
     /// Handles conversion from a CGImage
-    /// - throws: Can throw a `FreError` on fail
-    public func setPixels(cgImage: CGImage) throws {
-        if let dp = cgImage.dataProvider {
+    public func setPixels(_ image: CGImage) {
+        if let dp = image.dataProvider {
             if let data: NSData = dp.data {
                 memcpy(bits32, data.bytes, data.length)
             }
-            try invalidateRect(x: 0, y: 0, width: UInt(cgImage.width), height: UInt(cgImage.height))
+            invalidateRect(x: 0, y: 0, width: UInt(image.width), height: UInt(image.height))
         }
     }
 
     /// Handles conversion to a CGImage
-    /// - throws: Can throw a `FreError` on fail
     /// returns: CGImage?
-    public func asCGImage() throws -> CGImage? {
-        try self.acquire()
-
+    public func asCGImage() -> CGImage? {
+        self.acquire()
         let releaseProvider: CGDataProviderReleaseDataCallback = { (info: UnsafeMutableRawPointer?,
                                                                     data: UnsafeRawPointer, size: Int) -> Void in
             // https://developer.apple.com/reference/coregraphics/cgdataproviderreleasedatacallback
@@ -144,45 +140,38 @@ public class FreBitmapDataSwift: NSObject {
 
         if hasAlpha {
             if isPremultiplied {
-                bitmapInfo = CGBitmapInfo.init(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
+                bitmapInfo = CGBitmapInfo(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
                   CGImageAlphaInfo.premultipliedFirst.rawValue)
             } else {
-                bitmapInfo = CGBitmapInfo.init(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
+                bitmapInfo = CGBitmapInfo(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
                   CGImageAlphaInfo.first.rawValue)
             }
         } else {
-            bitmapInfo = CGBitmapInfo.init(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
+            bitmapInfo = CGBitmapInfo(rawValue: CGBitmapInfo.byteOrder32Little.rawValue |
               CGImageAlphaInfo.noneSkipFirst.rawValue)
         }
 
         let renderingIntent: CGColorRenderingIntent = CGColorRenderingIntent.defaultIntent
-        let imageRef: CGImage = CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent,
+        return CGImage(width: width, height: height, bitsPerComponent: bitsPerComponent,
           bitsPerPixel: bitsPerPixel, bytesPerRow: bytesPerRow, space: colorSpaceRef,
           bitmapInfo: bitmapInfo, provider: provider, decode: nil, shouldInterpolate: false,
-          intent: renderingIntent)!
-
-        return imageRef
-
+          intent: renderingIntent)
     }
 
     /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSb464b1207c184b14-62b8e11f12937b86be4-7fed.html)
-    /// - throws: Can throw a `FreError` on fail
-    public func invalidateRect(x: UInt, y: UInt, width: UInt, height: UInt) throws {
-        guard let rv = rawValue else {
-            throw FreError(stackTrace: "", message: "FREObject is nil", type: FreError.Code.invalidObject,
-              line: #line, column: #column, file: #file)
-        }
+    public func invalidateRect(x: UInt, y: UInt, width: UInt, height: UInt) {
+        guard let rv = rawValue else { return }
 #if os(iOS) || os(tvOS)
-        let status: FREResult = FreSwiftBridge.bridge.FREInvalidateBitmapDataRect(object: rv, x: UInt32(x),
+        let status = FreSwiftBridge.bridge.FREInvalidateBitmapDataRect(object: rv, x: UInt32(x),
           y: UInt32(y), width: UInt32(width), height: UInt32(height))
 #else
-        let status: FREResult = FREInvalidateBitmapDataRect(rv, UInt32(x), UInt32(y), UInt32(width), UInt32(height))
+        let status = FREInvalidateBitmapDataRect(rv, UInt32(x), UInt32(y), UInt32(width), UInt32(height))
 #endif
 
-        guard FRE_OK == status else {
-            throw FreError(stackTrace: "", message: "cannot invalidateRect", type: FreSwiftHelper.getErrorCode(status),
-              line: #line, column: #column, file: #file)
-        }
+        if FRE_OK == status { return }
+        FreSwiftLogger.shared.log(message: "cannot invalidateRect",
+            type: FreSwiftHelper.getErrorCode(status),
+            line: #line, column: #column, file: #file)
     }
 }
 #if os(iOS) || os(tvOS)
@@ -191,21 +180,17 @@ public extension UIImage {
     /// - parameter freObject: FREObject which is of AS3 type flash.display.BitmapData.
     /// - parameter scale: You may wish to scale the UIImage to screen size.
     /// - parameter orientation: 
-    convenience init?(freObject: FREObject?, scale: CGFloat = 1.0, orientation: UIImageOrientation = .up) {
+    convenience init?(freObject: FREObject?, scale: CGFloat = 1.0, orientation: UIImage.Orientation = .up) {
         guard let rv = freObject else {
             return nil
         }
-        let asBitmapData = FreBitmapDataSwift.init(freObject: rv)
+        let asBitmapData = FreBitmapDataSwift(freObject: rv)
         defer {
             asBitmapData.releaseData()
         }
-        do {
-            if let cgimg = try asBitmapData.asCGImage() {
-                self.init(cgImage: cgimg, scale: scale, orientation: orientation)
-            } else {
-                return nil
-            }
-        } catch {
+        if let cgimg = asBitmapData.asCGImage() {
+            self.init(cgImage: cgimg, scale: scale, orientation: orientation)
+        } else {
             return nil
         }
     }

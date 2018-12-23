@@ -25,7 +25,9 @@ import flash.utils.ByteArray;
 
 [SWF(width="1920", height="1080", frameRate="60", backgroundColor="#F1F1F1")]
 public class Main extends Sprite {
-    private var ane:FreSwiftExampleANE = new FreSwiftExampleANE();
+    private var ane:FreSwiftExampleANE;
+    private static const GREEN:uint = 0xFF00FF00;
+    private static const HALF_GREEN:uint = 0x8000FF00;
     public static const isTvos:Boolean = Capabilities.os.toLowerCase().indexOf("tvos") > -1;
     public function Main() {
         super();
@@ -33,9 +35,10 @@ public class Main extends Sprite {
         stage.scaleMode = StageScaleMode.NO_SCALE;
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
 
+        ane = FreSwiftExampleANE.example;
+
         trace(Capabilities.screenResolutionX + "x" + Capabilities.screenResolutionY );
         trace("isTvos:", isTvos);
-
 
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();
@@ -51,6 +54,7 @@ public class Main extends Sprite {
         var person:Person = new Person();
         person.age = 21;
         person.name = "Tom";
+        person.city.name = "Boston";
 
         var myArray:Array = [];
         myArray.push(3, 1, 4, 2, 6, 5);
@@ -64,6 +68,9 @@ public class Main extends Sprite {
 
         var resultInt:int = ane.runIntTests(-54, 66);
         textField.text += "Int: " + resultInt + "\n";
+
+        trace("HALF_GREEN", HALF_GREEN, HALF_GREEN == ane.runColorTests(GREEN, HALF_GREEN) ? "✅" : "❌");
+
         var resultArray:Array = ane.runArrayTests(myArray);
         textField.text += "Array: " + resultArray.toString() + "\n";
 
@@ -78,15 +85,14 @@ public class Main extends Sprite {
 
         function ldr_complete(evt:Event):void {
             var bmp:Bitmap = ldr.content as Bitmap;
-            ane.runBitmapTests(bmp.bitmapData);
+            ane.runBitmapTests(bmp.bitmapData); //pass in bitmap data and apply filter
         }
 
+        ane.runExtensibleTests(new Point(1, 55.5), new Rectangle(9.1, 0.5, 20, 50));
 
         var myByteArray:ByteArray = new ByteArray();
         myByteArray.writeUTFBytes("Swift in an ANE. Say whaaaat!");
         ane.runByteArrayTests(myByteArray);
-
-        ane.runRectTests(new Point(0, 55.5), new Rectangle(9.1, 0.5, 20, 50));
 
         try {
             ane.runErrorTests(person);
@@ -98,7 +104,9 @@ public class Main extends Sprite {
             trace("e.source:", e.source);
             trace("e.getStackTrace():", e.getStackTrace());
         }
-        ane.runErrorTests2("Test String");
+
+        var testDate:Date = new Date(1990, 5, 13, 8, 59, 3);
+        trace("Date returned is same", testDate.time == ane.runDateTests(testDate).time ? "✅" : "❌");
 
         var inData:String = "Saved and returned";
         var outData:String = ane.runDataTests(inData) as String;
@@ -107,8 +115,8 @@ public class Main extends Sprite {
         addChild(textField);
     }
 
-    private function onExiting(event:Event):void {
-        ane.dispose();
+    private static function onExiting(event:Event):void {
+        FreSwiftExampleANE.dispose();
     }
 }
 }

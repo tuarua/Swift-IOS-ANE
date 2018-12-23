@@ -1,4 +1,4 @@
-/* Copyright 2018 Tua Rua Ltd.
+/* Copyright 2017 Tua Rua Ltd.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -40,7 +40,8 @@ CONTEXT_INIT(TRFSA) {
 
     static FRENamedFunction extensionFunctions[] =
     {
-         MAP_FUNCTION(TRFSA, runStringTests)
+         MAP_FUNCTION(TRFSA, init)
+        ,MAP_FUNCTION(TRFSA, runStringTests)
         ,MAP_FUNCTION(TRFSA, runNumberTests)
         ,MAP_FUNCTION(TRFSA, runIntTests)
         ,MAP_FUNCTION(TRFSA, runArrayTests)
@@ -48,10 +49,10 @@ CONTEXT_INIT(TRFSA) {
         ,MAP_FUNCTION(TRFSA, runBitmapTests)
         ,MAP_FUNCTION(TRFSA, runByteArrayTests)
         ,MAP_FUNCTION(TRFSA, runErrorTests)
-        ,MAP_FUNCTION(TRFSA, runErrorTests2)
         ,MAP_FUNCTION(TRFSA, runDataTests)
-        ,MAP_FUNCTION(TRFSA, runRectTests)
+        ,MAP_FUNCTION(TRFSA, runExtensibleTests)
         ,MAP_FUNCTION(TRFSA, runDateTests)
+        ,MAP_FUNCTION(TRFSA, runColorTests)
     };
     
     /**************************************************************************/

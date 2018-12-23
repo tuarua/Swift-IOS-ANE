@@ -3,9 +3,9 @@
 Example Xcode project showing how to create Air Native Extensions for tvOS using Swift.   
 It supports tvOS 9.2+
 
-#### Xcode 9.4.1 (9F2000) must be used with Apple Swift version 4.1.2 (swiftlang-902.0.54 clang-902.0.39.2)
+#### Xcode 10.1 (10B61) must be used with Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
-ABI stability is planned for Swift 5 in late 2018
+ABI stability is planned for Swift 5 in early 2019
 
 The ANE is comprised of 3 parts.
 
@@ -28,7 +28,7 @@ static FRENamedFunction extensionFunctions[] =
 `````
 
 
-HelloWorldANE_FW/SwiftController.swift  
+HelloWorldANE_FW/SwiftController+FreSwift.swift    
 Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
 
 ````swift
@@ -38,6 +38,7 @@ Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
 }
 `````
 
+HelloWorldANE_FW/SwiftController.swift    
 Add Swift method(s)
 
 ````swift
@@ -66,7 +67,6 @@ bash get_tvos_dependencies.sh
 
 You will need
 
-- Xcode 9.4.1
-- Xcode 9.1 for iOS Simulator
+- Xcode 10.1
 - IntelliJ IDEA
-- AIR 30
+- AIR 32

@@ -7,14 +7,14 @@ import flash.events.StatusEvent;
 import flash.external.ExtensionContext;
 import flash.system.Capabilities;
 
-public class CommonDependencies extends EventDispatcher {
-    private static const NAME:String = "CommonDependencies";
+public class FreSwift extends EventDispatcher {
+    private static const NAME:String = "FreSwift";
     private var ctx:ExtensionContext;
-    public function CommonDependencies() {
+    public function FreSwift() {
         initiate();
     }
     private function initiate():void {
-        if (Capabilities.os.indexOf("Mac OS") == -1) return;
+        if (Capabilities.os.toLowerCase().indexOf("mac os") == -1) return;
         trace("[" + NAME + "] Initalizing ANE...");
         try {
             ctx = ExtensionContext.createExtensionContext("com.tuarua."+NAME, null);
@@ -37,7 +37,7 @@ public class CommonDependencies extends EventDispatcher {
         }
     }
     public function dispose():void {
-        if (Capabilities.os.indexOf("Mac OS") == -1) return;
+        if (Capabilities.os.toLowerCase().indexOf("mac os") == -1) return;
         if (!ctx) {
             trace("[" + NAME + "] Error. ANE Already in a disposed or failed state...");
             return;

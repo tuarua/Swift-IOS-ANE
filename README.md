@@ -3,13 +3,15 @@
 Example Xcode projects showing how to create AIR Native Extensions for iOS, tvOS & OSX using Swift.   
 It supports iOS 9.0+, tvOS 9.2+, OSX 10.10+
 
-#### Xcode 9.4.1 (9F2000) must be used with Apple Swift version 4.1.2 (swiftlang-902.0.54 clang-902.0.39.2)
+#### Xcode 10.1 (10B61) must be used with Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
-ABI stability is planned for Swift 5 in late 2018
+ABI stability is planned for Swift 5 in early 2019
 
 This project is used as the basis for the following ANEs   
-[Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)       
-[AdMob ANE](https://github.com/tuarua/AdMob-ANE)   
+[Firebase-ANE](https://github.com/tuarua/Firebase-ANE)     
+[Vibration-ANE](https://github.com/tuarua/Vibration-ANE)     
+[GoogleMaps-ANE](https://github.com/tuarua/Google-Maps-ANE)       
+[AdMob-ANE](https://github.com/tuarua/AdMob-ANE)    
 [WebViewANE](https://github.com/tuarua/WebViewANE)    
 [AR-ANE](https://github.com/tuarua/AR-ANE)     
 [ML-ANE](https://github.com/tuarua/ML-ANE)
@@ -22,8 +24,6 @@ This project is used as the basis for the following ANEs
 ### Getting Started
 
 A basic Hello World [starter project](/starter_projects) is included for each target
-
-An iOS based walkthrough video is available on [Youtube](https://www.youtube.com/watch?v=pjZPzo1A6Ro)
 
 ### How to use
 
@@ -63,7 +63,7 @@ return swiftString.toFREObject()
 #### Creating new FREObjects
 
 ```swift
-let newPerson = try FREObject(className: "com.tuarua.Person")
+let newPerson = FREObject(className: "com.tuarua.Person")
 
 // create a FREObject passing args
 // 
@@ -79,7 +79,7 @@ let frePerson = FREObject(className: "com.tuarua.Person", args: "Bob", "Doe", 28
 // 
 // The following param types are allowed: 
 // String, Int, UInt, Double, Float, CGFloat, NSNumber, Bool, Date, CGRect, CGPoint, FREObject
-let addition = try freCalculator.call(method: "add", args: 100, 31) {
+let addition = freCalculator.call(method: "add", args: 100, 31) {
 ```
 
 #### Getting / Setting Properties
@@ -91,8 +91,13 @@ let newAge = oldAge + 10
 // Set property using braces access
 person["age"] = (oldAge + 10).toFREObject()
 
-// Set property using setProp
-try person.setProp(name: "age", value: oldAge + 10)
+// Create using FreObjectSwift allowing us to get/set properties using inferred types
+// The following param types are allowed: 
+// String, Int, UInt, Double, Float, CGFloat, NSNumber, Bool, Date, CGRect, CGPoint, FREObject
+if let swiftPerson = FreObjectSwift(className: "com.tuarua.Person") {
+    let oldAge:Int = swiftPerson.age
+    swiftPerson.age = oldAge + 5
+}
 
 ```
 
@@ -104,7 +109,7 @@ let airArray: FREArray = FREArray(argv[0])
 let airStringVector = [String](argv[0])
 
 // create a Vector.<com.tuarua.Person> with fixed length of 5
-let myVector = try FREArray(className: "com.tuarua.Person", length: 5, fixed: true)
+let myVector = FREArray(className: "com.tuarua.Person", length: 5, fixed: true)
 let airArrayLen = airArray.length
 
 // loop over FREArray
@@ -114,6 +119,9 @@ for fre in airArray {
 
 // set element 0 to 123
 airArray[0] = 123.toFREObject()
+
+// push 2 elements to a FREArray
+airArray.push(66, 77)
 
 // return Int Array to AIR
 let swiftArr: [Int] = [99, 98, 92, 97, 95]
@@ -155,34 +163,32 @@ if let byteData = asByteArray.value { // NSData
 #### Error Handling
 
 ```swift
-do {
-    _ = try person.getProp(name: "doNotExist") //calling a property that doesn't exist
-} catch let e as FreError {
-    if let aneError = e.getError(#file, #line, #column) {
-        return aneError //return the error as an actionscript error
-    }
-} catch {}
+FreSwiftLogger.shared.context = context
+
+guard FreObjectTypeSwift.int == expectInt.type else {
+    return FreError(stackTrace: "",
+        message: "Oops, we expected the FREObject to be passed as an int but it's not",
+        type: .typeMismatch).getError(#file, #line, #column)
+}
 ```
 
 #### Advanced Example - Extending. Convert to/from SCNVector3
 ```swift
 public extension SCNVector3 {
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
-        self.init(Float(rv["x"]) ?? 0,
-                  Float(rv["y"]) ?? 0,
-                  Float(rv["z"]) ?? 0)
+        guard let rv = freObject else { return nil }
+        let fre = FreObjectSwift(rv)
+        self.init(fre.x as CGFloat, fre.y, fre.z)
     }
     func toFREObject() -> FREObject? {
-        do {
-            let ret = try FREObject(className: "flash.geom.Vector3D",
-                                    args: self.x, self.y, self.z)
-            return ret
-        } catch {
-        }
-        return nil
+        return FREObject(className: "flash.geom.Vector3D", args: x, y, z)
+    }
+}
+
+public extension FreObjectSwift {
+    public subscript(dynamicMember name: String) -> SCNVector3? {
+        get { return SCNVector3(rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
     }
 }
 ```
@@ -192,31 +198,40 @@ public extension SCNVector3 {
 The static library contains a predefined `+(void)load` method in FreMacros.h. This method can safely be declared in different ANEs.
 It is also called once for each ANE and very early in the launch cycle. In here the SwiftController is inited and `onLoad()` called.
 This makes an ideal place to add observers for applicationDidFinishLaunching and any other calls which would normally be added as app delegates, thus removing the restriction of one ANE declaring itself as the "owner".   
-Note: We have no FREContext yet so calls such as trace, sendEvent will not work.
+Note: We have no FREContext yet so calls such as trace, dispatchEvent will not work.
 
 ```swift
 @objc func applicationDidFinishLaunching(_ notification: Notification) {
    appDidFinishLaunchingNotif = notification //save the notification for later
 }
 func onLoad() {
-NotificationCenter.default.addObserver(self, 
-            selector: #selector(applicationDidFinishLaunching),
-            name: NSNotification.Name.UIApplicationDidFinishLaunching, 
-            object: nil)      
+    NotificationCenter.default.addObserver(self, selector: #selector(applicationDidFinishLaunching),
+    name: UIApplication.didFinishLaunchingNotification, object: nil)    
 }
 ```
 ----------
 
 ### Required AS3 classes
-com.tuarua.fre.ANEUtils.as and com.tuarua.fre.ANEError.as are required by FreSwift and should be included in the AS3 library of your ANE
+**com.tuarua.fre.ANEUtils.as** and **com.tuarua.fre.ANEError.as** are required by FreSwift and should be included in the AS3 library of your ANE
 
+### Modifications to the AIR SDK
+
+For iOS we need some additions to the AIRSDK. 
+Copy the files from **AIRSDK_additions** into the corresponding folders in your AIRSDK.
+
+adt.jar is from AIR32 with 2 fixes applied. 
+
+1. Entitlements bug which occurs when submitting to the app-store.
+2. Signing the Swift 4.2 dylibs correctly.
+
+See [https://forums.adobe.com/message/10756033#10756033](https://forums.adobe.com/message/10756033#10756033) for more details.
 
 ### Prerequisites
 
 You will need
 
-- Xcode 9.4
-- Xcode 9.1 for iOS Simulator
+- Xcode 10.1
 - IntelliJ IDEA
-- AIR 29
+- AIR 32
 - wget
+- Carthage

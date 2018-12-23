@@ -1,4 +1,4 @@
-/* Copyright 2018 Tua Rua Ltd.
+/* Copyright 2017 Tua Rua Ltd.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -23,25 +23,32 @@ public extension CGPoint {
     /// - parameter freObject: FREObject which is of AS3 type flash.geom.Point
     /// - returns: CGPoint?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
-        self.init(x: CGFloat(rv["x"]) ?? 0,
-                  y: CGFloat(rv["y"]) ?? 0)
+        guard let rv = freObject else { return nil }
+        let fre = FreObjectSwift(rv)
+        self.init(x: fre.x as CGFloat, y: fre.y)
     }
     /// toFREObject: Converts a CGPoint into a FREObject of AS3 type flash.geom.Point.
     ///
     /// ```swift
-    /// let fre = CGPoint.init().toFREObject()
+    /// let fre = CGPoint().toFREObject()
     /// ```
     /// - returns: FREObject?
     func toFREObject() -> FREObject? {
-        var freObject: FREObject? = nil
-        do {
-            freObject = try FREObject.init(className: "flash.geom.Point",
-                                           args: CGFloat(self.x), CGFloat(self.y))
-        } catch {
-        }
-        return freObject
+        return FREObject(className: "flash.geom.Point", args: x, y)
+    }
+}
+
+public extension FreObjectSwift {
+    /// subscript: sets/gets the Property of a FREObject.
+    ///
+    /// ```swift
+    /// let freCoord = FreObjectSwift(className: "com.tuarua.Coordinate")
+    /// let coord: CGPoint = freCoord.latitude
+    /// ```
+    /// - parameter name: name of the property to return
+    /// - returns: CGPoint?
+    public subscript(dynamicMember name: String) -> CGPoint? {
+        get { return CGPoint(rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
     }
 }

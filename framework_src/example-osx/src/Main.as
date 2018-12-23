@@ -1,6 +1,6 @@
 package {
 
-import com.tuarua.CommonDependencies;
+import com.tuarua.FreSwift;
 import com.tuarua.FreSwiftExampleANE;
 import com.tuarua.Person;
 import com.tuarua.fre.ANEError;
@@ -25,14 +25,18 @@ import flash.utils.ByteArray;
 
 [SWF(width="640", height="640", frameRate="60", backgroundColor="#F1F1F1")]
 public class Main extends Sprite {
-    private var commonDependenciesANE:CommonDependencies = new CommonDependencies();
-    private var ane:FreSwiftExampleANE = new FreSwiftExampleANE();
+    private var freSwift:FreSwift = new FreSwift();
+    private var ane:FreSwiftExampleANE;
+    private static const GREEN:uint = 0xFF00FF00;
+    private static const HALF_GREEN:uint = 0x8000FF00;
 
     public function Main() {
         super();
         stage.align = StageAlign.TOP_LEFT;
         stage.scaleMode = StageScaleMode.NO_SCALE;
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
+
+        ane = FreSwiftExampleANE.example;
 
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();
@@ -48,6 +52,7 @@ public class Main extends Sprite {
         var person:Person = new Person();
         person.age = 21;
         person.name = "Tom";
+        person.city.name = "Boston";
 
         var myArray:Array = [];
         myArray.push(3, 1, 4, 2, 6, 5);
@@ -61,6 +66,9 @@ public class Main extends Sprite {
 
         var resultInt:int = ane.runIntTests(-54, 66);
         textField.text += "Int: " + resultInt + "\n";
+
+        trace("HALF_GREEN", HALF_GREEN, HALF_GREEN == ane.runColorTests(GREEN, HALF_GREEN) ? "✅" : "❌");
+
         var resultArray:Array = ane.runArrayTests(myArray);
         textField.text += "Array: " + resultArray.toString() + "\n";
 
@@ -80,7 +88,7 @@ public class Main extends Sprite {
             ane.runBitmapTests(bmp.bitmapData); //pass in bitmap data and apply filter
         }
 
-        ane.runRectTests(new Point(0, 55.5), new Rectangle(9.1, 0.5, 20, 50));
+        ane.runExtensibleTests(new Point(1, 55.5), new Rectangle(9.1, 0.5, 20, 50));
 
         var myByteArray:ByteArray = new ByteArray();
         myByteArray.writeUTFBytes("Swift in an ANE. Say whaaaat!");
@@ -96,7 +104,9 @@ public class Main extends Sprite {
             trace("e.source:", e.source);
             trace("e.getStackTrace():", e.getStackTrace());
         }
-        ane.runErrorTests2("Test String");
+
+        var testDate:Date = new Date(1990, 5, 13, 8, 59, 3);
+        trace("Date returned is same", testDate.time == ane.runDateTests(testDate).time ? "✅" : "❌");
 
         var inData:String = "Saved and returned";
         var outData:String = ane.runDataTests(inData) as String;
@@ -106,8 +116,8 @@ public class Main extends Sprite {
     }
 
     private function onExiting(event:Event):void {
-        ane.dispose();
-        commonDependenciesANE.dispose();
+        FreSwiftExampleANE.dispose();
+        freSwift.dispose();
     }
 }
 }

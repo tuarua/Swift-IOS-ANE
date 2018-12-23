@@ -2,6 +2,7 @@ package {
 
 import com.mycompany.CustomEvent;
 import com.mycompany.HelloWorldANE;
+import com.tuarua.FreSwift;
 
 import flash.desktop.NativeApplication;
 import flash.display.Sprite;
@@ -9,10 +10,9 @@ import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
 import flash.text.TextField;
-import com.tuarua.CommonDependencies;
 
 public class Main extends Sprite {
-    private var commonDependenciesANE:CommonDependencies = new CommonDependencies();
+    private var freSwift:FreSwift = new FreSwift();
     private var ane:HelloWorldANE;
     private var hasActivated:Boolean;
     public function Main() {
@@ -28,8 +28,7 @@ public class Main extends Sprite {
         if (!hasActivated) {
             var textField:TextField = new TextField();
 
-            ane = new HelloWorldANE();
-            ane.init();
+            ane = HelloWorldANE.helloWorld;
             ane.addEventListener("MY_EVENT", onEvent);
 
 
@@ -48,8 +47,8 @@ public class Main extends Sprite {
     }
 
     private function onExiting(event:Event):void {
-        ane.dispose();
-        commonDependenciesANE.dispose();
+        HelloWorldANE.dispose();
+        freSwift.dispose();
     }
 }
 }

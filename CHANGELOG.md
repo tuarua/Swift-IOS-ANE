@@ -1,3 +1,28 @@
+### 3.0.0
+- Upgrade to Xcode 10.1
+- Upgrade to iOS SDK 12.1
+- Upgrade to Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
+- Upgraded to AIR SDK 32
+- Add `FREArray.push()`
+- Add `FREArray.insert()`
+- Add `FREArray.remove()`
+- Add `FREArray.isEmpty`
+- Add `FREObject.hasOwnProperty()`
+- Add `FREObject.toString()`
+- Add `@dynamicMemberLookup` to `FreObjectSwift`. Adds cleaner way to extend FREObjects 
+- Mark `FREObject.call()` as  `@discardableResult`
+- Remove try catches and make better use of optionals
+- Remove `ArgCountError` class
+- Obsoleted `sendEvent()` method
+- Deprecate `FREObject.setProp()` - use accessor or `FreSwiftObject` wrapper instead
+- Deprecate `FREObject.getProp()` - use accessor or `FreSwiftObject` wrapper instead
+- FreSwiftMainController.TAG is now `public static var String`
+- UIColor / NSColor changed to single `convenience init()`
+- Add `FreSwiftLogger` to trace any FREExceptions
+- `FREObject.init()` to return optional and not require try
+- CommonDependancies.ane renamed to FreSwift.ane
+- Refactoring
+
 ### 2.5.0
 - Upgraded to Xcode 9.4
 - Upgraded to Swift version 4.1.2 (swiftlang-902.0.54 clang-902.0.39.2)

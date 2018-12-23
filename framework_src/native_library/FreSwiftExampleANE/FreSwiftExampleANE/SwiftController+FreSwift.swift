@@ -1,4 +1,4 @@
-/* Copyright 2018 Tua Rua Ltd.
+/* Copyright 2017 Tua Rua Ltd.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ extension SwiftController: FreSwiftMainController {
     
     // Must have this function. It exposes the methods to our entry ObjC.
     @objc public func getFunctions(prefix: String) -> [String] {
-        
+        functionsToSet["\(prefix)init"] = initController
         functionsToSet["\(prefix)runStringTests"] = runStringTests
         functionsToSet["\(prefix)runNumberTests"] = runNumberTests
         functionsToSet["\(prefix)runIntTests"] = runIntTests
@@ -29,10 +29,10 @@ extension SwiftController: FreSwiftMainController {
         functionsToSet["\(prefix)runBitmapTests"] = runBitmapTests
         functionsToSet["\(prefix)runByteArrayTests"] = runByteArrayTests
         functionsToSet["\(prefix)runErrorTests"] = runErrorTests
-        functionsToSet["\(prefix)runErrorTests2"] = runErrorTests2
         functionsToSet["\(prefix)runDataTests"] = runDataTests
-        functionsToSet["\(prefix)runRectTests"] = runRectTests
+        functionsToSet["\(prefix)runExtensibleTests"] = runExtensibleTests
         functionsToSet["\(prefix)runDateTests"] = runDateTests
+        functionsToSet["\(prefix)runColorTests"] = runColorTests
         
         var arr: [String] = []
         for key in functionsToSet.keys {
@@ -55,7 +55,9 @@ extension SwiftController: FreSwiftMainController {
     
     //Here we set our FREContext
     @objc public func setFREContext(ctx: FREContext) {
-        self.context = FreContextSwift.init(freContext: ctx)
+        self.context = FreContextSwift(freContext: ctx)
+        // Turn on FreSwift logging
+        FreSwiftLogger.shared.context = context
     }
     
     // Here we add observers for any app delegate stuff

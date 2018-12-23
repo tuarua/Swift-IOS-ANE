@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<application xmlns="http://ns.adobe.com/air/application/28.0">
+<application xmlns="http://ns.adobe.com/air/application/32.0">
 
 <!-- Adobe AIR Application Descriptor File Template.
      Specifies parameters for identifying, installing, and launching AIR applications.
 
-     xmlns - The Adobe AIR namespace: http://ns.adobe.com/air/application/28.0.
+     xmlns - The Adobe AIR namespace: http://ns.adobe.com/air/application/27.0.
      The last segment of the namespace specifies the version of the AIR runtime required for this application to run.
 
      minimumPatchLevel - The minimum patch level of the AIR runtime required to run the application. Optional. -->
 
     <!-- A universally unique application identifier. Must be unique across all AIR applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-    <id>Main</id>
+    <id>com.mycompany.example</id>
 
     <!-- Used as the filename for the application. Required. -->
     <filename>Main</filename>
@@ -23,7 +23,7 @@
          Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
          An updated version of application must have a versionNumber value higher than the previous version. Required for namespace >= 2.5.
          For iOS Apps, this represents build number. -->
-    <versionNumber>0.0.1</versionNumber>
+    <versionNumber>0.0.2</versionNumber>
 
     <!-- A string value (such as "v1", "2.5", or "Alpha 1") that represents the version of the application, as it should be shown to users.
          For iOS Apps, this represents application version number and format should be (<0-999>.<0-999>.<0-999>).
@@ -43,7 +43,6 @@
     <!-- Identifies the ActionScript extensions used by an application. -->
     <extensions>
         <extensionID>com.mycompany.HelloWorldANE</extensionID>
-        <extensionID>com.tuarua.CommonDependencies</extensionID>
     </extensions>
 
     <!-- Settings for the application's initial window. Required. -->
@@ -94,10 +93,10 @@
         <!--<aspectRatio></aspectRatio>-->
 
         <!-- Whether the app will begin auto-orienting on launch. Optional. Mobile only. Default false -->
-        <!--<autoOrients></autoOrients>-->
+        <autoOrients>true</autoOrients>
 
         <!-- Whether the app launches in full screen. Optional. Mobile only. Default false -->
-        <!--<fullScreen></fullScreen>-->
+        <fullScreen>true</fullScreen>
 
         <!-- The render mode for the app (either auto, cpu, gpu, or direct). Optional. Default auto -->
         <!--<renderMode></renderMode>-->
@@ -189,23 +188,21 @@
     <!--</fileTypes>-->
 
     <!-- iOS specific capabilities -->
-    <!--<iPhone>-->
+    <iPhone>
         <!-- A list of plist key/value pairs to be added to the application Info.plist -->
-        <!--<InfoAdditions>-->
-            <!--<![CDATA[-->
-            <!--<key>UIDeviceFamily</key>-->
-            <!--<array>-->
+        <InfoAdditions>
+            <![CDATA[
+            <key>UIDeviceFamily</key>
+            <array>
                 <!-- iPhone and iPod touch devices -->
-                <!--<string>1</string>-->
+                <string>1</string>
                 <!-- iPad devices -->
-                <!--<string>2</string>-->
-            <!--</array>-->
-            <!--<key>UIStatusBarStyle</key>-->
-            <!--<string>UIStatusBarStyleBlackOpaque</string>-->
-            <!--<key>UIRequiresPersistentWiFi</key>-->
-            <!--<string>YES</string>-->
-            <!--]]>-->
-        <!--</InfoAdditions>-->
+                <string>2</string>
+            </array>
+            <key>MinimumOSVersion</key>
+            <string>9.0</string>
+            ]]>
+        </InfoAdditions>
 
         <!-- A list of plist key/value pairs to be added to the application Entitlements.plist -->
         <!--<Entitlements>
@@ -219,13 +216,13 @@
         </Entitlements>-->
 
         <!-- Display Resolution for the app (either "standard" or "high"). Optional. Default "standard" -->
-        <!--<requestedDisplayResolution>high</requestedDisplayResolution>-->
+        <requestedDisplayResolution>high</requestedDisplayResolution>
         <!-- Forcing Render Mode CPU for the devices mentioned. Optional  -->
         <!--<forceCPURenderModeForDevices></forceCPURenderModeForDevices> -->
         <!-- File containing line separated list of external swf paths. These swfs won't be packaged inside the application
         and corresponding stripped swfs will be output in externalStrippedSwfs folder. -->
         <!--<externalSwfs></externalSwfs> -->
-    <!--</iPhone>-->
+    </iPhone>
 
     <!-- Specify Android specific tags that get passed to AndroidManifest.xml file. -->
     <!--<android>-->
