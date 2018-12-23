@@ -8,10 +8,10 @@ It is not possible to mix Swift versions in the same app. Therefore all Swift ba
 ABI stability is planned for Swift 5 in early 2019
 
 This project is used as the basis for the following ANEs   
-[Firebase-ANE](https://github.com/tuarua/Firebase-ANE) 
-[Vibration-ANE](https://github.com/tuarua/Vibration-ANE) 
+[Firebase-ANE](https://github.com/tuarua/Firebase-ANE)     
+[Vibration-ANE](https://github.com/tuarua/Vibration-ANE)     
 [GoogleMaps-ANE](https://github.com/tuarua/Google-Maps-ANE)       
-[AdMob-ANE](https://github.com/tuarua/AdMob-ANE)   
+[AdMob-ANE](https://github.com/tuarua/AdMob-ANE)    
 [WebViewANE](https://github.com/tuarua/WebViewANE)    
 [AR-ANE](https://github.com/tuarua/AR-ANE)     
 [ML-ANE](https://github.com/tuarua/ML-ANE)
