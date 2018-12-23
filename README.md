@@ -8,8 +8,10 @@ It is not possible to mix Swift versions in the same app. Therefore all Swift ba
 ABI stability is planned for Swift 5 in early 2019
 
 This project is used as the basis for the following ANEs   
-[Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)       
-[AdMob ANE](https://github.com/tuarua/AdMob-ANE)   
+[Firebase-ANE](https://github.com/tuarua/Firebase-ANE) 
+[Vibration-ANE](https://github.com/tuarua/Vibration-ANE) 
+[GoogleMaps-ANE](https://github.com/tuarua/Google-Maps-ANE)       
+[AdMob-ANE](https://github.com/tuarua/AdMob-ANE)   
 [WebViewANE](https://github.com/tuarua/WebViewANE)    
 [AR-ANE](https://github.com/tuarua/AR-ANE)     
 [ML-ANE](https://github.com/tuarua/ML-ANE)
@@ -212,6 +214,17 @@ func onLoad() {
 ### Required AS3 classes
 **com.tuarua.fre.ANEUtils.as** and **com.tuarua.fre.ANEError.as** are required by FreSwift and should be included in the AS3 library of your ANE
 
+### Modifications to the AIR SDK
+
+For iOS we need some additions to the AIRSDK. 
+Copy the files from **AIRSDK_additions** into the corresponding folders in your AIRSDK.
+
+adt.jar is from AIR32 with 2 fixes applied. 
+
+1. Entitlements bug which occurs when submitting to the app-store.
+2. Signing the Swift 4.2 dylibs correctly.
+
+See [https://forums.adobe.com/message/10756033#10756033](https://forums.adobe.com/message/10756033#10756033) for more details.
 
 ### Prerequisites
 
