@@ -216,7 +216,7 @@ func onLoad() {
 
 ### Modifications to the AIR SDK
 
-For iOS we need some additions to the AIRSDK. 
+We need some additions to the AIRSDK. 
 Copy the files from **AIRSDK_additions** into the corresponding folders in your AIRSDK.
 
 adt.jar is from AIR32 with 2 fixes applied. 
