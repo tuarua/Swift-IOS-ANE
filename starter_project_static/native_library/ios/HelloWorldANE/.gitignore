@@ -1,30 +1,37 @@
-# Created by https://www.gitignore.io/api/flashbuilder
+# Created by https://www.gitignore.io/api/xcode
 
-### FlashBuilder ###
-# Build and Release Folders
-out/
-bin/
-#bin-debug/
-bin-release/
-bin-release-temp/
-AIRSDK_patch/
+### Xcode ###
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-# Other files and folders
-.settings/
+## Build generated
+build/
+DerivedData/
+Index/
 
-.FlexUnitSettings
-.externalToolBuilders
-.model
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
 
-# textures
-.tps
+## Other
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+*.bak
 
-# build files
 
 
-# Created by https://www.gitignore.io/api/intellij
+# Created by https://www.gitignore.io/api/appcode
 
-### Intellij ###
+### AppCode ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
@@ -43,6 +50,7 @@ AIRSDK_patch/
 
 # Gradle:
 .idea/gradle.xml
+.idea/libraries
 
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
@@ -67,10 +75,17 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-### Intellij Patch ###
+### AppCode Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
 # *.iml
 # modules.xml
 # .idea/misc.xml
 # *.ipr
+
+bak/
+Carthage/
+docs/
+
+create_docs.sh
+Cartfile.resolved

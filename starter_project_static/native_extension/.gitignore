@@ -2,12 +2,10 @@
 
 ### FlashBuilder ###
 # Build and Release Folders
-out/
-bin/
-#bin-debug/
+bin-debug/
 bin-release/
-bin-release-temp/
-AIRSDK_patch/
+ane/debug
+ane/resign.sh
 
 # Other files and folders
 .settings/
@@ -16,15 +14,12 @@ AIRSDK_patch/
 .externalToolBuilders
 .model
 
-# textures
-.tps
-
-# build files
 
 
-# Created by https://www.gitignore.io/api/intellij
 
-### Intellij ###
+# Created by https://www.gitignore.io/api/appcode
+
+### AppCode ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
@@ -43,6 +38,7 @@ AIRSDK_patch/
 
 # Gradle:
 .idea/gradle.xml
+.idea/libraries
 
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
@@ -67,7 +63,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-### Intellij Patch ###
+### AppCode Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
 # *.iml
