@@ -218,11 +218,9 @@ func onLoad() {
 
 We need to patch some files in AIR SDK. 
 
-1. Copy the adt.jar from **AIRSDK_patch** into the corresponding folder in your AIR SDK.
-2. Delete ld64 in your AIR SDK from `/lib/aot/bin/ld64/ld64`
-3. in Terminal:
-`ln -s /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld /PATH/TO/YOUR/AIRSDK_32/lib/aot/bin/ld64/ld64` 
-
+1. Delete ld64 in your AIR SDK from `/lib/aot/bin/ld64/ld64`
+2. Copy `/lib/aot/bin/ld64/ld64` from **AIRSDK_patch** into the corresponding folder in your AIR SDK.
+3. Copy `/lib/adt.jar` from **AIRSDK_patch** into the corresponding folder in your AIR SDK.
 
 See [https://forums.adobe.com/message/10756033#10756033](https://forums.adobe.com/message/10756033#10756033) for more details.
 
