@@ -218,12 +218,9 @@ func onLoad() {
 
 We need to patch some files in AIR SDK. 
 
-Copy the files from **AIRSDK_patch** into the corresponding folders in your AIR SDK.
-
-adt.jar is from AIR32 with 2 fixes applied. 
-
-1. Entitlements bug which occurs when submitting to the app-store.
-2. Signing the Swift 4.2 dylibs correctly.
+1. Delete ld64 in your AIR SDK from `/lib/aot/bin/ld64/ld64`
+2. Copy `/lib/aot/bin/ld64/ld64` from **AIRSDK_patch** into the corresponding folder in your AIR SDK.
+3. Copy `/lib/adt.jar` from **AIRSDK_patch** into the corresponding folder in your AIR SDK.
 
 See [https://forums.adobe.com/message/10756033#10756033](https://forums.adobe.com/message/10756033#10756033) for more details.
 
