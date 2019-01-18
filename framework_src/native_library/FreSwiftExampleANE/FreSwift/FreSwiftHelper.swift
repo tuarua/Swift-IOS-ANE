@@ -374,6 +374,17 @@ public class FreSwiftHelper {
         return ret
     }
     
+    static func getAsArray(_ rawValue: FREObject) -> [Date]? {
+        var ret = [Date]()
+        let array = FREArray(rawValue)
+        for fre in array {
+            if let v = Date(fre) {
+                ret.append(v)
+            }
+        }
+        return ret
+    }
+    
     static func getAsArray(_ rawValue: FREObject) -> [Any]? {
         var ret: [Any] = [Any]()
         let array = FREArray(rawValue)

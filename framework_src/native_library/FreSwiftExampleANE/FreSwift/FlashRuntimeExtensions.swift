@@ -23,7 +23,6 @@ public typealias FREFunctionMap = [String: (_: FREContext, _: FREArgc, _: FREArg
 
 /// FREObject: Extends FREObject with Swift syntax.
 public extension FREObject {
-    
     /// hasOwnProperty: Indicates whether an object has a specified property defined.
     ///
     /// ```swift
@@ -185,6 +184,15 @@ public extension FREObject {
     /// returns the type of the FREOject
     var type: FreObjectTypeSwift {
         return FreSwiftHelper.getType(self)
+    }
+    
+    /// returns the className of the FREOject
+    var className: String? {
+        if let aneUtils = FREObject(className: "com.tuarua.fre.ANEUtils"),
+            let classType = aneUtils.call(method: "getClassType", args: self) {
+            return String(classType)
+        }
+        return nil
     }
     
     /// accessor: sets/gets the Property of a FREObject.
