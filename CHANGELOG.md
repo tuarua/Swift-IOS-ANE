@@ -1,10 +1,13 @@
 ### 3.1.0
 - Add `FREObject.className`
 - Add `FreObjectSwift.className`
+- Add `FreObjectSwift.toString()`
 - Add `@dynamicMemberLookup` for Array types to `FreObjectSwift`
 - Add `[Date]` support to `FREArray`
 - Declare `FREArray` as open
 - Change: `FREArray` now uses Vector.<Type> throughout
+- Rename `FreObjectTypeSwift.cls` to `FreObjectTypeSwift.class`
+- Fix spelling mistakes in docs
 
 ### 3.0.0
 - Upgrade to Xcode 10.1

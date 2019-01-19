@@ -181,12 +181,12 @@ public extension FREObject {
         return FreSwiftHelper.callMethod(self, name: method, args: args)
     }
     
-    /// returns the type of the FREOject
+    /// returns the type of the FREObject
     var type: FreObjectTypeSwift {
         return FreSwiftHelper.getType(self)
     }
     
-    /// returns the className of the FREOject
+    /// returns the className of the FREObject
     var className: String? {
         if let aneUtils = FREObject(className: "com.tuarua.fre.ANEUtils"),
             let classType = aneUtils.call(method: "getClassType", args: self) {
@@ -199,7 +199,7 @@ public extension FREObject {
     ///
     /// ```swift
     /// let myName = argv[0]["name"]
-    /// argv[0]["name"] = "New Name".toFREOject()
+    /// argv[0]["name"] = "New Name".toFREObject()
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: FREObject?

@@ -151,7 +151,7 @@ public class FreSwiftHelper {
             return getAsString(rv)
         case .boolean:
             return getAsBool(rv)
-        case .object, .cls:
+        case .object, .class:
             return getAsDictionary(rv) as [String: AnyObject]?
         case .number:
             return getAsDouble(rv)
@@ -244,9 +244,7 @@ public class FreSwiftHelper {
     }
 
     fileprivate static func getActionscriptType(_ rawValue: FREObject) -> FreObjectTypeSwift {
-        if let aneUtils = FREObject(className: "com.tuarua.fre.ANEUtils"),
-            let classType = aneUtils.call(method: "getClassType", args: rawValue),
-            let type = getAsString(classType)?.lowercased() {
+        if let type = rawValue.className?.lowercased() {
             if type == "int" {
                 return FreObjectTypeSwift.int
             } else if type == "date" {
@@ -257,8 +255,12 @@ public class FreSwiftHelper {
                 return FreObjectTypeSwift.number
             } else if type == "boolean" {
                 return FreObjectTypeSwift.boolean
+            } else if type == "flash.geom::rectangle" {
+                return FreObjectTypeSwift.rectangle
+            } else if type == "flash.geom::point" {
+                return FreObjectTypeSwift.point
             } else {
-                return FreObjectTypeSwift.cls
+                return FreObjectTypeSwift.class
             }
         }
         return FreObjectTypeSwift.null
@@ -438,7 +440,7 @@ public class FreSwiftHelper {
         guard let thrownException = thrownException else {
             return ""
         }
-        guard FreObjectTypeSwift.cls == thrownException.type else {
+        guard FreObjectTypeSwift.class == thrownException.type else {
             return ""
         }
         guard thrownException.hasOwnProperty(name: "getStackTrace"),

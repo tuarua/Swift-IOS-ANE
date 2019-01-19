@@ -28,24 +28,24 @@ open class FreObjectSwift: NSObject {
     }
     
 #if os(OSX)
-    /// returns the className of the FREOject
+    /// returns the className of the FREObject
     open override var className: String {
-        if let aneUtils = FREObject(className: "com.tuarua.fre.ANEUtils"),
-            let classType = aneUtils.call(method: "getClassType", args: self.rawValue) {
-            return String(classType) ?? "unknown"
-        }
-        return "unknown"
+        return self.rawValue?.className ?? "unknown"
     }
 #else
-    /// returns the className of the FREOject
+    /// returns the className of the FREObject
     public var className: String {
-        if let aneUtils = FREObject(className: "com.tuarua.fre.ANEUtils"),
-            let classType = aneUtils.call(method: "getClassType", args: self.rawValue) {
-            return String(classType) ?? "unknown"
-        }
-        return "unknown"
+        return self.rawValue?.className ?? "unknown"
     }
 #endif
+    
+    /// toString: Calls toString() on the FREObject
+    ///
+    /// - parameter suppressStrings: If calling toString on a String pass true to prevent infinite conversion loop.
+    /// - returns: String
+    func toString(_ suppressStrings: Bool = false) -> String {
+        return self.rawValue?.toString(suppressStrings) ?? ""
+    }
     
     /// hasOwnProperty: Indicates whether an object has a specified property defined.
     ///
@@ -426,7 +426,7 @@ open class FreObjectSwift: NSObject {
         return FreSwiftHelper.callMethod(self.rawValue, name: method, args: args)
     }
     
-    /// returns the type of the FREOject
+    /// returns the type of the FREObject
     public var type: FreObjectTypeSwift {
         return FreSwiftHelper.getType(self.rawValue)
     }
