@@ -7,6 +7,7 @@
 - Declare `FREArray` as open
 - Change: `FREArray` now uses Vector.<Type> throughout
 - Rename `FreObjectTypeSwift.cls` to `FreObjectTypeSwift.class`
+- Improve `ANEUtils.map` performance
 - Fix spelling mistakes in docs
 
 ### 3.0.0

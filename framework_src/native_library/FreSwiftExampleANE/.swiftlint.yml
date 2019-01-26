@@ -3,7 +3,7 @@ disabled_rules: # rule identifiers to exclude from running
 - identifier_name
 - function_body_length
 - cyclomatic_complexity
-#- todo
+- todo
 - file_length
 - unused_optional_binding
 - notification_center_detachment
