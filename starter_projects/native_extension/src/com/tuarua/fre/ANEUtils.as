@@ -53,12 +53,14 @@ public class ANEUtils {
         }
         if (DescribeTypeJSON.available) {
             var json:Object = DescribeTypeJSON.run(clz);
-            for each (var propd:Object in json.traits.variables) {
-                var objd:Object = {};
-                objd.name = propd.name;
-                objd.type = propd.type;
-                objd.cls = objd.type == "*" ? null : getClass(Class(getDefinitionByName(objd.type)));
-                ret.push(objd);
+            if (json.traits.variables) {
+                for each (var propd:Object in json.traits.variables) {
+                    var objd:Object = {};
+                    objd.name = propd.name;
+                    objd.type = propd.type;
+                    objd.cls = objd.type == "*" ? null : getClass(Class(getDefinitionByName(objd.type)));
+                    ret.push(objd);
+                }
             }
         } else {
             var xml:XML = describeType(clz);
@@ -101,12 +103,14 @@ public class ANEUtils {
         }
         if (DescribeTypeJSON.available) {
             var json:Object = DescribeTypeJSON.run(clz);
-            for each (var propd:Object in json.traits.variables) {
-                var objd:Object = {};
-                objd.name = propd.name;
-                objd.type = propd.type;
-                objd.cls = objd.type == "*" ? null : getClass(Class(getDefinitionByName(objd.type)));
-                ret.push(objd);
+            if (json.traits.variables) {
+                for each (var propd:Object in json.traits.variables) {
+                    var objd:Object = {};
+                    objd.name = propd.name;
+                    objd.type = propd.type;
+                    objd.cls = objd.type == "*" ? null : getClass(Class(getDefinitionByName(objd.type)));
+                    ret.push(objd);
+                }
             }
         } else {
             var xml:XML = describeType(clz);
@@ -193,5 +197,3 @@ public class ANEUtils {
 
 }
 }
-
-
