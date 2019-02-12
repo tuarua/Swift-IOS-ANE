@@ -1,4 +1,5 @@
 ### 3.1.0
+- Add `FreError.getError()` params are now optional
 - Add `FREObject.className`
 - Add `FreObjectSwift.className`
 - Add `FreObjectSwift.toString()`

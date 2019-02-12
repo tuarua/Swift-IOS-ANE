@@ -90,10 +90,10 @@ public class FreError: Error {
     }
 
     /// getError: returns a FREObject representation of the FreError. This can be returned to AS3
-    public func getError(_ oFile: String, _ oLine: Int, _ oColumn: Int) -> FREObject? {
+    public func getError(_ oFile: String = "", _ oLine: Int = 0, _ oColumn: Int = 0) -> FREObject? {
         let _aneError = FREObject(className: "com.tuarua.fre.ANEError",
                                   args: message, 0, String(describing: type),
-                                  "[\(oFile):\(oLine):\(oColumn)]", stackTrace)
+                                  (oFile.count > 0 || oLine > 0 ? "[\(oFile):\(oLine):\(oColumn)]" : ""), stackTrace)
         return _aneError
     }
 }
