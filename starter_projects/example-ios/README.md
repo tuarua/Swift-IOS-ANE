@@ -55,7 +55,7 @@ func goBack(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
 
 ----------
 
-**Dependencies**
+### Dependencies
 From the command line cd into example/ and run:
 
 ````shell
@@ -69,7 +69,7 @@ You will need
 
 - Xcode 10.1
 - IntelliJ IDEA
-- AIR 32
+- AIR 32.0.103+
 
 ### Xcode Build Configuration
 Open Xcode > Preferences > Locations > Click Advanced...
