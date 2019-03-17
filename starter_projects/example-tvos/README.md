@@ -55,7 +55,7 @@ func goBack(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
 
 ----------
 
-**Dependencies**
+### Dependencies
 From the command line cd into example/ and run:
 
 ````shell
