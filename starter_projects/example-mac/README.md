@@ -9,7 +9,7 @@ ABI stability is planned for Swift 5 in early 2019
 
 ##### Dependencies
 From the command line cd into /example and run:
-- OSX
+
 ````shell
 bash get_mac_dependencies.sh
 `````
