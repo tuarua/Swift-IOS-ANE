@@ -73,5 +73,6 @@ You will need
 
 ### Xcode Build Configuration
 Open Xcode > Preferences > Locations > Click Advanced...
+
 ![Adobe AIR + Firebase](https://user-images.githubusercontent.com/12083217/46570717-d4db8600-c960-11e8-92fc-2cf2ee657f7c.png)
 
