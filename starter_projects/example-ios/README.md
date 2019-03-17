@@ -7,6 +7,14 @@ It supports iOS 9.0+
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 ABI stability is planned for Swift 5 in early 2019
 
+##### Dependencies
+From the command line cd into /example and run:
+
+````shell
+bash get_ios_dependencies.sh
+`````
+----------
+
 The ANE is comprised of 3 parts.
 
 1. A static library which exposes methods to AIR and a thin ObjectiveC API layer to the Swift code.
@@ -52,16 +60,6 @@ func goBack(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
     return nil
 }
 `````
-
-----------
-
-### Dependencies
-From the command line cd into example/ and run:
-
-````shell
-bash get_ios_dependencies.sh
-`````
-
 
 ### Prerequisites
 
