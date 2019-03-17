@@ -64,7 +64,7 @@ You will need
 
 - Xcode 10.1
 - IntelliJ IDEA
-- AIR 32.0.103+
+- AIR 32.0.0.103+
 
 ### Xcode Build Configuration
 Open Xcode > Preferences > Locations > Click Advanced...
