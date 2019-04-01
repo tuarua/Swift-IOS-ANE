@@ -9,10 +9,10 @@ ABI stability is planned for Swift 5 in early 2019
 
 ##### Dependencies
 From the command line cd into /example and run:
-- OSX
-````shell
+
+```shell
 bash get_mac_dependencies.sh
-`````
+```
 ----------
 
 The ANE is comprised of 2 parts.
@@ -23,29 +23,29 @@ The ANE is comprised of 2 parts.
 HelloWorldANE.m is the entry point of the ANE. It acts as a thin layered API to your Swift controller.  
 Add the number of methods here 
 
-````objectivec
+```objectivec
 static FRENamedFunction extensionFunctions[] =
 {
     MAP_FUNCTION(TRSOA, load)
    ,MAP_FUNCTION(TRSOA, goBack)
 };
-`````
+```
 
 
 SwiftController+FreSwift.swift  
 Add Swift method(s) to the functionsToSet Dictionary in getFunctions()
 
-````swift
+```swift
 @objc public func getFunctions(prefix: String) -> Array<String> {
     functionsToSet["\(prefix)load"] = load
     functionsToSet["\(prefix)goBack"] = goBack
 }
-`````
+```
 
 SwiftController.swift  
 Add Swift method(s)
 
-````swift
+```swift
 func load(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
     //your code here
     return nil
@@ -55,16 +55,7 @@ func goBack(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
     //your code here
     return nil
 }
-`````
-
-----------
-
-**Dependencies**
-From the command line cd into example/ and run:
-
-````shell
-bash get_ios_dependencies.sh
-`````
+```
 
 
 ### Prerequisites
@@ -73,4 +64,9 @@ You will need
 
 - Xcode 10.1
 - IntelliJ IDEA
-- AIR 32
+- AIR 32.0.0.103+
+
+### Xcode Build Configuration
+Open Xcode > Preferences > Locations > Click Advanced...
+
+![Xcode](https://user-images.githubusercontent.com/12083217/46570717-d4db8600-c960-11e8-92fc-2cf2ee657f7c.png)
