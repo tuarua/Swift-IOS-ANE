@@ -110,6 +110,18 @@ open class FREArray: Sequence {
         }
     }
     
+    /// init: Initialise a FREArray with a [NSNumber].
+    ///
+    /// - parameter doubleArray: array to be converted
+    public init(numberArray array: [NSNumber]) {
+        if let fre = FREArray(className: "Number") {
+            for v in array {
+                fre.push(v)
+            }
+            rawValue = fre.rawValue
+        }
+    }
+    
     /// init: Initialise a FREArray with a [Bool].
     ///
     /// - parameter boolArray: array to be converted
@@ -329,6 +341,43 @@ public extension Array where Element == Double {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         return FREArray(doubleArray: self).rawValue
+    }
+}
+
+public extension Array where Element == NSNumber {
+    /// init: Initialise a [NSNumber] from a FREObject.
+    ///
+    /// ```swift
+    /// let array = [NSNumber](argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type `Vector.<Number>`.
+    /// - returns: [NSNumber]?
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        if let val: [NSNumber] = FreSwiftHelper.getAsArray(rv) {
+            self = val
+        }
+    }
+    
+    /// init: Initialise a [NSNumber] from a FREArray.
+    ///
+    /// ```swift
+    /// let array = [NSNumber](FREArray(argv[0]))
+    /// ```
+    /// - parameter freArray: FREArray which is of AS3 type `Vector.<Number>`.
+    /// - returns: [NSNumber]?
+    init?(_ freArray: FREArray) {
+        self.init(freArray.rawValue)
+    }
+    
+    /// toFREObject: Converts a NSNumber Array into a FREObject of AS3 type `Vector.<Number>`.
+    ///
+    /// - returns: FREObject
+    func toFREObject() -> FREObject? {
+        return FREArray(numberArray: self).rawValue
     }
 }
 

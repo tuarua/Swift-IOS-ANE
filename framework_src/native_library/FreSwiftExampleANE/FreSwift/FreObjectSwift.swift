@@ -506,6 +506,24 @@ open class FreObjectSwift: NSObject {
     /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// - parameter name: name of the property to return
+    /// - returns: [NSNumber]?
+    public subscript(dynamicMember name: String) -> [NSNumber]? {
+        get { return [NSNumber](rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [NSNumber]
+    public subscript(dynamicMember name: String) -> [NSNumber] {
+        get { return [NSNumber](rawValue?[name]) ?? [] }
+        set { rawValue?[name] = newValue.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
     /// - returns: [Bool]?
     public subscript(dynamicMember name: String) -> [Bool]? {
         get { return [Bool](rawValue?[name]) }

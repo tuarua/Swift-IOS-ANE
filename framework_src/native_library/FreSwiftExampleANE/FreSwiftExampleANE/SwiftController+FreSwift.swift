@@ -45,7 +45,7 @@ extension SwiftController: FreSwiftMainController {
     }
     
     // Must have these 3 functions.
-    //Exposes the methods to our entry ObjC.
+    // Exposes the methods to our entry ObjC.
     @objc public func callSwiftFunction(name: String, ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         if let fm = functionsToSet[name] {
             return fm(ctx, argc, argv)
@@ -53,7 +53,7 @@ extension SwiftController: FreSwiftMainController {
         return nil
     }
     
-    //Here we set our FREContext
+    // Here we set our FREContext
     @objc public func setFREContext(ctx: FREContext) {
         self.context = FreContextSwift(freContext: ctx)
         // Turn on FreSwift logging

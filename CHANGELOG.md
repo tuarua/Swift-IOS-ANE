@@ -5,10 +5,14 @@
 - Add `FreObjectSwift.toString()`
 - Add `@dynamicMemberLookup` for Array types to `FreObjectSwift`
 - Add `[Date]` support to `FREArray`
+- Add `[NSNumber]` support to `FREArray`
 - Declare `FREArray` as open
 - Change: `FREArray` now uses Vector.<Type> throughout
 - Rename `FreObjectTypeSwift.cls` to `FreObjectTypeSwift.class`
 - Improve `ANEUtils.map` performance
+- Obsolete `FREObject.setProp()`
+- Obsolete `FREObject.getProp()`
+- Obsolete `sendEvent`
 - Fix spelling mistakes in docs
 
 ### 3.0.0

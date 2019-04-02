@@ -36,15 +36,10 @@ public class FreSwiftHelper {
         numArgs = UInt32((argsArray.count))
 #if os(iOS) || os(tvOS)
         let status = FreSwiftBridge.bridge.FRECallObjectMethod(object: rv, methodName: name,
-          argc: numArgs, argv: argsArray,
-          result: &ret, thrownException: &thrownException)
-
+                                                               argc: numArgs, argv: argsArray,
+                                                               result: &ret, thrownException: &thrownException)
 #else
-        let status = FRECallObjectMethod(rv,
-                                                    name,
-                                                    numArgs,
-                                                    arrayToFREArray(argsArray),
-                                                    &ret, &thrownException)
+        let status = FRECallObjectMethod(rv, name, numArgs, arrayToFREArray(argsArray), &ret, &thrownException)
 #endif
         
         if FRE_OK == status { return ret }
@@ -376,6 +371,17 @@ public class FreSwiftHelper {
         return ret
     }
     
+    static func getAsArray(_ rawValue: FREObject) -> [NSNumber]? {
+        var ret = [NSNumber]()
+        let array = FREArray(rawValue)
+        for fre in array {
+            if let v = NSNumber(fre) {
+                ret.append(v)
+            }
+        }
+        return ret
+    }
+    
     static func getAsArray(_ rawValue: FREObject) -> [Date]? {
         var ret = [Date]()
         let array = FREArray(rawValue)
@@ -405,9 +411,9 @@ public class FreSwiftHelper {
 
 #if os(iOS) || os(tvOS)
         let status = FreSwiftBridge.bridge.FREGetObjectProperty(object: rawValue,
-          propertyName: name,
-          propertyValue: &ret,
-          thrownException: &thrownException)
+                                                                propertyName: name,
+                                                                propertyValue: &ret,
+                                                                thrownException: &thrownException)
 #else
         let status = FREGetObjectProperty(rawValue, name, &ret, &thrownException)
 #endif

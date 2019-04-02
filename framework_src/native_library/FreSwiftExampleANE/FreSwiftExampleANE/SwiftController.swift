@@ -291,7 +291,7 @@ public class SwiftController: NSObject {
             let inFRE1 = argv[1] else {
                 return nil
         }
-        var ret: FREObject? = nil
+        var ret: FREObject?
 #if os(iOS) || os(tvOS)
         let airColor = UIColor(inFRE0, hasAlpha: false)
         let airColorWithAlpha = UIColor(inFRE1)
