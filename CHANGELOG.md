@@ -13,6 +13,7 @@
 - Obsolete `FREObject.setProp()`
 - Obsolete `FREObject.getProp()`
 - Fix spelling mistakes in docs
+- Upgraded to AIR SDK 32.0.0.116
 
 ### 3.0.0
 - Upgrade to Xcode 10.1
