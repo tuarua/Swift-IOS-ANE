@@ -16,7 +16,7 @@
 import Foundation
 
 /// FREArray: Additional type which matches Java version of FRE
-public class FREArray: Sequence {
+open class FREArray: Sequence {
     /// iterator for FREArray
     ///
     /// ```swift
@@ -66,11 +66,11 @@ public class FREArray: Sequence {
     ///
     /// - parameter intArray: array to be converted
     public init?(intArray array: [Int]) {
-        if let fre = FreSwiftHelper.newObject(className: "Array") {
-            rawValue = fre
+        if let fre = FREArray(className: "int") {
             for v in array {
-                self.push(v)
+                fre.push(v)
             }
+            rawValue = fre.rawValue
         }
     }
     
@@ -78,11 +78,11 @@ public class FREArray: Sequence {
     ///
     /// - parameter intArray: array to be converted
     public init(uintArray array: [UInt]) {
-        if let fre = FreSwiftHelper.newObject(className: "Array") {
-            rawValue = fre
+        if let fre = FREArray(className: "uint") {
             for v in array {
-                self.push(v)
+                fre.push(v)
             }
+            rawValue = fre.rawValue
         }
     }
     
@@ -90,11 +90,11 @@ public class FREArray: Sequence {
     ///
     /// - parameter stringArray: array to be converted
     public init(stringArray array: [String]) {
-        if let fre = FreSwiftHelper.newObject(className: "Array") {
-            rawValue = fre
+        if let fre = FREArray(className: "String") {
             for v in array {
-                self.push(v)
+                fre.push(v)
             }
+            rawValue = fre.rawValue
         }
     }
     
@@ -102,11 +102,23 @@ public class FREArray: Sequence {
     ///
     /// - parameter doubleArray: array to be converted
     public init(doubleArray array: [Double]) {
-        if let fre = FreSwiftHelper.newObject(className: "Array") {
-            rawValue = fre
+        if let fre = FREArray(className: "Number") {
             for v in array {
-                self.push(v)
+                fre.push(v)
             }
+            rawValue = fre.rawValue
+        }
+    }
+    
+    /// init: Initialise a FREArray with a [NSNumber].
+    ///
+    /// - parameter doubleArray: array to be converted
+    public init(numberArray array: [NSNumber]) {
+        if let fre = FREArray(className: "Number") {
+            for v in array {
+                fre.push(v)
+            }
+            rawValue = fre.rawValue
         }
     }
     
@@ -114,11 +126,23 @@ public class FREArray: Sequence {
     ///
     /// - parameter boolArray: array to be converted
     public init(boolArray array: [Bool]) {
-        if let fre = FreSwiftHelper.newObject(className: "Array") {
-            rawValue = fre
+        if let fre = FREArray(className: "Boolean") {
             for v in array {
-                self.push(v)
+                fre.push(v)
             }
+            rawValue = fre.rawValue
+        }
+    }
+    
+    /// init: Initialise a FREArray with a [Date].
+    ///
+    /// - parameter dateArray: array to be converted
+    public init(dateArray array: [Date]) {
+        if let fre = FREArray(className: "Date") {
+            for v in array {
+                fre.push(v)
+            }
+            rawValue = fre.rawValue
         }
     }
     
@@ -320,6 +344,43 @@ public extension Array where Element == Double {
     }
 }
 
+public extension Array where Element == NSNumber {
+    /// init: Initialise a [NSNumber] from a FREObject.
+    ///
+    /// ```swift
+    /// let array = [NSNumber](argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type `Vector.<Number>`.
+    /// - returns: [NSNumber]?
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        if let val: [NSNumber] = FreSwiftHelper.getAsArray(rv) {
+            self = val
+        }
+    }
+    
+    /// init: Initialise a [NSNumber] from a FREArray.
+    ///
+    /// ```swift
+    /// let array = [NSNumber](FREArray(argv[0]))
+    /// ```
+    /// - parameter freArray: FREArray which is of AS3 type `Vector.<Number>`.
+    /// - returns: [NSNumber]?
+    init?(_ freArray: FREArray) {
+        self.init(freArray.rawValue)
+    }
+    
+    /// toFREObject: Converts a NSNumber Array into a FREObject of AS3 type `Vector.<Number>`.
+    ///
+    /// - returns: FREObject
+    func toFREObject() -> FREObject? {
+        return FREArray(numberArray: self).rawValue
+    }
+}
+
 public extension Array where Element == Bool {
     /// init: Initialise a [Bool] from a FREObject.
     ///
@@ -464,5 +525,41 @@ public extension Array where Element == String {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         return FREArray(stringArray: self).rawValue
+    }
+}
+
+public extension Array where Element == Date {
+    /// init: Initialise a [Date] from a FREObject.
+    ///
+    /// ```swift
+    /// let array = [Date](argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type `Vector.<Date>`.
+    /// - returns: [Date]?
+    init?(_ freObject: FREObject?) {
+        self.init()
+        guard let rv = freObject else {
+            return
+        }
+        if let val: [Date] = FreSwiftHelper.getAsArray(rv) {
+            self = val
+        }
+    }
+    /// init: Initialise a [Date] from a FREArray.
+    ///
+    /// ```swift
+    /// let array = [Date](FREArray(argv[0]))
+    /// ```
+    /// - parameter freArray: FREArray which is of AS3 type `Vector.<Date>`.
+    /// - returns: [Date]?
+    init?(_ freArray: FREArray) {
+        self.init(freArray.rawValue)
+    }
+    
+    /// toFREObject: Converts an Date Array into a FREObject of AS3 type `Vector.<Date>`.
+    ///
+    /// - returns: FREObject
+    func toFREObject() -> FREObject? {
+        return FREArray(dateArray: self).rawValue
     }
 }

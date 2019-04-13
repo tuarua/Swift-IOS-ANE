@@ -5,11 +5,8 @@ import com.tuarua.Person;
 import com.tuarua.fre.ANEError;
 
 import flash.desktop.NativeApplication;
-
 import flash.display.Bitmap;
-
 import flash.display.Loader;
-
 import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
@@ -66,7 +63,7 @@ public class Main extends Sprite {
 
         trace("HALF_GREEN", HALF_GREEN, HALF_GREEN == ane.runColorTests(GREEN, HALF_GREEN) ? "✅" : "❌");
 
-        var resultArray:Array = ane.runArrayTests(myArray);
+        var resultArray:Vector.<int> = ane.runArrayTests(myArray);
         textField.text += "Array: " + resultArray.toString() + "\n";
 
         var resultObject:Person = ane.runObjectTests(person) as Person;

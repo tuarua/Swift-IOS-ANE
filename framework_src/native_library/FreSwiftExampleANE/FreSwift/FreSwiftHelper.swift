@@ -36,15 +36,10 @@ public class FreSwiftHelper {
         numArgs = UInt32((argsArray.count))
 #if os(iOS) || os(tvOS)
         let status = FreSwiftBridge.bridge.FRECallObjectMethod(object: rv, methodName: name,
-          argc: numArgs, argv: argsArray,
-          result: &ret, thrownException: &thrownException)
-
+                                                               argc: numArgs, argv: argsArray,
+                                                               result: &ret, thrownException: &thrownException)
 #else
-        let status = FRECallObjectMethod(rv,
-                                                    name,
-                                                    numArgs,
-                                                    arrayToFREArray(argsArray),
-                                                    &ret, &thrownException)
+        let status = FRECallObjectMethod(rv, name, numArgs, arrayToFREArray(argsArray), &ret, &thrownException)
 #endif
         
         if FRE_OK == status { return ret }
@@ -151,7 +146,7 @@ public class FreSwiftHelper {
             return getAsString(rv)
         case .boolean:
             return getAsBool(rv)
-        case .object, .cls:
+        case .object, .class:
             return getAsDictionary(rv) as [String: AnyObject]?
         case .number:
             return getAsDouble(rv)
@@ -244,9 +239,7 @@ public class FreSwiftHelper {
     }
 
     fileprivate static func getActionscriptType(_ rawValue: FREObject) -> FreObjectTypeSwift {
-        if let aneUtils = FREObject(className: "com.tuarua.fre.ANEUtils"),
-            let classType = aneUtils.call(method: "getClassType", args: rawValue),
-            let type = getAsString(classType)?.lowercased() {
+        if let type = rawValue.className?.lowercased() {
             if type == "int" {
                 return FreObjectTypeSwift.int
             } else if type == "date" {
@@ -257,8 +250,12 @@ public class FreSwiftHelper {
                 return FreObjectTypeSwift.number
             } else if type == "boolean" {
                 return FreObjectTypeSwift.boolean
+            } else if type == "flash.geom::rectangle" {
+                return FreObjectTypeSwift.rectangle
+            } else if type == "flash.geom::point" {
+                return FreObjectTypeSwift.point
             } else {
-                return FreObjectTypeSwift.cls
+                return FreObjectTypeSwift.class
             }
         }
         return FreObjectTypeSwift.null
@@ -374,6 +371,28 @@ public class FreSwiftHelper {
         return ret
     }
     
+    static func getAsArray(_ rawValue: FREObject) -> [NSNumber]? {
+        var ret = [NSNumber]()
+        let array = FREArray(rawValue)
+        for fre in array {
+            if let v = NSNumber(fre) {
+                ret.append(v)
+            }
+        }
+        return ret
+    }
+    
+    static func getAsArray(_ rawValue: FREObject) -> [Date]? {
+        var ret = [Date]()
+        let array = FREArray(rawValue)
+        for fre in array {
+            if let v = Date(fre) {
+                ret.append(v)
+            }
+        }
+        return ret
+    }
+    
     static func getAsArray(_ rawValue: FREObject) -> [Any]? {
         var ret: [Any] = [Any]()
         let array = FREArray(rawValue)
@@ -392,9 +411,9 @@ public class FreSwiftHelper {
 
 #if os(iOS) || os(tvOS)
         let status = FreSwiftBridge.bridge.FREGetObjectProperty(object: rawValue,
-          propertyName: name,
-          propertyValue: &ret,
-          thrownException: &thrownException)
+                                                                propertyName: name,
+                                                                propertyValue: &ret,
+                                                                thrownException: &thrownException)
 #else
         let status = FREGetObjectProperty(rawValue, name, &ret, &thrownException)
 #endif
@@ -427,7 +446,7 @@ public class FreSwiftHelper {
         guard let thrownException = thrownException else {
             return ""
         }
-        guard FreObjectTypeSwift.cls == thrownException.type else {
+        guard FreObjectTypeSwift.class == thrownException.type else {
             return ""
         }
         guard thrownException.hasOwnProperty(name: "getStackTrace"),

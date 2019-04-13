@@ -27,6 +27,26 @@ open class FreObjectSwift: NSObject {
         return FreSwiftHelper.getAsId(rawValue)
     }
     
+#if os(OSX)
+    /// returns the className of the FREObject
+    open override var className: String {
+        return self.rawValue?.className ?? "unknown"
+    }
+#else
+    /// returns the className of the FREObject
+    public var className: String {
+        return self.rawValue?.className ?? "unknown"
+    }
+#endif
+    
+    /// toString: Calls toString() on the FREObject
+    ///
+    /// - parameter suppressStrings: If calling toString on a String pass true to prevent infinite conversion loop.
+    /// - returns: String
+    func toString(_ suppressStrings: Bool = false) -> String {
+        return self.rawValue?.toString(suppressStrings) ?? ""
+    }
+    
     /// hasOwnProperty: Indicates whether an object has a specified property defined.
     ///
     /// ```swift
@@ -40,7 +60,7 @@ open class FreObjectSwift: NSObject {
         return rawValue?.hasOwnProperty(name: name) ?? false
     }
 
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -53,7 +73,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -71,7 +91,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.rawValue }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -84,7 +104,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -97,7 +117,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -110,7 +130,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -123,7 +143,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -136,7 +156,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -149,7 +169,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -162,7 +182,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -175,7 +195,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -188,7 +208,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -201,7 +221,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -214,7 +234,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -227,7 +247,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -240,7 +260,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -253,7 +273,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let frePerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -266,7 +286,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -280,7 +300,7 @@ open class FreObjectSwift: NSObject {
     }
     
 #if os(iOS) || os(tvOS)
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -293,7 +313,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -309,7 +329,7 @@ open class FreObjectSwift: NSObject {
 #endif
     
 #if os(OSX)
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -322,7 +342,7 @@ open class FreObjectSwift: NSObject {
         set { rawValue?[name] = newValue?.toFREObject() }
     }
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person")
@@ -336,7 +356,7 @@ open class FreObjectSwift: NSObject {
     }
 #endif
     
-    /// subscript: sets/gets the Property of a FREObject.
+    /// subscript: sets/gets the Property of a FreObjectSwift.
     ///
     /// ```swift
     /// let newPerson = FreObjectSwift(className: "com.tuarua.Person", args: 1, true, "Free")
@@ -406,9 +426,135 @@ open class FreObjectSwift: NSObject {
         return FreSwiftHelper.callMethod(self.rawValue, name: method, args: args)
     }
     
-    /// returns the type of the FREOject
+    /// returns the type of the FREObject
     public var type: FreObjectTypeSwift {
         return FreSwiftHelper.getType(self.rawValue)
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [String]?
+    public subscript(dynamicMember name: String) -> [String]? {
+        get { return [String](rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [String]
+    public subscript(dynamicMember name: String) -> [String] {
+        get { return [String](rawValue?[name]) ?? [] }
+        set { rawValue?[name] = newValue.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [Int]?
+    public subscript(dynamicMember name: String) -> [Int]? {
+        get { return [Int](rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [Int]
+    public subscript(dynamicMember name: String) -> [Int] {
+        get { return [Int](rawValue?[name]) ?? [] }
+        set { rawValue?[name] = newValue.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [UInt]?
+    public subscript(dynamicMember name: String) -> [UInt]? {
+        get { return [UInt](rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [UInt]
+    public subscript(dynamicMember name: String) -> [UInt] {
+        get { return [UInt](rawValue?[name]) ?? [] }
+        set { rawValue?[name] = newValue.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [Double]?
+    public subscript(dynamicMember name: String) -> [Double]? {
+        get { return [Double](rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [Double]
+    public subscript(dynamicMember name: String) -> [Double] {
+        get { return [Double](rawValue?[name]) ?? [] }
+        set { rawValue?[name] = newValue.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [NSNumber]?
+    public subscript(dynamicMember name: String) -> [NSNumber]? {
+        get { return [NSNumber](rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [NSNumber]
+    public subscript(dynamicMember name: String) -> [NSNumber] {
+        get { return [NSNumber](rawValue?[name]) ?? [] }
+        set { rawValue?[name] = newValue.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [Bool]?
+    public subscript(dynamicMember name: String) -> [Bool]? {
+        get { return [Bool](rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [Bool]
+    public subscript(dynamicMember name: String) -> [Bool] {
+        get { return [Bool](rawValue?[name]) ?? [] }
+        set { rawValue?[name] = newValue.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [Date]?
+    public subscript(dynamicMember name: String) -> [Date]? {
+        get { return [Date](rawValue?[name]) }
+        set { rawValue?[name] = newValue?.toFREObject() }
+    }
+    
+    /// subscript: sets/gets the Property of a FreObjectSwift.
+    ///
+    /// - parameter name: name of the property to return
+    /// - returns: [Date]
+    public subscript(dynamicMember name: String) -> [Date] {
+        get { return [Date](rawValue?[name]) ?? [] }
+        set { rawValue?[name] = newValue.toFREObject() }
     }
 
 }

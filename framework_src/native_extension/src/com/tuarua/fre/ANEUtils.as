@@ -16,6 +16,8 @@
  */
 
 package com.tuarua.fre {
+import avmplus.DescribeTypeJSON;
+
 import flash.utils.describeType;
 import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
@@ -49,22 +51,35 @@ public class ANEUtils {
         if (isObject) {
             return ret;
         }
-        var xml:XML = describeType(clz);
-        if (xml.variable && xml.variable.length() > 0) {
-            for each (var prop:XML in xml.variable) {
-                var obj:Object = {};
-                obj.name = prop.@name.toString();
-                obj.type = prop.@type.toString();
-                obj.cls = obj.type == "*" ? null : getClass(Class(getDefinitionByName(obj.type)));
-                ret.push(obj);
+        if (DescribeTypeJSON.available) {
+            var json:Object = DescribeTypeJSON.run(clz);
+            if (json.traits.variables) {
+                for each (var propd:Object in json.traits.variables) {
+                    var objd:Object = {};
+                    objd.name = propd.name;
+                    objd.type = propd.type;
+                    objd.cls = objd.type == "*" ? null : getClass(Class(getDefinitionByName(objd.type)));
+                    ret.push(objd);
+                }
             }
-        } else if (xml.factory && xml.factory.variable && xml.factory.variable.length() > 0) {
-            for each (var propb:XML in xml.factory.variable) {
-                var objb:Object = {};
-                objb.name = propb.@name.toString();
-                objb.type = propb.@type.toString();
-                objb.cls = objb.type == "*" ? null : getClass(Class(getDefinitionByName(objb.type)));
-                ret.push(objb);
+        } else {
+            var xml:XML = describeType(clz);
+            if (xml.variable && xml.variable.length() > 0) {
+                for each (var prop:XML in xml.variable) {
+                    var obj:Object = {};
+                    obj.name = prop.@name.toString();
+                    obj.type = prop.@type.toString();
+                    obj.cls = obj.type == "*" ? null : getClass(Class(getDefinitionByName(obj.type)));
+                    ret.push(obj);
+                }
+            } else if (xml.factory && xml.factory.variable && xml.factory.variable.length() > 0) {
+                for each (var propb:XML in xml.factory.variable) {
+                    var objb:Object = {};
+                    objb.name = propb.@name.toString();
+                    objb.type = propb.@type.toString();
+                    objb.cls = objb.type == "*" ? null : getClass(Class(getDefinitionByName(objb.type)));
+                    ret.push(objb);
+                }
             }
         }
         return ret;
@@ -86,22 +101,35 @@ public class ANEUtils {
         if (isObject) {
             return ret;
         }
-        var xml:XML = describeType(clz);
-        if (xml.variable && xml.variable.length() > 0) {
-            for each (var prop:XML in xml.variable) {
-                var obj:Object = {};
-                obj.name = prop.@name.toString();
-                obj.type = prop.@type.toString();
-                obj.cls = obj.type == "*" ? null : getClass(Class(getDefinitionByName(obj.type)));
-                ret.push(obj);
+        if (DescribeTypeJSON.available) {
+            var json:Object = DescribeTypeJSON.run(clz);
+            if (json.traits.variables) {
+                for each (var propd:Object in json.traits.variables) {
+                    var objd:Object = {};
+                    objd.name = propd.name;
+                    objd.type = propd.type;
+                    objd.cls = objd.type == "*" ? null : getClass(Class(getDefinitionByName(objd.type)));
+                    ret.push(objd);
+                }
             }
-        } else if (xml.factory && xml.factory.variable && xml.factory.variable.length() > 0) {
-            for each (var propb:XML in xml.factory.variable) {
-                var objb:Object = {};
-                objb.name = propb.@name.toString();
-                objb.type = propb.@type.toString();
-                objb.cls = objb.type == "*" ? null : getClass(Class(getDefinitionByName(objb.type)));
-                ret.push(objb);
+        } else {
+            var xml:XML = describeType(clz);
+            if (xml.variable && xml.variable.length() > 0) {
+                for each (var prop:XML in xml.variable) {
+                    var obje:Object = {};
+                    obje.name = prop.@name.toString();
+                    obje.type = prop.@type.toString();
+                    obje.cls = obje.type == "*" ? null : getClass(Class(getDefinitionByName(obje.type)));
+                    ret.push(obje);
+                }
+            } else if (xml.factory && xml.factory.variable && xml.factory.variable.length() > 0) {
+                for each (var propb:XML in xml.factory.variable) {
+                    var objb:Object = {};
+                    objb.name = propb.@name.toString();
+                    objb.type = propb.@type.toString();
+                    objb.cls = objb.type == "*" ? null : getClass(Class(getDefinitionByName(objb.type)));
+                    ret.push(objb);
+                }
             }
         }
         return ret;

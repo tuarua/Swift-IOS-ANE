@@ -120,13 +120,18 @@ public class SwiftController: NSObject {
         trace("Set element of FREArray:", Int(airArray[0]) ?? 0, 123 == Int(airArray[0]) ? "✅" : "❌")
         
         let swiftArr: [Int] = [1, 2, 3]
+        let arrayRet = swiftArr.toFREObject()
+        
+        trace("Swift Array.toFREObject() is of type VECTOR:", arrayRet?.type ?? "unknown",
+              arrayRet?.type == FreObjectTypeSwift.vector ? "✅" : "❌")
+        
         if let swiftArrayFre = FREArray(intArray: swiftArr) {
             let swiftArrBack = [Int](swiftArrayFre)
             trace("Swift IntArray:", 3 == swiftArrBack?[2] ? "✅" : "❌")
+            return swiftArrayFre.rawValue
         }
         trace("-------------------------------------------")
-        return airArray.rawValue
-        
+        return nil
     }
     
     func runObjectTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
@@ -138,7 +143,9 @@ public class SwiftController: NSObject {
         
         let newPerson = FREObject(className: "com.tuarua.Person")
         trace("New Person is of type CLASS:", newPerson?.type ?? "unknown",
-              newPerson?.type == FreObjectTypeSwift.cls ? "✅" : "❌")
+              newPerson?.type == FreObjectTypeSwift.class ? "✅" : "❌")
+        
+        trace("New Person className is com.tuarua::Person :", newPerson?.className == "com.tuarua::Person" ? "✅" : "❌")
         
         if let oldAge = Int(person["age"]) {
             trace("Get property as Int:", oldAge, 21 == oldAge ? "✅" : "❌")
@@ -157,6 +164,8 @@ public class SwiftController: NSObject {
         trace("Get property as String:", cityName ?? "", "Boston" == cityName ? "✅" : "❌")
         
         if let swiftPerson = FreObjectSwift(className: "com.tuarua.Person") {
+            trace("New Person className is com.tuarua::Person :", swiftPerson.className == "com.tuarua::Person" ? "✅" : "❌")
+            
             swiftPerson.age = 77
             trace("Set property on DynamicMemberLookup to Int:", swiftPerson.age ?? 0, 77 == swiftPerson.age ? "✅" : "❌")
             swiftPerson.age = 66.toFREObject()
@@ -282,7 +291,7 @@ public class SwiftController: NSObject {
             let inFRE1 = argv[1] else {
                 return nil
         }
-        var ret: FREObject? = nil
+        var ret: FREObject?
 #if os(iOS) || os(tvOS)
         let airColor = UIColor(inFRE0, hasAlpha: false)
         let airColorWithAlpha = UIColor(inFRE1)

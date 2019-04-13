@@ -23,7 +23,6 @@ public typealias FREFunctionMap = [String: (_: FREContext, _: FREArgc, _: FREArg
 
 /// FREObject: Extends FREObject with Swift syntax.
 public extension FREObject {
-    
     /// hasOwnProperty: Indicates whether an object has a specified property defined.
     ///
     /// ```swift
@@ -62,7 +61,7 @@ public extension FREObject {
     /// - parameter name: name of the property to return
     /// - throws: Can throw a `FreError` on fail
     /// - returns: FREObject?
-    @available(*, deprecated, message: "use accessor or FreObjectSwift wrapper instead")
+    @available(*, unavailable, message: "use accessor or FreObjectSwift wrapper instead")
     func getProp(name: String) throws -> FREObject? {
         if let ret = FreSwiftHelper.getProperty(rawValue: self, name: name) {
             return ret
@@ -75,7 +74,7 @@ public extension FREObject {
     /// - parameter value: value to set to
     /// - throws: Can throw a `FreError` on fail
     /// - returns: Void
-    @available(*, deprecated, message: "use accessor or FreObjectSwift wrapper instead")
+    @available(*, unavailable, message: "use accessor or FreObjectSwift wrapper instead")
     func setProp(name: String, value: Any?) throws {
         if value is FREObject {
             FreSwiftHelper.setProperty(rawValue: self, name: name, prop: value as? FREObject)
@@ -182,16 +181,25 @@ public extension FREObject {
         return FreSwiftHelper.callMethod(self, name: method, args: args)
     }
     
-    /// returns the type of the FREOject
+    /// returns the type of the FREObject
     var type: FreObjectTypeSwift {
         return FreSwiftHelper.getType(self)
+    }
+    
+    /// returns the className of the FREObject
+    var className: String? {
+        if let aneUtils = FREObject(className: "com.tuarua.fre.ANEUtils"),
+            let classType = aneUtils.call(method: "getClassType", args: self) {
+            return String(classType)
+        }
+        return nil
     }
     
     /// accessor: sets/gets the Property of a FREObject.
     ///
     /// ```swift
     /// let myName = argv[0]["name"]
-    /// argv[0]["name"] = "New Name".toFREOject()
+    /// argv[0]["name"] = "New Name".toFREObject()
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: FREObject?

@@ -56,9 +56,9 @@ public class FreSwiftExampleANE extends EventDispatcher {
         return FreSwiftExampleANEContext.context.call("runIntTests", value, value2) as int;
     }
 
-    public function runArrayTests(value:Array):Array {
+    public function runArrayTests(value:Array):Vector.<int> {
         FreSwiftExampleANEContext.validate();
-        return FreSwiftExampleANEContext.context.call("runArrayTests", value) as Array;
+        return FreSwiftExampleANEContext.context.call("runArrayTests", value) as Vector.<int>;
     }
 
     public function runObjectTests(value:Person):Person {

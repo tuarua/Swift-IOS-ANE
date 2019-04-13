@@ -38,7 +38,7 @@ public enum FreObjectTypeSwift: UInt32 {
     /// int
     case int = 9
     /// Class
-    case cls = 10 //aka class
+    case `class` = 10
     /// flash.geom.Rectangle
     case rectangle = 11
     /// flash.geom.Point

@@ -86,6 +86,6 @@ public extension FreSwiftController {
         }
     }
     
-    @available(*, obsoleted: 3.0.0, renamed: "dispatchEvent()")
+    @available(*, unavailable, renamed: "dispatchEvent()")
     func sendEvent(name: String, value: String) { }
 }

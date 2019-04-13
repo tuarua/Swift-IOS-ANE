@@ -1,3 +1,20 @@
+### 3.1.0
+- `FreError.getError()` params are now optional
+- Add `FREObject.className`
+- Add `FreObjectSwift.className`
+- Add `FreObjectSwift.toString()`
+- Add `@dynamicMemberLookup` for Array types to `FreObjectSwift`
+- Add `[Date]` support to `FREArray`
+- Add `[NSNumber]` support to `FREArray`
+- Declare `FREArray` as open
+- Change: `FREArray` now uses `Vector.<Type>` throughout
+- Rename `FreObjectTypeSwift.cls` to `FreObjectTypeSwift.class`
+- Improve `ANEUtils.map` performance
+- Obsolete `FREObject.setProp()`
+- Obsolete `FREObject.getProp()`
+- Fix spelling mistakes in docs
+- Upgraded to AIR SDK 32.0.0.116
+
 ### 3.0.0
 - Upgrade to Xcode 10.1
 - Upgrade to iOS SDK 12.1
