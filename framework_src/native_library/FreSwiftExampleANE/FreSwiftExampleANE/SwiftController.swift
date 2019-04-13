@@ -128,10 +128,10 @@ public class SwiftController: NSObject {
         if let swiftArrayFre = FREArray(intArray: swiftArr) {
             let swiftArrBack = [Int](swiftArrayFre)
             trace("Swift IntArray:", 3 == swiftArrBack?[2] ? "✅" : "❌")
+            return swiftArrayFre.rawValue
         }
         trace("-------------------------------------------")
-        return airArray.rawValue
-        
+        return nil
     }
     
     func runObjectTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
