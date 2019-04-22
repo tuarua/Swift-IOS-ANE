@@ -220,6 +220,6 @@ You will need
 
 - Xcode 10.1
 - IntelliJ IDEA
-- AIR 32.0.0.103 or greater
+- AIR 32.0.0.116 or greater
 - wget
 - Carthage
