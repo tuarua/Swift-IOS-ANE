@@ -214,14 +214,6 @@ func onLoad() {
 ### Required AS3 classes
 **com.tuarua.fre.ANEUtils.as** and **com.tuarua.fre.ANEError.as** and **avmplus.DescribeTypeJSON** are required by FreSwift and should be included in the AS3 library of your ANE
 
-### Modifications to AIR SDK
-
-We need to patch some files in AIR SDK. 
-
-- Copy `/lib/adt.jar` from **AIRSDK_patch** into the corresponding folder in your AIR SDK.
-
-See [https://forums.adobe.com/message/10756033#10756033](https://forums.adobe.com/message/10756033#10756033) for more details.
-
 ### Prerequisites
 
 You will need
