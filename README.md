@@ -1,6 +1,6 @@
 # FreSwift
 
-Example Xcode projects showing how to create AIR Native Extensions for iOS, tvOS & OSX using Swift.   
+Example Xcode projects showing how to create AIR Native Extensions for iOS, tvOS & macOS using Swift.   
 It supports iOS 9.0+, tvOS 9.2+, macOS 10.10+
 
 #### Xcode 10.1 (10B61) must be used with Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
