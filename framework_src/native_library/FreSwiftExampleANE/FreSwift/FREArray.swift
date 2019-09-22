@@ -174,8 +174,7 @@ open class FREArray: Sequence {
         
         if FRE_OK == status { return ret }
         FreSwiftLogger.shared.log(message: "cannot get item at \(index)",
-            type: FreSwiftHelper.getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: FreSwiftHelper.getErrorCode(status))
         return nil
     }
     
@@ -190,8 +189,7 @@ open class FREArray: Sequence {
         
         if FRE_OK == status { return }
         FreSwiftLogger.shared.log(message: "cannot set item at \(index)",
-            type: FreSwiftHelper.getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: FreSwiftHelper.getErrorCode(status))
     }
     
     /// set: Sets FREObject at position index
@@ -243,8 +241,7 @@ open class FREArray: Sequence {
 #endif
         if FRE_OK == status { return UInt(ret) }
         FreSwiftLogger.shared.log(message: "cannot get length of array",
-            type: FreSwiftHelper.getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: FreSwiftHelper.getErrorCode(status))
         return 0
     }
     

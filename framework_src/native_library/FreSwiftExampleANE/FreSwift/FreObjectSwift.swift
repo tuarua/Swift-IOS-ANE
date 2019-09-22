@@ -365,12 +365,8 @@ open class FreObjectSwift: NSObject {
     /// - parameter name: name of the property to return
     /// - returns: FREObject?
     public subscript(_ name: String) -> FREObject? {
-        get {
-            return self.rawValue?[name]
-        }
-        set {
-            self.rawValue?[name] = newValue
-        }
+        get { return self.rawValue?[name] }
+        set { self.rawValue?[name] = newValue }
     }
 
     /// init: Creates a new FreObjectSwift

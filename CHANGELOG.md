@@ -1,3 +1,13 @@
+### 4.0.0
+- Upgrade to Xcode 11.0
+- Upgrade to iOS SDK 13.0
+- Upgrade to Swift version 5.1 (swiftlang-1100.0.270.13 clang-1100.0.33.7)
+- Remove `sendEvent()`
+- Remove `FREObject.setProp()`
+- Remove `FREObject.getProp()`
+- Add default param values to `FreArgError.init()`
+- Add default param values to `FreError.getError()`
+
 ### 3.1.0
 - `FreError.getError()` params are now optional
 - Add `FREObject.className`

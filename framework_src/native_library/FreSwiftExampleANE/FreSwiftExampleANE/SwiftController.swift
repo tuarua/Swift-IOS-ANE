@@ -36,12 +36,12 @@ public class SwiftController: NSObject {
     
     func runStringTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         guard argc > 0 else {
-            return FreArgError(message: "not enough arguments passed").getError(#file, #line, #column)
+            return FreArgError().getError()
         }
     
         trace("*********** Start String test ***********")
         guard let airString = String(argv[0]) else {
-            return FreArgError(message: "String not converted").getError(#file, #line, #column)
+            return FreArgError().getError()
         }
         
         trace("String passed from AIR:", airString)
@@ -59,7 +59,7 @@ public class SwiftController: NSObject {
             let airFloat = Float(inFRE0),
             let airNSNumber = NSNumber(inFRE0)
             else {
-                return FreArgError(message: "Number not converted").getError(#file, #line, #column)   
+                return FreArgError().getError()
         }
         
         let testDouble: Double = 31.99
@@ -255,9 +255,8 @@ public class SwiftController: NSObject {
         person.call(method: "add", args: 2) //not passing enough args
         
         guard FreObjectTypeSwift.int == expectInt.type else {
-            return FreError(stackTrace: "",
-                                 message: "Oops, we expected the FREObject to be passed as an int but it's not",
-                                 type: .typeMismatch).getError(#file, #line, #column)
+            return FreError(message: "Oops, we expected the FREObject to be passed as an int but it's not",
+                            type: .typeMismatch).getError()
         }
         
         trace("-------------------------------------------")

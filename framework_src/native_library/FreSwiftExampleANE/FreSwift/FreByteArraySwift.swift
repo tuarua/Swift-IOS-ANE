@@ -56,8 +56,7 @@ public class FreByteArraySwift: NSObject {
 #endif
             guard FRE_OK == status else {
                 FreSwiftLogger.shared.log(message: "cannot acquire ByteArray",
-                                            type: FreSwiftHelper.getErrorCode(status),
-                                            line: #line, column: #column, file: #file)
+                                            type: FreSwiftHelper.getErrorCode(status))
                 return
             }
             memcpy(_byteArray.bytes, data.bytes, data.length)
@@ -77,8 +76,7 @@ public class FreByteArraySwift: NSObject {
 #endif
         guard FRE_OK == status else {
             FreSwiftLogger.shared.log(message: "cannot acquire ByteArray",
-                                        type: FreSwiftHelper.getErrorCode(status),
-                                        line: #line, column: #column, file: #file)
+                                        type: FreSwiftHelper.getErrorCode(status))
             return
         }
         
@@ -98,8 +96,7 @@ public class FreByteArraySwift: NSObject {
 #endif
         if FRE_OK == status { return }
         FreSwiftLogger.shared.log(message: "cannot release ByteArray",
-                                    type: FreSwiftHelper.getErrorCode(status),
-                                    line: #line, column: #column, file: #file)
+                                    type: FreSwiftHelper.getErrorCode(status))
     }
 
     /// Handles conversion to a NSData

@@ -45,8 +45,7 @@ public class FreSwiftHelper {
         if FRE_OK == status { return ret }
         logger.log(message: "cannot call method \(name) on \(rv.toString())",
             stackTrace: getActionscriptException(thrownException),
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
@@ -64,8 +63,7 @@ public class FreSwiftHelper {
         }
         
         logger.log(message: "cannot get FREObject \(rawValue.toString(true)) as String",
-                                    type: getErrorCode(status),
-                                    line: #line, column: #column, file: #file)
+                                    type: getErrorCode(status))
         return nil
     }
 
@@ -78,8 +76,7 @@ public class FreSwiftHelper {
 #endif
         if FRE_OK == status  { return val == 1 }
         logger.log(message: "cannot get FREObject \(rawValue.toString()) as Bool",
-                                    type: getErrorCode(status),
-                                    line: #line, column: #column, file: #file)
+                                    type: getErrorCode(status))
         return nil
     }
 
@@ -92,8 +89,7 @@ public class FreSwiftHelper {
 #endif
         if FRE_OK == status  { return ret }
         logger.log(message: "cannot get FREObject \(rawValue.toString()) as Double",
-                                    type: getErrorCode(status),
-                                    line: #line, column: #column, file: #file)
+                                    type: getErrorCode(status))
         return nil
     }
 
@@ -115,8 +111,7 @@ public class FreSwiftHelper {
         
         if FRE_OK == status { return Int(ret) }
         logger.log(message: "cannot get FREObject \(rawValue.toString()) as Int",
-                                    type: getErrorCode(status),
-                                    line: #line, column: #column, file: #file)
+                                    type: getErrorCode(status))
         return nil
     }
 
@@ -129,8 +124,7 @@ public class FreSwiftHelper {
 #endif
         if FRE_OK == status { return UInt(ret) }
         logger.log(message: "cannot get FREObject \(rawValue.toString()) as UInt",
-                                    type: getErrorCode(status),
-                                    line: #line, column: #column, file: #file)
+                                    type: getErrorCode(status))
         return nil
     }
 
@@ -232,9 +226,7 @@ public class FreSwiftHelper {
                 : type
         
         }
-        logger.log(message: "cannot get type",
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+        logger.log(message: "cannot get type", type: getErrorCode(status))
         return FreObjectTypeSwift.null
     }
 
@@ -420,8 +412,7 @@ public class FreSwiftHelper {
         if FRE_OK == status { return ret }
         logger.log(message: "cannot get property \(name) of \(rawValue.toString())",
             stackTrace: getActionscriptException(thrownException),
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
@@ -438,8 +429,7 @@ public class FreSwiftHelper {
         if FRE_OK == status { return }
         logger.log(message: "cannot set property \(name) of \(rawValue.toString()) to \(FreObjectSwift(prop).value ?? "unknown")",
             stackTrace: getActionscriptException(thrownException),
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
     }
 
     static func getActionscriptException(_ thrownException: FREObject?) -> String {
@@ -470,8 +460,7 @@ public class FreSwiftHelper {
         
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(string)",
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
@@ -484,8 +473,7 @@ public class FreSwiftHelper {
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(double)",
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
@@ -498,8 +486,7 @@ public class FreSwiftHelper {
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(cgFloat)",
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
@@ -521,8 +508,7 @@ public class FreSwiftHelper {
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(int)",
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
@@ -535,8 +521,7 @@ public class FreSwiftHelper {
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(uint)",
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
@@ -550,8 +535,7 @@ public class FreSwiftHelper {
 #endif
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create FREObject from \(bool)",
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
@@ -571,8 +555,7 @@ public class FreSwiftHelper {
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create new class \(className)",
             stackTrace: getActionscriptException(thrownException),
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
@@ -589,8 +572,7 @@ public class FreSwiftHelper {
         if FRE_OK == status { return ret }
         logger.log(message: "cannot create new class \(className)",
             stackTrace: getActionscriptException(thrownException),
-            type: getErrorCode(status),
-            line: #line, column: #column, file: #file)
+            type: getErrorCode(status))
         return nil
     }
 
