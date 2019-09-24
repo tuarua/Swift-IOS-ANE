@@ -13,7 +13,7 @@ public class SwiftController: NSObject {
             let uppercase = Bool(argv[1]),
             let numRepeats = Int(argv[2])
             else {
-                return FreArgError(message: "sayHello").getError(#file, #line, #column)
+                return FreArgError().getError()
         }
         
         dispatchEvent(name: "MY_EVENT", value: "ok") //async event

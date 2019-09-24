@@ -70,7 +70,8 @@ public class FreError: Error {
     /// - parameter line: The line at which the error occurred.
     /// - parameter column: The column at which the error occurred.
     /// - parameter file: The file in which the error occurred.
-    public init(stackTrace: String, message: String, type: Code, line: Int, column: Int, file: String) {
+    public init(stackTrace: String, message: String, type: Code,
+                line: Int = #line, column: Int = #column, file: String = #file) {
         self.stackTrace = stackTrace
         self.message = message
         self.type = type
@@ -83,17 +84,17 @@ public class FreError: Error {
     /// - parameter stackTrace: The stack trace
     /// - parameter message: Message to include
     /// - parameter type: The error code
-    public init(stackTrace: String, message: String, type: Code) {
+    public init(stackTrace: String = "", message: String, type: Code) {
         self.stackTrace = stackTrace
         self.message = message
         self.type = type
     }
 
     /// getError: returns a FREObject representation of the FreError. This can be returned to AS3
-    public func getError(_ oFile: String = "", _ oLine: Int = 0, _ oColumn: Int = 0) -> FREObject? {
+    public func getError(_ file: String = #file, _ line: Int = #line, _ column: Int = #column) -> FREObject? {
         let _aneError = FREObject(className: "com.tuarua.fre.ANEError",
                                   args: message, 0, String(describing: type),
-                                  (oFile.count > 0 || oLine > 0 ? "[\(oFile):\(oLine):\(oColumn)]" : ""), stackTrace)
+                                  (file.count > 0 || line > 0 ? "[\(file):\(line):\(column)]" : ""), stackTrace)
         return _aneError
     }
 }

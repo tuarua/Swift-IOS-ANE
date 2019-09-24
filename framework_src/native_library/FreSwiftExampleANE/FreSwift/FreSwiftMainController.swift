@@ -106,7 +106,4 @@ public extension FreSwiftMainController {
             context.dispatchStatusEventAsync(code: value, level: name)
         }
     }
-    
-    @available(*, obsoleted: 3.0.0, renamed: "dispatchEvent()")
-    func sendEvent(name: String, value: String) { }
 }

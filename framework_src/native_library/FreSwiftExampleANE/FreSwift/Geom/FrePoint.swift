@@ -47,7 +47,7 @@ public extension FreObjectSwift {
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: CGPoint?
-    public subscript(dynamicMember name: String) -> CGPoint? {
+    subscript(dynamicMember name: String) -> CGPoint? {
         get { return CGPoint(rawValue?[name]) }
         set { rawValue?[name] = newValue?.toFREObject() }
     }

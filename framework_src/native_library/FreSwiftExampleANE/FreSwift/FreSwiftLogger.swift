@@ -32,7 +32,8 @@ public class FreSwiftLogger {
     /// - parameter line: line where error occurred
     /// - parameter column: column where error occurred
     /// - parameter file: file name where error occurred
-    public func log(message: String, stackTrace: String? = nil, type: FreError.Code, line: Int, column: Int, file: String) {
+    public func log(message: String, stackTrace: String? = nil, type: FreError.Code,
+                    line: Int = #line, column: Int = #column, file: String = #file) {
         guard let ctx = context else { return }
         ctx.dispatchStatusEventAsync(code: "[FreSwift] ‼️ \(String(describing: type)) \(message)", level: "TRACE")
         ctx.dispatchStatusEventAsync(code: "[FreSwift] ‼️ \(URL(string: file)?.lastPathComponent ?? "") line:\(line):\(column)", level: "TRACE")

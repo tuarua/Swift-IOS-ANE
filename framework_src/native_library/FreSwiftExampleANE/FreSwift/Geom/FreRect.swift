@@ -48,7 +48,7 @@ public extension FreObjectSwift {
     /// ```
     /// - parameter name: name of the property to return
     /// - returns: CGRect?
-    public subscript(dynamicMember name: String) -> CGRect? {
+    subscript(dynamicMember name: String) -> CGRect? {
         get { return CGRect(rawValue?[name]) }
         set { rawValue?[name] = newValue?.toFREObject() }
     }

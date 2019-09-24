@@ -18,7 +18,7 @@ import Foundation
 public class FreArgError: FreError {
     /// init: inits FreArgError.
     /// - parameter message: String
-    public init(message: String) {
-        super.init(stackTrace: "", message: "\(message) - incorrect arguments", type: FreError.Code.invalidArgument)
+    public init(message: String = #function) {
+        super.init(message: "incorrect arguments passed - \(message)", type: FreError.Code.invalidArgument)
     }
 }

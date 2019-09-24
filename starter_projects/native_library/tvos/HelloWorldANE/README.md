@@ -3,9 +3,8 @@
 Example Xcode project showing how to create Air Native Extensions for tvOS using Swift.   
 It supports tvOS 9.2+
 
-#### Xcode 10.1 (10B61) must be used with Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)
+#### Xcode 11.0 (11A420a) must be used with Apple Swift version 5.1 (swiftlang-1100.0.270.13 clang-1100.0.33.7)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
-ABI stability is planned for Swift 5 in early 2019
 
 #### To download the required FreSwift Framework
 
@@ -71,7 +70,7 @@ func goBack(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
 
 You will need
 
-- Xcode 10.1
+- Xcode 11.0
 - IntelliJ IDEA
 - AIR 32.0.116+
 
