@@ -8,6 +8,7 @@ bin/
 bin-release/
 bin-release-temp/
 AIRSDK_patch/
+AIRSDK_additions/
 
 # Other files and folders
 .settings/
