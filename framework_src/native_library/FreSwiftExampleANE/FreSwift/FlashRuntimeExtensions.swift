@@ -400,7 +400,7 @@ public extension String {
         /// let clr = NSColor(freObject: argv[0])
         /// ```
         /// - parameter freObject: FREObject which is of AS3 type uint
-        /// - parameter hasAlpha: Whether the uint is in 32bit ARGB hex format ef 0xFF00FF00
+        /// - parameter hasAlpha: Whether the uint is in 32bit ARGB hex format eg. 0xFF00FF00
         /// - returns: NSColor?
         convenience init?(_ freObject: FREObject?, hasAlpha: Bool = true) {
             guard let rv = freObject else { return nil }
@@ -440,7 +440,7 @@ public extension String {
         /// let clr = UIColor(freObject: argv[0])
         /// ```
         /// - parameter freObject: FREObject which is of AS3 type uint
-        /// - parameter hasAlpha: Whether the uint is in 32bit ARGB hex format ef 0xFF00FF00
+        /// - parameter hasAlpha: Whether the uint is in 32bit ARGB hex format eg. 0xFF00FF00
         /// - returns: UIColor?
         convenience init?(_ freObject: FREObject?, hasAlpha: Bool = true) {
             guard let rv = freObject else { return nil }

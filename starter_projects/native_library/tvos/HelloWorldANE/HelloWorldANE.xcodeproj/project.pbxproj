@@ -33,7 +33,7 @@
 		CE4477B4204C4A7200124E91 /* libHelloWorldANE_LIB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHelloWorldANE_LIB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4477B6204C4A7200124E91 /* HelloWorldANE_LIB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldANE_LIB.h; sourceTree = "<group>"; };
 		CE4477B7204C4A7200124E91 /* HelloWorldANE_LIB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldANE_LIB.m; sourceTree = "<group>"; };
-		CE4477BD204C4AB800124E91 /* FreMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreMacros.h; path = ../../../ios/HelloWorldANE/HelloWorldANE_LIB/FreMacros.h; sourceTree = "<group>"; };
+		CE4477BD204C4AB800124E91 /* FreMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FreMacros.h; sourceTree = "<group>"; };
 		CE4477C3204C4B0400124E91 /* HelloWorldANE_FW.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HelloWorldANE_FW.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4477C5204C4B0400124E91 /* HelloWorldANE_FW.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldANE_FW.h; sourceTree = "<group>"; };
 		CE4477C6204C4B0400124E91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 					};
 					CE4477C2204C4B0400124E91 = {
 						CreatedOnToolsVersion = 9.1;
-						LastSwiftMigration = 0910;
+						LastSwiftMigration = 1100;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -186,6 +186,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CE44779B204C498800124E91;
 			productRefGroup = CE4477A5204C498800124E91 /* Products */;
@@ -430,7 +431,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -464,7 +465,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 				VERSIONING_SYSTEM = "apple-generic";
