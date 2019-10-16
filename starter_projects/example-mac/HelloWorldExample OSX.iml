@@ -8,9 +8,6 @@
             <entry library-name="HelloWorldANE-osx" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="CommonDependencies" library-level="project">
-              <dependency linkage="Merged" />
-            </entry>
             <entry library-name="FreSwift" library-level="project">
               <dependency linkage="Merged" />
             </entry>
