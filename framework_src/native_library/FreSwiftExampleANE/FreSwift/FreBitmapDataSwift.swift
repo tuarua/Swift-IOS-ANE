@@ -18,7 +18,9 @@ import Foundation
 /// FreBitmapDataSwift: wrapper for FREBitmapData2.
 public class FreBitmapDataSwift: NSObject {
     private typealias FREBitmapData = FREBitmapData2
-
+    private var logger: FreSwiftLogger {
+        return FreSwiftLogger.shared
+    }
     /// raw FREObject value.
     public var rawValue: FREObject?
     private var _bitmapData: FREBitmapData = FREBitmapData()
@@ -77,7 +79,7 @@ public class FreBitmapDataSwift: NSObject {
 #endif
         
         guard FRE_OK == status else {
-            FreSwiftLogger.shared.log(message: "cannot acquire BitmapData", type: FreSwiftHelper.getErrorCode(status))
+            logger.error(message: "cannot acquire BitmapData", type: FreSwiftHelper.getErrorCode(status))
             return
         }
         width = Int(_bitmapData.width)
@@ -100,7 +102,7 @@ public class FreBitmapDataSwift: NSObject {
         let status = FREReleaseBitmapData(rv)
 #endif
         if FRE_OK == status { return }
-        FreSwiftLogger.shared.log(message: "cannot releaseData", type: FreSwiftHelper.getErrorCode(status))
+        logger.error(message: "cannot releaseData", type: FreSwiftHelper.getErrorCode(status))
     }
 
     /// Handles conversion from a CGImage
@@ -165,7 +167,7 @@ public class FreBitmapDataSwift: NSObject {
 #endif
 
         if FRE_OK == status { return }
-        FreSwiftLogger.shared.log(message: "cannot invalidateRect", type: FreSwiftHelper.getErrorCode(status))
+        logger.error(message: "cannot invalidateRect", type: FreSwiftHelper.getErrorCode(status))
     }
 }
 #if os(iOS) || os(tvOS)

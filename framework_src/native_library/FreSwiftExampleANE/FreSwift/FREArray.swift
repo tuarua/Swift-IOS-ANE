@@ -53,12 +53,22 @@ open class FREArray: Sequence {
     /// - parameter className: name of AS3 class to create
     /// - parameter length: number of elements in the array
     /// - parameter fixed: whether the array is fixed
-    public init?(className: String, length: Int = 0, fixed: Bool = false) {
-        let argsArray: NSPointerArray = NSPointerArray(options: .opaqueMemory)
-        argsArray.addPointer(length.toFREObject())
-        argsArray.addPointer(fixed.toFREObject())
-        if let fre = FreSwiftHelper.newObject(className: "Vector.<\(className)>", argsArray) {
-            rawValue = fre
+    /// - parameter items: populates the FREArray with the supplied Array of FREObjects
+    public init?(className: String, length: Int = 0, fixed: Bool = false, items: [FREObject?]? = nil) {
+        create(className: className, length: length, fixed: fixed, items: items)
+    }
+    
+    /// :nodoc:
+    private func create(className: String, length: Int = 0, fixed: Bool = false, items: [FREObject?]? = nil) {
+        rawValue = FREObject(className: "Vector.<\(className)>", args: length, fixed)
+        var cnt: UInt = 0
+        for v in items ?? [] {
+            if length > 0 {
+                self[cnt] = v
+            } else {
+                self.push(v)
+            }
+            cnt += 1
         }
     }
     
@@ -66,84 +76,56 @@ open class FREArray: Sequence {
     ///
     /// - parameter intArray: array to be converted
     public init?(intArray array: [Int]) {
-        if let fre = FREArray(className: "int") {
-            for v in array {
-                fre.push(v)
-            }
-            rawValue = fre.rawValue
-        }
+        create(className: "int", items: array.compactMap { $0.toFREObject() })
     }
     
     /// init: Initialise a FREArray with a [UInt].
     ///
     /// - parameter intArray: array to be converted
     public init(uintArray array: [UInt]) {
-        if let fre = FREArray(className: "uint") {
-            for v in array {
-                fre.push(v)
-            }
-            rawValue = fre.rawValue
-        }
+        create(className: "uint", items: array.compactMap { $0.toFREObject() })
     }
     
     /// init: Initialise a FREArray with a [String].
     ///
     /// - parameter stringArray: array to be converted
     public init(stringArray array: [String]) {
-        if let fre = FREArray(className: "String") {
-            for v in array {
-                fre.push(v)
-            }
-            rawValue = fre.rawValue
-        }
+        rawValue = FREArray(className: "String", items: array.map { $0.toFREObject() })?.rawValue
+    }
+    
+    /// init: Initialise a FREArray with a [String?].
+    ///
+    /// - parameter stringArray: array to be converted
+    public init(optionalStringArray array: [String?]) {
+        create(className: "String", items: array.map { $0?.toFREObject() })
     }
     
     /// init: Initialise a FREArray with a [Double].
     ///
     /// - parameter doubleArray: array to be converted
     public init(doubleArray array: [Double]) {
-        if let fre = FREArray(className: "Number") {
-            for v in array {
-                fre.push(v)
-            }
-            rawValue = fre.rawValue
-        }
+        create(className: "Number", items: array.compactMap { $0.toFREObject() })
     }
     
     /// init: Initialise a FREArray with a [NSNumber].
     ///
     /// - parameter doubleArray: array to be converted
     public init(numberArray array: [NSNumber]) {
-        if let fre = FREArray(className: "Number") {
-            for v in array {
-                fre.push(v)
-            }
-            rawValue = fre.rawValue
-        }
+        create(className: "Number", items: array.compactMap { $0.toFREObject() })
     }
     
     /// init: Initialise a FREArray with a [Bool].
     ///
     /// - parameter boolArray: array to be converted
     public init(boolArray array: [Bool]) {
-        if let fre = FREArray(className: "Boolean") {
-            for v in array {
-                fre.push(v)
-            }
-            rawValue = fre.rawValue
-        }
+        create(className: "Boolean", items: array.compactMap { $0.toFREObject() })
     }
     
     /// init: Initialise a FREArray with a [Date].
     ///
     /// - parameter dateArray: array to be converted
     public init(dateArray array: [Date]) {
-        if let fre = FREArray(className: "Date") {
-            for v in array {
-                fre.push(v)
-            }
-            rawValue = fre.rawValue
-        }
+        create(className: "Date", items: array.compactMap { $0.toFREObject() })
     }
     
     /// init: Initialise a FREArray with a [Any].
@@ -173,7 +155,7 @@ open class FREArray: Sequence {
 #endif
         
         if FRE_OK == status { return ret }
-        FreSwiftLogger.shared.log(message: "cannot get item at \(index)",
+        FreSwiftLogger.shared.error(message: "cannot get item at \(index)",
             type: FreSwiftHelper.getErrorCode(status))
         return nil
     }
@@ -188,7 +170,7 @@ open class FREArray: Sequence {
 #endif
         
         if FRE_OK == status { return }
-        FreSwiftLogger.shared.log(message: "cannot set item at \(index)",
+        FreSwiftLogger.shared.error(message: "cannot set item at \(index)",
             type: FreSwiftHelper.getErrorCode(status))
     }
     
@@ -204,6 +186,7 @@ open class FREArray: Sequence {
     /// push: Adds one or more elements to the end of an array and returns the new length of the array.
     ///
     /// - parameter args: One or more values to append to the array.
+    /// - returns: UInt An integer representing the length of the new array.
     @discardableResult
     public func push(_ args: Any?...) -> UInt {
         return UInt(FreSwiftHelper.callMethod(self.rawValue, name: "push", args: args)) ?? 0
@@ -240,7 +223,7 @@ open class FREArray: Sequence {
         let status = FREGetArrayLength(rv, &ret)
 #endif
         if FRE_OK == status { return UInt(ret) }
-        FreSwiftLogger.shared.log(message: "cannot get length of array",
+        FreSwiftLogger.shared.error(message: "cannot get length of array",
             type: FreSwiftHelper.getErrorCode(status))
         return 0
     }
@@ -288,10 +271,10 @@ public extension Array where Element == Any {
     /// - parameter freObject: FREObject which is of AS3 type Array
     /// - returns: [Any]?
     init?(_ freObject: FREObject?) {
-        self.init()
         guard let rv = freObject else {
-            return
+            return nil
         }
+        self.init()
         if let val: [Any] = FreSwiftHelper.getAsArray(rv) {
             self = val
         }
@@ -313,13 +296,10 @@ public extension Array where Element == Double {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<Number>`.
     /// - returns: [Double]?
     init?(_ freObject: FREObject?) {
-        self.init()
         guard let rv = freObject else {
-            return
+            return nil
         }
-        if let val: [Double] = FreSwiftHelper.getAsArray(rv) {
-            self = val
-        }
+        self = FREArray(rv).compactMap { Double($0) }
     }
     
     /// init: Initialise a [Double] from a FREArray.
@@ -330,7 +310,7 @@ public extension Array where Element == Double {
     /// - parameter freArray: FREArray which is of AS3 type `Vector.<Number>`.
     /// - returns: [Double]?
     init?(_ freArray: FREArray) {
-        self.init(freArray.rawValue)
+        self = freArray.compactMap { Double($0) }
     }
     
     /// toFREObject: Converts a Double Array into a FREObject of AS3 type `Vector.<Number>`.
@@ -350,13 +330,10 @@ public extension Array where Element == NSNumber {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<Number>`.
     /// - returns: [NSNumber]?
     init?(_ freObject: FREObject?) {
-        self.init()
         guard let rv = freObject else {
-            return
+            return nil
         }
-        if let val: [NSNumber] = FreSwiftHelper.getAsArray(rv) {
-            self = val
-        }
+        self = FREArray(rv).compactMap { NSNumber($0) }
     }
     
     /// init: Initialise a [NSNumber] from a FREArray.
@@ -367,7 +344,7 @@ public extension Array where Element == NSNumber {
     /// - parameter freArray: FREArray which is of AS3 type `Vector.<Number>`.
     /// - returns: [NSNumber]?
     init?(_ freArray: FREArray) {
-        self.init(freArray.rawValue)
+        self = freArray.compactMap { NSNumber($0) }
     }
     
     /// toFREObject: Converts a NSNumber Array into a FREObject of AS3 type `Vector.<Number>`.
@@ -387,13 +364,10 @@ public extension Array where Element == Bool {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<Boolean>`.
     /// - returns: [Bool]?
     init?(_ freObject: FREObject?) {
-        self.init()
         guard let rv = freObject else {
-            return
+            return nil
         }
-        if let val: [Bool] = FreSwiftHelper.getAsArray(rv) {
-            self = val
-        }
+        self = FREArray(rv).compactMap { Bool($0) }
     }
     
     /// init: Initialise a [Bool] from a FREArray.
@@ -404,7 +378,7 @@ public extension Array where Element == Bool {
     /// - parameter freArray: FREArray which is of AS3 type Vector.<Boolean>
     /// - returns: [Bool]?
     init?(_ freArray: FREArray) {
-        self.init(freArray.rawValue)
+        self = freArray.compactMap { Bool($0) }
     }
     
     /// toFREObject: Converts a Bool Array into a FREObject of AS3 type `Vector.<Boolean>`.
@@ -424,13 +398,10 @@ public extension Array where Element == UInt {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<uint>`.
     /// - returns: [UInt]?
     init?(_ freObject: FREObject?) {
-        self.init()
         guard let rv = freObject else {
-            return
+            return nil
         }
-        if let val: [UInt] = FreSwiftHelper.getAsArray(rv) {
-            self = val
-        }
+        self = FREArray(rv).compactMap { UInt($0) }
     }
     
     /// init: Initialise a [UInt] from a FREArray.
@@ -441,7 +412,7 @@ public extension Array where Element == UInt {
     /// - parameter freArray: FREArray which is of AS3 type `Vector.<uint>`.
     /// - returns: [UInt]?
     init?(_ freArray: FREArray) {
-        self.init(freArray.rawValue)
+        self = freArray.compactMap { UInt($0) }
     }
     
     /// toFREObject: Converts an Int Array into a FREObject of AS3 type `Vector.<int>`.
@@ -461,13 +432,10 @@ public extension Array where Element == Int {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<int>`.
     /// - returns: [Int]?
     init?(_ freObject: FREObject?) {
-        self.init()
         guard let rv = freObject else {
-            return
+            return nil
         }
-        if let val: [Int] = FreSwiftHelper.getAsArray(rv) {
-            self = val
-        }
+        self = FREArray(rv).compactMap { Int($0) }
     }
     
     /// init: Initialise a [Int] from a FREArray.
@@ -478,7 +446,7 @@ public extension Array where Element == Int {
     /// - parameter freArray: FREArray which is of AS3 type `Vector.<int>`.
     /// - returns: [Int]?
     init?(_ freArray: FREArray) {
-        self.init(freArray.rawValue)
+        self = freArray.compactMap { Int($0) }
     }
     
     /// toFREObject: Converts an Int Array into a FREObject of AS3 type `Vector.<int>`.
@@ -498,13 +466,10 @@ public extension Array where Element == String {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<String>`.
     /// - returns: [String]?
     init?(_ freObject: FREObject?) {
-        self.init()
         guard let rv = freObject else {
-            return
+            return nil
         }
-        if let val: [String] = FreSwiftHelper.getAsArray(rv) {
-            self = val
-        }
+        self = FREArray(rv).compactMap { String($0) }
     }
     /// init: Initialise a [String] from a FREArray.
     ///
@@ -514,7 +479,7 @@ public extension Array where Element == String {
     /// - parameter freArray: FREArray which is of AS3 type `Vector.<String>`.
     /// - returns: [String]?
     init?(_ freArray: FREArray) {
-        self.init(freArray.rawValue)
+        self = freArray.compactMap { String($0) }
     }
     
     /// toFREObject: Converts an String Array into a FREObject of AS3 type `Vector.<String>`.
@@ -522,6 +487,39 @@ public extension Array where Element == String {
     /// - returns: FREObject
     func toFREObject() -> FREObject? {
         return FREArray(stringArray: self).rawValue
+    }
+}
+
+public extension Array where Element == String? {
+    /// init: Initialise a [String] from a FREObject.
+    ///
+    /// ```swift
+    /// let array = [String?](argv[0])
+    /// ```
+    /// - parameter freObject: FREObject which is of AS3 type `Vector.<String>`.
+    /// - returns: [String?]?
+    init?(_ freObject: FREObject?) {
+        guard let rv = freObject else {
+            return nil
+        }
+        self = FREArray(rv).map { String($0) }
+    }
+    /// init: Initialise a [String] from a FREArray.
+    ///
+    /// ```swift
+    /// let array = [String?](FREArray(argv[0]))
+    /// ```
+    /// - parameter freArray: FREArray which is of AS3 type `Vector.<String>`.
+    /// - returns: [String?]?
+    init?(_ freArray: FREArray) {
+        self = freArray.map { String($0) }
+    }
+    
+    /// toFREObject: Converts an String Array into a FREObject of AS3 type `Vector.<String>`.
+    ///
+    /// - returns: FREObject
+    func toFREObject() -> FREObject? {
+        return FREArray(optionalStringArray: self).rawValue
     }
 }
 
@@ -534,13 +532,10 @@ public extension Array where Element == Date {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<Date>`.
     /// - returns: [Date]?
     init?(_ freObject: FREObject?) {
-        self.init()
         guard let rv = freObject else {
-            return
+            return nil
         }
-        if let val: [Date] = FreSwiftHelper.getAsArray(rv) {
-            self = val
-        }
+        self = FREArray(rv).compactMap { Date($0) }
     }
     /// init: Initialise a [Date] from a FREArray.
     ///
@@ -550,7 +545,7 @@ public extension Array where Element == Date {
     /// - parameter freArray: FREArray which is of AS3 type `Vector.<Date>`.
     /// - returns: [Date]?
     init?(_ freArray: FREArray) {
-        self.init(freArray.rawValue)
+        self = freArray.compactMap { Date($0) }
     }
     
     /// toFREObject: Converts an Date Array into a FREObject of AS3 type `Vector.<Date>`.
