@@ -90,7 +90,7 @@ open class FREArray: Sequence {
     ///
     /// - parameter stringArray: array to be converted
     public init(stringArray array: [String]) {
-        rawValue = FREArray(className: "String", items: array.map { $0.toFREObject() })?.rawValue
+        create(className: "String", items: array.compactMap { $0.toFREObject() })
     }
     
     /// init: Initialise a FREArray with a [String?].
@@ -271,9 +271,7 @@ public extension Array where Element == Any {
     /// - parameter freObject: FREObject which is of AS3 type Array
     /// - returns: [Any]?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         self.init()
         if let val: [Any] = FreSwiftHelper.getAsArray(rv) {
             self = val
@@ -296,9 +294,7 @@ public extension Array where Element == Double {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<Number>`.
     /// - returns: [Double]?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         self = FREArray(rv).compactMap { Double($0) }
     }
     
@@ -330,9 +326,7 @@ public extension Array where Element == NSNumber {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<Number>`.
     /// - returns: [NSNumber]?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         self = FREArray(rv).compactMap { NSNumber($0) }
     }
     
@@ -364,9 +358,7 @@ public extension Array where Element == Bool {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<Boolean>`.
     /// - returns: [Bool]?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         self = FREArray(rv).compactMap { Bool($0) }
     }
     
@@ -398,9 +390,7 @@ public extension Array where Element == UInt {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<uint>`.
     /// - returns: [UInt]?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         self = FREArray(rv).compactMap { UInt($0) }
     }
     
@@ -432,9 +422,7 @@ public extension Array where Element == Int {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<int>`.
     /// - returns: [Int]?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         self = FREArray(rv).compactMap { Int($0) }
     }
     
@@ -466,9 +454,7 @@ public extension Array where Element == String {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<String>`.
     /// - returns: [String]?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         self = FREArray(rv).compactMap { String($0) }
     }
     /// init: Initialise a [String] from a FREArray.
@@ -499,9 +485,7 @@ public extension Array where Element == String? {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<String>`.
     /// - returns: [String?]?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         self = FREArray(rv).map { String($0) }
     }
     /// init: Initialise a [String] from a FREArray.
@@ -532,9 +516,7 @@ public extension Array where Element == Date {
     /// - parameter freObject: FREObject which is of AS3 type `Vector.<Date>`.
     /// - returns: [Date]?
     init?(_ freObject: FREObject?) {
-        guard let rv = freObject else {
-            return nil
-        }
+        guard let rv = freObject else { return nil }
         self = FREArray(rv).compactMap { Date($0) }
     }
     /// init: Initialise a [Date] from a FREArray.
