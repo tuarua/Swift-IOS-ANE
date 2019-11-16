@@ -1,3 +1,12 @@
+### 4.1.0
+- Upgrade to Xcode 11.2
+- Upgrade to Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+- add optional `items` param to `FREArray()`
+- internal refactor of FREArray, use .map and .compactMap for conciser code
+- Add `[String?]` support to `FREArray`
+- rename `FreSwiftLogger.log` to  `FreSwiftLogger.error`
+- add `FreSwiftLogger.info`
+
 ### 4.0.0
 - Upgrade to Xcode 11.0
 - Upgrade to iOS SDK 13.0

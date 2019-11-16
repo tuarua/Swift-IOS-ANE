@@ -16,6 +16,9 @@
 import Foundation
 /// FreByteArraySwift: wrapper for FREByteArray.
 public class FreByteArraySwift: NSObject {
+    private var logger: FreSwiftLogger {
+        return FreSwiftLogger.shared
+    }
     /// raw FREObject value.
     public var rawValue: FREObject?
     ///  An UnsafeMutablePointer<UInt8> that is a pointer to the bytes in the ActionScript ByteArray object.
@@ -55,7 +58,7 @@ public class FreByteArraySwift: NSObject {
             let status = FREAcquireByteArray(targetBA, &_byteArray)
 #endif
             guard FRE_OK == status else {
-                FreSwiftLogger.shared.log(message: "cannot acquire ByteArray",
+                logger.error(message: "cannot acquire ByteArray",
                                             type: FreSwiftHelper.getErrorCode(status))
                 return
             }
@@ -75,7 +78,7 @@ public class FreByteArraySwift: NSObject {
         let status = FREAcquireByteArray(rv, &_byteArray)
 #endif
         guard FRE_OK == status else {
-            FreSwiftLogger.shared.log(message: "cannot acquire ByteArray",
+            logger.error(message: "cannot acquire ByteArray",
                                         type: FreSwiftHelper.getErrorCode(status))
             return
         }
@@ -95,7 +98,7 @@ public class FreByteArraySwift: NSObject {
         let status = FREReleaseByteArray(rv)
 #endif
         if FRE_OK == status { return }
-        FreSwiftLogger.shared.log(message: "cannot release ByteArray",
+        logger.error(message: "cannot release ByteArray",
                                     type: FreSwiftHelper.getErrorCode(status))
     }
 

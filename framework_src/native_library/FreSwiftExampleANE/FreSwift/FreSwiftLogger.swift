@@ -25,15 +25,15 @@ public class FreSwiftLogger {
     private init() {
     }
     
-    /// log: traces the message to the console
+    /// error: traces the message to the console
     /// - parameter message: message to log
     /// - parameter stackTrace: stack trace to log
     /// - parameter type: type of error
     /// - parameter line: line where error occurred
     /// - parameter column: column where error occurred
     /// - parameter file: file name where error occurred
-    public func log(message: String, stackTrace: String? = nil, type: FreError.Code,
-                    line: Int = #line, column: Int = #column, file: String = #file) {
+    public func error(message: String, stackTrace: String? = nil,
+                      type: FreError.Code, line: Int = #line, column: Int = #column, file: String = #file) {
         guard let ctx = context else { return }
         ctx.dispatchStatusEventAsync(code: "[FreSwift] ‼️ \(String(describing: type)) \(message)", level: "TRACE")
         ctx.dispatchStatusEventAsync(code: "[FreSwift] ‼️ \(URL(string: file)?.lastPathComponent ?? "") line:\(line):\(column)", level: "TRACE")
@@ -42,4 +42,14 @@ public class FreSwiftLogger {
         }
     }
     
+    /// info: traces the message to the console
+    /// - parameter message: message to log
+    /// - parameter line: line where error occurred
+    /// - parameter column: column where error occurred
+    /// - parameter file: file name where error occurred
+    public func info(message: String, line: Int = #line, column: Int = #column, file: String = #file) {
+        guard let ctx = context else { return }
+        ctx.dispatchStatusEventAsync(code: "[FreSwift] ℹ️ INFO: \(message)", level: "TRACE")
+        ctx.dispatchStatusEventAsync(code: "[FreSwift] ℹ️ INFO: \(URL(string: file)?.lastPathComponent ?? "") line:\(line):\(column)", level: "TRACE")
+    }
 }

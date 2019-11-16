@@ -3,7 +3,7 @@
 Example Xcode project showing how to create Air Native Extensions for iOS using Swift.
 It supports iOS 9.0+
 
-#### Xcode 11.0 (11A420a) must be used with Apple Swift version 5.1 (swiftlang-1100.0.270.13 clang-1100.0.33.7)
+#### Xcode 11.2 (11B52) must be used with Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 
 #### To download the required FreSwift Framework
@@ -70,7 +70,7 @@ func goBack(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
 
 You will need
 
-- Xcode 11.0
+- Xcode 11.2
 - IntelliJ IDEA
 - AIR 32.0.116+
 
