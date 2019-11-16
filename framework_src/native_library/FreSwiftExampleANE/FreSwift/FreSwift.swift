@@ -14,7 +14,7 @@
  */
 
 import Cocoa
-
+/// :nodoc:
 public class FreSwift: NSObject {
     @objc public func initFreSwift(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         return nil
