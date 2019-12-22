@@ -9,6 +9,6 @@ bash get_mac_dependencies.sh
 
 You will need
 
-- Xcode 11.2
+- Xcode 11.3
 - IntelliJ IDEA
-- AIR 32.0.0.116+
+- AIR 32.0.2.338+
