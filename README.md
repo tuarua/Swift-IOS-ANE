@@ -117,7 +117,7 @@ for fre in airArray {
 }
 
 // set element 0 to 123
-airArray[0] = 123.toFREObject()
+airArray[0] = 123
 
 // push 2 elements to a FREArray
 airArray.push(66, 77)
