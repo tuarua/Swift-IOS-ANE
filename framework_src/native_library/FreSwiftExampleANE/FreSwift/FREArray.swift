@@ -229,9 +229,7 @@ open class FREArray: Sequence {
     }
     
     /// isEmpty: A Boolean value indicating whether the FREArray is empty.
-    public var isEmpty: Bool {
-        return length == 0
-    }
+    public var isEmpty: Bool { return length == 0 }
     
     /// value: Converts FREArray to Swift array
     /// - returns: [Any?]
@@ -251,14 +249,95 @@ public extension FREArray {
     /// - parameter index:
     /// - returns: FREObject?
     subscript(index: UInt) -> FREObject? {
-        get {
-            return self.at(index: index)
-        }
+        get {  return self.at(index: index) }
         set {
             if let rv = newValue {
                 self.set(index: index, freObject: rv)
             }
         }
+    }
+    /// accessor: gets/sets FREObject at position index
+    ///
+    /// - parameter index:
+    /// - returns: FREArray
+    subscript(index: UInt) -> FREArray? {
+        get {
+            if let rv = self.at(index: index) {
+                return FREArray(rv)
+            }
+            return nil
+        }
+        set {
+            if let rv = newValue {
+                self.set(index: index, freObject: rv.rawValue)
+            }
+        }
+    }
+    /// accessor: gets/sets Int at position index
+    ///
+    /// - parameter index:
+    /// - returns: Int
+    subscript(index: UInt) -> Int {
+        get { return Int(self.at(index: index)) ?? 0 }
+        set { self[index] = newValue.toFREObject() }
+    }
+    /// accessor: gets/sets UInt at position index
+    ///
+    /// - parameter index:
+    /// - returns: UInt
+    subscript(index: UInt) -> UInt {
+        get { return UInt(self.at(index: index)) ?? 0 }
+        set { self[index] = newValue.toFREObject() }
+    }
+    /// accessor: gets/sets UInt at position index
+    ///
+    /// - parameter index:
+    /// - returns: Bool
+    subscript(index: UInt) -> Bool {
+        get { return Bool(self.at(index: index)) ?? false }
+        set { self[index] = newValue.toFREObject() }
+    }
+    /// accessor: gets/sets NSNumber at position index
+    ///
+    /// - parameter index:
+    /// - returns: NSNumber
+    subscript(index: UInt) -> NSNumber {
+        get { return NSNumber(self.at(index: index)) ?? 0.0 }
+        set { self[index] = newValue.toFREObject() }
+    }
+    /// accessor: gets/sets Double at position index
+    ///
+    /// - parameter index:
+    /// - returns: Double
+    subscript(index: UInt) -> Double {
+        get { return Double(self.at(index: index)) ?? 0.0 }
+        set {
+            self[index] = newValue.toFREObject()
+        }
+    }
+    /// accessor: gets/sets CGFloat at position index
+    ///
+    /// - parameter index:
+    /// - returns: CGFloat
+    subscript(index: UInt) -> CGFloat {
+        get { return CGFloat(self.at(index: index)) ?? CGFloat(0) }
+        set { self[index] = newValue.toFREObject() }
+    }
+    /// accessor: gets/sets Date at position index
+    ///
+    /// - parameter index:
+    /// - returns: Date
+    subscript(index: UInt) -> Date {
+        get { return Date(self.at(index: index)) ?? Date() }
+        set { self[index] = newValue.toFREObject() }
+    }
+    /// accessor: gets/sets String at position index
+    ///
+    /// - parameter index:
+    /// - returns: String?
+    subscript(index: UInt) -> String? {
+        get { return String(self.at(index: index)) }
+        set { self.set(index: index, freObject: newValue?.toFREObject()) }
     }
 }
 

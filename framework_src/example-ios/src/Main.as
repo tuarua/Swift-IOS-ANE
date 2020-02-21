@@ -30,7 +30,7 @@ public class Main extends Sprite {
         stage.scaleMode = StageScaleMode.NO_SCALE;
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
 
-        ane = FreSwiftExampleANE.example;
+        ane = FreSwiftExampleANE.shared();
 
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();

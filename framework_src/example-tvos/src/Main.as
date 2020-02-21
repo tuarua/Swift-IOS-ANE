@@ -32,7 +32,7 @@ public class Main extends Sprite {
         stage.scaleMode = StageScaleMode.NO_SCALE;
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
 
-        ane = FreSwiftExampleANE.example;
+        ane = FreSwiftExampleANE.shared();
 
         trace(Capabilities.screenResolutionX + "x" + Capabilities.screenResolutionY );
         trace("isTvos:", isTvos);

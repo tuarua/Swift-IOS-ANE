@@ -1,3 +1,10 @@
+### 4.3.0
+- Upgrade to Xcode 11.3.1
+- Latest `ANEUtils` 
+- Added main types subscript setters for FREArray i.e. `myFreArray[0] = 10
+- refactor starter project ANE
+- macOS dispose is now static function `FreSwift.dispose()`
+
 ### 4.2.0
 - Upgrade to Xcode 11.3
 - Upgrade to Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)

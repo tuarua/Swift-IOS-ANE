@@ -116,8 +116,8 @@ public class SwiftController: NSObject {
             trace("New FREArray of fixed length:", myVector.length, 5 == myVector.length ? "✅" : "❌")
         }
         
-        airArray[0] = 123.toFREObject()
-        trace("Set element of FREArray:", Int(airArray[0]) ?? 0, 123 == Int(airArray[0]) ? "✅" : "❌")
+        airArray[0] = 123
+        trace("Set element of FREArray:", Int(airArray[0]) ?? 0, 123 == airArray[0] ? "✅" : "❌")
         
         let swiftArr: [Int] = [1, 2, 3]
         let arrayRet = swiftArr.toFREObject()
