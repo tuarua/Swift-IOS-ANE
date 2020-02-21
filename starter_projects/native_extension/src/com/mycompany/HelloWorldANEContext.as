@@ -30,7 +30,7 @@ public class HelloWorldANEContext {
                 trace("[" + NAME + "]", event.code);
                 break;
             case "MY_EVENT":
-                HelloWorldANE.helloWorld.dispatchEvent(new CustomEvent("MY_EVENT", event.code));
+                HelloWorldANE.shared().dispatchEvent(new CustomEvent("MY_EVENT", event.code));
                 break;
         }
     }

@@ -3,7 +3,7 @@
 Example Xcode projects showing how to create AIR Native Extensions for iOS, tvOS & macOS using Swift.   
 It supports iOS 9.0+, tvOS 9.2+, macOS 10.10+
 
-#### Xcode 11.3 (11C29) must be used with Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
+#### Xcode 11.3.1 (11C504) must be used with Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 
 This project is used as the basis for the following ANEs   
@@ -217,8 +217,8 @@ func onLoad() {
 
 You will need
 
-- Xcode 11.3
 - IntelliJ IDEA
-- AIR 33.2.338+
-- wget
+- AIR 33.0.2.338+
+- Xcode 11.3
+- [wget](http://rudix.org/packages/wget.html) on macOS
 - Carthage

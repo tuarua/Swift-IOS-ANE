@@ -33,7 +33,7 @@ public class Main extends Sprite {
         stage.scaleMode = StageScaleMode.NO_SCALE;
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
 
-        ane = FreSwiftExampleANE.example;
+        ane = FreSwiftExampleANE.shared();
 
         var textField:TextField = new TextField();
         var tf:TextFormat = new TextFormat();
@@ -116,7 +116,7 @@ public class Main extends Sprite {
 
     private function onExiting(event:Event):void {
         FreSwiftExampleANE.dispose();
-        freSwift.dispose();
+        FreSwift.dispose();
     }
 }
 }

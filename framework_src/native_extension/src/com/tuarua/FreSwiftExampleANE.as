@@ -24,21 +24,21 @@ import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 public class FreSwiftExampleANE extends EventDispatcher {
-    private static var _example:FreSwiftExampleANE;
+    private static var _shared:FreSwiftExampleANE;
 
     public function FreSwiftExampleANE() {
         if (FreSwiftExampleANEContext.context) {
-            var theRet:* = FreSwiftExampleANEContext.context.call("init");
-            if (theRet is ANEError) throw theRet as ANEError;
+            var ret:* = FreSwiftExampleANEContext.context.call("init");
+            if (ret is ANEError) throw ret as ANEError;
         }
-        _example = this;
+        _shared = this;
     }
 
-    public static function get example():FreSwiftExampleANE {
-        if (!_example) {
+    public static function shared():FreSwiftExampleANE {
+        if (!_shared) {
             new FreSwiftExampleANE();
         }
-        return _example;
+        return _shared;
     }
 
     public function runStringTests(value:String):String {
@@ -98,8 +98,8 @@ public class FreSwiftExampleANE extends EventDispatcher {
 
     public function runErrorTests(value:Person):void {
         FreSwiftExampleANEContext.validate();
-        var theRet:* = FreSwiftExampleANEContext.context.call("runErrorTests", value);
-        if (theRet is ANEError) throw theRet as ANEError;
+        var ret:* = FreSwiftExampleANEContext.context.call("runErrorTests", value);
+        if (ret is ANEError) throw ret as ANEError;
     }
 
     public static function dispose():void {
