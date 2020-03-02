@@ -28,7 +28,7 @@ public class Main extends Sprite {
         if (!hasActivated) {
             var textField:TextField = new TextField();
 
-            ane = HelloWorldANE.helloWorld;
+            ane = HelloWorldANE.shared();
             ane.addEventListener("MY_EVENT", onEvent);
 
 
@@ -48,7 +48,7 @@ public class Main extends Sprite {
 
     private function onExiting(event:Event):void {
         HelloWorldANE.dispose();
-        freSwift.dispose();
+        FreSwift.dispose();
     }
 }
 }

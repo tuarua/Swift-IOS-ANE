@@ -16,7 +16,7 @@ public class Main extends Sprite {
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
         var textField:TextField = new TextField();
 
-        ane = HelloWorldANE.helloWorld;
+        ane = HelloWorldANE.shared();
         ane.addEventListener("MY_EVENT", onEvent);
         var returnedString:String = ane.sayHello("Hey hello", true, 5);
 

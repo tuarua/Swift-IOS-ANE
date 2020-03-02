@@ -35,10 +35,7 @@ cp "$pathtome/library.swf" "$pathtome/platforms/mac/release"
 
 #Copy native libraries into place.
 echo "Copying native libraries into place."
-cp -R -L "$pathtome/../../native_library/mac/$PROJECT_NAME/$PROJECT_NAME/$PROJECT_NAME-Swift.h" "$pathtome/../../native_library/mac/$PROJECT_NAME/Build/Products/Release/$PROJECT_NAME.framework/Versions/A/Headers/$PROJECT_NAME-Swift.h"
 cp -R -L "$pathtome/../../native_library/mac/$PROJECT_NAME/Build/Products/Release/$PROJECT_NAME.framework" "$pathtome/platforms/mac/release"
-
-
 
 rm -r "$pathtome/platforms/mac/release/$PROJECT_NAME.framework/Versions"
 
