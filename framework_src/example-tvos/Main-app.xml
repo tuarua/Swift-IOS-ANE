@@ -3,7 +3,7 @@
     <id>com.tuarua.FreSwiftExample</id>
     <filename>FreSwiftExample</filename>
     <name>FreSwiftExample</name>->
-    <versionNumber>4.2.0</versionNumber>
+    <versionNumber>4.4.0</versionNumber>
     <initialWindow>
         <content>SWF file name is set automatically at compile time</content>
         <visible>true</visible>

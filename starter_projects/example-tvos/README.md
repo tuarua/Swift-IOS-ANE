@@ -9,6 +9,6 @@ bash get_tvos_dependencies.sh
 
 You will need
 
-- Xcode 11.3
+- Xcode 11.4
 - IntelliJ IDEA
 - AIR 32.0.2.338+
