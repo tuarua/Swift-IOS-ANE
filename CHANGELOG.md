@@ -1,3 +1,7 @@
+### 4.4.0
+- Upgrade to Xcode 11.4
+- Upgrade to Swift version 5.2 (swiftlang-1103.0.32.1 clang-1103.0.32.29)
+
 ### 4.3.0
 - Upgrade to Xcode 11.3.1
 - Latest `ANEUtils` 

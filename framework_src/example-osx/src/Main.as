@@ -37,6 +37,7 @@ public class Main extends Sprite {
 
     protected function onActivated(event:Event):void {
         if (hasActivated) return;
+        hasActivated = true;
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
 
         ane = FreSwiftExampleANE.shared();
