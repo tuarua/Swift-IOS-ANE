@@ -10,7 +10,7 @@ bash get_ios_dependencies.sh
 
 You will need
 
-- Xcode 11.4
+- Xcode 11.5
 - IntelliJ IDEA
-- AIR 32.0.2.338+
+- AIR 33.0.2.338+
 
