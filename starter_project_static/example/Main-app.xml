@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<application xmlns="http://ns.adobe.com/air/application/32.0">
+<application xmlns="http://ns.adobe.com/air/application/33.1">
     <id>Main</id>
     <filename>Main</filename>
     <name>Main</name>
@@ -28,7 +28,7 @@
                 <string>2</string>
             </array>
             <key>MinimumOSVersion</key>
-            <string>9.0</string>
+            <string>12.2</string>
             ]]>
         </InfoAdditions>
         <!-- Display Resolution for the app (either "standard" or "high"). Optional. Default "standard" -->
