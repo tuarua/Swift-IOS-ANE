@@ -13,7 +13,7 @@
  limitations under the License.*/
 
 #if __APPLE__
-#include "TargetConditionals.h"
+#include <TargetConditionals.h>
 #if (TARGET_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_OS_TV)
 #import <UIKit/UIKit.h>
 #elif TARGET_OS_MAC
