@@ -136,7 +136,7 @@
 		CE3A2E5C1FBA700F0058F730 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Tua Rua Ltd";
 				TargetAttributes = {
 					CE3A2E641FBA700F0058F730 = {

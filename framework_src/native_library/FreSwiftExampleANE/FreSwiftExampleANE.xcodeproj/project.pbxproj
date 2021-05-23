@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -561,7 +561,7 @@
 		90E26D4D210394DF003E0B9B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Eoin Landy";
 				TargetAttributes = {
 					90E26D55210394DF003E0B9B = {
@@ -595,7 +595,7 @@
 				};
 			};
 			buildConfigurationList = 90E26D50210394DF003E0B9B /* Build configuration list for PBXProject "FreSwiftExampleANE" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1120,7 +1120,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.0;
+				MARKETING_VERSION = 5.2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1157,7 +1157,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.0;
+				MARKETING_VERSION = 5.2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1197,7 +1197,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.0;
+				MARKETING_VERSION = 5.2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1236,7 +1236,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1.0;
+				MARKETING_VERSION = 5.2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1279,7 +1279,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 5.1.0;
+				MARKETING_VERSION = 5.2.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					"\"Adobe AIR\"",
@@ -1322,7 +1322,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 5.1.0;
+				MARKETING_VERSION = 5.2.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					"\"Adobe AIR\"",
