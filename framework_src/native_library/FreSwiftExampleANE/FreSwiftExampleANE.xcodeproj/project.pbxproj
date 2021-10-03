@@ -11,9 +11,7 @@
 		900A1CA8212600A700D8EB16 /* FreSwiftLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */; platformFilter = ios; };
 		900A1CA9212600A700D8EB16 /* FreSwiftLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */; };
 		9079E1D62561934E00620BB6 /* Adobe AIR in Frameworks */ = {isa = PBXBuildFile; fileRef = 9079E1D52561934E00620BB6 /* Adobe AIR */; };
-		9079E1D72561934E00620BB6 /* Adobe AIR in Frameworks */ = {isa = PBXBuildFile; fileRef = 9079E1D52561934E00620BB6 /* Adobe AIR */; };
-		9079E1E12561936700620BB6 /* Adobe AIR_64 in Frameworks */ = {isa = PBXBuildFile; fileRef = 9079E1E02561936700620BB6 /* Adobe AIR_64 */; };
-		9079E1E22561936700620BB6 /* Adobe AIR_64 in Frameworks */ = {isa = PBXBuildFile; fileRef = 9079E1E02561936700620BB6 /* Adobe AIR_64 */; };
+		9079E1E22561936700620BB6 /* Adobe AIR in Frameworks */ = {isa = PBXBuildFile; fileRef = 9079E1E02561936700620BB6 /* Adobe AIR */; };
 		90BA2C5D213DFD08002F1EB9 /* FreSwiftMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA2C5B213DFCA9002F1EB9 /* FreSwiftMainController.swift */; };
 		90BA2C5E213DFD08002F1EB9 /* FreSwiftMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA2C5B213DFCA9002F1EB9 /* FreSwiftMainController.swift */; platformFilter = ios; };
 		90BA2C5F213DFD08002F1EB9 /* FreSwiftMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BA2C5B213DFCA9002F1EB9 /* FreSwiftMainController.swift */; };
@@ -127,8 +125,8 @@
 
 /* Begin PBXFileReference section */
 		900A1CA6212600A700D8EB16 /* FreSwiftLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreSwiftLogger.swift; sourceTree = "<group>"; };
-		9079E1D52561934E00620BB6 /* Adobe AIR */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR"; path = "../../../../../SDKs/AIRSDK_32/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR"; sourceTree = "<group>"; };
-		9079E1E02561936700620BB6 /* Adobe AIR_64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR_64"; path = "../../../../../SDKs/AIRSDK_32/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR_64"; sourceTree = "<group>"; };
+		9079E1D52561934E00620BB6 /* Adobe AIR */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR"; path = "../../../../../SDKs/AIRSDK_33.1.1.633/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR"; sourceTree = "<group>"; };
+		9079E1E02561936700620BB6 /* Adobe AIR */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR"; path = "../../../../../SDKs/AIRSDK_33.1.1.633/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR"; sourceTree = "<group>"; };
 		90BA2C5B213DFCA9002F1EB9 /* FreSwiftMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreSwiftMainController.swift; sourceTree = "<group>"; };
 		90BA2C60213DFD28002F1EB9 /* FreSwiftController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreSwiftController.swift; sourceTree = "<group>"; };
 		90E26D56210394DF003E0B9B /* FreSwiftExampleANE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FreSwiftExampleANE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,7 +173,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9079E1D62561934E00620BB6 /* Adobe AIR in Frameworks */,
-				9079E1E12561936700620BB6 /* Adobe AIR_64 in Frameworks */,
 				90E26D6321039542003E0B9B /* Cocoa.framework in Frameworks */,
 				90E26DEE2103A210003E0B9B /* FreSwift.framework in Frameworks */,
 			);
@@ -185,8 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9079E1E22561936700620BB6 /* Adobe AIR_64 in Frameworks */,
-				9079E1D72561934E00620BB6 /* Adobe AIR in Frameworks */,
+				9079E1E22561936700620BB6 /* Adobe AIR in Frameworks */,
 				90E26DD021039E2D003E0B9B /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -254,7 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				9079E1D52561934E00620BB6 /* Adobe AIR */,
-				9079E1E02561936700620BB6 /* Adobe AIR_64 */,
+				9079E1E02561936700620BB6 /* Adobe AIR */,
 				90E26D6221039542003E0B9B /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -561,7 +557,7 @@
 		90E26D4D210394DF003E0B9B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1300;
 				ORGANIZATIONNAME = "Eoin Landy";
 				TargetAttributes = {
 					90E26D55210394DF003E0B9B = {
@@ -726,14 +722,14 @@
 		};
 		90E26E4E2103AAA4003E0B9B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "../../freswift_native_extension/ane/build_osx.sh\n";
 		};
@@ -1120,7 +1116,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.2.0;
+				MARKETING_VERSION = 5.5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1157,7 +1153,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.2.0;
+				MARKETING_VERSION = 5.5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1197,7 +1193,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.2.0;
+				MARKETING_VERSION = 5.5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1236,7 +1232,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.2.0;
+				MARKETING_VERSION = 5.5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1279,7 +1275,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 5.2.0;
+				MARKETING_VERSION = 5.5.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					"\"Adobe AIR\"",
@@ -1322,7 +1318,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 5.2.0;
+				MARKETING_VERSION = 5.5.0;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					"\"Adobe AIR\"",

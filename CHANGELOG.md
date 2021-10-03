@@ -1,3 +1,7 @@
+### 5.5.0
+- Upgrade to Xcode 13.0
+- Upgrade to Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)
+
 ### 5.2.0
 - Upgrade to Xcode 12.5
 - Upgrade to Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
