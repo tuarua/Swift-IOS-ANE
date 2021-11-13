@@ -1,3 +1,8 @@
+### 5.5.1
+- Upgrade to Xcode 13.1
+- Upgrade to Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)
+- Support Apple M1
+
 ### 5.5.0
 - Upgrade to Xcode 13.0
 - Upgrade to Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)
