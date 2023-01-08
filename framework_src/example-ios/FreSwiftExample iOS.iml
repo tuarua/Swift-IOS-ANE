@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="iOS Simulator">
+  <component name="FlexBuildConfigurationManager" active="iOS Device">
     <configurations>
       <configuration name="iOS Simulator" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/bin-release/simulator">
         <dependencies target-player="25.0">
@@ -9,7 +9,7 @@
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="AIRSDK_33.1.1.713" />
+          <sdk name="AIRSDK_50.1.1" />
         </dependencies>
         <compiler-options>
           <map>
@@ -25,7 +25,7 @@
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Assets.car" path-in-package="Assets.car" />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/system" path-in-package="." />
           </files-to-package>
-          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/tua_rua_dev_2021.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
+          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2023/iOS/dev/tua_rua_dev_2023.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2023/iOS/dev/2023_iOS_Provisioning.mobileprovision" />
         </packaging-ios>
       </configuration>
       <configuration name="iOS Device" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/bin-release/device">
@@ -35,7 +35,7 @@
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="AIRSDK_33.1.1.713" />
+          <sdk name="AIRSDK_50.1.1" />
         </dependencies>
         <compiler-options>
           <option name="additionalOptions" value="-swf-version=43" />
@@ -48,7 +48,7 @@
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/system" path-in-package="." />
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/Assets.car" path-in-package="Assets.car" />
           </files-to-package>
-          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/tua_rua_dev_2021.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
+          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2023/iOS/dev/tua_rua_dev_2023.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2023/iOS/dev/2023_iOS_Provisioning.mobileprovision" />
         </packaging-ios>
       </configuration>
     </configurations>
@@ -59,7 +59,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="AIRSDK_33.1.1.713" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="AIRSDK_50.1.1" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="SwiftIOSANE-ios" level="project" />
     <orderEntry type="library" exported="" name="TesseractANE" level="project" />

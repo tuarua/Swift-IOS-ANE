@@ -1,9 +1,9 @@
 # OSX Swift ANE Starter Project
 
 Example Xcode project showing how to create Air Native Extensions for OSX using Swift.    
-It supports OSX 10.10+
+It supports OSX 10.13+
 
-#### Xcode 13.2.1 (13C100) must be used with Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
+#### Xcode 14.2 (14C18) must be used with Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 
 #### To download the required FreSwift Framework

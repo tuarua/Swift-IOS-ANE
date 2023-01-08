@@ -9,7 +9,7 @@
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="AIRSDK_33.1.1.633" />
+          <sdk name="AIRSDK_50.1.1" />
         </dependencies>
         <compiler-options />
         <packaging-air-desktop />
@@ -18,7 +18,7 @@
           <files-to-package>
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/ios_dependencies/device" path-in-package="." />
           </files-to-package>
-          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/tua_rua_dev_2021.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2021/iOS/dev/Tua_Rua_Dev_Provisioning.mobileprovision" />
+          <AirSigningOptions keystore-path="$USER_HOME$/Documents/appleCertsProv/2023/iOS/dev/tua_rua_dev_2023.p12" provisioning-profile-path="$USER_HOME$/Documents/appleCertsProv/2023/iOS/dev/2023_iOS_Provisioning.mobileprovision" />
         </packaging-ios>
       </configuration>
     </configurations>
@@ -29,7 +29,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="AIRSDK_33.1.1.633" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="AIRSDK_50.1.1" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="HelloWorldANE" level="project" />
   </component>
