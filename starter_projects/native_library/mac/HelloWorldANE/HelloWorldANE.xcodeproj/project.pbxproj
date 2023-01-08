@@ -15,7 +15,6 @@
 		CE3A2E7B1FBA716E0058F730 /* FreSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3A2E7A1FBA716E0058F730 /* FreSwift.framework */; };
 		CE3A2E7F1FBA73380058F730 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3A2E7E1FBA73380058F730 /* Cocoa.framework */; };
 		CE3A2E811FBA73550058F730 /* Adobe AIR in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3A2E801FBA73550058F730 /* Adobe AIR */; };
-		CE3A2E831FBA735A0058F730 /* Adobe AIR_64 in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3A2E821FBA735A0058F730 /* Adobe AIR_64 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +27,7 @@
 		CE3A2E761FBA70E60058F730 /* HelloWorldANE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelloWorldANE.m; sourceTree = "<group>"; };
 		CE3A2E7A1FBA716E0058F730 /* FreSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FreSwift.framework; path = Carthage/Build/Mac/FreSwift.framework; sourceTree = "<group>"; };
 		CE3A2E7E1FBA73380058F730 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		CE3A2E801FBA73550058F730 /* Adobe AIR */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR"; path = "../../../../../../SDKs/AIRSDK_32/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR"; sourceTree = "<group>"; };
-		CE3A2E821FBA735A0058F730 /* Adobe AIR_64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR_64"; path = "../../../../../../SDKs/AIRSDK_32/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR_64"; sourceTree = "<group>"; };
+		CE3A2E801FBA73550058F730 /* Adobe AIR */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR"; path = "../../../../../../SDKs/AIRSDK_50.1.1/runtimes/air-captive/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +35,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE3A2E831FBA735A0058F730 /* Adobe AIR_64 in Frameworks */,
 				CE3A2E811FBA73550058F730 /* Adobe AIR in Frameworks */,
 				CE3A2E7F1FBA73380058F730 /* Cocoa.framework in Frameworks */,
 				CE3A2E7B1FBA716E0058F730 /* FreSwift.framework in Frameworks */,
@@ -89,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				CE3A2E801FBA73550058F730 /* Adobe AIR */,
-				CE3A2E821FBA735A0058F730 /* Adobe AIR_64 */,
 				CE3A2E7E1FBA73380058F730 /* Cocoa.framework */,
 				CE3A2E7A1FBA716E0058F730 /* FreSwift.framework */,
 			);
@@ -215,7 +211,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = x86_64;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -251,7 +247,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					/Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac,
+					/Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac,
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -268,8 +264,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -287,7 +283,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = x86_64;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -323,7 +319,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					/Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac,
+					/Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac,
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -334,8 +330,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -373,7 +369,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac;
+				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mycompany.HelloWorldANE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -407,7 +403,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_32/runtimes/air/mac;
+				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mycompany.HelloWorldANE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

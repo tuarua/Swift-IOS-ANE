@@ -2,7 +2,7 @@
   <configuration default="false" name="iOS Simulator" type="FlashRunConfigurationType">
     <option name="BCName" value="iOS Simulator" />
     <option name="IOSSimulatorDevice" value="" />
-    <option name="IOSSimulatorSdkPath" value="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator15.0.sdk" />
+    <option name="IOSSimulatorSdkPath" value="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator16.2.sdk" />
     <option name="adlOptions" value="" />
     <option name="airProgramParameters" value="" />
     <option name="appDescriptorForEmulator" value="IOS" />

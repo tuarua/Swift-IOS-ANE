@@ -1,9 +1,9 @@
 # tvOS Swift ANE Starter Project  
 
 Example Xcode project showing how to create Air Native Extensions for tvOS using Swift.   
-It supports tvOS 9.2+
+It supports tvOS 11.1+
 
-#### Xcode 13.2.1 (13C100) must be used with Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
+#### Xcode 14.2 (14C18) must be used with Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
 It is not possible to mix Swift versions in the same app. Therefore all Swift based ANEs must use the same exact version.
 
 #### To download the required FreSwift Framework
@@ -72,5 +72,5 @@ You will need
 
 - Xcode
 - IntelliJ IDEA
-- AIR 33.1.1.713+
+- AIR 50.1+
 

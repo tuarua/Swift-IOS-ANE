@@ -9,7 +9,7 @@ PROJECTNAME=FreSwiftExampleANE
 fwSuffix="_FW"
 libSuffix="_LIB"
 
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33.1.1.713"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_50.1.1"
 
 ##############################################################################
 

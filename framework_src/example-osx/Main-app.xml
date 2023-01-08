@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<application xmlns="http://ns.adobe.com/air/application/33.1">
+<application xmlns="http://ns.adobe.com/air/application/50.1">
     <id>Main</id>
     <filename>Main</filename>
     <name>Main</name>
-    <versionNumber>5.5.2</versionNumber>
+    <versionNumber>5.7.2</versionNumber>
     <extensions>
         <extensionID>com.tuarua.FreSwiftExampleANE</extensionID>
         <extensionID>com.tuarua.FreSwift</extensionID>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<application xmlns="http://ns.adobe.com/air/application/33.1">
+<application xmlns="http://ns.adobe.com/air/application/50.1">
     <id>com.tuarua.freswiftdemo</id>
     <filename>FreSwiftExample</filename>
     <name>FreSwiftExample</name>
-    <versionNumber>5.5.2</versionNumber>
+    <versionNumber>5.7.2</versionNumber>
     <initialWindow>
         <content>SWF file name is set automatically at compile time</content>
         <visible>true</visible>
