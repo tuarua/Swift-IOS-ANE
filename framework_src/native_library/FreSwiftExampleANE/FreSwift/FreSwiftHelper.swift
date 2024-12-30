@@ -74,7 +74,7 @@ public class FreSwiftHelper {
 #else
         let status = FREGetObjectAsBool(rawValue, &val)
 #endif
-        if FRE_OK == status  { return val == 1 }
+        if FRE_OK == status { return val == 1 }
         logger.error(message: "cannot get FREObject \(rawValue.toString()) as Bool",
                                     type: getErrorCode(status))
         return nil
@@ -87,7 +87,7 @@ public class FreSwiftHelper {
 #else
         let status = FREGetObjectAsDouble(rawValue, &ret)
 #endif
-        if FRE_OK == status  { return ret }
+        if FRE_OK == status { return ret }
         logger.error(message: "cannot get FREObject \(rawValue.toString()) as Double",
                                     type: getErrorCode(status))
         return nil

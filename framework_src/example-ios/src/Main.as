@@ -69,7 +69,7 @@ public class Main extends Sprite {
         var resultObject:Person = ane.runObjectTests(person) as Person;
         textField.text += "Person.age: " + resultObject.age.toString() + "\n";
 
-        const IMAGE_URL:String = "https://www.wired.com/wp-content/uploads/2014/07/Apple_Swift_Logo.png";
+        const IMAGE_URL:String = "https://selftaught.blog/wp-content/uploads/2019/02/1138px-Swift_logo.svg_.png";
 
         var ldr:Loader = new Loader();
         ldr.contentLoaderInfo.addEventListener(Event.COMPLETE, ldr_complete);

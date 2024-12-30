@@ -119,8 +119,7 @@ public class FreBitmapDataSwift: NSObject {
     /// returns: CGImage?
     public func asCGImage() -> CGImage? {
         self.acquire()
-        let releaseProvider: CGDataProviderReleaseDataCallback = { (info: UnsafeMutableRawPointer?,
-                                                                    data: UnsafeRawPointer, size: Int) -> Void in
+        let releaseProvider: CGDataProviderReleaseDataCallback = { (_: UnsafeMutableRawPointer?, _: UnsafeRawPointer, _: Int) in
             // https://developer.apple.com/reference/coregraphics/cgdataproviderreleasedatacallback
             // N.B. 'CGDataProviderRelease' is unavailable: Core Foundation objects are automatically memory managed
             return

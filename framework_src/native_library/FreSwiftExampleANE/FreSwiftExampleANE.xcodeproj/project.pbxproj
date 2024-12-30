@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -410,11 +410,11 @@
 				90E26D51210394DF003E0B9B /* Sources */,
 				90E26D52210394DF003E0B9B /* Frameworks */,
 				90E26D53210394DF003E0B9B /* Headers */,
-				90E26E4C2103AAA0003E0B9B /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				90B2EC732CAEF3510033AF20 /* PBXTargetDependency */,
 				90E26DED2103A205003E0B9B /* PBXTargetDependency */,
 			);
 			name = "FreSwiftExampleANE (OSX)";
@@ -428,11 +428,11 @@
 			buildPhases = (
 				90E26D672103963C003E0B9B /* Sources */,
 				90E26D692103963C003E0B9B /* Headers */,
-				90E26D7D210398FF003E0B9B /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				90B2EC712CAEF2280033AF20 /* PBXTargetDependency */,
 			);
 			name = "FreSwift (tvOS)";
 			productName = "FreSwift (tvOS)";
@@ -445,11 +445,11 @@
 			buildPhases = (
 				90E26DA521039BA3003E0B9B /* Sources */,
 				90E26DA721039BA3003E0B9B /* Headers */,
-				90E26DC221039D86003E0B9B /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				90B2EC6F2CAEF21B0033AF20 /* PBXTargetDependency */,
 			);
 			name = "FreSwift (iOS)";
 			productName = "FreSwift (iOS)";
@@ -463,11 +463,11 @@
 				90E26DC321039DE8003E0B9B /* Sources */,
 				90E26DC421039DE8003E0B9B /* Frameworks */,
 				90E26DC521039DE8003E0B9B /* Headers */,
-				90E26DEA2103A169003E0B9B /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				90269D632D230E7C00B5718E /* PBXTargetDependency */,
 			);
 			name = "FreSwift (OSX)";
 			productName = "FreSwift (OSX)";
@@ -480,11 +480,11 @@
 			buildPhases = (
 				90E26DF62103A398003E0B9B /* Sources */,
 				90E26DF82103A398003E0B9B /* Headers */,
-				90E26E082103A4AF003E0B9B /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				90B2EC752CAEF3560033AF20 /* PBXTargetDependency */,
 				90E26E042103A42E003E0B9B /* PBXTargetDependency */,
 			);
 			name = "FreSwiftExampleANE_FW (tvOS)";
@@ -498,11 +498,11 @@
 			buildPhases = (
 				90E26E092103A4D9003E0B9B /* Sources */,
 				90E26E0B2103A4D9003E0B9B /* Headers */,
-				90E26E1B2103A594003E0B9B /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				90B2EC772CAEF3630033AF20 /* PBXTargetDependency */,
 				90E26E172103A569003E0B9B /* PBXTargetDependency */,
 			);
 			name = "FreSwiftExampleANE_FW (iOS)";
@@ -551,7 +551,8 @@
 		90E26D4D210394DF003E0B9B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1320;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = "Eoin Landy";
 				TargetAttributes = {
 					90E26D55210394DF003E0B9B = {
@@ -585,7 +586,6 @@
 				};
 			};
 			buildConfigurationList = 90E26D50210394DF003E0B9B /* Build configuration list for PBXProject "FreSwiftExampleANE" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -593,6 +593,10 @@
 				Base,
 			);
 			mainGroup = 90E26D4C210394DF003E0B9B;
+			packageReferences = (
+				90B2EC6B2CAEF0960033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 90E26D57210394DF003E0B9B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -608,87 +612,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		90E26D7D210398FF003E0B9B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		90E26DC221039D86003E0B9B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		90E26DEA2103A169003E0B9B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		90E26E082103A4AF003E0B9B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		90E26E1B2103A594003E0B9B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		90E26E4C2103AAA0003E0B9B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		90E26D51210394DF003E0B9B /* Sources */ = {
@@ -808,6 +731,30 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		90269D632D230E7C00B5718E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 90269D622D230E7C00B5718E /* SwiftLintBuildToolPlugin */;
+		};
+		90B2EC6F2CAEF21B0033AF20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 90B2EC6E2CAEF21B0033AF20 /* SwiftLintBuildToolPlugin */;
+		};
+		90B2EC712CAEF2280033AF20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 90B2EC702CAEF2280033AF20 /* SwiftLintBuildToolPlugin */;
+		};
+		90B2EC732CAEF3510033AF20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 90B2EC722CAEF3510033AF20 /* SwiftLintBuildToolPlugin */;
+		};
+		90B2EC752CAEF3560033AF20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 90B2EC742CAEF3560033AF20 /* SwiftLintBuildToolPlugin */;
+		};
+		90B2EC772CAEF3630033AF20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 90B2EC762CAEF3630033AF20 /* SwiftLintBuildToolPlugin */;
+		};
 		90E26DED2103A205003E0B9B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 90E26DC721039DE8003E0B9B /* FreSwift (OSX) */;
@@ -868,9 +815,11 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -885,7 +834,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -932,9 +881,11 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -943,7 +894,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -956,7 +907,6 @@
 		90E26D5F210394DF003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -964,11 +914,13 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
@@ -980,7 +932,8 @@
 					"@loader_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					"\"Adobe AIR\"",
@@ -998,7 +951,6 @@
 		90E26D60210394DF003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -1006,11 +958,13 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
@@ -1022,7 +976,8 @@
 					"@loader_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					"\"Adobe AIR\"",
@@ -1049,6 +1004,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=appletvsimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwift/Info.plist";
@@ -1058,7 +1014,9 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.7.2;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 6.0.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1069,7 +1027,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 15.6;
 			};
 			name = Debug;
 		};
@@ -1086,6 +1044,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=appletvsimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwift/Info.plist";
@@ -1095,7 +1054,9 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.7.2;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 6.0.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1105,7 +1066,7 @@
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "FreSwift-tvOS-Swift.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 15.6;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1113,7 +1074,6 @@
 		90E26DB021039BA3003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -1125,17 +1085,20 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.7.2;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 6.0.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1154,7 +1117,6 @@
 		90E26DB121039BA3003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -1166,17 +1128,20 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.7.2;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 6.0.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwift;
 				PRODUCT_NAME = FreSwift;
@@ -1196,32 +1161,34 @@
 		90E26DCE21039DE8003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 5.7.2;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 6.0.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					"\"Adobe AIR\"",
@@ -1239,32 +1206,34 @@
 		90E26DCF21039DE8003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwift/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 5.7.2;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 6.0.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					"\"Adobe AIR\"",
@@ -1282,7 +1251,6 @@
 		90E26E012103A399003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
@@ -1292,6 +1260,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=appletvsimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwiftExampleANE/Misc/Info.plist";
@@ -1301,6 +1270,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwiftExampleANE;
 				PRODUCT_NAME = FreSwiftExampleANE_FW;
@@ -1309,14 +1280,13 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 15.6;
 			};
 			name = Debug;
 		};
 		90E26E022103A399003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
@@ -1326,6 +1296,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=appletvsimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwiftExampleANE/Misc/Info.plist";
@@ -1335,6 +1306,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwiftExampleANE;
 				PRODUCT_NAME = FreSwiftExampleANE_FW;
@@ -1343,7 +1316,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 15.6;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1351,7 +1324,6 @@
 		90E26E142103A4D9003E0B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
@@ -1362,16 +1334,19 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwiftExampleANE/Misc/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwiftExampleANE;
 				PRODUCT_NAME = FreSwiftExampleANE_FW;
@@ -1389,7 +1364,6 @@
 		90E26E152103A4D9003E0B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "";
@@ -1400,16 +1374,19 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				INFOPLIST_FILE = "$(SRCROOT)/FreSwiftExampleANE/Misc/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuarua.FreSwiftExampleANE;
 				PRODUCT_NAME = FreSwiftExampleANE_FW;
@@ -1436,7 +1413,8 @@
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = FreSwiftExampleANE_LIB;
 				SDKROOT = iphoneos;
@@ -1456,7 +1434,8 @@
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = FreSwiftExampleANE_LIB;
 				SDKROOT = iphoneos;
@@ -1476,12 +1455,13 @@
 				DEVELOPMENT_TEAM = "";
 				"EXCLUDED_ARCHS[sdk=appletvsimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = FreSwiftExampleANE_LIB;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 15.6;
 			};
 			name = Debug;
 		};
@@ -1495,12 +1475,13 @@
 				DEVELOPMENT_TEAM = "";
 				"EXCLUDED_ARCHS[sdk=appletvsimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = FreSwiftExampleANE_LIB;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 11.0;
+				TVOS_DEPLOYMENT_TARGET = 15.6;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1590,6 +1571,50 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		90B2EC6B2CAEF0960033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.57.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		90269D622D230E7C00B5718E /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90B2EC6B2CAEF0960033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		90B2EC6E2CAEF21B0033AF20 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90B2EC6B2CAEF0960033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		90B2EC702CAEF2280033AF20 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90B2EC6B2CAEF0960033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		90B2EC722CAEF3510033AF20 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90B2EC6B2CAEF0960033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		90B2EC742CAEF3560033AF20 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90B2EC6B2CAEF0960033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		90B2EC762CAEF3630033AF20 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90B2EC6B2CAEF0960033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 90E26D4D210394DF003E0B9B /* Project object */;
 }

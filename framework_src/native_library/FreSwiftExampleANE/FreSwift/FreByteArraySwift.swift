@@ -47,7 +47,7 @@ public class FreByteArraySwift: NSObject {
             }
         }
 
-        //https://forums.adobe.com/thread/1037977
+        // https://forums.adobe.com/thread/1037977
         if let targetBA = FREObject(className: "flash.utils.ByteArray") {
             rawValue = targetBA
             FreSwiftHelper.setProperty(rawValue: targetBA, name: "name", prop: data.length.toFREObject())
@@ -88,7 +88,7 @@ public class FreByteArraySwift: NSObject {
     }
     
     /// See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WSb464b1207c184b1466485a1a1294715f88b-8000.html)
-    public func releaseBytes() { //can't override release
+    public func releaseBytes() { // can't override release
         guard let rv = rawValue else {
             return
         }

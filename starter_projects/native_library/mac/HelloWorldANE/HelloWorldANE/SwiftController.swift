@@ -16,7 +16,7 @@ public class SwiftController: NSObject {
                 return FreArgError().getError()
         }
         
-        dispatchEvent(name: "MY_EVENT", value: "ok") //async event
+        dispatchEvent(name: "MY_EVENT", value: "ok") // async event
         
         for i in 0..<numRepeats {
             trace("Hello \(i)")

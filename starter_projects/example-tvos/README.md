@@ -11,6 +11,6 @@ You will need
 
 - IntelliJ IDEA
 - AIR 50.1+
-- Xcode 14.2
+- Xcode 16.0
 - wget on macOS via `brew install wget`
 - [Carthage](https://github.com/Carthage/Carthage#installing-carthage)
