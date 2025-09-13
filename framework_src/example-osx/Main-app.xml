@@ -3,7 +3,7 @@
     <id>Main</id>
     <filename>Main</filename>
     <name>Main</name>
-    <versionNumber>6.0.0</versionNumber>
+    <versionNumber>6.1.2</versionNumber>
     <extensions>
         <extensionID>com.tuarua.FreSwiftExampleANE</extensionID>
         <extensionID>com.tuarua.FreSwift</extensionID>

@@ -43,8 +43,8 @@ cp "$pathtome/library.swf" "$pathtome/platforms/default"
 echo "Copying native libraries into place."
 
 cp -R -L "$pathtome/../../native_library/$PROJECT_NAME/Build/Products/Release/$FRESWIFT_NAME.framework" "$pathtome/platforms/mac/release"
-mv "$pathtome/platforms/mac/release/$FRESWIFT_NAME.framework/Versions/A/Frameworks" "$pathtome/platforms/mac/release/$FRESWIFT_NAME.framework"
-rm -r "$pathtome/platforms/mac/release/$FRESWIFT_NAME.framework/Versions"
+# mv "$pathtome/platforms/mac/release/$FRESWIFT_NAME.framework/Versions/A/Frameworks" "$pathtome/platforms/mac/release/$FRESWIFT_NAME.framework"
+# rm -r "$pathtome/platforms/mac/release/$FRESWIFT_NAME.framework/Versions"
 
 #Run the build command.
 echo "Building Release."
