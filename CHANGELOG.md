@@ -1,6 +1,6 @@
-### 6.0.0
-- Upgrade to Xcode 16.2
-- Upgrade to Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)
+### 6.1.2
+- Upgrade to Xcode 16.4
+- Upgrade to Swift version 6.1.2 (swiftlang-6.1.2.1.2 clang-1700.0.13.5)
 
 ### 5.7.2
 - Upgrade to Xcode 14.2
