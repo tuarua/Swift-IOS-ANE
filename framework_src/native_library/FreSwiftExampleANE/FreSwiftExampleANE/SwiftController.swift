@@ -227,7 +227,7 @@ public class SwiftController: NSObject {
             trace("ByteArray passed from AIR to base64:", base64Encoded,
                   base64Encoded == "U3dpZnQgaW4gYW4gQU5FLiBTYXkgd2hhYWFhdCE=" ? "✅" : "❌")
         }
-        asByteArray.releaseBytes() //don't forget to release
+        asByteArray.releaseBytes() // don't forget to release
         trace("-------------------------------------------")
         return nil
         
@@ -252,7 +252,7 @@ public class SwiftController: NSObject {
         }
         
         _ = person["doNotExist"]
-        person.call(method: "add", args: 2) //not passing enough args
+        person.call(method: "add", args: 2) // not passing enough args
         
         guard FreObjectTypeSwift.int == expectInt.type else {
             return FreError(message: "Oops, we expected the FREObject to be passed as an int but it's not",
@@ -266,7 +266,7 @@ public class SwiftController: NSObject {
     func runExtensibleTests(ctx: FREContext, argc: FREArgc, argv: FREArgv) -> FREObject? {
         trace("***********Start Rectangle Point test***********")
         guard argc > 1,
-            let frePoint = CGPoint(argv[0]), //point, rectangle
+            let frePoint = CGPoint(argv[0]), // point, rectangle
             let freRect = CGRect(argv[1]) else {
                 return nil
         }

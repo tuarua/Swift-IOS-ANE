@@ -183,6 +183,7 @@ public extension Double {
             return nil
         }
     }
+
     /// toFREObject: Converts a Double into a FREObject of AS3 type Number.
     ///
     /// ```swift

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -114,12 +114,12 @@
 				CE3A2E601FBA700F0058F730 /* Sources */,
 				CE3A2E611FBA700F0058F730 /* Frameworks */,
 				CE3A2E621FBA700F0058F730 /* Headers */,
-				90A5FB062169066900E3A226 /* ShellScript */,
 				CE74E9841FC0DC650017E7BA /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				90B2EC7A2CAEF8DC0033AF20 /* PBXTargetDependency */,
 			);
 			name = HelloWorldANE;
 			productName = HelloWorldANE;
@@ -151,6 +151,9 @@
 				Base,
 			);
 			mainGroup = CE3A2E5B1FBA700F0058F730;
+			packageReferences = (
+				90B2EC782CAEF8D40033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+			);
 			productRefGroup = CE3A2E661FBA700F0058F730 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -161,23 +164,6 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		90A5FB062169066900E3A226 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
 		CE74E9841FC0DC650017E7BA /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -205,6 +191,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		90B2EC7A2CAEF8DC0033AF20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 90B2EC792CAEF8DC0033AF20 /* SwiftLintBuildToolPlugin */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		CE3A2E6B1FBA700F0058F730 /* Debug */ = {
@@ -370,6 +363,7 @@
 					"@loader_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mycompany.HelloWorldANE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -404,6 +398,7 @@
 					"@loader_path/Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = /Users/eoinlandy/SDKs/AIRSDK_50.1.1/runtimes/air/mac;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mycompany.HelloWorldANE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -435,6 +430,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		90B2EC782CAEF8D40033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.57.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		90B2EC792CAEF8DC0033AF20 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90B2EC782CAEF8D40033AF20 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE3A2E5C1FBA700F0058F730 /* Project object */;
 }
